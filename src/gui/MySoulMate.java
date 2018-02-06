@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import util.DbConfigParser;
 
 /**
  *
@@ -45,6 +46,7 @@ public class MySoulMate extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        System.out.println(DbConfigParser.getHost());
 	launch(args);
     }
     
