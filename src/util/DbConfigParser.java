@@ -1,7 +1,6 @@
 package util;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
