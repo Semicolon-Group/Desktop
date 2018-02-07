@@ -1,7 +1,7 @@
 {
-  "host": "sql11.freesqldatabase.com",
-  "username": "sql11219235",
-  "password": "jYeilGi8Ul",
-  "db_name": "sql11219235",
+  "host": "localhost",
+  "username": "root",
+  "password": "",
+  "db_name": "mysoulmate",
   "port": "3306"
 }
