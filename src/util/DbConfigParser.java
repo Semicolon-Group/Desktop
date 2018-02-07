@@ -31,14 +31,14 @@ public final class DbConfigParser {
     private static String extractor(String paramName){
         try {
             JSONParser parser = new JSONParser();
-            Object obj = parser.parse(new FileReader(new File("").getAbsolutePath()+"/assets/conf/db_config.json"));
+            Object obj = parser.parse(new FileReader(new File("").getAbsolutePath()+"/assets/conf/db_config.js"));
  
             JSONObject jsonObject = (JSONObject) obj;
  
             String value = (String) jsonObject.get(paramName);
             return value;
         } catch (Exception ex) {
-            util.Logger.writeLog(ex, DbConfigParser.class.getName());
+            util.Logger.writeLog(ex, DbConfigParser.class.getName(), "Connection to database failed");
         }
         return null;
     }
