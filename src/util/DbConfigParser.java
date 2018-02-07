@@ -31,7 +31,7 @@ public final class DbConfigParser {
     private static String extractor(String paramName){
         try {
             JSONParser parser = new JSONParser();
-            Object obj = parser.parse(new FileReader(new File("").getAbsolutePath()+"/assets/conf/db_config.js"));
+            Object obj = parser.parse(new FileReader(new File("").getAbsolutePath()+"/assets/conf/db_config.json"));
  
             JSONObject jsonObject = (JSONObject) obj;
  

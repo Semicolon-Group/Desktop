@@ -16,7 +16,6 @@ public class Logger {
     public static void writeLog(Exception ex, String className, String message) {
         if(message!= null && !message.isEmpty()){
             MySoulMate.showAlert(Alert.AlertType.ERROR, message, ButtonType.CLOSE);
-            System.out.println("Here y display");
         }
         
         java.util.logging.Logger logger = java.util.logging.Logger.getLogger(className);
