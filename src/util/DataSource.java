@@ -16,7 +16,7 @@ public class DataSource {
         try {
             connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
         } catch (SQLException ex) {
-            util.Logger.writeLog(ex, DataSource.class.getName());
+            util.Logger.writeLog(ex, DataSource.class.getName(), "Connection à la base de donnée impossible, merci de verifier votre connexion internet!");
         }
     }
     

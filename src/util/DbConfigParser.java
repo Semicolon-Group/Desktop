@@ -38,7 +38,7 @@ public final class DbConfigParser {
             String value = (String) jsonObject.get(paramName);
             return value;
         } catch (Exception ex) {
-            util.Logger.writeLog(ex, DbConfigParser.class.getName());
+            util.Logger.writeLog(ex, DbConfigParser.class.getName(), "Fichier de base de donnée introuvable!");
         }
         return null;
     }
