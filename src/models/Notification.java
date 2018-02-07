@@ -12,7 +12,7 @@ import models.Enumerations.NotificationType;
  *
  * @author Elyes
  */
-class Notification {
+public class Notification {
     private int id;
     private User sender;
     private User receiver;

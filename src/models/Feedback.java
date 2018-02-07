@@ -9,7 +9,7 @@ package models;
  *
  * @author Elyes
  */
-class Feedback {
+public class Feedback {
     private int id;
     private Member sender;
     private String content;

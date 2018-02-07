@@ -9,7 +9,7 @@ package models;
  *
  * @author Elyes
  */
-class Address {
+public class Address {
     private int id;
     private double longitude;
     private double latitude;

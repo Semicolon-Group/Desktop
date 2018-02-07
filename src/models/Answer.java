@@ -13,7 +13,7 @@ import models.Enumerations.Importance;
  *
  * @author Elyes
  */
-class Answer {
+public class Answer {
     private int id;
     private Question question;
     private HashSet<String> choices;

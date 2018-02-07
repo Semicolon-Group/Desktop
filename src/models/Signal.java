@@ -12,7 +12,7 @@ import models.Enumerations.SignalReason;
  *
  * @author Elyes
  */
-class Signal {
+public class Signal {
     private int id;
     private Member sender;
     private Member receiver;

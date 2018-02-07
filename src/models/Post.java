@@ -12,7 +12,7 @@ import models.Enumerations.Reaction;
  *
  * @author Elyes
  */
-class Post {
+public class Post {
     private int id;
     private Member owner;
     private Date date;
