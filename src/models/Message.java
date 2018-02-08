@@ -5,7 +5,8 @@
  */
 package models;
 
-import java.util.Date;
+import java.sql.Date;
+
 
 /**
  *
@@ -15,34 +16,35 @@ public class Message {
     private int id;
     private String content;
     private Date date;
-    private User sender;
-    private User receiver;
+    private int senderId;
+    private int receiverId;
     private boolean seen;
     private Date seenDate;
-    private Conversation conversation;
 
     public Message() {
     }
+    
+    public Message(int id){
+        this.id = id;
+    }
 
-    public Message(int id, String content, Date date, User sender, User receiver, boolean seen, Date seenDate, Conversation conversation) {
+    public Message(int id, String content, Date date, int senderId, int receiverId, boolean seen, Date seenDate) {
 	this.id = id;
 	this.content = content;
 	this.date = date;
-	this.sender = sender;
-	this.receiver = receiver;
+	this.senderId = senderId;
+	this.receiverId = receiverId;
 	this.seen = seen;
 	this.seenDate = seenDate;
-	this.conversation = conversation;
     }
 
-    public Message(String content, Date date, User sender, User receiver, boolean seen, Date seenDate, Conversation conversation) {
+    public Message(String content, Date date, int senderId, int receiverId, boolean seen, Date seenDate) {
 	this.content = content;
 	this.date = date;
-	this.sender = sender;
-	this.receiver = receiver;
+	this.senderId = senderId;
+	this.receiverId = receiverId;
 	this.seen = seen;
 	this.seenDate = seenDate;
-	this.conversation = conversation;
     }
 
     public int getId() {
@@ -69,20 +71,20 @@ public class Message {
 	this.date = date;
     }
 
-    public User getSender() {
-	return sender;
+    public int getSenderId() {
+	return senderId;
     }
 
-    public void setSender(User sender) {
-	this.sender = sender;
+    public void setSenderId(int senderId) {
+	this.senderId = senderId;
     }
 
-    public User getReceiver() {
-	return receiver;
+    public int getReceiverId() {
+	return receiverId;
     }
 
-    public void setReceiver(User receiver) {
-	this.receiver = receiver;
+    public void setReceiverId(int receiverId) {
+	this.receiverId = receiverId;
     }
 
     public boolean isSeen() {
@@ -101,12 +103,4 @@ public class Message {
 	this.seenDate = seenDate;
     }
 
-    public Conversation getConversation() {
-	return conversation;
-    }
-
-    public void setConversation(Conversation conversation) {
-	this.conversation = conversation;
-    }
-    
 }

@@ -32,12 +32,12 @@ public class NotificationService extends Service implements Create<Notification>
     }
 
     @Override
-    public void create(Notification object) throws SQLException {
+    public Notification create(Notification obj) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void update(Notification object) throws SQLException {
+    public Notification update(Notification obj) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -50,5 +50,4 @@ public class NotificationService extends Service implements Create<Notification>
     public List<Notification> getAll(Notification obj) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
 }

@@ -32,12 +32,12 @@ public class MessageService extends Service implements Create<Message>,Update<Me
     }
 
     @Override
-    public void create(Message object) throws SQLException {
+    public Message create(Message obj) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void update(Message object) throws SQLException {
+    public Message update(Message obj) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -50,5 +50,4 @@ public class MessageService extends Service implements Create<Message>,Update<Me
     public List<Message> getAll(Message obj) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
 }

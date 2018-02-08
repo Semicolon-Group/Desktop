@@ -12,5 +12,5 @@ import java.sql.SQLException;
  * @author Elyes
  */
 public interface Delete <T>{
-    void delete(T object) throws SQLException;
+    void delete(T obj) throws SQLException;
 }

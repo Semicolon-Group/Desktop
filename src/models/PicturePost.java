@@ -1,39 +1,33 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package models;
 
-import java.util.Date;
-import java.util.TreeSet;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
-/**
- *
- * @author Elyes
- */
 public class PicturePost extends Post{
-    private TreeSet<String> urls;
-
-    public PicturePost() {
-    }
-
-    public PicturePost(TreeSet<String> urls, Member owner, Date date, Enumerations.Reaction reaction) {
-	super(owner, date, reaction);
-	this.urls = urls;
-    }
-
-    public PicturePost(TreeSet<String> urls, int id, Member owner, Date date, Enumerations.Reaction reaction) {
-	super(id, owner, date, reaction);
-	this.urls = urls;
-    }
-
-    public TreeSet<String> getUrls() {
-	return urls;
-    }
-
-    public void setUrls(TreeSet<String> urls) {
-	this.urls = urls;
+    private List<String> picturesUrls;
+    
+    public PicturePost(){
+        super();
+        picturesUrls = new ArrayList<>();
     }
     
+    public PicturePost(int id){
+        super(id);
+        picturesUrls = new ArrayList<>();
+    }
+    
+    public PicturePost(int ownerId, Date date) {
+        super(ownerId, date);
+        this.picturesUrls = new ArrayList<>();
+    }
+
+    public PicturePost(int id, Member owner, Date date) {
+        super(id, owner, date);
+        this.picturesUrls = new ArrayList<>();
+    }
+    
+    public List<String> getPictruesIds(){
+        return this.picturesUrls;
+    }
 }

@@ -16,12 +16,15 @@ public class UpdatePost extends Post{
     public UpdatePost() {
     }
 
-    public UpdatePost(Member owner, Date date, Enumerations.Reaction reaction) {
-	super(owner, date, reaction);
+    public UpdatePost(int id) {
+        super(id);
     }
 
-    public UpdatePost(int id, Member owner, Date date, Enumerations.Reaction reaction) {
-	super(id, owner, date, reaction);
+    public UpdatePost(int ownerId, java.sql.Date date) {
+        super(ownerId, date);
     }
-    
+
+    public UpdatePost(int id, Member owner, java.sql.Date date) {
+        super(id, owner, date);
+    }
 }

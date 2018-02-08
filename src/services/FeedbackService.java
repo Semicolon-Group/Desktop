@@ -32,12 +32,12 @@ public class FeedbackService extends Service implements Create<Feedback>,Update<
     }
 
     @Override
-    public void create(Feedback object) throws SQLException {
+    public Feedback create(Feedback obj) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void update(Feedback object) throws SQLException {
+    public Feedback update(Feedback obj) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -50,6 +50,4 @@ public class FeedbackService extends Service implements Create<Feedback>,Update<
     public List<Feedback> getAll(Feedback obj) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    
 }

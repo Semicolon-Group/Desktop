@@ -10,7 +10,7 @@ package models;
  * @author Elyes
  */
 public class Address {
-    private int id;
+    private int userId;
     private double longitude;
     private double latitude;
     private String country;
@@ -18,9 +18,13 @@ public class Address {
 
     public Address() {
     }
+    
+    public Address(int userId){
+        this.userId = userId;
+    }
 
-    public Address(int id, double longitude, double latitude, String country, String city) {
-	this.id = id;
+    public Address(int userId, double longitude, double latitude, String country, String city) {
+	this.userId = userId;
 	this.longitude = longitude;
 	this.latitude = latitude;
 	this.country = country;
@@ -34,12 +38,12 @@ public class Address {
 	this.city = city;
     }
 
-    public int getId() {
-	return id;
+    public int getUserId() {
+	return userId;
     }
 
-    public void setId(int id) {
-	this.id = id;
+    public void setUserId(int userId) {
+	this.userId = userId;
     }
 
     public double getLongitude() {

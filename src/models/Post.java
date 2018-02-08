@@ -5,33 +5,69 @@
  */
 package models;
 
-import java.util.Date;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import models.Enumerations.Reaction;
 
 /**
  *
  * @author Elyes
  */
-public class Post {
+public abstract class Post {
     private int id;
-    private Member owner;
+    private int ownerId;
     private Date date;
-    private Reaction reaction;
+    private List<Reaction> reactions;
 
     public Post() {
+        reactions = new ArrayList<>();
+    }
+    
+    public Post(int id){
+        this.id = id;
+        reactions = new ArrayList<>();
     }
 
-    public Post(Member owner, Date date, Reaction reaction) {
-	this.owner = owner;
+    public Post(int ownerId, Date date) {
+	this.ownerId = ownerId;
 	this.date = date;
-	this.reaction = reaction;
+        reactions = new ArrayList<>();
     }
 
-    public Post(int id, Member owner, Date date, Reaction reaction) {
+    public Post(int id, Member owner, Date date) {
 	this.id = id;
-	this.owner = owner;
+	this.ownerId = ownerId;
 	this.date = date;
-	this.reaction = reaction;
+        reactions = new ArrayList<>();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(int ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public List<Reaction> getReactions() {
+        return reactions;
     }
     
 }

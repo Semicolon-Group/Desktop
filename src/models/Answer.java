@@ -5,7 +5,7 @@
  */
 package models;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.HashSet;
 import models.Enumerations.Importance;
 
@@ -15,33 +15,31 @@ import models.Enumerations.Importance;
  */
 public class Answer {
     private int id;
-    private Question question;
-    private HashSet<String> choices;
+    private int questionId;
     private Date date;
     private Importance importance;
-    private HashSet<String> acceptedChoices;
-    private Member member;
-
-    public Answer(Question question, HashSet<String> choices, Date date, Importance importance, HashSet<String> acceptedChoices, Member member) {
-	this.question = question;
-	this.choices = choices;
-	this.date = date;
-	this.importance = importance;
-	this.acceptedChoices = acceptedChoices;
-	this.member = member;
-    }
-
-    public Answer(int id, Question question, HashSet<String> choices, Date date, Importance importance, HashSet<String> acceptedChoices, Member member) {
-	this.id = id;
-	this.question = question;
-	this.choices = choices;
-	this.date = date;
-	this.importance = importance;
-	this.acceptedChoices = acceptedChoices;
-	this.member = member;
-    }
-
+    private int memberId;
+    
     public Answer() {
+    }
+    
+    public Answer(int id){
+        this.id = id;
+    }
+
+    public Answer(int questionId, Date date, Importance importance, int memberId) {
+	this.questionId = questionId;
+	this.date = date;
+	this.importance = importance;
+	this.memberId = memberId;
+    }
+
+    public Answer(int id, int questionId, Date date, Importance importance, int memberId) {
+	this.id = id;
+	this.questionId = questionId;
+	this.date = date;
+	this.importance = importance;
+	this.memberId = memberId;
     }
 
     public int getId() {
@@ -52,20 +50,12 @@ public class Answer {
 	this.id = id;
     }
 
-    public Question getQuestion() {
-	return question;
+    public int getQuestionId() {
+	return questionId;
     }
 
-    public void setQuestion(Question question) {
-	this.question = question;
-    }
-
-    public HashSet<String> getChoices() {
-	return choices;
-    }
-
-    public void setChoices(HashSet<String> choices) {
-	this.choices = choices;
+    public void setQuestion(int questionId) {
+	this.questionId = questionId;
     }
 
     public Date getDate() {
@@ -84,21 +74,12 @@ public class Answer {
 	this.importance = importance;
     }
 
-    public HashSet<String> getAcceptedChoices() {
-	return acceptedChoices;
+    public int getMember() {
+	return memberId;
     }
 
-    public void setAcceptedChoices(HashSet<String> acceptedChoices) {
-	this.acceptedChoices = acceptedChoices;
+    public void setMember(int memberId) {
+	this.memberId = memberId;
     }
-
-    public Member getMember() {
-	return member;
-    }
-
-    public void setMember(Member member) {
-	this.member = member;
-    }
-    
     
 }

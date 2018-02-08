@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package services;
 
 import iservice.Create;
@@ -11,49 +6,44 @@ import iservice.Read;
 import iservice.Update;
 import java.sql.SQLException;
 import java.util.List;
-import models.Answer;
 
-/**
- *
- * @author Elyes
- */
-public class AnswerService extends Service implements Create<Answer>,Delete<Answer>,Read<Answer>,Update<Answer>{
+public class UpdatePostService extends Service implements Create<UpdatePostService>,Delete<UpdatePostService>,Read<UpdatePostService>,Update<UpdatePostService>{
+
+    private static UpdatePostService updatePostService;
     
-    private static AnswerService answerService;
-    
-    private AnswerService(){
+    private UpdatePostService(){
         super();
     }
     
-    public static AnswerService getInstance(){
-        if(answerService == null){
-            return answerService = new AnswerService();
+    public static UpdatePostService getInstance(){
+        if(updatePostService == null){
+            return updatePostService = new UpdatePostService();
         }
-        return answerService;
+        return updatePostService;
     }
 
     @Override
-    public Answer create(Answer obj) throws SQLException {
+    public UpdatePostService create(UpdatePostService obj) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(Answer obj) throws SQLException {
+    public void delete(UpdatePostService obj) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Answer get(Answer obj) throws SQLException {
+    public UpdatePostService get(UpdatePostService obj) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Answer> getAll(Answer obj) throws SQLException {
+    public List<UpdatePostService> getAll(UpdatePostService obj) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Answer update(Answer obj) throws SQLException {
+    public UpdatePostService update(UpdatePostService obj) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

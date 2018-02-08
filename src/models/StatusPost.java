@@ -5,7 +5,9 @@
  */
 package models;
 
-import java.util.Date;
+import java.sql.Date;
+
+
 
 /**
  *
@@ -16,17 +18,23 @@ public class StatusPost extends Post{
 
     public StatusPost() {
     }
-
-    public StatusPost(String Content, Member owner, Date date, Enumerations.Reaction reaction) {
-	super(owner, date, reaction);
-	this.Content = Content;
+    
+    public StatusPost(int id){
+        super(id);
     }
 
-    public StatusPost(String Content, int id, Member owner, Date date, Enumerations.Reaction reaction) {
-	super(id, owner, date, reaction);
-	this.Content = Content;
+    public StatusPost(String Content, int ownerId, Date date) {
+        super(ownerId, date);
+        this.Content = Content;
     }
 
+    public StatusPost(String Content, int id, Member owner, Date date) {
+        super(id, owner, date);
+        this.Content = Content;
+    }
+
+    
+    
     public String getContent() {
 	return Content;
     }

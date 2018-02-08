@@ -32,12 +32,12 @@ public class BlockService extends Service implements Create<Block>,Delete<Block>
     }
 
     @Override
-    public void create(Block object) throws SQLException {
+    public Block create(Block obj) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(Block object) throws SQLException {
+    public void delete(Block obj) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -50,5 +50,4 @@ public class BlockService extends Service implements Create<Block>,Delete<Block>
     public List<Block> getAll(Block obj) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
 }

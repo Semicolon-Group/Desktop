@@ -33,12 +33,12 @@ public class QuestionService extends Service implements Create<Question>,Delete<
     }
 
     @Override
-    public void create(Question object) throws SQLException {
+    public Question create(Question obj) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(Question object) throws SQLException {
+    public void delete(Question obj) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -53,8 +53,7 @@ public class QuestionService extends Service implements Create<Question>,Delete<
     }
 
     @Override
-    public void update(Question object) throws SQLException {
+    public Question update(Question obj) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
 }

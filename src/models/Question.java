@@ -17,17 +17,23 @@ public class Question {
     private HashSet<String> choices;
 
     public Question() {
+        choices = new HashSet<>();
+    }
+    
+    public Question(int id){
+        this.id = id;
+        choices = new HashSet<>();
     }
 
     public Question(int id, String question, HashSet<String> choices) {
 	this.id = id;
 	this.question = question;
-	this.choices = choices;
+        this.choices = new HashSet<>();
     }
 
     public Question(String question, HashSet<String> choices) {
 	this.question = question;
-	this.choices = choices;
+        this.choices = new HashSet<>();
     }
 
     public int getId() {

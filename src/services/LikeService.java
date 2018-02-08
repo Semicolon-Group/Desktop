@@ -32,12 +32,12 @@ public class LikeService extends Service implements Create<Like>,Delete<Like>,Re
     }
 
     @Override
-    public void create(Like object) throws SQLException {
+    public Like create(Like obj) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(Like object) throws SQLException {
+    public void delete(Like obj) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -50,5 +50,4 @@ public class LikeService extends Service implements Create<Like>,Delete<Like>,Re
     public List<Like> getAll(Like obj) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
 }

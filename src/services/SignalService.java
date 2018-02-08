@@ -32,12 +32,12 @@ public class SignalService extends Service implements Create<Signal>,Update<Sign
     }
 
     @Override
-    public void create(Signal object) throws SQLException {
+    public Signal create(Signal obj) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void update(Signal object) throws SQLException {
+    public Signal update(Signal obj) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -50,5 +50,4 @@ public class SignalService extends Service implements Create<Signal>,Update<Sign
     public List<Signal> getAll(Signal obj) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
 }

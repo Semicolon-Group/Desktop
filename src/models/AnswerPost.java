@@ -1,43 +1,28 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package models;
 
-import java.util.Date;
-import java.util.TreeSet;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
-/**
- *
- * @author Elyes
- */
 public class AnswerPost extends Post{
-    private TreeSet<Answer> answers;
+    private List<Integer> answersIds;
 
-    public AnswerPost(TreeSet<Answer> answers) {
-	this.answers = answers;
+    public AnswerPost(int id) {
+        super(id);
+        this.answersIds = new ArrayList<>();
     }
 
-    public AnswerPost() {
+    public AnswerPost(int ownerId, Date date) {
+        super(ownerId, date);
+        this.answersIds = new ArrayList<>();
     }
 
-    public AnswerPost(TreeSet<Answer> answers, Member owner, Date date, Enumerations.Reaction reaction) {
-	super(owner, date, reaction);
-	this.answers = answers;
-    }
-
-    public AnswerPost(TreeSet<Answer> answers, int id, Member owner, Date date, Enumerations.Reaction reaction) {
-	super(id, owner, date, reaction);
-	this.answers = answers;
-    }
-
-    public TreeSet<Answer> getAnswers() {
-	return answers;
-    }
-
-    public void setAnswers(TreeSet<Answer> answers) {
-	this.answers = answers;
+    public AnswerPost(int id, Member owner, Date date) {
+        super(id, owner, date);
+        this.answersIds = new ArrayList<>();
     }
     
+    public List<Integer> getAnswersIds(){
+        return this.answersIds;
+    }
 }

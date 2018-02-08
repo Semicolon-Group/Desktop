@@ -32,12 +32,12 @@ public class ConversationService extends Service implements Create<Conversation>
     }
 
     @Override
-    public void create(Conversation object) throws SQLException {
+    public Conversation create(Conversation obj) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void update(Conversation object) throws SQLException {
+    public Conversation update(Conversation obj) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -50,5 +50,4 @@ public class ConversationService extends Service implements Create<Conversation>
     public List<Conversation> getAll(Conversation obj) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
 }

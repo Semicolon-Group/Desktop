@@ -5,7 +5,7 @@
  */
 package models;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.TreeSet;
 
 /**
@@ -17,30 +17,31 @@ public class Conversation {
     private String label;
     private boolean seen;
     private Date seenDate;
-    private TreeSet<Message> messages;
-    private User person1;
-    private User person2;
+    private int person1Id;
+    private int person2Id;
 
     public Conversation() {
     }
+    
+    public Conversation(int id){
+        this.id = id;
+    }
 
-    public Conversation(int id, String label, boolean seen, Date seenDate, TreeSet<Message> messages, User person1, User person2) {
+    public Conversation(int id, String label, boolean seen, Date seenDate, int person1Id, int person2Id) {
 	this.id = id;
 	this.label = label;
 	this.seen = seen;
 	this.seenDate = seenDate;
-	this.messages = messages;
-	this.person1 = person1;
-	this.person2 = person2;
+	this.person1Id = person1Id;
+	this.person2Id = person2Id;
     }
 
-    public Conversation(String label, boolean seen, Date seenDate, TreeSet<Message> messages, User person1, User person2) {
+    public Conversation(String label, boolean seen, Date seenDate, int person1Id, int person2Id) {
 	this.label = label;
 	this.seen = seen;
 	this.seenDate = seenDate;
-	this.messages = messages;
-	this.person1 = person1;
-	this.person2 = person2;
+	this.person1Id = person1Id;
+	this.person2Id = person2Id;
     }
 
     public int getId() {
@@ -75,28 +76,20 @@ public class Conversation {
 	this.seenDate = seenDate;
     }
 
-    public TreeSet<Message> getMessages() {
-	return messages;
+    public int getPerson1Id() {
+	return person1Id;
     }
 
-    public void setMessages(TreeSet<Message> messages) {
-	this.messages = messages;
+    public void setPerson1Id(int person1Id) {
+	this.person1Id = person1Id;
     }
 
-    public User getPerson1() {
-	return person1;
+    public int getPerson2Id() {
+	return person2Id;
     }
 
-    public void setPerson1(User person1) {
-	this.person1 = person1;
-    }
-
-    public User getPerson2() {
-	return person2;
-    }
-
-    public void setPerson2(User person2) {
-	this.person2 = person2;
+    public void setPerson2Id(int person2Id) {
+	this.person2Id = person2Id;
     }
     
 }

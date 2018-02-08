@@ -32,12 +32,12 @@ public class MemberService extends Service implements Create<Member>,Update<Memb
     }
 
     @Override
-    public void create(Member object) throws SQLException {
+    public Member create(Member obj) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void update(Member object) throws SQLException {
+    public Member update(Member obj) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -50,5 +50,4 @@ public class MemberService extends Service implements Create<Member>,Update<Memb
     public List<Member> getAll(Member obj) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
 }

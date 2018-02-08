@@ -5,7 +5,7 @@
  */
 package models;
 
-import java.util.Date;
+import java.sql.Date;
 import models.Enumerations.SignalReason;
 
 /**
@@ -14,27 +14,31 @@ import models.Enumerations.SignalReason;
  */
 public class Signal {
     private int id;
-    private Member sender;
-    private Member receiver;
+    private int senderId;
+    private int receiverId;
     private SignalReason reason;
     private boolean state;
     private Date date;
 
     public Signal() {
     }
+    
+    public Signal(int id){
+        this.id = id;
+    }
 
-    public Signal(Member sender, Member receiver, SignalReason reason, boolean state, Date date) {
-	this.sender = sender;
-	this.receiver = receiver;
+    public Signal(int senderId, int receiverId, SignalReason reason, boolean state, Date date) {
+	this.senderId = senderId;
+	this.receiverId = receiverId;
 	this.reason = reason;
 	this.state = state;
 	this.date = date;
     }
 
-    public Signal(int id, Member sender, Member receiver, SignalReason reason, boolean state, Date date) {
+    public Signal(int id, int senderId, int receiverId, SignalReason reason, boolean state, Date date) {
 	this.id = id;
-	this.sender = sender;
-	this.receiver = receiver;
+	this.senderId = senderId;
+	this.receiverId = receiverId;
 	this.reason = reason;
 	this.state = state;
 	this.date = date;
@@ -48,20 +52,20 @@ public class Signal {
 	this.id = id;
     }
 
-    public Member getSender() {
-	return sender;
+    public int getSenderId() {
+	return senderId;
     }
 
-    public void setSender(Member sender) {
-	this.sender = sender;
+    public void setSenderId(int senderId) {
+	this.senderId = senderId;
     }
 
-    public Member getReceiver() {
-	return receiver;
+    public int getReceiverId() {
+	return receiverId;
     }
 
-    public void setReceiver(Member receiver) {
-	this.receiver = receiver;
+    public void setReceiver(int receiverId) {
+	this.receiverId = receiverId;
     }
 
     public SignalReason getReason() {
