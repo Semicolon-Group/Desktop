@@ -17,31 +17,43 @@ import models.Answer;
  *
  * @author Elyes
  */
-public class AnswerService implements Create<Answer>,Delete<Answer>,Read<Answer>,Update<Answer>{
-
-    @Override
-    public boolean create(Answer object) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+public class AnswerService extends Service implements Create<Answer>,Delete<Answer>,Read<Answer>,Update<Answer>{
+    
+    private static AnswerService answerService;
+    
+    private AnswerService(){
+        super();
+    }
+    
+    public static AnswerService getInstance(){
+        if(answerService == null){
+            return answerService = new AnswerService();
+        }
+        return answerService;
     }
 
     @Override
-    public boolean delete(Answer object) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void create(Answer object) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void delete(Answer object) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public Answer get(Answer obj) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public List<Answer> getAll(Answer obj) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean update(Answer object) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void update(Answer object) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
 }

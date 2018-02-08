@@ -17,31 +17,44 @@ import models.Question;
  *
  * @author Elyes
  */
-public class QuestionService implements Create<Question>,Delete<Question>,Read<Question>,Update<Question>{
+public class QuestionService extends Service implements Create<Question>,Delete<Question>,Read<Question>,Update<Question>{
 
-    @Override
-    public boolean create(Question object) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private static QuestionService questionService;
+    
+    private QuestionService(){
+        super();
+    }
+    
+    public static QuestionService getInstance(){
+        if(questionService == null){
+            return questionService = new QuestionService();
+        }
+        return questionService;
     }
 
     @Override
-    public boolean delete(Question object) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void create(Question object) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void delete(Question object) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public Question get(Question obj) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public List<Question> getAll(Question obj) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean update(Question object) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void update(Question object) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

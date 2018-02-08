@@ -16,26 +16,39 @@ import models.Message;
  *
  * @author Elyes
  */
-public class MessageService implements Create<Message>,Update<Message>,Read<Message>{
+public class MessageService extends Service implements Create<Message>,Update<Message>,Read<Message>{
 
-    @Override
-    public boolean create(Message object) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private static MessageService messageService;
+    
+    private MessageService(){
+        super();
+    }
+    
+    public static MessageService getInstance(){
+        if(messageService == null){
+            return messageService = new MessageService();
+        }
+        return messageService;
     }
 
     @Override
-    public boolean update(Message object) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void create(Message object) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void update(Message object) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public Message get(Message obj) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public List<Message> getAll(Message obj) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

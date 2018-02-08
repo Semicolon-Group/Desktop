@@ -17,31 +17,44 @@ import models.Post;
  *
  * @author Elyes
  */
-public class PostService implements Create<Post>,Delete<Post>,Read<Post>,Update<Post>{
+public class PostService extends Service implements Create<Post>,Delete<Post>,Read<Post>,Update<Post>{
 
-    @Override
-    public boolean create(Post object) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private static PostService postService;
+    
+    private PostService(){
+        super();
+    }
+    
+    public static PostService getInstance(){
+        if(postService == null){
+            return postService = new PostService();
+        }
+        return postService;
     }
 
     @Override
-    public boolean delete(Post object) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void create(Post object) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void delete(Post object) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public Post get(Post obj) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public List<Post> getAll(Post obj) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean update(Post object) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void update(Post object) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

@@ -16,26 +16,39 @@ import models.Address;
  *
  * @author Elyes
  */
-public class AddressService implements Create<Address>,Read<Address>,Update<Address>{
-
+public class AddressService extends Service implements Create<Address>,Read<Address>,Update<Address>{
+    
+    private static AddressService addressService;
+    
+    private AddressService(){
+        super();
+    }
+    
+    public static AddressService getInstance(){
+        if(addressService == null){
+            return addressService = new AddressService();
+        }
+        return addressService;
+    }
+    
     @Override
-    public boolean create(Address object) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void create(Address object) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public Address get(Address obj) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public List<Address> getAll(Address obj) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean update(Address object) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void update(Address object) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
