@@ -20,6 +20,8 @@ public class Notification {
     private String content;
     private Timestamp date;
     private String icon;
+    private int answerId;
+    private int photoId;
 
     public Notification() {
     }
@@ -28,7 +30,7 @@ public class Notification {
         this.id = id;
     }
 
-    public Notification(int id, int senderId, int receiverId, NotificationType type, String content, Timestamp date, String icon) {
+    public Notification(int id, int senderId, int receiverId, NotificationType type, String content, Timestamp date, String icon, int answerId, int photoId) {
 	this.id = id;
 	this.senderId = senderId;
 	this.receiverId = receiverId;
@@ -36,16 +38,38 @@ public class Notification {
 	this.content = content;
 	this.date = date;
 	this.icon = icon;
+	this.answerId = answerId;
+	this.photoId = photoId;
     }
 
-    public Notification(int senderId, int receiverId, NotificationType type, String content, Timestamp date, String icon) {
+    public Notification(int senderId, int receiverId, NotificationType type, String content, Timestamp date, String icon, int answerId, int photoId) {
 	this.senderId = senderId;
 	this.receiverId = receiverId;
 	this.type = type;
 	this.content = content;
 	this.date = date;
 	this.icon = icon;
+	this.answerId = answerId;
+	this.photoId = photoId;
     }
+
+    public int getAnswerId() {
+	return answerId;
+    }
+
+    public void setAnswerId(int answerId) {
+	this.answerId = answerId;
+    }
+
+    public int getPhotoId() {
+	return photoId;
+    }
+
+    public void setPhotoId(int photoId) {
+	this.photoId = photoId;
+    }
+
+    
 
     public int getId() {
 	return id;
