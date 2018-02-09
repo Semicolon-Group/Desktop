@@ -42,7 +42,7 @@ public class Enumerations {
 	UN_PEU_IMPORTANT,
 	IMPORTANT
     }
-    public enum Reaction{
+    public enum ReactionType{
 	LIKE,
 	SUPER_LIKE,
 	LAUGH
@@ -67,5 +67,12 @@ public class Enumerations {
 	REACTION,
 	SIGNAL,
 	FEEDBACK
+    }
+    
+    public enum PostType{
+        ANSWER,
+        PICTURE,
+        STATUS,
+        UPDATE
     }
 }

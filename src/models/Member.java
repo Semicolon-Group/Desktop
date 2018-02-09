@@ -15,6 +15,7 @@ import models.Enumerations.Importance;
 import models.Enumerations.MaritalStatus;
 import models.Enumerations.Proximity;
 import models.Enumerations.Religion;
+import models.Enumerations.RelationType;
 
 /**
  *
@@ -37,14 +38,20 @@ public class Member extends User{
     private short locked;
     private Address address;
     private List<String> photos;
+    private List<RelationType> preferedRelations;
+    private List<MaritalStatus> preferedStatuses;
 
     public Member() {
         photos = new ArrayList<>();
+        preferedRelations = new ArrayList<>();
+        preferedStatuses = new ArrayList<>();
     }
     
     public Member(int id){
         super(id);
         photos = new ArrayList<>();
+        preferedRelations = new ArrayList<>();
+        preferedStatuses = new ArrayList<>();
     }
 
     public Member(Date birthDate, boolean gender, float height, BodyType bodyType, int childrenNumber, Religion religion, Importance religionImportance, boolean smoker, boolean drinker, int minAge, int maxAge, Proximity proximity, Date lastLogin, short locked, Address address, String pseudo, String nom, String prenom, String email, String password) {
@@ -65,6 +72,8 @@ public class Member extends User{
         this.lastLogin = lastLogin;
         this.locked = locked;
         this.address = address;
+        preferedRelations = new ArrayList<>();
+        preferedStatuses = new ArrayList<>();
     }
 
     public Member(Date birthDate, boolean gender, float height, BodyType bodyType, int childrenNumber, Religion religion, Importance religionImportance, boolean smoker, boolean drinker, int minAge, int maxAge, Proximity proximity, Date lastLogin, short locked, Address address, int id, String pseudo, String nom, String prenom, String email, String password) {
@@ -84,6 +93,8 @@ public class Member extends User{
         this.lastLogin = lastLogin;
         this.locked = locked;
         this.address = address;
+        preferedRelations = new ArrayList<>();
+        preferedStatuses = new ArrayList<>();
     }
 
     public Date getBirthDate() {
@@ -209,5 +220,12 @@ public class Member extends User{
     public List<String> getPhotos() {
         return photos;
     }
-    
+
+    public List<RelationType> getPreferedRelations() {
+        return preferedRelations;
+    }
+
+    public List<MaritalStatus> getPreferedStatuses() {
+        return preferedStatuses;
+    }
 }

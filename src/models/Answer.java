@@ -19,12 +19,18 @@ public class Answer {
     private Date date;
     private Importance importance;
     private int memberId;
+    private HashSet<Choice> selectedChoices;
+    private HashSet<Choice> acceptedChoices;
     
     public Answer() {
+        selectedChoices = new HashSet<>();
+        acceptedChoices = new HashSet<>();
     }
     
     public Answer(int id){
         this.id = id;
+        selectedChoices = new HashSet<>();
+        acceptedChoices = new HashSet<>();
     }
 
     public Answer(int questionId, Date date, Importance importance, int memberId) {
@@ -32,6 +38,8 @@ public class Answer {
 	this.date = date;
 	this.importance = importance;
 	this.memberId = memberId;
+        selectedChoices = new HashSet<>();
+        acceptedChoices = new HashSet<>();
     }
 
     public Answer(int id, int questionId, Date date, Importance importance, int memberId) {
@@ -40,6 +48,8 @@ public class Answer {
 	this.date = date;
 	this.importance = importance;
 	this.memberId = memberId;
+        selectedChoices = new HashSet<>();
+        acceptedChoices = new HashSet<>();
     }
 
     public int getId() {
@@ -74,12 +84,19 @@ public class Answer {
 	this.importance = importance;
     }
 
-    public int getMember() {
+    public int getMemberId() {
 	return memberId;
     }
 
-    public void setMember(int memberId) {
+    public void setMemberId(int memberId) {
 	this.memberId = memberId;
     }
-    
+
+    public HashSet<Choice> getSelectedChoices() {
+        return selectedChoices;
+    }
+
+    public HashSet<Choice> getAcceptedChoices() {
+        return acceptedChoices;
+    }
 }

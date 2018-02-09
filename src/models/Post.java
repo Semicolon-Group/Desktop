@@ -8,7 +8,6 @@ package models;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
-import models.Enumerations.Reaction;
 
 /**
  *

@@ -14,7 +14,7 @@ import java.util.HashSet;
 public class Question {
     private int id;
     private String question;
-    private HashSet<String> choices;
+    private HashSet<Choice> choices;
 
     public Question() {
         choices = new HashSet<>();
@@ -52,11 +52,7 @@ public class Question {
 	this.question = question;
     }
 
-    public HashSet<String> getChoices() {
+    public HashSet<Choice> getChoices() {
 	return choices;
-    }
-
-    public void setChoices(HashSet<String> choices) {
-	this.choices = choices;
     }
 }
