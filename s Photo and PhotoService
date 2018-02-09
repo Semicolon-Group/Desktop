@@ -1,0 +1,188 @@
+[33mcommit 3f5e45cc5a791e6fc34157bf49fd056406b8eb17[m[33m ([m[1;36mHEAD -> [m[1;32melyes[m[33m, [m[1;31morigin/elyes[m[33m)[m
+Author: Elyes <chebbaelyes@gmail.com>
+Date:   Fri Feb 9 23:19:34 2018 +0100
+
+    created class Photo and PhotoService
+    deleted list<String> photos from class Member
+    added answerId and photoId to class Notification
+
+[33mcommit 3c4b5bb48902b4af94fcfca2085a4a1e7be5f375[m
+Author: Elyes <chebbaelyes@gmail.com>
+Date:   Fri Feb 9 21:16:12 2018 +0100
+
+    made create in AnswerPostService
+    turned Member Owner to int ownerId in class Post
+
+[33mcommit 206af8a80e67ba25aeac34bcff007c1815a07197[m[33m ([m[1;31morigin/MergeTest[m[33m)[m
+Author: SeifAbdennadher <m.abdennadher.seif@gmail.com>
+Date:   Fri Feb 9 19:58:24 2018 +0100
+
+    Changing Date attributes that are Datetime in database to Timestamp
+
+[33mcommit bf2fa2235dbabfb2cb0137804bb01c8a540fe868[m
+Author: SeifAbdennadher <m.abdennadher.seif@gmail.com>
+Date:   Fri Feb 9 19:26:01 2018 +0100
+
+    renaming project to MySoulmate rather than MySoulMate
+
+[33mcommit ee70d9d8648b5a3b837995f290f153fd27f247cb[m
+Author: SeifAbdennadher <m.abdennadher.seif@gmail.com>
+Date:   Fri Feb 9 17:06:27 2018 +0100
+
+    Adding db sql file in /assets/conf/mysoulmate.sql
+
+[33mcommit eea5aa665517bf69e74e4a763da2d8361ae2a1b4[m
+Merge: 37cadba 1daeb6d
+Author: SeifAbdennadher <m.abdennadher.seif@gmail.com>
+Date:   Fri Feb 9 16:57:33 2018 +0100
+
+    Merge pull request #6 from Semicolon-Group/FixingTest
+    
+    alot of fixs...
+
+[33mcommit 1daeb6dce7928f0588a1dad4c756090a958ab2c3[m
+Author: SeifAbdennadher <m.abdennadher.seif@gmail.com>
+Date:   Fri Feb 9 16:48:02 2018 +0100
+
+    Alote of Fixs, where do I begin 2...
+
+[33mcommit efd472f760dd6bd739fdcb3e434555fe3f2ed35a[m
+Author: SeifAbdennadher <m.abdennadher.seif@gmail.com>
+Date:   Thu Feb 8 23:34:08 2018 +0100
+
+    Alote of Fixs, where do I begin...
+
+[33mcommit ee5d05fd9039529028182e182894c951cd6c2037[m
+Author: SeifAbdennadher <m.abdennadher.seif@gmail.com>
+Date:   Thu Feb 8 14:17:31 2018 +0100
+
+    Fixing services signature
+
+[33mcommit 37cadba10cc8b65debeecf1c90fec2a38188b718[m
+Merge: 953624a 20e4230
+Author: SeifAbdennadher <m.abdennadher.seif@gmail.com>
+Date:   Wed Feb 7 19:49:03 2018 +0100
+
+    Merge pull request #5 from Semicolon-Group/init
+    
+    added address service
+
+[33mcommit 20e4230279a8b4ddc8cfd99bb33b51dc83e8b4c7[m
+Merge: d159747 953624a
+Author: Elyes <chebbaelyes@gmail.com>
+Date:   Wed Feb 7 19:43:35 2018 +0100
+
+    Merge master into init
+
+[33mcommit d159747f940d13a4a1340bfe5b5ba1c2c04428bc[m
+Author: Elyes <chebbaelyes@gmail.com>
+Date:   Wed Feb 7 19:38:05 2018 +0100
+
+    added address service
+
+[33mcommit 953624a5549702b35449f0a11d361b20bdbcea7f[m
+Author: SeifAbdennadher <m.abdennadher.seif@gmail.com>
+Date:   Wed Feb 7 18:50:14 2018 +0100
+
+    Fixing db_config.json for localhost
+    Fixing Logger alert
+
+[33mcommit 90807ebf75f152c8a4aa9145d8bc229eb89b9436[m
+Merge: 7041ce8 f01c0d7
+Author: SeifAbdennadher <m.abdennadher.seif@gmail.com>
+Date:   Wed Feb 7 18:37:04 2018 +0100
+
+    Merge pull request #3 from Semicolon-Group/init
+    
+    initiated project by creating models and services + added util package files from profiling branch
+
+[33mcommit f01c0d7f50c67770383e5b4fe21d594bbb7bcc52[m
+Author: Elyes <chebbaelyes@gmail.com>
+Date:   Wed Feb 7 18:17:13 2018 +0100
+
+    added constructor to admin
+
+[33mcommit e8fc95a73452eff08fa8283a17ec0800d620803c[m
+Author: Elyes <chebbaelyes@gmail.com>
+Date:   Wed Feb 7 18:03:57 2018 +0100
+
+    added constructor to admin
+
+[33mcommit cdae97d0908e39a26e04d6909e9c71d32a8e97aa[m
+Merge: 2effd23 7041ce8
+Author: Elyes <chebbaelyes@gmail.com>
+Date:   Wed Feb 7 17:38:31 2018 +0100
+
+    Merge origin/master
+
+[33mcommit 2effd23afeb38c0ff32a9e6fb1ca71d01f9a7a8b[m
+Author: Elyes <chebbaelyes@gmail.com>
+Date:   Wed Feb 7 17:37:55 2018 +0100
+
+    added constructor to admin
+
+[33mcommit 03e924ad723dc31b77263c043fdf004c831a7b64[m
+Author: Elyes <chebbaelyes@gmail.com>
+Date:   Wed Feb 7 17:34:46 2018 +0100
+
+    added classes
+
+[33mcommit 7041ce820d54da271a147018e1993a91a8c951f7[m
+Author: SeifAbdennadher <m.abdennadher.seif@gmail.com>
+Date:   Wed Feb 7 13:08:02 2018 +0100
+
+    removing unused code
+
+[33mcommit 60a3bbe281051879b42090bd98e5fa8e8e1c770c[m
+Author: SeifAbdennadher <m.abdennadher.seif@gmail.com>
+Date:   Wed Feb 7 13:07:06 2018 +0100
+
+    adding alert functionnality
+
+[33mcommit df85b90dd2118b83207e38a1b194ba0fb5acb879[m
+Author: SeifAbdennadher <m.abdennadher.seif@gmail.com>
+Date:   Tue Feb 6 23:57:30 2018 +0100
+
+    adding json-simple-1.1.1.jar to /assest/lib
+
+[33mcommit 034d420bf3304c3d58984843d6b732be7e96b617[m
+Author: SeifAbdennadher <m.abdennadher.seif@gmail.com>
+Date:   Tue Feb 6 23:49:42 2018 +0100
+
+    removing dis/lib to the project
+
+[33mcommit ea03fe2a67f65446350e4e09831307e86e01144a[m
+Author: SeifAbdennadher <m.abdennadher.seif@gmail.com>
+Date:   Tue Feb 6 23:47:27 2018 +0100
+
+    adding dis/lib to the project
+
+[33mcommit 649c135a5c0ee44feddc29e709cabf49ccc6bbea[m
+Author: SeifAbdennadher <m.abdennadher.seif@gmail.com>
+Date:   Tue Feb 6 23:41:09 2018 +0100
+
+    fixing library problem (json-simple-1.1.1.jar)
+
+[33mcommit 24d49770c9e1eb056c80a7c665ca90605b53ee60[m
+Merge: 1a82130 29ef668
+Author: SeifAbdennadher <m.abdennadher.seif@gmail.com>
+Date:   Tue Feb 6 22:37:30 2018 +0100
+
+    Merge pull request #1 from Semicolon-Group/MergeTest
+    
+    adding util.DbConfigParser
+
+[33mcommit 29ef668346f29c4c6df03e58d0a568f67edb2b69[m
+Author: SeifAbdennadher <m.abdennadher.seif@gmail.com>
+Date:   Tue Feb 6 22:23:04 2018 +0100
+
+    adding util.DbConfigParser
+    adding util.Logger
+    moving db_config.json to /assets/conf/
+    adding /assets/logs for log files
+
+[33mcommit 1a8213043b82a1215c28bc58465bf72ade9e5a2e[m
+Author: Elyes <chebbaelyes@gmail.com>
+Date:   Tue Feb 6 19:19:28 2018 +0100
+
+    first commit

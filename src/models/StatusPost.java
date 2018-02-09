@@ -28,8 +28,8 @@ public class StatusPost extends Post{
         this.Content = Content;
     }
 
-    public StatusPost(String Content, int id, Member owner, Timestamp date) {
-        super(id, owner, date);
+    public StatusPost(String Content, int id, int ownerId, Timestamp date) {
+        super(id, ownerId, date);
         this.Content = Content;
     }
 

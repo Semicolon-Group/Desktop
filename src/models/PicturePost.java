@@ -22,8 +22,8 @@ public class PicturePost extends Post{
         this.picturesUrls = new ArrayList<>();
     }
 
-    public PicturePost(int id, Member owner, Timestamp date) {
-        super(id, owner, date);
+    public PicturePost(int id, int ownerId, Timestamp date) {
+        super(id, ownerId, date);
         this.picturesUrls = new ArrayList<>();
     }
     

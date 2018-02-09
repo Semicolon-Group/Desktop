@@ -34,7 +34,7 @@ public abstract class Post {
         reactions = new ArrayList<>();
     }
 
-    public Post(int id, Member owner, Timestamp date) {
+    public Post(int id, int ownerId, Timestamp date) {
 	this.id = id;
 	this.ownerId = ownerId;
 	this.date = date;
