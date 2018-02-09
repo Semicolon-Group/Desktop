@@ -12,5 +12,5 @@ import java.sql.SQLException;
  * @author Elyes
  */
 public interface Update <T>{
-    T update(T obj) throws SQLException;
+    void update(T obj) throws SQLException;
 }

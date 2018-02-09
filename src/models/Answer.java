@@ -65,7 +65,7 @@ public class Answer {
 	return questionId;
     }
 
-    public void setQuestion(int questionId) {
+    public void setQuestionId(int questionId) {
 	this.questionId = questionId;
     }
 
