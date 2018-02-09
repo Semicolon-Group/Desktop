@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 09, 2018 at 03:50 PM
+-- Generation Time: Feb 09, 2018 at 08:06 PM
 -- Server version: 5.7.14
 -- PHP Version: 7.0.10
 
@@ -108,7 +108,7 @@ CREATE TABLE `feedback` (
   `content` text,
   `state` tinyint(1) DEFAULT NULL,
   `sender_id` int(11) NOT NULL,
-  `date` date DEFAULT NULL
+  `date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -284,7 +284,7 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `pseudo`, `firstname`, `lastname`, `email`, `password`, `birth_date`, `gender`, `height`, `body_type`, `children_number`, `relegion`, `relegion_importance`, `smoker`, `drinker`, `min_age`, `max_age`, `proximity`, `last_login`, `locked`, `ip`, `port`, `role`) VALUES
 (1, 'Pofper', 'seif', 'abdennadher', 'seif.abdennadher@esprit.tn', '123456', '2018-02-13', 1, 1.85, 1, 0, 1, 1, 0, 0, 18, 22, 1, '2018-02-06 00:00:00', 0, '127.0.0.1', 2515, 0),
-(2, 'Manga', 'Sarah', 'El Heni', 'sarah.elheni@gmail.com', '123456', '2018-02-15', 0, 1.7, 2, 0, 1, 1, 0, 0, 18, 25, 1, '2018-02-04 00:00:00', 0, '192.168.1.1', 2521, 0);
+(2, 'Manga', 'sarah', 'el sefi', 'sarah.elsefi@gmail.com', '123456', '2018-02-15', 0, 1.7, 2, 0, 1, 1, 0, 0, 18, 25, 1, '2018-02-04 00:00:00', 0, '192.168.1.1', 2521, 0);
 
 -- --------------------------------------------------------
 
