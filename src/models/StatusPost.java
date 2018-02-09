@@ -5,7 +5,7 @@
  */
 package models;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 
 
@@ -23,12 +23,12 @@ public class StatusPost extends Post{
         super(id);
     }
 
-    public StatusPost(String Content, int ownerId, Date date) {
+    public StatusPost(String Content, int ownerId, Timestamp date) {
         super(ownerId, date);
         this.Content = Content;
     }
 
-    public StatusPost(String Content, int id, Member owner, Date date) {
+    public StatusPost(String Content, int id, Member owner, Timestamp date) {
         super(id, owner, date);
         this.Content = Content;
     }

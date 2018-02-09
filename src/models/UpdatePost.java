@@ -5,6 +5,8 @@
  */
 package models;
 
+import java.sql.Timestamp;
+
 
 /**
  *
@@ -19,11 +21,11 @@ public class UpdatePost extends Post{
         super(id);
     }
 
-    public UpdatePost(int ownerId, java.sql.Date date) {
+    public UpdatePost(int ownerId, Timestamp date) {
         super(ownerId, date);
     }
 
-    public UpdatePost(int id, Member owner, java.sql.Date date) {
+    public UpdatePost(int id, Member owner, Timestamp date) {
         super(id, owner, date);
     }
 }

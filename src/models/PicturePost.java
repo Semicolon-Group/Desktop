@@ -1,6 +1,6 @@
 package models;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,12 +17,12 @@ public class PicturePost extends Post{
         picturesUrls = new ArrayList<>();
     }
     
-    public PicturePost(int ownerId, Date date) {
+    public PicturePost(int ownerId, Timestamp date) {
         super(ownerId, date);
         this.picturesUrls = new ArrayList<>();
     }
 
-    public PicturePost(int id, Member owner, Date date) {
+    public PicturePost(int id, Member owner, Timestamp date) {
         super(id, owner, date);
         this.picturesUrls = new ArrayList<>();
     }

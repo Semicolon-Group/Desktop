@@ -5,7 +5,7 @@
  */
 package models;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import models.Enumerations.NotificationType;
 
 /**
@@ -18,7 +18,7 @@ public class Notification {
     private int receiverId;
     private NotificationType type;
     private String content;
-    private Date date;
+    private Timestamp date;
     private String icon;
 
     public Notification() {
@@ -28,7 +28,7 @@ public class Notification {
         this.id = id;
     }
 
-    public Notification(int id, int senderId, int receiverId, NotificationType type, String content, Date date, String icon) {
+    public Notification(int id, int senderId, int receiverId, NotificationType type, String content, Timestamp date, String icon) {
 	this.id = id;
 	this.senderId = senderId;
 	this.receiverId = receiverId;
@@ -38,7 +38,7 @@ public class Notification {
 	this.icon = icon;
     }
 
-    public Notification(int senderId, int receiverId, NotificationType type, String content, Date date, String icon) {
+    public Notification(int senderId, int receiverId, NotificationType type, String content, Timestamp date, String icon) {
 	this.senderId = senderId;
 	this.receiverId = receiverId;
 	this.type = type;
@@ -87,11 +87,11 @@ public class Notification {
 	this.content = content;
     }
 
-    public Date getDate() {
+    public Timestamp getDate() {
 	return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(Timestamp date) {
 	this.date = date;
     }
 

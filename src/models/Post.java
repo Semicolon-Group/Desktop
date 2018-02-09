@@ -5,7 +5,7 @@
  */
 package models;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +16,7 @@ import java.util.List;
 public abstract class Post {
     private int id;
     private int ownerId;
-    private Date date;
+    private Timestamp date;
     private List<Reaction> reactions;
 
     public Post() {
@@ -28,13 +28,13 @@ public abstract class Post {
         reactions = new ArrayList<>();
     }
 
-    public Post(int ownerId, Date date) {
+    public Post(int ownerId, Timestamp date) {
 	this.ownerId = ownerId;
 	this.date = date;
         reactions = new ArrayList<>();
     }
 
-    public Post(int id, Member owner, Date date) {
+    public Post(int id, Member owner, Timestamp date) {
 	this.id = id;
 	this.ownerId = ownerId;
 	this.date = date;
@@ -57,11 +57,11 @@ public abstract class Post {
         this.ownerId = ownerId;
     }
 
-    public Date getDate() {
+    public Timestamp getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(Timestamp date) {
         this.date = date;
     }
 

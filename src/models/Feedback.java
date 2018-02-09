@@ -5,7 +5,8 @@
  */
 package models;
 
-import java.sql.Date;
+import java.sql.Timestamp;
+
 
 /**
  *
@@ -16,12 +17,16 @@ public class Feedback {
     private int senderId;
     private String content;
     private boolean state;
-    private Date date;
+    private Timestamp date;
 
     public Feedback() {
     }
+    
+    public Feedback(int id){
+        this.id = id;
+    }
 
-    public Feedback(int id, int senderId, String content, boolean state, Date date) {
+    public Feedback(int id, int senderId, String content, boolean state, Timestamp date) {
 	this.id = id;
 	this.senderId = senderId;
 	this.content = content;
@@ -29,7 +34,7 @@ public class Feedback {
         this.date = date;
     }
 
-    public Feedback(int senderId, String content, boolean state, Date date) {
+    public Feedback(int senderId, String content, boolean state, Timestamp date) {
 	this.senderId = senderId;
 	this.content = content;
 	this.state = state;
@@ -68,11 +73,11 @@ public class Feedback {
 	this.state = state;
     }
     
-    public Date getDate(){
+    public Timestamp getDate(){
         return this.date;
     }
     
-    public void setDate(Date date){
+    public void setDate(Timestamp date){
         this.date = date;
     }
     

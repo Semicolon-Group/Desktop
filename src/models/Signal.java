@@ -5,7 +5,7 @@
  */
 package models;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import models.Enumerations.SignalReason;
 
 /**
@@ -18,7 +18,7 @@ public class Signal {
     private int receiverId;
     private SignalReason reason;
     private boolean state;
-    private Date date;
+    private Timestamp date;
 
     public Signal() {
     }
@@ -27,7 +27,7 @@ public class Signal {
         this.id = id;
     }
 
-    public Signal(int senderId, int receiverId, SignalReason reason, boolean state, Date date) {
+    public Signal(int senderId, int receiverId, SignalReason reason, boolean state, Timestamp date) {
 	this.senderId = senderId;
 	this.receiverId = receiverId;
 	this.reason = reason;
@@ -35,7 +35,7 @@ public class Signal {
 	this.date = date;
     }
 
-    public Signal(int id, int senderId, int receiverId, SignalReason reason, boolean state, Date date) {
+    public Signal(int id, int senderId, int receiverId, SignalReason reason, boolean state, Timestamp date) {
 	this.id = id;
 	this.senderId = senderId;
 	this.receiverId = receiverId;
@@ -84,11 +84,11 @@ public class Signal {
 	this.state = state;
     }
 
-    public Date getDate() {
+    public Timestamp getDate() {
 	return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(Timestamp date) {
 	this.date = date;
     }
     

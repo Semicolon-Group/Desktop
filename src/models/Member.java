@@ -6,10 +6,9 @@
 package models;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.TreeSet;
 import models.Enumerations.BodyType;
 import models.Enumerations.Importance;
 import models.Enumerations.MaritalStatus;
@@ -34,7 +33,7 @@ public class Member extends User{
     private int minAge;
     private int maxAge;
     private Proximity proximity;
-    private Date lastLogin;
+    private Timestamp lastLogin;
     private short locked;
     private Address address;
     private List<String> photos;
@@ -54,7 +53,7 @@ public class Member extends User{
         preferedStatuses = new ArrayList<>();
     }
 
-    public Member(Date birthDate, boolean gender, float height, BodyType bodyType, int childrenNumber, Religion religion, Importance religionImportance, boolean smoker, boolean drinker, int minAge, int maxAge, Proximity proximity, Date lastLogin, short locked, Address address, String pseudo, String nom, String prenom, String email, String password) {
+    public Member(Date birthDate, boolean gender, float height, BodyType bodyType, int childrenNumber, Religion religion, Importance religionImportance, boolean smoker, boolean drinker, int minAge, int maxAge, Proximity proximity, Timestamp lastLogin, short locked, Address address, String pseudo, String nom, String prenom, String email, String password) {
         super(pseudo, nom, prenom, email, password);
         photos = new ArrayList<>();
         this.birthDate = birthDate;
@@ -76,7 +75,7 @@ public class Member extends User{
         preferedStatuses = new ArrayList<>();
     }
 
-    public Member(Date birthDate, boolean gender, float height, BodyType bodyType, int childrenNumber, Religion religion, Importance religionImportance, boolean smoker, boolean drinker, int minAge, int maxAge, Proximity proximity, Date lastLogin, short locked, Address address, int id, String pseudo, String nom, String prenom, String email, String password) {
+    public Member(Date birthDate, boolean gender, float height, BodyType bodyType, int childrenNumber, Religion religion, Importance religionImportance, boolean smoker, boolean drinker, int minAge, int maxAge, Proximity proximity, Timestamp lastLogin, short locked, Address address, int id, String pseudo, String nom, String prenom, String email, String password) {
         super(id, pseudo, nom, prenom, email, password);
         this.birthDate = birthDate;
         this.gender = gender;
@@ -193,11 +192,11 @@ public class Member extends User{
 	this.proximity = proximity;
     }
 
-    public Date getLastLogin() {
+    public Timestamp getLastLogin() {
 	return lastLogin;
     }
 
-    public void setLastLogin(Date lastLogin) {
+    public void setLastLogin(Timestamp lastLogin) {
 	this.lastLogin = lastLogin;
     }
 

@@ -5,7 +5,7 @@
  */
 package models;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 
 /**
@@ -15,11 +15,11 @@ import java.sql.Date;
 public class Message {
     private int id;
     private String content;
-    private Date date;
+    private Timestamp date;
     private int senderId;
     private int receiverId;
     private boolean seen;
-    private Date seenDate;
+    private Timestamp seenDate;
 
     public Message() {
     }
@@ -28,7 +28,7 @@ public class Message {
         this.id = id;
     }
 
-    public Message(int id, String content, Date date, int senderId, int receiverId, boolean seen, Date seenDate) {
+    public Message(int id, String content, Timestamp date, int senderId, int receiverId, boolean seen, Timestamp seenDate) {
 	this.id = id;
 	this.content = content;
 	this.date = date;
@@ -38,7 +38,7 @@ public class Message {
 	this.seenDate = seenDate;
     }
 
-    public Message(String content, Date date, int senderId, int receiverId, boolean seen, Date seenDate) {
+    public Message(String content, Timestamp date, int senderId, int receiverId, boolean seen, Timestamp seenDate) {
 	this.content = content;
 	this.date = date;
 	this.senderId = senderId;
@@ -63,11 +63,11 @@ public class Message {
 	this.content = content;
     }
 
-    public Date getDate() {
+    public Timestamp getDate() {
 	return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(Timestamp date) {
 	this.date = date;
     }
 
@@ -95,11 +95,11 @@ public class Message {
 	this.seen = seen;
     }
 
-    public Date getSeenDate() {
+    public Timestamp getSeenDate() {
 	return seenDate;
     }
 
-    public void setSeenDate(Date seenDate) {
+    public void setSeenDate(Timestamp seenDate) {
 	this.seenDate = seenDate;
     }
 

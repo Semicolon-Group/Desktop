@@ -6,6 +6,7 @@
 package models;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 
 /**
@@ -15,12 +16,12 @@ import java.sql.Date;
 public class Block {
     private int senderId;
     private int receiverId;
-    private Date date;
+    private Timestamp date;
     
     public Block() {
     }
 
-    public Block(int senderId, int receiverId, Date date) {
+    public Block(int senderId, int receiverId, Timestamp date) {
 	this.senderId = senderId;
 	this.receiverId = receiverId;
 	this.date = date;
@@ -42,11 +43,11 @@ public class Block {
 	this.receiverId = receiverId;
     }
 
-    public Date getDate() {
+    public Timestamp getDate() {
 	return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(Timestamp date) {
 	this.date = date;
     }
 }

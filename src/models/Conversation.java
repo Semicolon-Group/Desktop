@@ -5,8 +5,8 @@
  */
 package models;
 
-import java.sql.Date;
-import java.util.TreeSet;
+import java.sql.Timestamp;
+
 
 /**
  *
@@ -16,7 +16,7 @@ public class Conversation {
     private int id;
     private String label;
     private boolean seen;
-    private Date seenDate;
+    private Timestamp seenDate;
     private int person1Id;
     private int person2Id;
 
@@ -27,7 +27,7 @@ public class Conversation {
         this.id = id;
     }
 
-    public Conversation(int id, String label, boolean seen, Date seenDate, int person1Id, int person2Id) {
+    public Conversation(int id, String label, boolean seen, Timestamp seenDate, int person1Id, int person2Id) {
 	this.id = id;
 	this.label = label;
 	this.seen = seen;
@@ -36,7 +36,7 @@ public class Conversation {
 	this.person2Id = person2Id;
     }
 
-    public Conversation(String label, boolean seen, Date seenDate, int person1Id, int person2Id) {
+    public Conversation(String label, boolean seen, Timestamp seenDate, int person1Id, int person2Id) {
 	this.label = label;
 	this.seen = seen;
 	this.seenDate = seenDate;
@@ -68,11 +68,11 @@ public class Conversation {
 	this.seen = seen;
     }
 
-    public Date getSeenDate() {
+    public Timestamp getSeenDate() {
 	return seenDate;
     }
 
-    public void setSeenDate(Date seenDate) {
+    public void setSeenDate(Timestamp seenDate) {
 	this.seenDate = seenDate;
     }
 

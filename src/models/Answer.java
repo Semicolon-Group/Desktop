@@ -6,6 +6,7 @@
 package models;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.HashSet;
 import models.Enumerations.Importance;
 
@@ -16,7 +17,7 @@ import models.Enumerations.Importance;
 public class Answer {
     private int id;
     private int questionId;
-    private Date date;
+    private Timestamp date;
     private Importance importance;
     private int memberId;
     private HashSet<Choice> selectedChoices;
@@ -33,7 +34,7 @@ public class Answer {
         acceptedChoices = new HashSet<>();
     }
 
-    public Answer(int questionId, Date date, Importance importance, int memberId) {
+    public Answer(int questionId, Timestamp date, Importance importance, int memberId) {
 	this.questionId = questionId;
 	this.date = date;
 	this.importance = importance;
@@ -42,7 +43,7 @@ public class Answer {
         acceptedChoices = new HashSet<>();
     }
 
-    public Answer(int id, int questionId, Date date, Importance importance, int memberId) {
+    public Answer(int id, int questionId, Timestamp date, Importance importance, int memberId) {
 	this.id = id;
 	this.questionId = questionId;
 	this.date = date;
@@ -68,11 +69,11 @@ public class Answer {
 	this.questionId = questionId;
     }
 
-    public Date getDate() {
+    public Timestamp getDate() {
 	return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(Timestamp date) {
 	this.date = date;
     }
 
