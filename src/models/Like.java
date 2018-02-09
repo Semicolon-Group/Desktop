@@ -5,56 +5,41 @@
  */
 package models;
 
-import java.util.Date;
+import java.sql.Date;
+
 
 /**
  *
  * @author Elyes
  */
 public class Like {
-    private int id;
-    private Member sender;
-    private Member receiver;
+    private int senderId;
+    private int receiverId;
     private Date date;
 
     public Like() {
     }
 
-    public Like(Member sender, Member receiver, Date date) {
-	this.sender = sender;
-	this.receiver = receiver;
+    public Like(int senderId, int receiverId, Date date) {
+	this.senderId = senderId;
+	this.receiverId = receiverId;
 	this.date = date;
     }
 
-    public Like(int id, Member sender, Member receiver, Date date) {
-	this.id = id;
-	this.sender = sender;
-	this.receiver = receiver;
-	this.date = date;
+    public int getSenderId() {
+	return senderId;
     }
 
-    public int getId() {
-	return id;
+    public void setSenderId(int senderId) {
+	this.senderId = senderId;
     }
 
-    public void setId(int id) {
-	this.id = id;
+    public int getReceiverId() {
+	return receiverId;
     }
 
-    public Member getSender() {
-	return sender;
-    }
-
-    public void setSender(Member sender) {
-	this.sender = sender;
-    }
-
-    public Member getReceiver() {
-	return receiver;
-    }
-
-    public void setReceiver(Member receiver) {
-	this.receiver = receiver;
+    public void setReceiverId(int receiverId) {
+	this.receiverId = receiverId;
     }
 
     public Date getDate() {

@@ -5,30 +5,35 @@
  */
 package models;
 
+import java.sql.Date;
+
 /**
  *
  * @author Elyes
  */
 public class Feedback {
     private int id;
-    private Member sender;
+    private int senderId;
     private String content;
     private boolean state;
+    private Date date;
 
     public Feedback() {
     }
 
-    public Feedback(int id, Member sender, String content, boolean state) {
+    public Feedback(int id, int senderId, String content, boolean state, Date date) {
 	this.id = id;
-	this.sender = sender;
+	this.senderId = senderId;
 	this.content = content;
 	this.state = state;
+        this.date = date;
     }
 
-    public Feedback(Member sender, String content, boolean state) {
-	this.sender = sender;
+    public Feedback(int senderId, String content, boolean state, Date date) {
+	this.senderId = senderId;
 	this.content = content;
 	this.state = state;
+        this.date = date;
     }
 
     public int getId() {
@@ -39,12 +44,12 @@ public class Feedback {
 	this.id = id;
     }
 
-    public Member getSender() {
-	return sender;
+    public int getSenderId() {
+	return senderId;
     }
 
-    public void setSender(Member sender) {
-	this.sender = sender;
+    public void setSenderId(int senderId) {
+	this.senderId = senderId;
     }
 
     public String getContent() {
@@ -61,6 +66,14 @@ public class Feedback {
 
     public void setState(boolean state) {
 	this.state = state;
+    }
+    
+    public Date getDate(){
+        return this.date;
+    }
+    
+    public void setDate(Date date){
+        this.date = date;
     }
     
 }

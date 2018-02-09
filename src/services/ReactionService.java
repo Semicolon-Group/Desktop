@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package services;
 
 import iservice.Create;
@@ -10,44 +5,41 @@ import iservice.Delete;
 import iservice.Read;
 import java.sql.SQLException;
 import java.util.List;
-import models.Like;
+import models.Reaction;
 
-/**
- *
- * @author Elyes
- */
-public class LikeService extends Service implements Create<Like>,Delete<Like>,Read<Like>{
+public class ReactionService extends Service implements Create<Reaction>, Read<Reaction>, Delete<Reaction> {
 
-    private static LikeService likeService;
+    private static ReactionService reactionService;
     
-    private LikeService(){
+    private ReactionService(){
         super();
     }
     
-    public static LikeService getInstance(){
-        if(likeService == null){
-            return likeService = new LikeService();
+    public static ReactionService getInstance(){
+        if(reactionService == null){
+            return reactionService = new ReactionService();
         }
-        return likeService;
+        return reactionService;
     }
-
+    
     @Override
-    public Like create(Like obj) throws SQLException {
+    public Reaction create(Reaction obj) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(Like obj) throws SQLException {
+    public Reaction get(Reaction obj) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Like get(Like obj) throws SQLException {
+    public List<Reaction> getAll(Reaction obj) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Like> getAll(Like obj) throws SQLException {
+    public void delete(Reaction obj) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
 }

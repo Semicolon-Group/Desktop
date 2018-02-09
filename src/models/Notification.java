@@ -5,7 +5,7 @@
  */
 package models;
 
-import java.util.Date;
+import java.sql.Date;
 import models.Enumerations.NotificationType;
 
 /**
@@ -14,8 +14,8 @@ import models.Enumerations.NotificationType;
  */
 public class Notification {
     private int id;
-    private User sender;
-    private User receiver;
+    private int senderId;
+    private int receiverId;
     private NotificationType type;
     private String content;
     private Date date;
@@ -23,20 +23,24 @@ public class Notification {
 
     public Notification() {
     }
+    
+    public Notification(int id){
+        this.id = id;
+    }
 
-    public Notification(int id, User sender, User receiver, NotificationType type, String content, Date date, String icon) {
+    public Notification(int id, int senderId, int receiverId, NotificationType type, String content, Date date, String icon) {
 	this.id = id;
-	this.sender = sender;
-	this.receiver = receiver;
+	this.senderId = senderId;
+	this.receiverId = receiverId;
 	this.type = type;
 	this.content = content;
 	this.date = date;
 	this.icon = icon;
     }
 
-    public Notification(User sender, User receiver, NotificationType type, String content, Date date, String icon) {
-	this.sender = sender;
-	this.receiver = receiver;
+    public Notification(int senderId, int receiverId, NotificationType type, String content, Date date, String icon) {
+	this.senderId = senderId;
+	this.receiverId = receiverId;
 	this.type = type;
 	this.content = content;
 	this.date = date;
@@ -51,20 +55,20 @@ public class Notification {
 	this.id = id;
     }
 
-    public User getSender() {
-	return sender;
+    public int getSenderId() {
+	return senderId;
     }
 
-    public void setSender(User sender) {
-	this.sender = sender;
+    public void setSenderId(int senderId) {
+	this.senderId = senderId;
     }
 
-    public User getReceiver() {
-	return receiver;
+    public int getReceiverId() {
+	return receiverId;
     }
 
-    public void setReceiver(User receiver) {
-	this.receiver = receiver;
+    public void setReceiverId(int receiverId) {
+	this.receiverId = receiverId;
     }
 
     public NotificationType getType() {

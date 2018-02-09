@@ -16,26 +16,38 @@ import models.Conversation;
  *
  * @author Elyes
  */
-public class ConversationService implements Create<Conversation>,Update<Conversation>,Read<Conversation>{
+public class ConversationService extends Service implements Create<Conversation>,Update<Conversation>,Read<Conversation>{
 
-    @Override
-    public boolean create(Conversation object) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private static ConversationService conversationService;
+    
+    private ConversationService(){
+        super();
+    }
+    
+    public static ConversationService getInstance(){
+        if(conversationService == null){
+            return conversationService = new ConversationService();
+        }
+        return conversationService;
     }
 
     @Override
-    public boolean update(Conversation object) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Conversation create(Conversation obj) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Conversation update(Conversation obj) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public Conversation get(Conversation obj) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public List<Conversation> getAll(Conversation obj) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
 }

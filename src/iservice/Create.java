@@ -12,5 +12,5 @@ import java.sql.SQLException;
  * @author Elyes
  */
 public interface Create <T> {
-    boolean create(T object) throws SQLException;
+    T create(T obj) throws SQLException;
 }

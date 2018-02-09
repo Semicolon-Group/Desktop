@@ -14,20 +14,26 @@ import java.util.HashSet;
 public class Question {
     private int id;
     private String question;
-    private HashSet<String> choices;
+    private HashSet<Choice> choices;
 
     public Question() {
+        choices = new HashSet<>();
+    }
+    
+    public Question(int id){
+        this.id = id;
+        choices = new HashSet<>();
     }
 
     public Question(int id, String question, HashSet<String> choices) {
 	this.id = id;
 	this.question = question;
-	this.choices = choices;
+        this.choices = new HashSet<>();
     }
 
     public Question(String question, HashSet<String> choices) {
 	this.question = question;
-	this.choices = choices;
+        this.choices = new HashSet<>();
     }
 
     public int getId() {
@@ -46,11 +52,7 @@ public class Question {
 	this.question = question;
     }
 
-    public HashSet<String> getChoices() {
+    public HashSet<Choice> getChoices() {
 	return choices;
-    }
-
-    public void setChoices(HashSet<String> choices) {
-	this.choices = choices;
     }
 }

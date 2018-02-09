@@ -16,26 +16,38 @@ import models.Block;
  *
  * @author Elyes
  */
-public class BlockService implements Create<Block>,Delete<Block>,Read<Block>{
+public class BlockService extends Service implements Create<Block>,Delete<Block>,Read<Block>{
 
-    @Override
-    public boolean create(Block object) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private static BlockService blockService;
+    
+    private BlockService(){
+        super();
+    }
+    
+    public static BlockService getInstance(){
+        if(blockService == null){
+            return blockService = new BlockService();
+        }
+        return blockService;
     }
 
     @Override
-    public boolean delete(Block object) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Block create(Block obj) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void delete(Block obj) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public Block get(Block obj) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public List<Block> getAll(Block obj) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
 }

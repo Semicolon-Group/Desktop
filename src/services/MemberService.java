@@ -16,26 +16,38 @@ import models.Member;
  *
  * @author Elyes
  */
-public class MemberService implements Create<Member>,Update<Member>,Read<Member>{
+public class MemberService extends Service implements Create<Member>,Update<Member>,Read<Member>{
 
-    @Override
-    public boolean create(Member object) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private static MemberService memberService;
+    
+    private MemberService(){
+        super();
+    }
+    
+    public static MemberService getInstance(){
+        if(memberService == null){
+            return memberService = new MemberService();
+        }
+        return memberService;
     }
 
     @Override
-    public boolean update(Member object) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Member create(Member obj) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Member update(Member obj) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public Member get(Member obj) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public List<Member> getAll(Member obj) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
 }

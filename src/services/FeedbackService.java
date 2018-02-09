@@ -16,27 +16,38 @@ import models.Feedback;
  *
  * @author Elyes
  */
-public class FeedbackService implements Create<Feedback>,Update<Feedback>,Read<Feedback>{
+public class FeedbackService extends Service implements Create<Feedback>,Update<Feedback>,Read<Feedback>{
 
-    @Override
-    public boolean create(Feedback object) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private static FeedbackService feedbackService;
+    
+    private FeedbackService(){
+        super();
+    }
+    
+    public static FeedbackService getInstance(){
+        if(feedbackService == null){
+            return feedbackService = new FeedbackService();
+        }
+        return feedbackService;
     }
 
     @Override
-    public boolean update(Feedback object) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Feedback create(Feedback obj) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Feedback update(Feedback obj) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public Feedback get(Feedback obj) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public List<Feedback> getAll(Feedback obj) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    
 }
