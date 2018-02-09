@@ -25,7 +25,7 @@ public class UpdatePost extends Post{
         super(ownerId, date);
     }
 
-    public UpdatePost(int id, Member owner, Timestamp date) {
-        super(id, owner, date);
+    public UpdatePost(int id, int ownerId, Timestamp date) {
+        super(id, ownerId, date);
     }
 }

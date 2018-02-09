@@ -36,26 +36,22 @@ public class Member extends User{
     private Timestamp lastLogin;
     private short locked;
     private Address address;
-    private List<String> photos;
     private List<RelationType> preferedRelations;
     private List<MaritalStatus> preferedStatuses;
 
     public Member() {
-        photos = new ArrayList<>();
         preferedRelations = new ArrayList<>();
         preferedStatuses = new ArrayList<>();
     }
     
     public Member(int id){
         super(id);
-        photos = new ArrayList<>();
         preferedRelations = new ArrayList<>();
         preferedStatuses = new ArrayList<>();
     }
 
     public Member(Date birthDate, boolean gender, float height, BodyType bodyType, int childrenNumber, Religion religion, Importance religionImportance, boolean smoker, boolean drinker, int minAge, int maxAge, Proximity proximity, Timestamp lastLogin, short locked, Address address, String pseudo, String nom, String prenom, String email, String password) {
         super(pseudo, nom, prenom, email, password);
-        photos = new ArrayList<>();
         this.birthDate = birthDate;
         this.gender = gender;
         this.height = height;
@@ -214,10 +210,6 @@ public class Member extends User{
 
     public void setAddress(Address address) {
         this.address = address;
-    }
-
-    public List<String> getPhotos() {
-        return photos;
     }
 
     public List<RelationType> getPreferedRelations() {

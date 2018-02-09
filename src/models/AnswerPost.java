@@ -5,24 +5,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AnswerPost extends Post{
-    private List<Integer> answersIds;
+    private int answerId;
 
     public AnswerPost(int id) {
         super(id);
-        this.answersIds = new ArrayList<>();
     }
 
     public AnswerPost(int ownerId, Timestamp date) {
         super(ownerId, date);
-        this.answersIds = new ArrayList<>();
     }
 
-    public AnswerPost(int id, Member owner, Timestamp date) {
-        super(id, owner, date);
-        this.answersIds = new ArrayList<>();
+    public AnswerPost(int answerId, int id, int ownerId, Timestamp date) {
+	super(id, ownerId, date);
+	this.answerId = answerId;
     }
     
-    public List<Integer> getAnswersIds(){
-        return this.answersIds;
+
+    public AnswerPost(int id, int ownerId, Timestamp date) {
+        super(id, ownerId, date);
     }
+
+    public int getAnswerId() {
+	return answerId;
+    }
+
+    public void setAnswerId(int answerId) {
+	this.answerId = answerId;
+    }
+    
+    
 }
