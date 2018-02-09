@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.4
--- https://www.phpmyadmin.net/
+-- version 4.5.1
+-- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 09, 2018 at 08:06 PM
--- Server version: 5.7.14
--- PHP Version: 7.0.10
+-- Generation Time: Feb 09, 2018 at 11:28 PM
+-- Server version: 10.1.19-MariaDB
+-- PHP Version: 7.0.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -140,7 +140,9 @@ CREATE TABLE `notification` (
   `icon` text,
   `sender_id` int(11) DEFAULT NULL,
   `receiver_id` int(11) DEFAULT NULL,
-  `type` int(11) DEFAULT NULL
+  `photo_id` int(11) DEFAULT NULL,
+  `answer_id` int(11) DEFAULT NULL,
+  `type` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -152,7 +154,8 @@ CREATE TABLE `notification` (
 CREATE TABLE `photo` (
   `id` int(11) NOT NULL,
   `url` text,
-  `user_id` int(11) DEFAULT NULL
+  `user_id` int(11) DEFAULT NULL,
+  `date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -165,32 +168,7 @@ CREATE TABLE `post` (
   `id` int(11) NOT NULL,
   `date` datetime DEFAULT NULL,
   `content` text,
-  `type` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `post_answer`
---
-
-CREATE TABLE `post_answer` (
-  `id` int(11) NOT NULL,
-  `post_id` int(11) NOT NULL,
-  `answer_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `post_picture`
---
-
-CREATE TABLE `post_picture` (
-  `id` int(11) NOT NULL,
-  `post_id` int(11) DEFAULT NULL,
-  `url` text
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -275,16 +253,10 @@ CREATE TABLE `user` (
   `locked` smallint(6) DEFAULT NULL,
   `ip` varchar(15) DEFAULT NULL,
   `port` int(11) DEFAULT NULL,
-  `role` tinyint(1) DEFAULT NULL
+  `role` tinyint(1) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `user`
---
-
-INSERT INTO `user` (`id`, `pseudo`, `firstname`, `lastname`, `email`, `password`, `birth_date`, `gender`, `height`, `body_type`, `children_number`, `relegion`, `relegion_importance`, `smoker`, `drinker`, `min_age`, `max_age`, `proximity`, `last_login`, `locked`, `ip`, `port`, `role`) VALUES
-(1, 'Pofper', 'seif', 'abdennadher', 'seif.abdennadher@esprit.tn', '123456', '2018-02-13', 1, 1.85, 1, 0, 1, 1, 0, 0, 18, 22, 1, '2018-02-06 00:00:00', 0, '127.0.0.1', 2515, 0),
-(2, 'Manga', 'sarah', 'el sefi', 'sarah.elsefi@gmail.com', '123456', '2018-02-15', 0, 1.7, 2, 0, 1, 1, 0, 0, 18, 25, 1, '2018-02-04 00:00:00', 0, '192.168.1.1', 2521, 0);
 
 -- --------------------------------------------------------
 
@@ -393,7 +365,9 @@ ALTER TABLE `message`
 ALTER TABLE `notification`
   ADD PRIMARY KEY (`id`),
   ADD KEY `sender_id` (`sender_id`),
-  ADD KEY `receiver_id` (`receiver_id`);
+  ADD KEY `receiver_id` (`receiver_id`),
+  ADD KEY `photo_id` (`photo_id`,`answer_id`),
+  ADD KEY `answer_notification` (`answer_id`);
 
 --
 -- Indexes for table `photo`
@@ -408,21 +382,6 @@ ALTER TABLE `photo`
 ALTER TABLE `post`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`);
-
---
--- Indexes for table `post_answer`
---
-ALTER TABLE `post_answer`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `answer_id` (`answer_id`),
-  ADD KEY `post_id` (`post_id`);
-
---
--- Indexes for table `post_picture`
---
-ALTER TABLE `post_picture`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `post_id` (`post_id`);
 
 --
 -- Indexes for table `post_reaction`
@@ -524,16 +483,6 @@ ALTER TABLE `photo`
 ALTER TABLE `post`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `post_answer`
---
-ALTER TABLE `post_answer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `post_picture`
---
-ALTER TABLE `post_picture`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
 -- AUTO_INCREMENT for table `question`
 --
 ALTER TABLE `question`
@@ -609,6 +558,8 @@ ALTER TABLE `message`
 -- Constraints for table `notification`
 --
 ALTER TABLE `notification`
+  ADD CONSTRAINT `answer_notification` FOREIGN KEY (`answer_id`) REFERENCES `answer` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `photo_notification` FOREIGN KEY (`photo_id`) REFERENCES `photo` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `receiver_notification` FOREIGN KEY (`receiver_id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `sender_notification` FOREIGN KEY (`sender_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
 
@@ -623,19 +574,6 @@ ALTER TABLE `photo`
 --
 ALTER TABLE `post`
   ADD CONSTRAINT `user_post` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `post_answer`
---
-ALTER TABLE `post_answer`
-  ADD CONSTRAINT `answer_post_answer` FOREIGN KEY (`answer_id`) REFERENCES `answer` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `post_answer` FOREIGN KEY (`post_id`) REFERENCES `post` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `post_picture`
---
-ALTER TABLE `post_picture`
-  ADD CONSTRAINT `post_picture` FOREIGN KEY (`post_id`) REFERENCES `post` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `post_reaction`
