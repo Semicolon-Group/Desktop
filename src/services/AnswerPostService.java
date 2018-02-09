@@ -29,33 +29,7 @@ public class AnswerPostService extends Service implements Create<AnswerPost>,Del
 
     @Override
     public AnswerPost create(AnswerPost obj) throws SQLException {
-	/*
-	* Insertion into "post" table.
-	*/
-	String req = "INSERT INTO `post`(`date`, `content`, `type`, `user_id`) VALUES (?,?,?,?)";
-	PreparedStatement pst = CONNECTION.prepareStatement(req);
-	pst.setTimestamp(1, obj.getDate());
-	pst.setString(2, "");
-	pst.setInt(3, PostType.ANSWER.ordinal());
-	pst.setInt(4, obj.getId());
-	pst.executeUpdate();
-	/*
-	* Insertion into "answerpost" table.
-	*/
-	req = "INSERT INTO `post_answer`(`post_id`, `answer_id`) VALUES (?,?)";
-	pst = CONNECTION.prepareStatement(req);
-	pst.setInt(1, obj.getId());
-	pst.setInt(2, obj.getAnswerId());
-	pst.executeUpdate();
-	/*
-	* Retrieval of new AnswerPost id.
-	*/
-	req = "SELECT MAX(id) FROM `post_answer`";
-	pst = CONNECTION.prepareStatement(req);
-	ResultSet rs = pst.executeQuery();
-	rs.next();
-	obj.setId(rs.getInt("id"));
-	return obj;
+	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -74,7 +48,7 @@ public class AnswerPostService extends Service implements Create<AnswerPost>,Del
     }
 
     @Override
-    public AnswerPost update(AnswerPost obj) throws SQLException {
+    public void update(AnswerPost obj) throws SQLException {
 	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

@@ -18,12 +18,14 @@ public class Admin extends User{
         super(id);
     }
 
-    public Admin(int id, String pseudo, String nom, String prenom, String email, String password) {
-	super(id, pseudo, nom, prenom, email, password);
+    public Admin(int id, String pseudo, String firstname, String lastname, String email, String password, String ip, int port) {
+	super(id, pseudo, firstname, lastname, email, password, ip, port);
     }
 
-    public Admin(String pseudo, String nom, String prenom, String email, String password) {
-	super(pseudo, nom, prenom, email, password);
+    public Admin(String pseudo, String firstname, String lastname, String email, String password, String ip, int port) {
+	super(pseudo, firstname, lastname, email, password, ip, port);
     }
+
+    
     
 }
