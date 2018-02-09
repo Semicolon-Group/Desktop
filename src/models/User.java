@@ -16,6 +16,8 @@ public abstract class User {
     private String lastname;
     private String email;
     private String password;
+    private String ip;
+    private int port;
 
     public User() {
     }
@@ -24,21 +26,41 @@ public abstract class User {
         this.id = id;
     }
 
-    public User(int id, String pseudo, String firstname, String lastname, String email, String password) {
+    public User(int id, String pseudo, String firstname, String lastname, String email, String password, String ip, int port) {
 	this.id = id;
 	this.pseudo = pseudo;
 	this.firstname = firstname;
 	this.lastname = lastname;
 	this.email = email;
 	this.password = password;
+	this.ip = ip;
+	this.port = port;
     }
 
-    public User(String pseudo, String firstname, String lastname, String email, String password) {
+    public User(String pseudo, String firstname, String lastname, String email, String password, String ip, int port) {
 	this.pseudo = pseudo;
 	this.firstname = firstname;
 	this.lastname = lastname;
 	this.email = email;
 	this.password = password;
+	this.ip = ip;
+	this.port = port;
+    }
+
+    public String getIp() {
+	return ip;
+    }
+
+    public void setIp(String ip) {
+	this.ip = ip;
+    }
+
+    public int getPort() {
+	return port;
+    }
+
+    public void setPort(int port) {
+	this.port = port;
     }
 
     public int getId() {

@@ -50,47 +50,49 @@ public class Member extends User{
         preferedStatuses = new ArrayList<>();
     }
 
-    public Member(Date birthDate, boolean gender, float height, BodyType bodyType, int childrenNumber, Religion religion, Importance religionImportance, boolean smoker, boolean drinker, int minAge, int maxAge, Proximity proximity, Timestamp lastLogin, short locked, Address address, String pseudo, String nom, String prenom, String email, String password) {
-        super(pseudo, nom, prenom, email, password);
-        this.birthDate = birthDate;
-        this.gender = gender;
-        this.height = height;
-        this.bodyType = bodyType;
-        this.childrenNumber = childrenNumber;
-        this.religion = religion;
-        this.religionImportance = religionImportance;
-        this.smoker = smoker;
-        this.drinker = drinker;
-        this.minAge = minAge;
-        this.maxAge = maxAge;
-        this.proximity = proximity;
-        this.lastLogin = lastLogin;
-        this.locked = locked;
-        this.address = address;
-        preferedRelations = new ArrayList<>();
-        preferedStatuses = new ArrayList<>();
+    public Member(Date birthDate, boolean gender, float height, BodyType bodyType, int childrenNumber, Religion religion, Importance religionImportance, boolean smoker, boolean drinker, int minAge, int maxAge, Proximity proximity, Timestamp lastLogin, short locked, Address address, int id, String pseudo, String firstname, String lastname, String email, String password, String ip, int port) {
+	super(id, pseudo, firstname, lastname, email, password, ip, port);
+	this.birthDate = birthDate;
+	this.gender = gender;
+	this.height = height;
+	this.bodyType = bodyType;
+	this.childrenNumber = childrenNumber;
+	this.religion = religion;
+	this.religionImportance = religionImportance;
+	this.smoker = smoker;
+	this.drinker = drinker;
+	this.minAge = minAge;
+	this.maxAge = maxAge;
+	this.proximity = proximity;
+	this.lastLogin = lastLogin;
+	this.locked = locked;
+	this.address = address;
+	this.preferedRelations = new ArrayList<RelationType>();
+	this.preferedStatuses = new ArrayList<MaritalStatus>();
     }
 
-    public Member(Date birthDate, boolean gender, float height, BodyType bodyType, int childrenNumber, Religion religion, Importance religionImportance, boolean smoker, boolean drinker, int minAge, int maxAge, Proximity proximity, Timestamp lastLogin, short locked, Address address, int id, String pseudo, String nom, String prenom, String email, String password) {
-        super(id, pseudo, nom, prenom, email, password);
-        this.birthDate = birthDate;
-        this.gender = gender;
-        this.height = height;
-        this.bodyType = bodyType;
-        this.childrenNumber = childrenNumber;
-        this.religion = religion;
-        this.religionImportance = religionImportance;
-        this.smoker = smoker;
-        this.drinker = drinker;
-        this.minAge = minAge;
-        this.maxAge = maxAge;
-        this.proximity = proximity;
-        this.lastLogin = lastLogin;
-        this.locked = locked;
-        this.address = address;
-        preferedRelations = new ArrayList<>();
-        preferedStatuses = new ArrayList<>();
+    public Member(Date birthDate, boolean gender, float height, BodyType bodyType, int childrenNumber, Religion religion, Importance religionImportance, boolean smoker, boolean drinker, int minAge, int maxAge, Proximity proximity, Timestamp lastLogin, short locked, Address address, String pseudo, String firstname, String lastname, String email, String password, String ip, int port) {
+	super(pseudo, firstname, lastname, email, password, ip, port);
+	this.birthDate = birthDate;
+	this.gender = gender;
+	this.height = height;
+	this.bodyType = bodyType;
+	this.childrenNumber = childrenNumber;
+	this.religion = religion;
+	this.religionImportance = religionImportance;
+	this.smoker = smoker;
+	this.drinker = drinker;
+	this.minAge = minAge;
+	this.maxAge = maxAge;
+	this.proximity = proximity;
+	this.lastLogin = lastLogin;
+	this.locked = locked;
+	this.address = address;
+	this.preferedRelations = new ArrayList<RelationType>();
+	this.preferedStatuses = new ArrayList<MaritalStatus>();
     }
+
+    
 
     public Date getBirthDate() {
 	return birthDate;
