@@ -3,7 +3,10 @@ package services;
 import iservice.Create;
 import iservice.Read;
 import iservice.Update;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import models.Address;
 
@@ -24,22 +27,55 @@ public class AddressService extends Service implements Read<Address>, Create<Add
 
     @Override
     public Address get(Address obj) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String query = "select * from address where user_id = "+obj.getUserId();
+        ResultSet rs = CONNECTION.createStatement().executeQuery(query);
+        rs.next();
+        obj.setCity(rs.getString("city"));
+        obj.setCountry(rs.getString("contry"));
+        obj.setLatitude(rs.getDouble("latitude"));
+        obj.setLongitude(rs.getDouble("longitude"));
+        return obj;
     }
 
     @Override
     public List<Address> getAll(Address obj) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String query = "select * from address";
+        ResultSet rs = CONNECTION.createStatement().executeQuery(query);
+        List<Address> addresses = new ArrayList<>();
+        while(rs.next()){
+            Address address = new Address();
+            address.setCity(rs.getString("city"));
+            address.setCountry(rs.getString("contry"));
+            address.setLatitude(rs.getDouble("latitude"));
+            address.setLongitude(rs.getDouble("longitude"));
+            addresses.add(address);
+        }
+        return addresses;
     }
 
     @Override
     public Address create(Address obj) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String query = "insert into address values(?, ?, ?, ?, ?)";
+        PreparedStatement pst = CONNECTION.prepareStatement(query);
+        pst.setInt(1, obj.getUserId());
+        pst.setDouble(2, obj.getLongitude());
+        pst.setDouble(3, obj.getLatitude());
+        pst.setString(4, obj.getCountry());
+        pst.setString(5, obj.getCity());
+        pst.executeUpdate();
+        return obj;
     }
 
     @Override
     public void update(Address obj) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String query = "UPDATE address SET longitude = ? , latitude = ? , country = ? , city = ? WHERE user_id = ?";
+        PreparedStatement pst = CONNECTION.prepareStatement(query);
+        pst.setDouble(1, obj.getLongitude());
+        pst.setDouble(2, obj.getLatitude());
+        pst.setString(3, obj.getCountry());
+        pst.setString(4, obj.getCity());
+        pst.setInt(5, obj.getUserId());
+        pst.executeUpdate();
     }
 
 }
