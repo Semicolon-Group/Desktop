@@ -45,7 +45,7 @@ public class MemberService extends Service implements Create<Member>,Update<Memb
                 + "email=?, password=?, birth_date=?, gender=?, height=?,"
                 + "body_type=?, children_number=?, relegion=?, relegion_importance=?,"
                 + "smoker=?, drinker=?, min_age=?, max_age=?, proximity=?,"
-                + "last_login=?, locked=?, ip=?, port=? WHERE id=?";
+                + "last_login=?, locked=?, ip=?, port=?, updated_at=? WHERE id=?";
         PreparedStatement prepare = CONNECTION.prepareStatement(query);
         prepare.setString(1, obj.getPseudo());
         prepare.setString(2, obj.getFirstname());
@@ -64,10 +64,11 @@ public class MemberService extends Service implements Create<Member>,Update<Memb
         prepare.setInt(15, obj.getMinAge());
         prepare.setInt(16, obj.getMaxAge());
         prepare.setInt(17, obj.getProximity().ordinal());
-        prepare.setTimestamp(18, new Timestamp(new Date().getTime()));
+        prepare.setTimestamp(18, obj.getLastLogin());
         prepare.setShort(19, obj.getLocked());
         prepare.setString(20, obj.getIp());
         prepare.setInt(21, obj.getPort());
+        prepare.setTimestamp(22, new Timestamp(new Date().getTime()));
         prepare.setInt(22, obj.getId());
         prepare.executeUpdate();
         AddressService.getInstance().update(obj.getAddress());
