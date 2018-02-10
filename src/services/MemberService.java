@@ -23,7 +23,7 @@ public class MemberService extends Service implements Create<Member>,Update<Memb
 
     private static MemberService memberService;
     
-    private MemberService(){
+    public MemberService(){
         super();
     }
     
@@ -36,7 +36,32 @@ public class MemberService extends Service implements Create<Member>,Update<Memb
 
     @Override
     public Member create(Member obj) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+             String query = "insert into user (pseudo, firstname, lastname, email,password,birth_date,gender,height,body_type,children_number,relegion,relegion_importance,smoker,drinker,min_age,max_age,proximity,last_login,locked,ip,port) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        PreparedStatement preparedStatement = CONNECTION.prepareStatement(query);
+        preparedStatement.setString(1, obj.getPseudo());
+        preparedStatement.setString(2, obj.getFirstname());
+        preparedStatement.setString(3, obj.getLastname());
+        preparedStatement.setString(4, obj.getEmail());
+        preparedStatement.setString(5, obj.getPassword());
+        preparedStatement.setDate(6, obj.getBirthDate());
+        preparedStatement.setBoolean(7, obj.isGender());
+        preparedStatement.setFloat(8, obj.getHeight());
+        preparedStatement.setInt(9, obj.getBodyType().ordinal());
+        preparedStatement.setInt(10, obj.getChildrenNumber());
+        preparedStatement.setInt(11, obj.getReligion().ordinal());
+        preparedStatement.setInt(12, obj.getReligionImportance().ordinal());
+        preparedStatement.setBoolean(13, obj.isSmoker());
+        preparedStatement.setBoolean(14, obj.isDrinker());
+        preparedStatement.setInt(15, obj.getMinAge());
+        preparedStatement.setInt(16, obj.getMaxAge());
+        preparedStatement.setInt(17, obj.getProximity().ordinal());
+        preparedStatement.setTimestamp(18, obj.getLastLogin());
+        preparedStatement.setShort(19, obj.getLocked());
+        preparedStatement.setString(20, obj.getIp());
+        preparedStatement.setInt(21, obj.getPort());
+        preparedStatement.executeUpdate();
+        return obj;
+    
     }
 
     @Override
