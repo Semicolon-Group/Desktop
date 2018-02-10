@@ -9,11 +9,15 @@ import iservice.Create;
 import iservice.Read;
 import iservice.Update;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import models.Enumerations;
 import models.Member;
+
 
 /**
  *
@@ -81,7 +85,39 @@ public class MemberService extends Service implements Create<Member>,Update<Memb
 
     @Override
     public List<Member> getAll(Member obj) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	String query = "select * from user";
+        ResultSet rs = CONNECTION.createStatement().executeQuery(query);
+        List<Member> mmbrs = new ArrayList<>();
+        while(rs.next()){
+            Member mbr = new Member();
+        
+        mbr.setString(1, obj.getPseudo());
+        mbr.setString(2, obj.getFirstname());
+        mbr.setString(3, obj.getLastname());
+        mbr.setString(4, obj.getEmail());
+        mbr.setString(5, obj.getPassword());
+        mbr.setDate(6, obj.getBirthDate());
+        mbr.setBoolean(7, obj.isGender());
+        mbr.setFloat(8, obj.getHeight());
+        mbr.setInt(9, obj.getBodyType().ordinal());
+        mbr.setInt(10, obj.getChildrenNumber());
+        mbr.setInt(11, obj.getReligion().ordinal());
+        mbr.setInt(12, obj.getReligionImportance().ordinal());
+        mbr.setBoolean(13, obj.isSmoker());
+        mbr.setBoolean(14, obj.isDrinker());
+        mbr.setInt(15, obj.getMinAge());
+        mbr.setInt(16, obj.getMaxAge());
+        mbr.setInt(17, obj.getProximity().ordinal());
+        mbr.setTimestamp(18, obj.getLastLogin());
+        mbr.setShort(19, obj.getLocked());
+        mbr.setString(20, obj.getIp());
+        mbr.setInt(21, obj.getPort());
+        mbr.setTimestamp(22, new Timestamp(new Date().getTime()));
+        mbr.setInt(23, obj.getId());
+        
+            mmbrs.add(obj);
+        }
+        return mmbrs;
     }
 
     

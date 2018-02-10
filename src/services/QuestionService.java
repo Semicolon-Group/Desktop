@@ -9,8 +9,12 @@ import iservice.Create;
 import iservice.Delete;
 import iservice.Read;
 import iservice.Update;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import models.Enumerations;
 import models.Question;
 
 /**
@@ -21,7 +25,7 @@ public class QuestionService extends Service implements Create<Question>,Delete<
 
     private static QuestionService questionService;
     
-    private QuestionService(){
+    public QuestionService(){
         super();
     }
     
@@ -39,7 +43,8 @@ public class QuestionService extends Service implements Create<Question>,Delete<
 
     @Override
     public void delete(Question obj) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	String query = "delete from question where id= "+ obj.getId();
+        CONNECTION.createStatement().executeUpdate(query);
     }
 
     @Override
@@ -49,12 +54,28 @@ public class QuestionService extends Service implements Create<Question>,Delete<
 
     @Override
     public List<Question> getAll(Question obj) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	String query = "select * from question";
+        ResultSet rs = CONNECTION.createStatement().executeQuery(query);
+        List<Question> qsts = new ArrayList<>();
+        while(rs.next()){
+            Question qst = new Question();
+        qst.setQuestion(rs.getString("content"));
+        
+       
+            qsts.add(obj);
+        }
+        return qsts;
     }
 
     @Override
     public void update(Question obj) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	String query = "UPDATE `question` SET `question`=? WHERE id =?";
+        PreparedStatement pst = CONNECTION.prepareStatement(query);
+        pst.setString(1, obj.getQuestion());
+        pst.setInt(2, obj.getId());
+         
+        
+        pst.executeUpdate();
     }
 
     

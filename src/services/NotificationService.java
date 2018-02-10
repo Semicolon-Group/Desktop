@@ -9,10 +9,13 @@ import iservice.Create;
 import iservice.Read;
 import iservice.Update;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import models.Enumerations;
 import models.Notification;
 
 /**
@@ -40,7 +43,7 @@ public class NotificationService extends Service implements Create<Notification>
         PreparedStatement preparedStatement = CONNECTION.prepareStatement(query);
         
         preparedStatement.setString(1, obj.getContent());
-        preparedStatement.setTimestamp(2, new Timestamp(new Date().getTime()));
+        preparedStatement.setTimestamp(2, obj.getDate());
         preparedStatement.setString(3, obj.getIcon());
         preparedStatement.setInt(4, obj.getSenderId());
         preparedStatement.setInt(5, obj.getReceiverId());
@@ -54,18 +57,56 @@ public class NotificationService extends Service implements Create<Notification>
 
     @Override
     public void update(Notification obj) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            String query = "UPDATE `notification` SET `content`=?,`date`=?,`icon`=?,`sender_id`=?,`receiver_id`=?,`photo_id`=?,`answer_id`=?,`type`=? WHERE id=?";
+        PreparedStatement pst = CONNECTION.prepareStatement(query);
+        pst.setString(1, obj.getContent());
+        pst.setTimestamp(2, obj.getDate());
+        pst.setString(3, obj.getIcon());
+        pst.setInt(4, obj.getSenderId());
+        pst.setInt(5, obj.getReceiverId());
+        pst.setInt(6, obj.getPhotoId());
+        pst.setInt(7, obj.getAnswerId());
+        pst.setInt(8, obj.getType().ordinal()); 
+        pst.setInt(9, obj.getId());
+        pst.executeUpdate();
     }
 
     @Override
     public Notification get(Notification obj) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	String query = "select * from notification where id = " + obj.getId();
+        ResultSet rs = CONNECTION.createStatement().executeQuery(query);
+        rs.next();
+        obj.setContent(rs.getString("content"));
+        obj.setDate(rs.getTimestamp("date"));
+        obj.setIcon(rs.getString("icon"));
+        obj.setSenderId(rs.getInt("sender_id"));
+        obj.setReceiverId(rs.getInt("receiver_id"));
+        obj.setPhotoId(rs.getInt("photo_id"));
+        obj.setAnswerId(rs.getInt("answer_id"));
+        obj.setType(Enumerations.NotificationType.values()[rs.getInt("type")]);
+        return obj;
     }
 
     @Override
     public List<Notification> getAll(Notification obj) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	String query = "select * from notification";
+        ResultSet rs = CONNECTION.createStatement().executeQuery(query);
+        List<Notification> ntfs = new ArrayList<>();
+        while(rs.next()){
+            Notification ntf = new Notification();
+        ntf.setContent(rs.getString("content"));
+        ntf.setDate(rs.getTimestamp("date"));
+        ntf.setIcon(rs.getString("icon"));
+        ntf.setSenderId(rs.getInt("sender_id"));
+        ntf.setReceiverId(rs.getInt("receiver_id"));
+        ntf.setPhotoId(rs.getInt("photo_id"));
+        ntf.setAnswerId(rs.getInt("answer_id"));
+        ntf.setType(Enumerations.NotificationType.values()[rs.getInt("type")]);
+            ntfs.add(obj);
+        }
+        return ntfs;
+        
+    }
     }
 
-    
-}
+

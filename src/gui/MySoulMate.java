@@ -20,7 +20,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import models.Enumerations.NotificationType;
 import models.Notification;
+import models.Question;
 import services.NotificationService;
+import services.QuestionService;
 import util.DbConfigParser;
 
 /**
@@ -58,10 +60,8 @@ public class MySoulMate extends Application {
         
 	launch(args);
         
-        NotificationService n = new NotificationService();
        
-          Notification n1 = new Notification(11, 22,NotificationType.FEEDBACK,"jjjjjj",null,"****",1010,55);
-          n.create(n1);
+        
     }
     
     public static void showAlert(Alert.AlertType alertType, String content, ButtonType... buttonType){
