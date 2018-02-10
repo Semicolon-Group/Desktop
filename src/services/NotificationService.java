@@ -8,7 +8,10 @@ package services;
 import iservice.Create;
 import iservice.Read;
 import iservice.Update;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import models.Notification;
 
@@ -20,7 +23,7 @@ public class NotificationService extends Service implements Create<Notification>
 
     private static NotificationService notificationService;
     
-    private NotificationService(){
+    public NotificationService(){
         super();
     }
     
@@ -33,8 +36,21 @@ public class NotificationService extends Service implements Create<Notification>
 
     @Override
     public Notification create(Notification obj) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        String query = "INSERT INTO `notification`(`content`, `date`, `icon`, `sender_id`, `receiver_id`, `photo_id`, `answer_id`, `type`) VALUES (?,?,?,?,?,?,?,?)";
+        PreparedStatement preparedStatement = CONNECTION.prepareStatement(query);
+        
+        preparedStatement.setString(1, obj.getContent());
+        preparedStatement.setTimestamp(2, new Timestamp(new Date().getTime()));
+        preparedStatement.setString(3, obj.getIcon());
+        preparedStatement.setInt(4, obj.getSenderId());
+        preparedStatement.setInt(5, obj.getReceiverId());
+        preparedStatement.setInt(6, obj.getPhotoId());
+        preparedStatement.setInt(7, obj.getAnswerId());
+        preparedStatement.setInt(8, obj.getType().ordinal());     
+        preparedStatement.executeUpdate();
+        return obj;
+        
+	   }
 
     @Override
     public void update(Notification obj) throws SQLException {

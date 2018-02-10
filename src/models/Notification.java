@@ -53,6 +53,10 @@ public class Notification {
 	this.photoId = photoId;
     }
 
+    public Notification(int i, int i0, Object object, NotificationType notificationType, Object object0, String string, int i1, int i2) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public int getAnswerId() {
 	return answerId;
     }
