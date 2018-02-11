@@ -79,4 +79,11 @@ public class Enumerations {
         STATUS,
         UPDATE
     }
+    public enum Topic{
+	RELIGION,
+	SEX,
+	CULTURE,
+	SPORT,
+	GENERAL
+    }
 }

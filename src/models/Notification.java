@@ -22,6 +22,7 @@ public class Notification {
     private String icon;
     private int answerId;
     private int photoId;
+    private boolean seen;
 
     public Notification() {
     }
@@ -30,7 +31,7 @@ public class Notification {
         this.id = id;
     }
 
-    public Notification(int id, int senderId, int receiverId, NotificationType type, String content, Timestamp date, String icon, int answerId, int photoId) {
+    public Notification(int id, int senderId, int receiverId, NotificationType type, String content, Timestamp date, String icon, int answerId, int photoId, boolean seen) {
 	this.id = id;
 	this.senderId = senderId;
 	this.receiverId = receiverId;
@@ -40,9 +41,10 @@ public class Notification {
 	this.icon = icon;
 	this.answerId = answerId;
 	this.photoId = photoId;
+	this.seen = seen;
     }
 
-    public Notification(int senderId, int receiverId, NotificationType type, String content, Timestamp date, String icon, int answerId, int photoId) {
+    public Notification(int senderId, int receiverId, NotificationType type, String content, Timestamp date, String icon, int answerId, int photoId, boolean seen) {
 	this.senderId = senderId;
 	this.receiverId = receiverId;
 	this.type = type;
@@ -51,7 +53,18 @@ public class Notification {
 	this.icon = icon;
 	this.answerId = answerId;
 	this.photoId = photoId;
+	this.seen = seen;
     }
+
+    public boolean isSeen() {
+	return seen;
+    }
+
+    public void setSeen(boolean seen) {
+	this.seen = seen;
+    }
+
+    
 
     public int getAnswerId() {
 	return answerId;
@@ -125,6 +138,11 @@ public class Notification {
 
     public void setIcon(String icon) {
 	this.icon = icon;
+    }
+
+    @Override
+    public String toString() {
+	return "Notification{" + "id=" + id + ", senderId=" + senderId + ", receiverId=" + receiverId + ", type=" + type + ", content=" + content + ", date=" + date + ", icon=" + icon + ", answerId=" + answerId + ", photoId=" + photoId + ", seen=" + seen + '}';
     }
     
 }

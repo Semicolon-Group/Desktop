@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import models.Enumerations;
@@ -21,6 +22,7 @@ import models.Enumerations.Role;
 import models.Address;
 import models.Enumerations;
 import models.Member;
+
 
 /**
  *
@@ -171,7 +173,40 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
 
     @Override
     public List<Member> getAll(Member obj) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	String query = "select * from user";
+        ResultSet rs = CONNECTION.createStatement().executeQuery(query);
+        List<Member> mmbrs = new ArrayList<>();
+        while(rs.next()){
+            
+            Member mbr = new Member();
+            
+            mbr.setId(rs.getInt("id"));
+            mbr.setPseudo(rs.getString("pseudo"));
+            mbr.setFirstname(rs.getString("firstname"));
+            mbr.setLastname(rs.getString("lastname"));
+            mbr.setEmail(rs.getString("Email"));
+            mbr.setPassword(rs.getString("password"));
+            mbr.setBirthDate(rs.getDate("birth_date"));
+            mbr.setGender(rs.getBoolean("gender"));
+            mbr.setHeight(rs.getFloat("height"));
+            mbr.setBodyType((Enumerations.BodyType.values()[rs.getInt("body_type")]));
+            mbr.setChildrenNumber(rs.getInt("children_number"));
+            mbr.setReligion((Enumerations.Religion.values()[rs.getInt("relegion")]));
+            mbr.setReligionImportance((Enumerations.Importance.values()[rs.getInt("relegion_importance")]));
+            mbr.setSmoker(rs.getBoolean("smoker"));
+            mbr.setDrinker(rs.getBoolean("drinker"));
+            mbr.setMinAge(rs.getInt("min_age"));
+            mbr.setMaxAge(rs.getInt("max_age"));
+            mbr.setProximity(Enumerations.Proximity.values()[rs.getInt("proximity")]);
+            mbr.setLastLogin(rs.getTimestamp("last_login"));
+            mbr.setLocked(rs.getShort("locked"));
+            mbr.setIp(rs.getString("ip"));
+            mbr.setPort(rs.getInt("port"));
+	    mbr.setAddress(AddressService.getInstance().get(new Address(mbr.getId())));
+           
+            mmbrs.add(mbr);
+        }
+        return mmbrs;
     }
 
 }

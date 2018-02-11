@@ -5,10 +5,6 @@
  */
 package gui;
 
-import java.lang.reflect.Constructor;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -20,19 +16,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import models.Address;
-import models.Enumerations;
-import models.Enumerations.BodyType;
-import models.Enumerations.Importance;
-import models.Enumerations.Proximity;
-import models.Enumerations.Religion;
-import models.Enumerations.SignalReason;
-import models.Feedback;
-import models.Member;
-import models.Signal;
-import services.FeedbackService;
-import services.MemberService;
-import services.SignalService;
 import util.DbConfigParser;
 
 /**
@@ -67,7 +50,7 @@ public class MySoulMate extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws SQLException {
-	launch(args);    
+	      launch(args);
     }
     
     public static void showAlert(Alert.AlertType alertType, String content, ButtonType... buttonType){
