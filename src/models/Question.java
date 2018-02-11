@@ -55,4 +55,9 @@ public class Question {
     public HashSet<Choice> getChoices() {
 	return choices;
     }
+
+    public void setChoices(HashSet<Choice> choices) {
+	this.choices = choices;
+    }
+    
 }

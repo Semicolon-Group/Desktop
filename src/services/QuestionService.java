@@ -13,7 +13,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
+import models.Choice;
 import models.Enumerations;
 import models.Question;
 
@@ -21,19 +24,19 @@ import models.Question;
  *
  * @author Elyes
  */
-public class QuestionService extends Service implements Create<Question>,Delete<Question>,Read<Question>,Update<Question>{
+public class QuestionService extends Service implements Create<Question>, Delete<Question>, Read<Question>{
 
     private static QuestionService questionService;
-    
-    private QuestionService(){
-        super();
+
+    private QuestionService() {
+	super();
     }
-    
-    public static QuestionService getInstance(){
-        if(questionService == null){
-            return questionService = new QuestionService();
-        }
-        return questionService;
+
+    public static QuestionService getInstance() {
+	if (questionService == null) {
+	    return questionService = new QuestionService();
+	}
+	return questionService;
     }
 
     @Override
@@ -43,8 +46,8 @@ public class QuestionService extends Service implements Create<Question>,Delete<
 
     @Override
     public void delete(Question obj) throws SQLException {
-	String query = "delete from question where id= "+ obj.getId();
-        CONNECTION.createStatement().executeUpdate(query);
+	String query = "delete from question where id= " + obj.getId();
+	CONNECTION.createStatement().executeUpdate(query);
     }
 
     @Override
@@ -55,28 +58,21 @@ public class QuestionService extends Service implements Create<Question>,Delete<
     @Override
     public List<Question> getAll(Question obj) throws SQLException {
 	String query = "select * from question";
-        ResultSet rs = CONNECTION.createStatement().executeQuery(query);
-        List<Question> qsts = new ArrayList<>();
-        while(rs.next()){
-            Question qst = new Question();
-        qst.setQuestion(rs.getString("content"));
-        
-       
-            qsts.add(obj);
-        }
-        return qsts;
+	ResultSet rs = CONNECTION.createStatement().executeQuery(query);
+	List<Question> qsts = new ArrayList<>();
+	while (rs.next()) {
+	    Question qst = new Question();
+	    qst.setId(rs.getInt("id"));
+	    qst.setQuestion(rs.getString("question"));
+	    /*
+	    * We're using getAll(Choice) to retrieve the list of choices for our question.
+	    */
+	    Choice c = new Choice();
+	    c.setQuestionId(qst.getId());
+	    qst.setChoices(new HashSet<Choice>(ChoiceService.getInstance().getAll(c)));
+	    
+	    qsts.add(qst);
+	}
+	return qsts;
     }
-
-    @Override
-    public void update(Question obj) throws SQLException {
-	String query = "UPDATE `question` SET `question`=? WHERE id =?";
-        PreparedStatement pst = CONNECTION.prepareStatement(query);
-        pst.setString(1, obj.getQuestion());
-        pst.setInt(2, obj.getId());
-         
-        
-        pst.executeUpdate();
-    }
-
-    
 }
