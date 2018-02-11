@@ -9,6 +9,7 @@ import iservice.Create;
 import iservice.Read;
 import iservice.Update;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -25,7 +26,7 @@ public class MemberService extends Service implements Create<Member>,Update<Memb
 
     private static MemberService memberService;
     
-    public MemberService(){
+    private MemberService(){
         super();
     }
     
@@ -38,7 +39,7 @@ public class MemberService extends Service implements Create<Member>,Update<Memb
 
     @Override
     public Member create(Member obj) throws SQLException {
-        String query = "insert into user (pseudo, firstname, lastname, email,password,birth_date,gender,height,body_type,children_number,relegion,relegion_importance,smoker,drinker,min_age,max_age,proximity,last_login,locked,ip,port,role,created_at,updated_at) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String query = "insert into user (pseudo, firstname, lastname, email,password,birth_date,gender,height,body_type,children_number,relegion,relegion_importance,smoker,drinker,min_age,max_age,proximity,last_login,locked,ip,port,role,created_at,updated_at) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement preparedStatement = CONNECTION.prepareStatement(query);
         preparedStatement.setString(1, obj.getPseudo());
         preparedStatement.setString(2, obj.getFirstname());
@@ -66,6 +67,11 @@ public class MemberService extends Service implements Create<Member>,Update<Memb
 	preparedStatement.setTimestamp(24, new Timestamp(new Date().getTime()));
         preparedStatement.executeUpdate();
 	
+	String req = "SELECT MAX(id) max from user";
+	ResultSet rs = CONNECTION.createStatement().executeQuery(req);
+	rs.next();
+	
+	obj.getAddress().setUserId(rs.getInt("max"));
 	AddressService.getInstance().create(obj.getAddress());
 	
         return obj;

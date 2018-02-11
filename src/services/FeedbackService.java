@@ -25,7 +25,7 @@ public class FeedbackService extends Service implements Create<Feedback>,Update<
 
     private static FeedbackService feedbackService;
     
-    public FeedbackService(){
+    private FeedbackService(){
         super();
     }
     
@@ -63,6 +63,7 @@ public class FeedbackService extends Service implements Create<Feedback>,Update<
         String query = "select * from feedback where id = " + obj.getId();
         ResultSet rs = CONNECTION.createStatement().executeQuery(query);
         rs.next();
+	obj.setId(rs.getInt("id"));
         obj.setContent(rs.getString("content"));
         obj.setState(rs.getBoolean("state"));
         obj.setSenderId(rs.getInt("sender_id"));
@@ -77,6 +78,7 @@ public class FeedbackService extends Service implements Create<Feedback>,Update<
         List<Feedback> feeds = new ArrayList<>();
         while(rs.next()){
             Feedback feed = new Feedback();
+	    feed.setId(rs.getInt("id"));
             feed.setContent(rs.getString("content"));
             feed.setState(rs.getBoolean("state"));
             feed.setSenderId(rs.getInt("sender_id"));
