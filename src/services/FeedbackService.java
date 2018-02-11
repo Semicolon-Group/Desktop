@@ -38,7 +38,7 @@ public class FeedbackService extends Service implements Create<Feedback>,Update<
 
     @Override
     public Feedback create(Feedback obj) throws SQLException {
-                  String query = "insert into feedback ( content, state, sender_id, date) values(?,?,?,?)";
+        String query = "insert into feedback ( content, state, sender_id, date) values(?,?,?,?)";
         PreparedStatement preparedStatement = CONNECTION.prepareStatement(query);
         preparedStatement.setString(1, obj.getContent());
         preparedStatement.setBoolean(2, obj.isState());
@@ -51,7 +51,7 @@ public class FeedbackService extends Service implements Create<Feedback>,Update<
 
     @Override
     public void update(Feedback obj) throws SQLException {
-           String query = "UPDATE feedback SET state = ?  WHERE id = ?";
+        String query = "UPDATE feedback SET state = ?  WHERE id = ?";
         PreparedStatement pst = CONNECTION.prepareStatement(query);
         pst.setBoolean(1, obj.isState());
         pst.setInt(2, obj.getId());
@@ -60,7 +60,7 @@ public class FeedbackService extends Service implements Create<Feedback>,Update<
 
     @Override
     public Feedback get(Feedback obj) throws SQLException {
-            String query = "select * from feedback where id = " + obj.getId();
+        String query = "select * from feedback where id = " + obj.getId();
         ResultSet rs = CONNECTION.createStatement().executeQuery(query);
         rs.next();
         obj.setContent(rs.getString("content"));
@@ -72,7 +72,7 @@ public class FeedbackService extends Service implements Create<Feedback>,Update<
 
     @Override
     public List<Feedback> getAll(Feedback obj) throws SQLException {
-                String query = "select * from feedback";
+        String query = "select * from feedback";
         ResultSet rs = CONNECTION.createStatement().executeQuery(query);
         List<Feedback> feeds = new ArrayList<>();
         while(rs.next()){
