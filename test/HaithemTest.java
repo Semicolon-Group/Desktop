@@ -4,6 +4,7 @@ import models.Enumerations;
 import models.Enumerations.Topic;
 import models.Notification;
 import models.Question;
+import services.MemberService;
 import services.NotificationService;
 import services.QuestionService;
 
@@ -41,6 +42,9 @@ public class HaithemTest {
 //	qs.delete(new Question(1));
 //	System.out.println(qs.getAll(null));
 	//qs.create(new Question("Your favorite show?",Topic.GENERAL));
-	qs.delete(new Question(3));
+	//qs.delete(new Question(3));
+	
+	MemberService ms = MemberService.getInstance();
+	System.out.println(ms.getAll(null));
     }
 }

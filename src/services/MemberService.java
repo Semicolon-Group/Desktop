@@ -159,11 +159,12 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
             mbr.setDrinker(rs.getBoolean("drinker"));
             mbr.setMinAge(rs.getInt("min_age"));
             mbr.setMaxAge(rs.getInt("max_age"));
-            mbr.setProximity(Enumerations.Proximity.values()[rs.getInt("setProximity")]);
+            mbr.setProximity(Enumerations.Proximity.values()[rs.getInt("proximity")]);
             mbr.setLastLogin(rs.getTimestamp("last_login"));
             mbr.setLocked(rs.getShort("locked"));
             mbr.setIp(rs.getString("ip"));
             mbr.setPort(rs.getInt("port"));
+	    mbr.setAddress(AddressService.getInstance().get(new Address(mbr.getId())));
            
             mmbrs.add(mbr);
         }
