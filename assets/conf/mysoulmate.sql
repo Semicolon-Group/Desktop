@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.7.4
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 09, 2018 at 11:28 PM
--- Server version: 10.1.19-MariaDB
--- PHP Version: 7.0.13
+-- Generation Time: Feb 11, 2018 at 04:44 PM
+-- Server version: 10.1.30-MariaDB
+-- PHP Version: 7.2.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -45,6 +47,13 @@ CREATE TABLE `address` (
   `city` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `address`
+--
+
+INSERT INTO `address` (`user_id`, `longitude`, `latitude`, `country`, `city`) VALUES
+(25, 544.5, 646.5, 'tunisia', 'tunis');
+
 -- --------------------------------------------------------
 
 --
@@ -58,6 +67,13 @@ CREATE TABLE `answer` (
   `question_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `answer`
+--
+
+INSERT INTO `answer` (`id`, `importance`, `date`, `question_id`, `user_id`) VALUES
+(1, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -142,8 +158,16 @@ CREATE TABLE `notification` (
   `receiver_id` int(11) DEFAULT NULL,
   `photo_id` int(11) DEFAULT NULL,
   `answer_id` int(11) DEFAULT NULL,
-  `type` int(11) NOT NULL
+  `type` int(11) NOT NULL,
+  `seen` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `notification`
+--
+
+INSERT INTO `notification` (`id`, `content`, `date`, `icon`, `sender_id`, `receiver_id`, `photo_id`, `answer_id`, `type`, `seen`) VALUES
+(4, 'jjjjjj', '2018-02-10 17:21:54', '****', 11, 22, 1, 1, 4, 0);
 
 -- --------------------------------------------------------
 
@@ -157,6 +181,13 @@ CREATE TABLE `photo` (
   `user_id` int(11) DEFAULT NULL,
   `date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `photo`
+--
+
+INSERT INTO `photo` (`id`, `url`, `user_id`, `date`) VALUES
+(1, NULL, 11, NULL);
 
 -- --------------------------------------------------------
 
@@ -258,6 +289,18 @@ CREATE TABLE `user` (
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`id`, `pseudo`, `firstname`, `lastname`, `email`, `password`, `birth_date`, `gender`, `height`, `body_type`, `children_number`, `relegion`, `relegion_importance`, `smoker`, `drinker`, `min_age`, `max_age`, `proximity`, `last_login`, `locked`, `ip`, `port`, `role`, `created_at`, `updated_at`) VALUES
+(1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(11, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(22, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(23, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(25, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 4, 0, 0, 1, 0, 0, 0, 0, 0, NULL, 0, NULL, 0, 1, '2018-02-11 16:21:36', '2018-02-11 16:21:36');
+
 -- --------------------------------------------------------
 
 --
@@ -296,6 +339,14 @@ CREATE TABLE `user_signal` (
   `sender_id` int(11) DEFAULT NULL,
   `receiver_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `user_signal`
+--
+
+INSERT INTO `user_signal` (`id`, `reason`, `date`, `state`, `sender_id`, `receiver_id`) VALUES
+(3, 1, '2018-02-11 16:02:45', 0, 1, 2),
+(4, 1, '2018-02-11 16:09:22', 1, 2, 1);
 
 --
 -- Indexes for dumped tables
@@ -446,57 +497,68 @@ ALTER TABLE `user_signal`
 -- AUTO_INCREMENT for table `answer`
 --
 ALTER TABLE `answer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `choice`
 --
 ALTER TABLE `choice`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `conversation`
 --
 ALTER TABLE `conversation`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `feedback`
 --
 ALTER TABLE `feedback`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `message`
 --
 ALTER TABLE `message`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT for table `photo`
 --
 ALTER TABLE `photo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `question`
 --
 ALTER TABLE `question`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
 --
 -- AUTO_INCREMENT for table `user_signal`
 --
 ALTER TABLE `user_signal`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- Constraints for dumped tables
 --
@@ -614,6 +676,7 @@ ALTER TABLE `user_like`
 ALTER TABLE `user_signal`
   ADD CONSTRAINT `signal_receiver` FOREIGN KEY (`receiver_id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `signal_sender` FOREIGN KEY (`sender_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
