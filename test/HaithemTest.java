@@ -1,8 +1,11 @@
 
 import java.sql.SQLException;
 import models.Enumerations;
+import models.Enumerations.Topic;
 import models.Notification;
+import models.Question;
 import services.NotificationService;
+import services.QuestionService;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -17,7 +20,7 @@ import services.NotificationService;
 public class HaithemTest {
     public static void main(String[] args) throws SQLException{
 	
-//	NotificationService ns = NotificationService.getInstance();
+	NotificationService ns = NotificationService.getInstance();
 //	/*Notification n1 = new Notification();
 //	n1.setSenderId(1);
 //	n1.setReceiverId(2);
@@ -33,6 +36,11 @@ public class HaithemTest {
 //	n2.setReceiverId(2);
 //	System.out.println(ns.getAll(n2));
 
-
+	QuestionService qs = QuestionService.getInstance();
+//	System.out.println(qs.getAll(null));
+//	qs.delete(new Question(1));
+//	System.out.println(qs.getAll(null));
+	//qs.create(new Question("Your favorite show?",Topic.GENERAL));
+	qs.delete(new Question(3));
     }
 }

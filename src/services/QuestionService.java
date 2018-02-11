@@ -18,13 +18,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 import models.Choice;
 import models.Enumerations;
+import models.Enumerations.Topic;
 import models.Question;
 
 /**
  *
  * @author Elyes
  */
-public class QuestionService extends Service implements Create<Question>, Delete<Question>, Read<Question>{
+public class QuestionService extends Service implements Create<Question>, Delete<Question>, Read<Question> {
 
     private static QuestionService questionService;
 
@@ -41,7 +42,21 @@ public class QuestionService extends Service implements Create<Question>, Delete
 
     @Override
     public Question create(Question obj) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	String req = "INSERT INTO `question`(`question`, `topic`) VALUES (?,?)";
+	PreparedStatement pst = CONNECTION.prepareStatement(req);
+	pst.setString(1, obj.getQuestion());
+	pst.setInt(2, obj.getTopic().ordinal());
+	pst.executeUpdate();
+	/*
+	* After creating question, we need to create the choices as well. This creation needs the new question_id.
+	* So we return the object with its new id, in order to use it.
+	*/
+	req = "SELECT MAX(id) max from question";
+	ResultSet rs = CONNECTION.createStatement().executeQuery(req);
+	rs.next();
+	obj.setId(rs.getInt("max"));
+	
+	return obj;
     }
 
     @Override
@@ -52,7 +67,21 @@ public class QuestionService extends Service implements Create<Question>, Delete
 
     @Override
     public Question get(Question obj) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	String query = "select * from question where id = " + obj.getId();
+	ResultSet rs = CONNECTION.createStatement().executeQuery(query);
+	Question qst = new Question();
+	while (rs.next()) {
+	    qst.setId(rs.getInt("id"));
+	    qst.setQuestion(rs.getString("question"));
+	    qst.setTopic(Topic.values()[rs.getInt("topic")]);
+	    /*
+	    * We're using getAll(Choice) to retrieve the list of choices for our question.
+	     */
+	    Choice c = new Choice();
+	    c.setQuestionId(qst.getId());
+	    qst.setChoices(new HashSet<Choice>(ChoiceService.getInstance().getAll(c)));
+	}
+	return qst;
     }
 
     @Override
@@ -64,13 +93,14 @@ public class QuestionService extends Service implements Create<Question>, Delete
 	    Question qst = new Question();
 	    qst.setId(rs.getInt("id"));
 	    qst.setQuestion(rs.getString("question"));
+	    qst.setTopic(Topic.values()[rs.getInt("topic")]);
 	    /*
 	    * We're using getAll(Choice) to retrieve the list of choices for our question.
-	    */
+	     */
 	    Choice c = new Choice();
 	    c.setQuestionId(qst.getId());
 	    qst.setChoices(new HashSet<Choice>(ChoiceService.getInstance().getAll(c)));
-	    
+
 	    qsts.add(qst);
 	}
 	return qsts;
