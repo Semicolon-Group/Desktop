@@ -56,10 +56,6 @@ public class MessageService extends Service implements Create<Message>, Update<M
         pst.setInt(2, (obj.isSeen()) ? 1 : 0);
         pst.setTimestamp(3, new Timestamp(new Date().getTime()));
         pst.setTimestamp(4, new Timestamp(new Date().getTime()));
-//        User sender = new User() {
-//        };
-//        User receiver = new User() {
-//        };
         pst.setInt(5, obj.getSenderId());
         pst.setInt(6, obj.getReceiverId());
         pst.executeUpdate();

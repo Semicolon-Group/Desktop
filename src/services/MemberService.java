@@ -93,7 +93,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
         } else if (obj.getEmail() != null) {
             condition = "Where email = " + obj.getEmail();
         }
-        String req = "Select * , date_format( birth_date ,'%d %m %Y') as birth from user " + condition;
+        String req = "Select * from user " + condition;
         st = CONNECTION.createStatement();
         rs = st.executeQuery(req);
         rs.next();
@@ -118,7 +118,12 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
         obj.setLocked(rs.getShort("locked"));
         obj.setIp(rs.getString("ip"));
         obj.setPort(rs.getInt("port"));
-        obj.setAddress(new Address(obj.getId()));
+        
+        
+        obj.setAddress(AddressService.getInstance().get(new Address(obj.getId())));
+
+
+ 
         
         
         

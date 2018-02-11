@@ -31,7 +31,7 @@ public class AddressService extends Service implements Read<Address>, Create<Add
         ResultSet rs = CONNECTION.createStatement().executeQuery(query);
         rs.next();
         obj.setCity(rs.getString("city"));
-        obj.setCountry(rs.getString("contry"));
+        obj.setCountry(rs.getString("country"));
         obj.setLatitude(rs.getDouble("latitude"));
         obj.setLongitude(rs.getDouble("longitude"));
         return obj;
