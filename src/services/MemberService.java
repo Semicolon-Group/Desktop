@@ -89,33 +89,33 @@ public class MemberService extends Service implements Create<Member>,Update<Memb
         ResultSet rs = CONNECTION.createStatement().executeQuery(query);
         List<Member> mmbrs = new ArrayList<>();
         while(rs.next()){
+            
             Member mbr = new Member();
-        
-        mbr.setString(1, obj.getPseudo());
-        mbr.setString(2, obj.getFirstname());
-        mbr.setString(3, obj.getLastname());
-        mbr.setString(4, obj.getEmail());
-        mbr.setString(5, obj.getPassword());
-        mbr.setDate(6, obj.getBirthDate());
-        mbr.setBoolean(7, obj.isGender());
-        mbr.setFloat(8, obj.getHeight());
-        mbr.setInt(9, obj.getBodyType().ordinal());
-        mbr.setInt(10, obj.getChildrenNumber());
-        mbr.setInt(11, obj.getReligion().ordinal());
-        mbr.setInt(12, obj.getReligionImportance().ordinal());
-        mbr.setBoolean(13, obj.isSmoker());
-        mbr.setBoolean(14, obj.isDrinker());
-        mbr.setInt(15, obj.getMinAge());
-        mbr.setInt(16, obj.getMaxAge());
-        mbr.setInt(17, obj.getProximity().ordinal());
-        mbr.setTimestamp(18, obj.getLastLogin());
-        mbr.setShort(19, obj.getLocked());
-        mbr.setString(20, obj.getIp());
-        mbr.setInt(21, obj.getPort());
-        mbr.setTimestamp(22, new Timestamp(new Date().getTime()));
-        mbr.setInt(23, obj.getId());
-        
-            mmbrs.add(obj);
+            
+            mbr.setId(rs.getInt("id"));
+            mbr.setPseudo(rs.getString("pseudo"));
+            mbr.setFirstname(rs.getString("firstname"));
+            mbr.setLastname(rs.getString("lastname"));
+            mbr.setEmail(rs.getString("Email"));
+            mbr.setPassword(rs.getString("password"));
+            mbr.setBirthDate(rs.getDate("birth_date"));
+            mbr.setGender(rs.getBoolean("gender"));
+            mbr.setHeight(rs.getFloat("height"));
+            mbr.setBodyType((Enumerations.BodyType.values()[rs.getInt("body_type")]));
+            mbr.setChildrenNumber(rs.getInt("children_number"));
+            mbr.setReligion((Enumerations.Religion.values()[rs.getInt("relegion")]));
+            mbr.setReligionImportance((Enumerations.Importance.values()[rs.getInt("relegion_importance")]));
+            mbr.setSmoker(rs.getBoolean("smoker"));
+            mbr.setDrinker(rs.getBoolean("drinker"));
+            mbr.setMinAge(rs.getInt("min_age"));
+            mbr.setMaxAge(rs.getInt("max_age"));
+            mbr.setProximity(Enumerations.Proximity.values()[rs.getInt("setProximity")]);
+            mbr.setLastLogin(rs.getTimestamp("last_login"));
+            mbr.setLocked(rs.getShort("locked"));
+            mbr.setIp(rs.getString("ip"));
+            mbr.setPort(rs.getInt("port"));
+           
+            mmbrs.add(mbr);
         }
         return mmbrs;
     }

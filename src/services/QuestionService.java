@@ -25,7 +25,7 @@ public class QuestionService extends Service implements Create<Question>,Delete<
 
     private static QuestionService questionService;
     
-    public QuestionService(){
+    private QuestionService(){
         super();
     }
     

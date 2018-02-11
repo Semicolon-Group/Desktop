@@ -26,7 +26,7 @@ public class NotificationService extends Service implements Create<Notification>
 
     private static NotificationService notificationService;
     
-    public NotificationService(){
+    private NotificationService(){
         super();
     }
     
@@ -90,6 +90,8 @@ public class NotificationService extends Service implements Create<Notification>
     @Override
     public List<Notification> getAll(Notification obj) throws SQLException {
 	String query = "select * from notification";
+        if (obj.getSenderId()> 0)
+            query += "where sender_id = " +obj.getSenderId();
         ResultSet rs = CONNECTION.createStatement().executeQuery(query);
         List<Notification> ntfs = new ArrayList<>();
         while(rs.next()){
