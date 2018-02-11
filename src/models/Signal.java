@@ -91,5 +91,10 @@ public class Signal {
     public void setDate(Timestamp date) {
 	this.date = date;
     }
+
+    @Override
+    public String toString() {
+	return "Signal{" + "id=" + id + ", senderId=" + senderId + ", receiverId=" + receiverId + ", reason=" + reason + ", state=" + state + ", date=" + date + '}';
+    }
     
 }
