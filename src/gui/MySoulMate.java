@@ -14,9 +14,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.StackPane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import util.DbConfigParser;
 
 /**
  *
@@ -49,8 +47,8 @@ public class MySoulMate extends Application {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-	launch(args);
+    public static void main(String[] args){
+        launch(args);
     }
     
     public static void showAlert(Alert.AlertType alertType, String content, ButtonType... buttonType){

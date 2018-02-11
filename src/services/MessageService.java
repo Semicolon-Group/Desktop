@@ -8,7 +8,6 @@ package services;
 import iservice.Create;
 import iservice.Read;
 import iservice.Update;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,7 +18,6 @@ import java.util.Date;
 import java.util.List;
 import models.Member;
 import models.Message;
-import models.User;
 
 /**
  *
@@ -79,19 +77,17 @@ public class MessageService extends Service implements Create<Message>, Update<M
         String req = "Select * from message where id=" + obj.getId();
         st = CONNECTION.createStatement();
         rs = st.executeQuery(req);
-        while (rs.next())
+        if(rs.next())
         {
-
-        obj.setContent(rs.getString("content"));
-        obj.setSeen(rs.getBoolean("seen"));
-        obj.setDate(rs.getTimestamp("date"));
-        obj.setSeenDate(rs.getTimestamp("seen_date"));
-        obj.setSenderId(rs.getInt("sender_id"));
-        obj.setReceiverId(rs.getInt("receiver_id"));
-
-        return obj;
-    }
-        return obj;
+            obj.setContent(rs.getString("content"));
+            obj.setSeen(rs.getBoolean("seen"));
+            obj.setDate(rs.getTimestamp("date"));
+            obj.setSeenDate(rs.getTimestamp("seen_date"));
+            obj.setSenderId(rs.getInt("sender_id"));
+            obj.setReceiverId(rs.getInt("receiver_id"));
+            return obj;
+        }
+        return null;
     }
 
     @Override

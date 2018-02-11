@@ -10,6 +10,10 @@ package models;
  * @author Elyes
  */
 public class Enumerations {
+    public enum Role{
+	ADMIN,
+	MEMBER
+    }
     public enum BodyType{
 	PLUTOT_NE_PAS_DIRE,
 	MINCE,
@@ -74,5 +78,12 @@ public class Enumerations {
         PICTURE,
         STATUS,
         UPDATE
+    }
+    public enum Topic{
+	RELIGION,
+	SEX,
+	CULTURE,
+	SPORT,
+	GENERAL
     }
 }
