@@ -5,6 +5,8 @@
  */
 package gui;
 
+import static java.sql.JDBCType.NULL;
+import java.sql.SQLException;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -16,6 +18,11 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import models.Enumerations.NotificationType;
+import models.Notification;
+import models.Question;
+import services.NotificationService;
+import services.QuestionService;
 import util.DbConfigParser;
 
 /**
@@ -49,8 +56,12 @@ public class MySoulMate extends Application {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException{
+        
 	launch(args);
+        
+       
+        
     }
     
     public static void showAlert(Alert.AlertType alertType, String content, ButtonType... buttonType){
