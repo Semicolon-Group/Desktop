@@ -13,6 +13,8 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
+import models.Enumerations;
+import models.Enumerations.Role;
 import models.Member;
 
 /**
@@ -36,7 +38,7 @@ public class MemberService extends Service implements Create<Member>,Update<Memb
 
     @Override
     public Member create(Member obj) throws SQLException {
-             String query = "insert into user (pseudo, firstname, lastname, email,password,birth_date,gender,height,body_type,children_number,relegion,relegion_importance,smoker,drinker,min_age,max_age,proximity,last_login,locked,ip,port) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String query = "insert into user (pseudo, firstname, lastname, email,password,birth_date,gender,height,body_type,children_number,relegion,relegion_importance,smoker,drinker,min_age,max_age,proximity,last_login,locked,ip,port,role,created_at,updated_at) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement preparedStatement = CONNECTION.prepareStatement(query);
         preparedStatement.setString(1, obj.getPseudo());
         preparedStatement.setString(2, obj.getFirstname());
@@ -59,7 +61,13 @@ public class MemberService extends Service implements Create<Member>,Update<Memb
         preparedStatement.setShort(19, obj.getLocked());
         preparedStatement.setString(20, obj.getIp());
         preparedStatement.setInt(21, obj.getPort());
+	preparedStatement.setInt(22, Role.MEMBER.ordinal());
+	preparedStatement.setTimestamp(23, new Timestamp(new Date().getTime()));
+	preparedStatement.setTimestamp(24, new Timestamp(new Date().getTime()));
         preparedStatement.executeUpdate();
+	
+	AddressService.getInstance().create(obj.getAddress());
+	
         return obj;
     
     }
