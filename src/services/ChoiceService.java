@@ -3,8 +3,10 @@ package services;
 import iservice.Create;
 import iservice.Delete;
 import iservice.Read;
-import iservice.Update;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import models.Choice;
 
@@ -25,22 +27,36 @@ public class ChoiceService extends Service implements Create<Choice>, Read<Choic
     
     @Override
     public Choice create(Choice obj) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String req = "INSERT INTO `choice`(`question_id`, `choice`) VALUES (?,?)";
+	PreparedStatement pst = CONNECTION.prepareStatement(req);
+	pst.setInt(1, obj.getQuestionId());
+	pst.setString(2, obj.getChoice());
+	pst.executeUpdate();
+	return obj;
     }
 
     @Override
     public Choice get(Choice obj) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String req = "SELECT * FROM `choice` WHERE id = " + obj.getId();
+	ResultSet rs = CONNECTION.createStatement().executeQuery(req);
+	rs.next();
+	return new Choice(rs.getInt("id"), rs.getInt("question_id"), rs.getString("choice"));
     }
 
     @Override
     public List<Choice> getAll(Choice obj) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String req = "SELECT * FROM `choice` WHERE question_id = " + obj.getQuestionId();
+	ResultSet rs = CONNECTION.createStatement().executeQuery(req);
+	List<Choice> list = new ArrayList();
+	while(rs.next()){
+	    list.add(new Choice(rs.getInt("id"), rs.getInt("question_id"), rs.getString("choice")));
+	}
+	return list;
     }
 
     @Override
     public void delete(Choice obj) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String req = "DELETE FROM `choice` WHERE id = " + obj.getId();
+	CONNECTION.createStatement().executeUpdate(req);
     }
-
 }

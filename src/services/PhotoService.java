@@ -8,7 +8,10 @@ package services;
 import iservice.Create;
 import iservice.Delete;
 import iservice.Read;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import models.Photo;
 
@@ -33,22 +36,38 @@ public class PhotoService extends Service implements Create<Photo>,Read<Photo>,D
     
     @Override
     public Photo create(Photo obj) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	String req = "INSERT INTO `photo`(`url`, `user_id`, `date`) VALUES (?,?,?)";
+	PreparedStatement pst = CONNECTION.prepareStatement(req);
+	pst.setString(1, obj.getUrl());
+	pst.setInt(2, obj.getUserId());
+	pst.setTimestamp(3, obj.getDate());
+	pst.executeUpdate();
+	return obj;
     }
 
     @Override
     public Photo get(Photo obj) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	String req = "SELECT * FROM `photo` WHERE id = " + obj.getId();
+	ResultSet rs = CONNECTION.createStatement().executeQuery(req);
+	rs.next();
+	return new Photo(rs.getInt("id"), rs.getInt("user_id"), rs.getString("url"), rs.getTimestamp("date"));
     }
 
     @Override
     public List<Photo> getAll(Photo obj) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	String req = "SELECT * FROM `photo` WHERE user_id = " + obj.getUserId();
+	ResultSet rs = CONNECTION.createStatement().executeQuery(req);
+	List<Photo> list = new ArrayList();
+	while(rs.next()){
+	    list.add(new Photo(rs.getInt("id"), rs.getInt("user_id"), rs.getString("url"), rs.getTimestamp("date")));
+	}
+	return list;
     }
 
     @Override
     public void delete(Photo obj) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	String req = "DELETE FROM `photo` WHERE id = " + obj.getId();
+	CONNECTION.createStatement().executeUpdate(req);
     }
     
 }
