@@ -8,16 +8,13 @@ package services;
 import iservice.Create;
 import iservice.Delete;
 import iservice.Read;
-import iservice.Update;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.stream.Collectors;
 import models.Choice;
-import models.Enumerations;
 import models.Enumerations.Topic;
 import models.Question;
 
@@ -70,7 +67,7 @@ public class QuestionService extends Service implements Create<Question>, Delete
 	String query = "select * from question where id = " + obj.getId();
 	ResultSet rs = CONNECTION.createStatement().executeQuery(query);
 	Question qst = new Question();
-	while (rs.next()) {
+	if(rs.next()) {
 	    qst.setId(rs.getInt("id"));
 	    qst.setQuestion(rs.getString("question"));
 	    qst.setTopic(Topic.values()[rs.getInt("topic")]);
@@ -80,8 +77,9 @@ public class QuestionService extends Service implements Create<Question>, Delete
 	    Choice c = new Choice();
 	    c.setQuestionId(qst.getId());
 	    qst.setChoices(new HashSet<Choice>(ChoiceService.getInstance().getAll(c)));
-	}
-	return qst;
+            return qst;
+        }
+	return null;
     }
 
     @Override

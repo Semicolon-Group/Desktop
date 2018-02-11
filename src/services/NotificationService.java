@@ -68,18 +68,20 @@ public class NotificationService extends Service implements Create<Notification>
     public Notification get(Notification obj) throws SQLException {
 	String query = "select * from notification where id = " + obj.getId();
 	ResultSet rs = CONNECTION.createStatement().executeQuery(query);
-	rs.next();
-	obj.setId(rs.getInt("id"));
-	obj.setContent(rs.getString("content"));
-	obj.setDate(rs.getTimestamp("date"));
-	obj.setIcon(rs.getString("icon"));
-	obj.setSenderId(rs.getInt("sender_id"));
-	obj.setReceiverId(rs.getInt("receiver_id"));
-	obj.setPhotoId(rs.getInt("photo_id"));
-	obj.setAnswerId(rs.getInt("answer_id"));
-	obj.setType(Enumerations.NotificationType.values()[rs.getInt("type")]);
-	obj.setSeen(rs.getBoolean("seen"));
-	return obj;
+	if(rs.next()){
+            obj.setId(rs.getInt("id"));
+            obj.setContent(rs.getString("content"));
+            obj.setDate(rs.getTimestamp("date"));
+            obj.setIcon(rs.getString("icon"));
+            obj.setSenderId(rs.getInt("sender_id"));
+            obj.setReceiverId(rs.getInt("receiver_id"));
+            obj.setPhotoId(rs.getInt("photo_id"));
+            obj.setAnswerId(rs.getInt("answer_id"));
+            obj.setType(Enumerations.NotificationType.values()[rs.getInt("type")]);
+            obj.setSeen(rs.getBoolean("seen"));
+            return obj;
+        }
+	return null;
     }
 
     @Override

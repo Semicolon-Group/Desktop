@@ -17,7 +17,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import models.Enumerations;
 import models.Enumerations.Role;
 import models.Address;
 import models.Enumerations;
@@ -118,7 +117,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
         prepare.setString(20, obj.getIp());
         prepare.setInt(21, obj.getPort());
         prepare.setTimestamp(22, new Timestamp(new Date().getTime()));
-        prepare.setInt(22, obj.getId());
+        prepare.setInt(23, obj.getId());
         prepare.executeUpdate();
         AddressService.getInstance().update(obj.getAddress());
     }
@@ -137,38 +136,32 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
         String req = "Select * from user " + condition;
         st = CONNECTION.createStatement();
         rs = st.executeQuery(req);
-        rs.next();
-        obj.setPseudo(rs.getString("pseudo"));
-        obj.setFirstname(rs.getString("firstname"));
-        obj.setLastname(rs.getString("lastname"));
-        obj.setEmail(rs.getString("email"));
-        obj.setPassword(rs.getString("password"));
-        obj.setBirthDate(rs.getDate("birth_date"));
-        obj.setGender(rs.getBoolean("gender"));
-        obj.setHeight(rs.getFloat("height"));
-        obj.setBodyType(Enumerations.BodyType.values()[rs.getInt("body_type")]);
-        obj.setChildrenNumber(rs.getInt("children_number"));
-        obj.setReligion(Enumerations.Religion.values()[rs.getInt("relegion")]);
-        obj.setReligionImportance(Enumerations.Importance.values()[rs.getInt("relegion_importance")]);
-        obj.setSmoker(rs.getBoolean("smoker"));
-        obj.setDrinker(rs.getBoolean("drinker"));
-        obj.setMinAge(rs.getInt("min_age"));
-        obj.setMaxAge(rs.getInt("max_age"));
-        obj.setProximity(Enumerations.Proximity.values()[rs.getInt("proximity")]);
-        obj.setLastLogin(rs.getTimestamp("last_login"));
-        obj.setLocked(rs.getShort("locked"));
-        obj.setIp(rs.getString("ip"));
-        obj.setPort(rs.getInt("port"));
-        
-        
-        obj.setAddress(AddressService.getInstance().get(new Address(obj.getId())));
-
-
- 
-        
-        
-        
-        return obj;
+        if(rs.next()){
+            obj.setPseudo(rs.getString("pseudo"));
+            obj.setFirstname(rs.getString("firstname"));
+            obj.setLastname(rs.getString("lastname"));
+            obj.setEmail(rs.getString("email"));
+            obj.setPassword(rs.getString("password"));
+            obj.setBirthDate(rs.getDate("birth_date"));
+            obj.setGender(rs.getBoolean("gender"));
+            obj.setHeight(rs.getFloat("height"));
+            obj.setBodyType(Enumerations.BodyType.values()[rs.getInt("body_type")]);
+            obj.setChildrenNumber(rs.getInt("children_number"));
+            obj.setReligion(Enumerations.Religion.values()[rs.getInt("relegion")]);
+            obj.setReligionImportance(Enumerations.Importance.values()[rs.getInt("relegion_importance")]);
+            obj.setSmoker(rs.getBoolean("smoker"));
+            obj.setDrinker(rs.getBoolean("drinker"));
+            obj.setMinAge(rs.getInt("min_age"));
+            obj.setMaxAge(rs.getInt("max_age"));
+            obj.setProximity(Enumerations.Proximity.values()[rs.getInt("proximity")]);
+            obj.setLastLogin(rs.getTimestamp("last_login"));
+            obj.setLocked(rs.getShort("locked"));
+            obj.setIp(rs.getString("ip"));
+            obj.setPort(rs.getInt("port"));
+            obj.setAddress(AddressService.getInstance().get(new Address(obj.getId())));
+            return obj;
+        }
+        return null;
     }
 
     @Override

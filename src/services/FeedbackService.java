@@ -62,13 +62,15 @@ public class FeedbackService extends Service implements Create<Feedback>,Update<
     public Feedback get(Feedback obj) throws SQLException {
         String query = "select * from feedback where id = " + obj.getId();
         ResultSet rs = CONNECTION.createStatement().executeQuery(query);
-        rs.next();
-	obj.setId(rs.getInt("id"));
-        obj.setContent(rs.getString("content"));
-        obj.setState(rs.getBoolean("state"));
-        obj.setSenderId(rs.getInt("sender_id"));
-        obj.setDate(rs.getTimestamp("date"));
-        return obj;
+        if(rs.next()){
+            obj.setId(rs.getInt("id"));
+            obj.setContent(rs.getString("content"));
+            obj.setState(rs.getBoolean("state"));
+            obj.setSenderId(rs.getInt("sender_id"));
+            obj.setDate(rs.getTimestamp("date"));
+            return obj;
+        }
+	return null;
     }
 
     @Override

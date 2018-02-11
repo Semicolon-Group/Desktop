@@ -1,9 +1,6 @@
 package services;
 
-import iservice.Create;
-import iservice.Delete;
 import iservice.Read;
-import iservice.Update;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,9 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import models.Answer;
 import models.AnswerPost;
-import models.Enumerations;
 import models.Enumerations.Importance;
-import models.Enumerations.PostType;
 
 public class AnswerPostService extends Service implements Read<AnswerPost>{
 

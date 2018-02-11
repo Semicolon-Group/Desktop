@@ -64,14 +64,16 @@ public class SignalService extends Service implements Create<Signal>,Update<Sign
     public Signal get(Signal obj) throws SQLException {
 	String query = "select * from user_signal where id = " + obj.getId();
         ResultSet rs = CONNECTION.createStatement().executeQuery(query);
-        rs.next();
-	obj.setId(rs.getInt("id"));
-        obj.setReason(SignalReason.values()[rs.getInt("reason")]);
-        obj.setDate(rs.getTimestamp("date"));
-        obj.setState(rs.getBoolean("state"));
-        obj.setSenderId(rs.getInt("sender_id"));
-        obj.setReceiver(rs.getInt("receiver_id"));
-        return obj;
+        if(rs.next()){
+            obj.setId(rs.getInt("id"));
+            obj.setReason(SignalReason.values()[rs.getInt("reason")]);
+            obj.setDate(rs.getTimestamp("date"));
+            obj.setState(rs.getBoolean("state"));
+            obj.setSenderId(rs.getInt("sender_id"));
+            obj.setReceiver(rs.getInt("receiver_id"));
+            return obj;
+        }
+	return null;
     }
     
     @Override

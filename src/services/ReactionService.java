@@ -44,8 +44,10 @@ public class ReactionService extends Service implements Create<Reaction>, Read<R
 	pst.setInt(1, obj.getMemberId());
 	pst.setInt(2, obj.getPostId());
 	ResultSet rs = pst.executeQuery();
-	rs.next();
-	return new Reaction(rs.getInt("user_id"), rs.getInt("post_id"), ReactionType.values()[rs.getInt("reaction")]);
+	if(rs.next()){
+            return new Reaction(rs.getInt("user_id"), rs.getInt("post_id"), ReactionType.values()[rs.getInt("reaction")]);
+        }
+	return null;
     }
 
     @Override

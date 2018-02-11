@@ -29,13 +29,14 @@ public class AddressService extends Service implements Read<Address>, Create<Add
     public Address get(Address obj) throws SQLException {
 	String query = "select * from address where user_id = " + obj.getUserId();
 	ResultSet rs = CONNECTION.createStatement().executeQuery(query);
-	while (rs.next()) {
+	if(rs.next()) {
 	    obj.setCity(rs.getString("city"));
 	    obj.setCountry(rs.getString("country"));
 	    obj.setLatitude(rs.getDouble("latitude"));
 	    obj.setLongitude(rs.getDouble("longitude"));
+            return obj;
 	}
-	return obj;
+	return null;
     }
 
     @Override
