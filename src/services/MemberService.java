@@ -32,7 +32,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
     PreparedStatement pst;
     ResultSet rs;
 
-    private MemberService() {
+    public MemberService() {
         super();
     }
 
@@ -84,50 +84,48 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
     }
 
     @Override
-    public Member get(Member obj) throws SQLException {
+    public Member get(Member obj) {
+        try {
+            String condition = "";
+            if (obj.getId() != 0) {
+                condition = "Where id = " + obj.getId();
+            } else if (obj.getPseudo() != null && obj.getPassword() != null) {
+                condition = "Where pseudo ='" + obj.getPseudo() + "' and password='" + obj.getPassword() + "'";
+            } else if (obj.getEmail() != null) {
+                condition = "Where email = " + obj.getEmail();
+            }
+            String req = "Select * from user " + condition;
+            st = CONNECTION.createStatement();
+            rs = st.executeQuery(req);
+            rs.next();
+            obj.setPseudo(rs.getString("pseudo"));
+            obj.setFirstname(rs.getString("firstname"));
+            obj.setLastname(rs.getString("lastname"));
+            obj.setEmail(rs.getString("email"));
+            obj.setPassword(rs.getString("password"));
+            obj.setBirthDate(rs.getDate("birth_date"));
+            obj.setGender(rs.getBoolean("gender"));
+            obj.setHeight(rs.getFloat("height"));
+            obj.setBodyType(Enumerations.BodyType.values()[rs.getInt("body_type")]);
+            obj.setChildrenNumber(rs.getInt("children_number"));
+            obj.setReligion(Enumerations.Religion.values()[rs.getInt("relegion")]);
+            obj.setReligionImportance(Enumerations.Importance.values()[rs.getInt("relegion_importance")]);
+            obj.setSmoker(rs.getBoolean("smoker"));
+            obj.setDrinker(rs.getBoolean("drinker"));
+            obj.setMinAge(rs.getInt("min_age"));
+            obj.setMaxAge(rs.getInt("max_age"));
+            obj.setProximity(Enumerations.Proximity.values()[rs.getInt("proximity")]);
+            obj.setLastLogin(rs.getTimestamp("last_login"));
+            obj.setLocked(rs.getShort("locked"));
+            obj.setIp(rs.getString("ip"));
+            obj.setPort(rs.getInt("port"));
 
-        String condition = "";
-        if (obj.getId() != 0) {
-            condition = "Where id = " + obj.getId();
-        } else if (obj.getPseudo() != null) {
-            condition = "Where pseudo = " + obj.getPseudo();
-        } else if (obj.getEmail() != null) {
-            condition = "Where email = " + obj.getEmail();
+//        obj.setAddress(AddressService.getInstance().get(new Address(obj.getId())));
+            return obj;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        String req = "Select * from user " + condition;
-        st = CONNECTION.createStatement();
-        rs = st.executeQuery(req);
-        rs.next();
-        obj.setPseudo(rs.getString("pseudo"));
-        obj.setFirstname(rs.getString("firstname"));
-        obj.setLastname(rs.getString("lastname"));
-        obj.setEmail(rs.getString("email"));
-        obj.setPassword(rs.getString("password"));
-        obj.setBirthDate(rs.getDate("birth_date"));
-        obj.setGender(rs.getBoolean("gender"));
-        obj.setHeight(rs.getFloat("height"));
-        obj.setBodyType(Enumerations.BodyType.values()[rs.getInt("body_type")]);
-        obj.setChildrenNumber(rs.getInt("children_number"));
-        obj.setReligion(Enumerations.Religion.values()[rs.getInt("relegion")]);
-        obj.setReligionImportance(Enumerations.Importance.values()[rs.getInt("relegion_importance")]);
-        obj.setSmoker(rs.getBoolean("smoker"));
-        obj.setDrinker(rs.getBoolean("drinker"));
-        obj.setMinAge(rs.getInt("min_age"));
-        obj.setMaxAge(rs.getInt("max_age"));
-        obj.setProximity(Enumerations.Proximity.values()[rs.getInt("proximity")]);
-        obj.setLastLogin(rs.getTimestamp("last_login"));
-        obj.setLocked(rs.getShort("locked"));
-        obj.setIp(rs.getString("ip"));
-        obj.setPort(rs.getInt("port"));
-        
-        
-        obj.setAddress(AddressService.getInstance().get(new Address(obj.getId())));
 
-
- 
-        
-        
-        
         return obj;
     }
 
