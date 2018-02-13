@@ -16,82 +16,123 @@
                <children>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <AnchorPane fx:id="content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                     <AnchorPane id="nav_bar" fx:id="navBar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <AnchorPane fx:id="content" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                           </children></AnchorPane>
+                     <AnchorPane fx:id="navBar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                         <children>
-                           <AnchorPane prefHeight="51.0" prefWidth="998.0" AnchorPane.rightAnchor="40.0">
-                              <children>
-                                 <HBox prefHeight="51.0" prefWidth="967.0" AnchorPane.rightAnchor="0.0">
+                              <AnchorPane fx:id="notificationPane" layoutX="1248.4181324553704" layoutY="54.0" prefHeight="600.0" prefWidth="413.0" styleClass="notification_container" visible="false" AnchorPane.rightAnchor="175.0" AnchorPane.topAnchor="54.0">
+                                 <children>
+                                    <AnchorPane fx:id="notificationContent" prefHeight="200.0" prefWidth="200.0" styleClass="notification_content_pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="14.0" />
+                                    <ImageView fitHeight="15.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true" styleClass="notification_pointer_arrow" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <image>
+                                          <Image url="@assets/icons/uparrow.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane fx:id="conversationPane" layoutX="1318.4181324553704" layoutY="54.0" prefHeight="600.0" prefWidth="413.0" styleClass="notification_container" visible="false" AnchorPane.rightAnchor="105.0" AnchorPane.topAnchor="54.0">
+                                 <children>
+                                    <AnchorPane fx:id="conversationContent" prefHeight="200.0" prefWidth="200.0" styleClass="notification_content_pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="14.0" />
+                                    <ImageView fitHeight="15.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true" styleClass="notification_pointer_arrow" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <image>
+                                          <Image url="@assets/icons/uparrow.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane fx:id="accountPane" layoutX="1388.4181324553704" layoutY="54.0" prefHeight="600.0" prefWidth="413.0" styleClass="notification_container" visible="false" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="54.0">
+                                 <children>
+                                    <AnchorPane fx:id="accountContent" prefHeight="200.0" prefWidth="200.0" styleClass="notification_content_pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="14.0" />
+                                    <ImageView fitHeight="15.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true" styleClass="notification_pointer_arrow" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <image>
+                                          <Image url="@assets/icons/uparrow.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane id="nav_bar" prefHeight="48.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                 <AnchorPane prefHeight="51.0" prefWidth="998.0" AnchorPane.rightAnchor="10.0">
                                     <children>
-                                       <VBox id="selected" alignment="CENTER" prefHeight="48.0" prefWidth="150.0" styleClass="nav_bar_button_box">
+                                       <HBox prefHeight="51.0" prefWidth="967.0" AnchorPane.rightAnchor="0.0">
                                           <children>
-                                             <Button mnemonicParsing="false" onAction="#ShowContent" prefHeight="48.0" prefWidth="150.0" styleClass="nav_bar_button" text="Home" textFill="WHITE" />
+                                             <VBox id="selected" alignment="CENTER" prefHeight="48.0" prefWidth="150.0" styleClass="nav_bar_button_box">
+                                                <children>
+                                                   <Button mnemonicParsing="false" onAction="#ShowContent" prefHeight="48.0" prefWidth="150.0" styleClass="nav_bar_button" text="Home" textFill="WHITE" />
+                                                </children>
+                                             </VBox>
+                                             <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="48.0" prefWidth="150.0" styleClass="nav_bar_button_box">
+                                                <children>
+                                                   <Button mnemonicParsing="false" prefHeight="48.0" prefWidth="200.0" styleClass="nav_bar_button" text="Match" textFill="WHITE" />
+                                                </children>
+                                             </VBox>
+                                             <VBox alignment="CENTER" layoutX="81.0" layoutY="10.0" prefHeight="48.0" prefWidth="150.0" styleClass="nav_bar_button_box">
+                                                <children>
+                                                   <Button mnemonicParsing="false" prefHeight="48.0" prefWidth="200.0" styleClass="nav_bar_button" text="Quick Search" textFill="WHITE" />
+                                                </children>
+                                             </VBox>
+                                             <VBox alignment="CENTER" layoutX="151.0" layoutY="10.0" prefHeight="48.0" prefWidth="150.0" styleClass="nav_bar_button_box">
+                                                <children>
+                                                   <Button mnemonicParsing="false" prefHeight="48.0" prefWidth="200.0" styleClass="nav_bar_button" text="Blind Date" textFill="WHITE" />
+                                                </children>
+                                             </VBox>
+                                             <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="48.0" prefWidth="150.0" styleClass="nav_bar_button_box">
+                                                <children>
+                                                   <Button mnemonicParsing="false" prefHeight="48.0" prefWidth="200.0" styleClass="nav_bar_button" text="Recommandation" textFill="WHITE" />
+                                                </children>
+                                             </VBox>
+                                             <VBox id="notification_icon_box" alignment="CENTER" layoutX="610.0" layoutY="10.0" prefHeight="48.0" prefWidth="70.0" styleClass="nav_bar_icon_box">
+                                                <children>
+                                                   <ImageView id="notification_icon" fx:id="notificationIcon" fitHeight="24.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="nav_bar_icon">
+                                                      <image>
+                                                         <Image url="@assets/icons/natural/notification.png" />
+                                                      </image>
+                                                   </ImageView>
+                                                </children>
+                                             </VBox>
+                                             <VBox id="message_icon_box" alignment="CENTER" layoutX="636.0" layoutY="10.0" prefHeight="48.0" prefWidth="70.0" styleClass="nav_bar_icon_box">
+                                                <children>
+                                                   <ImageView id="message_icon" fx:id="messageIcon" fitHeight="24.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="nav_bar_icon">
+                                                      <image>
+                                                         <Image url="@assets/icons/natural/message.png" />
+                                                      </image>
+                                                   </ImageView>
+                                                </children>
+                                             </VBox>
+                                             <VBox id="account_icon_box" alignment="CENTER" prefHeight="48.0" prefWidth="70.0" styleClass="nav_bar_icon_box">
+                                                <children>
+                                                   <ImageView id="account_icon" fitHeight="24.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="nav_bar_icon">
+                                                      <image>
+                                                         <Image url="@assets/icons/natural/account.png" />
+                                                      </image>
+                                                   </ImageView>
+                                                </children>
+                                             </VBox>
                                           </children>
-                                       </VBox>
-                                       <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="48.0" prefWidth="150.0" styleClass="nav_bar_button_box">
+                                       </HBox>
+                                    </children>
+                                 </AnchorPane>
+                                 <AnchorPane prefHeight="48.0" prefWidth="200.0" AnchorPane.leftAnchor="30.0">
+                                    <children>
+                                       <VBox alignment="CENTER" prefHeight="48.0" prefWidth="200.0">
                                           <children>
-                                             <Button mnemonicParsing="false" prefHeight="48.0" prefWidth="200.0" styleClass="nav_bar_button" text="Match" textFill="WHITE" />
-                                          </children>
-                                       </VBox>
-                                       <VBox alignment="CENTER" layoutX="81.0" layoutY="10.0" prefHeight="48.0" prefWidth="150.0" styleClass="nav_bar_button_box">
-                                          <children>
-                                             <Button mnemonicParsing="false" prefHeight="48.0" prefWidth="200.0" styleClass="nav_bar_button" text="Quick Search" textFill="WHITE" />
-                                          </children>
-                                       </VBox>
-                                       <VBox alignment="CENTER" layoutX="151.0" layoutY="10.0" prefHeight="48.0" prefWidth="150.0" styleClass="nav_bar_button_box">
-                                          <children>
-                                             <Button mnemonicParsing="false" prefHeight="48.0" prefWidth="200.0" styleClass="nav_bar_button" text="Blind Date" textFill="WHITE" />
-                                          </children>
-                                       </VBox>
-                                       <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="48.0" prefWidth="150.0" styleClass="nav_bar_button_box">
-                                          <children>
-                                             <Button mnemonicParsing="false" prefHeight="48.0" prefWidth="200.0" styleClass="nav_bar_button" text="Recommandation" textFill="WHITE" />
-                                          </children>
-                                       </VBox>
-                                       <VBox id="notification_icon_box" alignment="CENTER_RIGHT" layoutX="610.0" layoutY="10.0" prefHeight="48.0" prefWidth="70.0" styleClass="nav_bar_icon_box">
-                                          <children>
-                                             <ImageView id="notification_icon" fitHeight="24.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="nav_bar_icon">
+                                             <ImageView fitHeight="48.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                                 <image>
-                                                   <Image url="@assets/icons/natural/notification.png" />
-                                                </image>
-                                             </ImageView>
-                                          </children>
-                                       </VBox>
-                                       <VBox id="message_icon_box" alignment="CENTER_RIGHT" layoutX="636.0" layoutY="10.0" prefHeight="48.0" prefWidth="70.0" styleClass="nav_bar_icon_box">
-                                          <children>
-                                             <ImageView id="message_icon" fitHeight="24.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="nav_bar_icon">
-                                                <image>
-                                                   <Image url="@assets/icons/natural/message.png" />
-                                                </image>
-                                             </ImageView>
-                                          </children>
-                                       </VBox>
-                                       <VBox id="account_icon_box" alignment="CENTER_RIGHT" prefHeight="48.0" prefWidth="70.0" styleClass="nav_bar_icon_box">
-                                          <children>
-                                             <ImageView id="account_icon" fitHeight="24.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="nav_bar_icon">
-                                                <image>
-                                                   <Image url="@assets/icons/natural/account.png" />
+                                                   <Image url="@assets/icons/logo/logo.png" />
                                                 </image>
                                              </ImageView>
                                           </children>
                                        </VBox>
                                     </children>
-                                 </HBox>
-                              </children>
-                           </AnchorPane>
-                           <AnchorPane prefHeight="48.0" prefWidth="200.0" AnchorPane.leftAnchor="30.0">
-                              <children>
-                                 <VBox alignment="CENTER" prefHeight="48.0" prefWidth="200.0">
-                                    <children>
-                                       <ImageView fitHeight="48.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                          <image>
-                                             <Image url="@assets/icons/logo/logo.png" />
-                                          </image>
-                                       </ImageView>
-                                    </children>
-                                 </VBox>
-                              </children>
-                           </AnchorPane>
+                                 </AnchorPane>
+                                 </children>
+                              </AnchorPane>
                         </children>
                      </AnchorPane>
                      </children>

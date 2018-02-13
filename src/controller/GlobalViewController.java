@@ -11,10 +11,14 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -40,12 +44,52 @@ public class GlobalViewController implements Initializable {
     private ScrollPane scroll;
     @FXML
     private AnchorPane content;
+    @FXML
+    private AnchorPane notificationPane;
+    @FXML
+    private AnchorPane conversationPane;
+    @FXML
+    private AnchorPane conversationContent;
+    @FXML
+    private AnchorPane notificationContent;
+    @FXML
+    private ImageView notificationIcon;
+    @FXML
+    private ImageView messageIcon;
+    @FXML
+    private AnchorPane accountPane;
+    @FXML
+    private AnchorPane accountContent;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        mainAnchor.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                String id = ((Node)event.getTarget()).getId();
+                if(id==null) return;
+                if(id.equals("notification_icon") || id.equals("notification_icon_box")){
+                    notificationPane.setVisible(true);
+                    conversationPane.setVisible(false);
+                    accountPane.setVisible(false);
+                }else if(id.equals("message_icon") || id.equals("message_icon_box")){
+                    conversationPane.setVisible(true);
+                    notificationPane.setVisible(false);
+                    accountPane.setVisible(false);
+                }else if(id.equals("account_icon") || id.equals("account_icon_box")){
+                    accountPane.setVisible(true);
+                    conversationPane.setVisible(false);
+                    notificationPane.setVisible(false);
+                }else{
+                    notificationPane.setVisible(false);
+                    conversationPane.setVisible(false);
+                    accountPane.setVisible(false);
+                }
+            }
+        });
         scroll.vvalueProperty().addListener( (observable, oldValue, newValue) -> {
             double yTranslate = (content.getHeight()*newValue.doubleValue())-(scroll.getHeight()*newValue.doubleValue());
             navBar.translateYProperty().setValue(yTranslate);

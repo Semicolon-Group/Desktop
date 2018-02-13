@@ -15,7 +15,6 @@ and open the template in the editor.
 
 .nav_bar_button{
     -fx-background-color: null;
-    -fx-font: FontAwesome;
 }
 
 .nav_bar_button:focused{
@@ -49,4 +48,13 @@ and open the template in the editor.
 
 #selected > .nav_bar_button{
     -fx-text-fill: #e74c3c;
+}
+
+.notification_content_pane{
+    -fx-background-radius: 20 0 20 20;
+    -fx-background-color: white;
+}
+
+.notification_container{
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
 }
