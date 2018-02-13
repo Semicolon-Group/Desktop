@@ -18,6 +18,10 @@ and open the template in the editor.
     -fx-font: FontAwesome;
 }
 
+.nav_bar_button:focused{
+    -fx-text-fill: white;
+}
+
 .nav_bar_button_box{
     -fx-cursor: hand;
     -fx-border-width: 0 1 0 0;

@@ -1,265 +1,275 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HomeViewController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HomeViewController">
    <children>
-      <Label text="Label">
-         <font>
-            <Font size="56.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="10.0" text="Label">
-         <font>
-            <Font size="56.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="94.0" text="Label">
-         <font>
-            <Font size="56.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="178.0" text="Label">
-         <font>
-            <Font size="56.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="261.0" text="Label">
-         <font>
-            <Font size="56.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="345.0" text="Label">
-         <font>
-            <Font size="56.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="429.0" text="Label">
-         <font>
-            <Font size="56.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="513.0" text="Label">
-         <font>
-            <Font size="56.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="596.0" text="Label">
-         <font>
-            <Font size="56.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="680.0" text="Label">
-         <font>
-            <Font size="56.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="764.0" text="Label">
-         <font>
-            <Font size="56.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="848.0" text="Label">
-         <font>
-            <Font size="56.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="932.0" text="Label">
-         <font>
-            <Font size="56.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="1015.0" text="Label">
-         <font>
-            <Font size="56.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="1099.0" text="Label">
-         <font>
-            <Font size="56.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="1183.0" text="Label">
-         <font>
-            <Font size="56.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="1267.0" text="Label">
-         <font>
-            <Font size="56.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="1351.0" text="Label">
-         <font>
-            <Font size="56.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="1434.0" text="Label">
-         <font>
-            <Font size="56.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="1518.0" text="Label">
-         <font>
-            <Font size="56.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="1602.0" text="Label">
-         <font>
-            <Font size="56.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="1686.0" text="Label">
-         <font>
-            <Font size="56.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="1769.0" text="Label">
-         <font>
-            <Font size="56.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="1853.0" text="Label">
-         <font>
-            <Font size="56.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="1937.0" text="Label">
-         <font>
-            <Font size="56.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="2021.0" text="Label">
-         <font>
-            <Font size="56.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="2105.0" text="Label">
-         <font>
-            <Font size="56.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="2188.0" text="Label">
-         <font>
-            <Font size="56.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="2272.0" text="Label">
-         <font>
-            <Font size="56.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="2356.0" text="Label">
-         <font>
-            <Font size="56.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="2440.0" text="Label">
-         <font>
-            <Font size="56.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="2523.0" text="Label">
-         <font>
-            <Font size="56.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="2607.0" text="Label">
-         <font>
-            <Font size="56.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="2691.0" text="Label">
-         <font>
-            <Font size="56.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="2775.0" text="Label">
-         <font>
-            <Font size="56.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="2859.0" text="Label">
-         <font>
-            <Font size="56.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="2942.0" text="Label">
-         <font>
-            <Font size="56.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="3026.0" text="Label">
-         <font>
-            <Font size="56.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="3110.0" text="Label">
-         <font>
-            <Font size="56.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="3194.0" text="Label">
-         <font>
-            <Font size="56.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="3277.0" text="Label">
-         <font>
-            <Font size="56.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="3361.0" text="Label">
-         <font>
-            <Font size="56.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="3445.0" text="Label">
-         <font>
-            <Font size="56.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="3529.0" text="Label">
-         <font>
-            <Font size="56.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="3613.0" text="Label">
-         <font>
-            <Font size="56.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="3696.0" text="Label">
-         <font>
-            <Font size="56.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="3780.0" text="Label">
-         <font>
-            <Font size="56.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="3864.0" text="Label">
-         <font>
-            <Font size="56.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="3948.0" text="Label">
-         <font>
-            <Font size="56.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="4032.0" text="Label">
-         <font>
-            <Font size="56.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="4115.0" text="Label">
-         <font>
-            <Font size="56.0" />
-         </font>
-      </Label>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: red;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label text="Label">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+            <Label layoutX="233.0" layoutY="162.0" text="Label">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+            <Label layoutX="233.0" layoutY="210.0" text="Label">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+            <Label layoutX="233.0" layoutY="259.0" text="Label">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+            <Label layoutX="233.0" layoutY="307.0" text="Label">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+            <Label layoutX="233.0" layoutY="397.0" text="Label">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+            <Label layoutX="233.0" layoutY="494.0" text="Label">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+            <Label layoutX="233.0" layoutY="591.0" text="Label">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+            <Label layoutX="233.0" layoutY="688.0" text="Label">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+            <Label layoutX="233.0" layoutY="785.0" text="Label">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+            <Label layoutX="233.0" layoutY="882.0" text="Label">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+            <Label layoutX="233.0" layoutY="979.0" text="Label">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+            <Label layoutX="233.0" layoutY="1076.0" text="Label">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+            <Label layoutX="233.0" layoutY="1172.0" text="Label">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+            <Label layoutX="233.0" layoutY="1269.0" text="Label">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+            <Label layoutX="233.0" layoutY="1366.0" text="Label">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+            <Label layoutX="233.0" layoutY="1463.0" text="Label">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+            <Label layoutX="233.0" layoutY="1560.0" text="Label">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+            <Label layoutX="233.0" layoutY="1657.0" text="Label">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+            <Label layoutX="233.0" layoutY="1754.0" text="Label">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+            <Label layoutX="233.0" layoutY="1851.0" text="Label">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+            <Label layoutX="233.0" layoutY="1947.0" text="Label">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+            <Label layoutX="233.0" layoutY="2044.0" text="Label">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+            <Label layoutX="233.0" layoutY="2141.0" text="Label">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+            <Label layoutX="233.0" layoutY="2238.0" text="Label">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+            <Label layoutX="233.0" layoutY="2335.0" text="Label">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+            <Label layoutX="233.0" layoutY="2432.0" text="Label">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+            <Label layoutX="233.0" layoutY="2529.0" text="Label">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+            <Label layoutX="233.0" layoutY="2626.0" text="Label">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+            <Label layoutX="233.0" layoutY="2722.0" text="Label">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+            <Label layoutX="233.0" layoutY="2819.0" text="Label">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+            <Label layoutX="233.0" layoutY="2916.0" text="Label">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+            <Label layoutX="233.0" layoutY="3013.0" text="Label">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+            <Label layoutX="233.0" layoutY="3110.0" text="Label">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+            <Label layoutX="233.0" layoutY="3207.0" text="Label">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+            <Label layoutX="233.0" layoutY="3304.0" text="Label">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+            <Label layoutX="233.0" layoutY="3401.0" text="Label">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+            <Label layoutX="233.0" layoutY="3497.0" text="Label">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+            <Label layoutX="233.0" layoutY="3594.0" text="Label">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+            <Label layoutX="233.0" layoutY="3691.0" text="Label">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+            <Label layoutX="233.0" layoutY="3788.0" text="Label">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+            <Label layoutX="233.0" layoutY="3885.0" text="Label">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+            <Label layoutX="233.0" layoutY="3982.0" text="Label">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+            <Label layoutX="233.0" layoutY="4079.0" text="Label">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+            <Label layoutX="233.0" layoutY="4176.0" text="Label">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+            <Label layoutX="233.0" layoutY="4272.0" text="Label">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+            <Label layoutX="233.0" layoutY="4369.0" text="Label">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+            <Label layoutX="233.0" layoutY="4466.0" text="Label">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+            <Label layoutX="233.0" layoutY="4563.0" text="Label">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+            <Label layoutX="233.0" layoutY="4660.0" text="Label">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+            <Label layoutX="233.0" layoutY="4757.0" text="Label">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+            <Label layoutX="233.0" layoutY="4854.0" text="Label">
+               <font>
+                  <Font size="66.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
    </children>
-</VBox>
+</AnchorPane>
