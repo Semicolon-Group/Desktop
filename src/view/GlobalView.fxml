@@ -62,29 +62,29 @@
                                     <children>
                                        <HBox prefHeight="51.0" prefWidth="967.0" AnchorPane.rightAnchor="0.0">
                                           <children>
-                                             <VBox id="selected" alignment="CENTER" prefHeight="48.0" prefWidth="150.0" styleClass="nav_bar_button_box">
+                                             <VBox id="selected" fx:id="homeBox" alignment="CENTER" prefHeight="48.0" prefWidth="150.0" styleClass="nav_bar_button_box">
                                                 <children>
-                                                   <Button mnemonicParsing="false" onAction="#ShowContent" prefHeight="48.0" prefWidth="150.0" styleClass="nav_bar_button" text="Home" textFill="WHITE" />
+                                                   <Button fx:id="homeButton" mnemonicParsing="false" onAction="#showHomeContent" prefHeight="48.0" prefWidth="150.0" styleClass="nav_bar_button" text="Home" textFill="WHITE" />
                                                 </children>
                                              </VBox>
-                                             <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="48.0" prefWidth="150.0" styleClass="nav_bar_button_box">
+                                             <VBox fx:id="matchBox" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="48.0" prefWidth="150.0" styleClass="nav_bar_button_box">
                                                 <children>
-                                                   <Button mnemonicParsing="false" prefHeight="48.0" prefWidth="200.0" styleClass="nav_bar_button" text="Match" textFill="WHITE" />
+                                                   <Button fx:id="matchButton" mnemonicParsing="false" onAction="#showMatchContent" prefHeight="48.0" prefWidth="200.0" styleClass="nav_bar_button" text="Match" textFill="WHITE" />
                                                 </children>
                                              </VBox>
-                                             <VBox alignment="CENTER" layoutX="81.0" layoutY="10.0" prefHeight="48.0" prefWidth="150.0" styleClass="nav_bar_button_box">
+                                             <VBox fx:id="quickSearchBox" alignment="CENTER" layoutX="81.0" layoutY="10.0" prefHeight="48.0" prefWidth="150.0" styleClass="nav_bar_button_box">
                                                 <children>
-                                                   <Button mnemonicParsing="false" prefHeight="48.0" prefWidth="200.0" styleClass="nav_bar_button" text="Quick Search" textFill="WHITE" />
+                                                   <Button fx:id="quickSearchButton" mnemonicParsing="false" onAction="#showQuickSearchContent" prefHeight="48.0" prefWidth="200.0" styleClass="nav_bar_button" text="Quick Search" textFill="WHITE" />
                                                 </children>
                                              </VBox>
-                                             <VBox alignment="CENTER" layoutX="151.0" layoutY="10.0" prefHeight="48.0" prefWidth="150.0" styleClass="nav_bar_button_box">
+                                             <VBox fx:id="blindDateBox" alignment="CENTER" layoutX="151.0" layoutY="10.0" prefHeight="48.0" prefWidth="150.0" styleClass="nav_bar_button_box">
                                                 <children>
-                                                   <Button mnemonicParsing="false" prefHeight="48.0" prefWidth="200.0" styleClass="nav_bar_button" text="Blind Date" textFill="WHITE" />
+                                                   <Button fx:id="blindDateButton" mnemonicParsing="false" onAction="#showBlindDateContent" prefHeight="48.0" prefWidth="200.0" styleClass="nav_bar_button" text="Blind Date" textFill="WHITE" />
                                                 </children>
                                              </VBox>
-                                             <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="48.0" prefWidth="150.0" styleClass="nav_bar_button_box">
+                                             <VBox fx:id="recommandationBox" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="48.0" prefWidth="150.0" styleClass="nav_bar_button_box">
                                                 <children>
-                                                   <Button mnemonicParsing="false" prefHeight="48.0" prefWidth="200.0" styleClass="nav_bar_button" text="Recommandation" textFill="WHITE" />
+                                                   <Button fx:id="recommandationButton" mnemonicParsing="false" onAction="#showRecommandationContent" prefHeight="48.0" prefWidth="200.0" styleClass="nav_bar_button" text="Recommandation" textFill="WHITE" />
                                                 </children>
                                              </VBox>
                                              <VBox id="notification_icon_box" alignment="CENTER" layoutX="610.0" layoutY="10.0" prefHeight="48.0" prefWidth="70.0" styleClass="nav_bar_icon_box">

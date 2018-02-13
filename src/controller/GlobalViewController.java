@@ -16,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -60,6 +61,26 @@ public class GlobalViewController implements Initializable {
     private AnchorPane accountPane;
     @FXML
     private AnchorPane accountContent;
+    @FXML
+    private Button homeButton;
+    @FXML
+    private Button quickSearchButton;
+    @FXML
+    private Button blindDateButton;
+    @FXML
+    private Button recommandationButton;
+    @FXML
+    private Button matchButton;
+    @FXML
+    private VBox homeBox;
+    @FXML
+    private VBox matchBox;
+    @FXML
+    private VBox quickSearchBox;
+    @FXML
+    private VBox recommandationBox;
+    @FXML
+    private VBox blindDateBox;
 
     /**
      * Initializes the controller class.
@@ -110,7 +131,49 @@ public class GlobalViewController implements Initializable {
     }
 
     @FXML
-    private void ShowContent(ActionEvent event) {
+    private void showHomeContent(ActionEvent event) {
         setContent("/view/HomeView.fxml");
+        homeBox.setId("selected");
+        matchBox.setId("");
+        quickSearchBox.setId("");
+        blindDateBox.setId("");
+        recommandationBox.setId("");
+        
+    }
+
+    @FXML
+    private void showMatchContent(ActionEvent event) {
+        homeBox.setId("");
+        matchBox.setId("selected");
+        quickSearchBox.setId("");
+        blindDateBox.setId("");
+        recommandationBox.setId("");
+    }
+
+    @FXML
+    private void showQuickSearchContent(ActionEvent event) {
+        homeBox.setId("");
+        matchBox.setId("");
+        quickSearchBox.setId("selected");
+        blindDateBox.setId("");
+        recommandationBox.setId("");
+    }
+
+    @FXML
+    private void showBlindDateContent(ActionEvent event) {
+        homeBox.setId("");
+        matchBox.setId("");
+        quickSearchBox.setId("");
+        blindDateBox.setId("selected");
+        recommandationBox.setId("");
+    }
+
+    @FXML
+    private void showRecommandationContent(ActionEvent event) {
+        homeBox.setId("");
+        matchBox.setId("");
+        quickSearchBox.setId("");
+        blindDateBox.setId("");
+        recommandationBox.setId("selected");
     }
 }
