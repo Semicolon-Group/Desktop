@@ -58,3 +58,7 @@ and open the template in the editor.
 .notification_container{
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
 }
+
+#notification_panes_container{
+    -fx-background-color: null;
+}
