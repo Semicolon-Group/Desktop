@@ -21,6 +21,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
@@ -40,6 +42,10 @@ public class AuthentificationController implements Initializable {
     private PasswordField pw;
     @FXML
     private Button button;
+    @FXML
+    private ImageView close_btn;
+    @FXML
+    private ImageView fb_btn;
 
     /**
      * Initializes the controller class.
@@ -129,5 +135,17 @@ public class AuthentificationController implements Initializable {
 //             Stage stagex = (Stage) username.getScene().getWindow();
 //        
 //        }
+    }
+
+    @FXML
+    private void goClose(MouseEvent event) {
+    }
+
+    @FXML
+    private void goFb(MouseEvent event) {
+        
+        String domain ="http://www.badis.com/";
+        String appId ="212394559315715";
+        String auth = "https://graph.facebook.com/oauth/authorize?type=user_agent&client_id="+appId+"&redirect_uri="+domain+"&scope=user_about_me,user_actions.books,user_actions.fitness,user_actions.music,user_actions.news,user_actions.video,user_activities,user_birthday,user_education_history,user_events,user_friends,user_games_activity,user_groups,user_hometown,user_interests,user_likes,user_location,user_photos,user_relationship_details,user_relationships,user_religion_politics,user_status,user_tagged_places,user_videos,user_website,user_work_history,ads_management,ads_read,email,manage_notifications,manage_pages,publish_actions,read_friendlists,read_insights,read_mailbox,read_page_mailboxes,read_stream,rsvp_event";
     }
 }

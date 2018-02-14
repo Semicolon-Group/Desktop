@@ -14,12 +14,12 @@
       <PasswordField fx:id="pw" layoutX="260.0" layoutY="208.0" prefHeight="45.0" prefWidth="280.0" promptText="   Password" style="-fx-background-color: #f4f4f4; -fx-font-size: 16; -fx-font-family: Ubuntu; -fx-font-weight: bold; -fx-background-radius: 10 10 10 10;" />
       <Button id="button" fx:id="button" defaultButton="true" layoutX="260.0" layoutY="286.0" mnemonicParsing="false" onAction="#goAuthentification" prefHeight="45.0" prefWidth="147.0" style="-fx-font-family: Ubuntu; -fx-border-width: 5; -fx-font-size: 16; -fx-font-weight: bold; -fx-border-radius: 30 30 30 30; -fx-background-radius: 30 30 30 30;" text="Login" textAlignment="CENTER" />
       <Label layoutX="299.0" layoutY="64.0" prefHeight="55.0" prefWidth="203.0" style="-fx-alignment: center; -fx-font-size: 30; -fx-font-family: Ubuntu; -fx-font-weight: bold;" text="User Login" />
-      <ImageView fitHeight="32.0" fitWidth="30.0" layoutX="756.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="close_btn" fitHeight="32.0" fitWidth="30.0" layoutX="756.0" layoutY="14.0" onDragDetected="#goClose" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../view/assets/cls_1.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="45.0" fitWidth="40.0" layoutX="418.0" layoutY="289.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="fb_btn" fitHeight="45.0" fitWidth="40.0" layoutX="418.0" layoutY="289.0" onDragDetected="#goFb" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../view/assets/az.png" />
          </image>

@@ -5,6 +5,10 @@
  */
 package controller;
 
+import com.restfb.DefaultFacebookClient;
+import com.restfb.FacebookClient;
+import com.restfb.Version;
+import com.restfb.types.User;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -36,7 +40,11 @@ public class mainAuthentification extends Application {
         Stage.setScene(scene);
         
         Stage.show();
-         
+         String accessToken = "EAACEdEose0cBAECLrzGpEXDfNTSTax65zBDUZACBMX7fPZBWG7krQoF8A37c9tM5xfZCWTeAzTBgBsBGxqtiUjt7NyeBocWnrpkproMgtD88o4KYme9axKOtysQRmzvBm7PJ9dbfRRZAdToz3VrXYDdeZAt8mwISiZBZB5c8NH3zVL6wlHKVQXvrcygLtSj8iZBOy30yN813hQZDZD";
+         FacebookClient  fbClient = new DefaultFacebookClient(accessToken, com.restfb.Version.UNVERSIONED); 
+         User me = fbClient.fetchObject("me" , User.class);
+         System.out.println(me.getName());
+         System.out.println(me.getLastName());
     }
 
     /**
