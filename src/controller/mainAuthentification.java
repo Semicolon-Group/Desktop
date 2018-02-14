@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  *
@@ -27,11 +28,15 @@ public class mainAuthentification extends Application {
       
         
       Parent root = FXMLLoader.load(getClass().getResource("Authentification.fxml"));
-        
+      
+        Stage.initStyle(StageStyle.UNDECORATED);
         Scene scene = new Scene(root);
+       
         
         Stage.setScene(scene);
+        
         Stage.show();
+         
     }
 
     /**

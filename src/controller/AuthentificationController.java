@@ -5,6 +5,7 @@
  */
 package controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -21,6 +22,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import models.Member;
 import services.MemberService;
@@ -48,62 +50,84 @@ public class AuthentificationController implements Initializable {
     }
 
     @FXML
-    private void goAuthentification(ActionEvent event) throws SQLException {
-//        Alert a = new Alert(Alert.AlertType.ERROR, contentText, buttons);
-//        MemberService memberService = new MemberService();
+    private void goAuthentification(ActionEvent event) throws SQLException, IOException {
         Member m = new Member();
-           MemberService memberService = MemberService.getInstance();
+        MemberService memberService = MemberService.getInstance();
         m.setPseudo(username.getText());
         m.setPassword(pw.getText());
-//        m.setPassword(pw.getText());
 
-        Stage stagex = (Stage) username.getScene().getWindow();
-        stagex.close();
-        
-        if (username.getText().isEmpty()) {
-            Alert alert = new Alert(AlertType.ERROR);
+        try {
+            m = memberService.get(m);
+            
+                System.out.println(m.getId() + " " + m.getPseudo() + " " + m.getFirstname() + " " + m.getLastname() + " " + m.getEmail() + " " + m.getPassword() + " " + m.getBirthDate() + " " + m.isGender() + " " + m.getHeight() + " " + m.getHeight() + " " + m.getBodyType() + " " + m.getChildrenNumber() + " " + m.getReligion() + " " + m.getReligionImportance() + " " + m.isSmoker() + " "
+                        + m.isDrinker() + " " + m.getMaxAge() + " " + m.getMinAge() + " " + m.getProximity() + " " + m.getLastLogin() + " " + m.getLocked() + " " + m.getIp() + " " + m.getPort() + " " + m.getPreferedRelations() + " " + m.getPreferedStatuses());
+
+//             FXMLLoader fxmlLoader2 = new FXMLLoader(getClass().getResource("a.fxml"));
+//            
+//                Parent root2 = (Parent) fxmlLoader2.load();
+//                Stage stage = new Stage();
+//                stage.setScene(new Scene(root2));
+//                stage.show();
+                button.getScene().setRoot(FXMLLoader.load(getClass().getResource("a.fxml")));
+                 
+        }
+        catch(SQLException e) {
+            
+         Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Empty username");
             alert.setHeaderText("Username ");
             alert.setContentText("No username was inserted");
 
             alert.showAndWait();
+        }
 
-           
-        } else if (pw.getText().isEmpty()) {
-             Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Empty password");
-            alert.setHeaderText(" Password ");
-            alert.setContentText("No Password was inserted");
-
-            alert.showAndWait();
-            try {
-            
-         if(memberService.get(m)==null) {
-            alert.setTitle("No one !");
-            alert.setHeaderText(" No one ! ");
-            alert.setContentText("No one !");
-
-            alert.showAndWait();}
-         
-
-             
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("interfaceCompte.fxml"));
-                    Parent root1 = (Parent) fxmlLoader.load();
-                    Stage stage = new Stage();
-                    stage.setScene(new Scene(root1));
-                    stage.show();
-                } catch (Exception e) {
-                }
-            } else {
-                System.out.println("erreur");
-            }
-//        memberService.get(m);
-     
-     
-        System.out.println(m.getId() + " " + m.getPseudo() + " " + m.getFirstname() + " " + m.getLastname() + " " + m.getEmail() + " " + m.getPassword() + " " + m.getBirthDate() + " " + m.isGender() + " " + m.getHeight() + " " + m.getHeight() + " " + m.getBodyType() + " " + m.getChildrenNumber() + " " + m.getReligion() + " " + m.getReligionImportance() + " " + m.isSmoker() + " "
-                + m.isDrinker() + " " + m.getMaxAge() + " " + m.getMinAge() + " " + m.getProximity() + " " + m.getLastLogin() + " " + m.getLocked() + " " + m.getIp() + " " + m.getPort() + " " + m.getPreferedRelations() + " " + m.getPreferedStatuses());
+//        if (username.getText().isEmpty()) {
+//            Alert alert = new Alert(AlertType.ERROR);
+//            alert.setTitle("Empty username");
+//            alert.setHeaderText("Username ");
+//            alert.setContentText("No username was inserted");
+//
+//            alert.showAndWait();
+//
+//        } else if (pw.getText().isEmpty()) {
+//            Alert alert = new Alert(AlertType.ERROR);
+//            alert.setTitle("Empty password");
+//            alert.setHeaderText(" Password ");
+//            alert.setContentText("No Password was inserted");
+//
+//            alert.showAndWait();
+//        } else {
+//            try {
+//                Member m = new Member();
+//                MemberService memberService = MemberService.getInstance();
+//                m.setPseudo(username.getText());
+//                m.setPassword(pw.getText());
+////                m = memberService.get(m);
+//
+//                if (memberService.get(m) == null) {
+//                    Alert alert = new Alert(AlertType.ERROR);
+//
+//                    alert.setTitle("No one !");
+//                    alert.setHeaderText(" No one ! ");
+//                    alert.setContentText("No one !");
+//
+//                    alert.showAndWait();
+//                  
+//                }else{
+//                FXMLLoader fxmlLoader2 = new FXMLLoader(getClass().getResource("a.fxml"));
+//                Parent root2 = (Parent) fxmlLoader2.load();
+//                Stage stage = new Stage();
+//                stage.setScene(new Scene(root2));
+//                stage.show();
+//                    
+//                }
+//          
+//                System.out.println(m.getId() + " " + m.getPseudo() + " " + m.getFirstname() + " " + m.getLastname() + " " + m.getEmail() + " " + m.getPassword() + " " + m.getBirthDate() + " " + m.isGender() + " " + m.getHeight() + " " + m.getHeight() + " " + m.getBodyType() + " " + m.getChildrenNumber() + " " + m.getReligion() + " " + m.getReligionImportance() + " " + m.isSmoker() + " "
+//                        + m.isDrinker() + " " + m.getMaxAge() + " " + m.getMinAge() + " " + m.getProximity() + " " + m.getLastLogin() + " " + m.getLocked() + " " + m.getIp() + " " + m.getPort() + " " + m.getPreferedRelations() + " " + m.getPreferedStatuses());
+//            } catch (Exception e) {
+//            }
+//             Stage stagex = (Stage) username.getScene().getWindow();
+//        
+//        }
     }
 }
-
-
-

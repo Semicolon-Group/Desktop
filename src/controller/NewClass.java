@@ -69,6 +69,7 @@ public class NewClass {
         Member m = new Member();
         String x = "bdas";
         m.setPseudo("bdas");
+        m.setPassword("5555");
 //        m.setPassword("5555");
      
         MemberService memberService = MemberService.getInstance();

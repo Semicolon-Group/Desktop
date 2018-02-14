@@ -84,15 +84,15 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
     }
 
     @Override
-    public Member get(Member obj) {
-        try {
+    public Member get(Member obj) throws SQLException {
+  
             String condition = "";
             if (obj.getId() != 0) {
                 condition = "Where id = " + obj.getId();
             } else if (obj.getPseudo() != null && obj.getPassword() != null) {
                 condition = "Where pseudo ='" + obj.getPseudo() + "' and password='" + obj.getPassword() + "'";
             } else if (obj.getEmail() != null) {
-                condition = "Where email = " + obj.getEmail();
+                condition = "Where email ='" + obj.getEmail()+"'";
             }
             String req = "Select * from user " + condition;
             st = CONNECTION.createStatement();
@@ -122,12 +122,9 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
 
 //        obj.setAddress(AddressService.getInstance().get(new Address(obj.getId())));
             return obj;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return obj;
+       
     }
+   
 
     @Override
     public List<Member> getAll(Member obj) throws SQLException {
