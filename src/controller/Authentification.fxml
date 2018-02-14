@@ -19,7 +19,7 @@
             <Image url="@../view/assets/cls_1.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="fb_btn" fitHeight="45.0" fitWidth="40.0" layoutX="418.0" layoutY="289.0" onDragDetected="#goFb" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="fb_btn" fitHeight="45.0" fitWidth="40.0" layoutX="418.0" layoutY="289.0" onMouseClicked="#goFb" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../view/assets/az.png" />
          </image>

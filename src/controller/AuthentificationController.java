@@ -5,6 +5,9 @@
  */
 package controller;
 
+import com.restfb.DefaultFacebookClient;
+import com.restfb.FacebookClient;
+import com.restfb.types.User;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -27,6 +30,8 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import models.Member;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import services.MemberService;
 
 /**
@@ -64,9 +69,9 @@ public class AuthentificationController implements Initializable {
 
         try {
             m = memberService.get(m);
-            
-                System.out.println(m.getId() + " " + m.getPseudo() + " " + m.getFirstname() + " " + m.getLastname() + " " + m.getEmail() + " " + m.getPassword() + " " + m.getBirthDate() + " " + m.isGender() + " " + m.getHeight() + " " + m.getHeight() + " " + m.getBodyType() + " " + m.getChildrenNumber() + " " + m.getReligion() + " " + m.getReligionImportance() + " " + m.isSmoker() + " "
-                        + m.isDrinker() + " " + m.getMaxAge() + " " + m.getMinAge() + " " + m.getProximity() + " " + m.getLastLogin() + " " + m.getLocked() + " " + m.getIp() + " " + m.getPort() + " " + m.getPreferedRelations() + " " + m.getPreferedStatuses());
+
+            System.out.println(m.getId() + " " + m.getPseudo() + " " + m.getFirstname() + " " + m.getLastname() + " " + m.getEmail() + " " + m.getPassword() + " " + m.getBirthDate() + " " + m.isGender() + " " + m.getHeight() + " " + m.getHeight() + " " + m.getBodyType() + " " + m.getChildrenNumber() + " " + m.getReligion() + " " + m.getReligionImportance() + " " + m.isSmoker() + " "
+                    + m.isDrinker() + " " + m.getMaxAge() + " " + m.getMinAge() + " " + m.getProximity() + " " + m.getLastLogin() + " " + m.getLocked() + " " + m.getIp() + " " + m.getPort() + " " + m.getPreferedRelations() + " " + m.getPreferedStatuses());
 
 //             FXMLLoader fxmlLoader2 = new FXMLLoader(getClass().getResource("a.fxml"));
 //            
@@ -74,12 +79,11 @@ public class AuthentificationController implements Initializable {
 //                Stage stage = new Stage();
 //                stage.setScene(new Scene(root2));
 //                stage.show();
-                button.getScene().setRoot(FXMLLoader.load(getClass().getResource("a.fxml")));
-                 
-        }
-        catch(SQLException e) {
-            
-         Alert alert = new Alert(AlertType.ERROR);
+            button.getScene().setRoot(FXMLLoader.load(getClass().getResource("a.fxml")));
+
+        } catch (SQLException e) {
+
+            Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Empty username");
             alert.setHeaderText("Username ");
             alert.setContentText("No username was inserted");
@@ -143,9 +147,33 @@ public class AuthentificationController implements Initializable {
 
     @FXML
     private void goFb(MouseEvent event) {
-        
-        String domain ="http://www.badis.com/";
-        String appId ="212394559315715";
-        String auth = "https://graph.facebook.com/oauth/authorize?type=user_agent&client_id="+appId+"&redirect_uri="+domain+"&scope=user_about_me,user_actions.books,user_actions.fitness,user_actions.music,user_actions.news,user_actions.video,user_activities,user_birthday,user_education_history,user_events,user_friends,user_games_activity,user_groups,user_hometown,user_interests,user_likes,user_location,user_photos,user_relationship_details,user_relationships,user_religion_politics,user_status,user_tagged_places,user_videos,user_website,user_work_history,ads_management,ads_read,email,manage_notifications,manage_pages,publish_actions,read_friendlists,read_insights,read_mailbox,read_page_mailboxes,read_stream,rsvp_event";
+
+        String appSecret = "15378d7426361fe464f5af2e08f780e3";
+        String domain = "http://localhost";
+        String appId = "212394559315715";
+        String auth = "http://graph.facebook.com/oauth/authorize?type=user_agent&client_id=" + appId + "&redirect_uri=" + domain + "&scope=user_about_me,"
+                + "user_actions.books,user_actions.fitness,user_actions.music,user_actions.news,user_actions.video,user_birthday,user_education_history,"
+                + "user_events,user_photos,user_friends,user_games_activity,user_hometown,user_likes,user_location,user_photos,user_relationship_details,"
+                + "user_relationships,user_religion_politics,user_status,user_tagged_places,user_videos,user_website,user_work_history,ads_management,ads_read,email,"
+                + "manage_pages,publish_actions,read_insights,user_friends,read_page_mailboxes,rsvp_event";
+        System.setProperty("Webdriver.chrome.driver", "chromedriver.exe");
+        WebDriver dr1 = new ChromeDriver();
+        String accessToken = null;
+        dr1.get(auth);
+        while (true) {
+            if (!dr1.getCurrentUrl().contains("www.facebook.com")) {
+                              accessToken.substring(13, accessToken.lastIndexOf("&"));
+
+                String url = dr1.getCurrentUrl();
+                accessToken = url.replaceAll(".*#access_token=(.+)&.*", "$1");
+
+                     
+
+                dr1.quit();
+                FacebookClient fbClient = new DefaultFacebookClient(accessToken, appSecret, com.restfb.Version.UNVERSIONED);
+                User user = fbClient.fetchObject("me", User.class);
+                System.out.println(user.getName());
+            }
+        }
     }
 }

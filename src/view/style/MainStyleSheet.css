@@ -1,0 +1,64 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Feb 12, 2018, 8:58:12 PM
+    Author     : Seif
+*/
+#nav_bar{
+    -fx-background-color:  rgba(0, 0, 0, 0.7);
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #e74c3c;
+}
+
+.nav_bar_button{
+    -fx-background-color: null;
+}
+
+.nav_bar_button:focused{
+    -fx-text-fill: white;
+}
+
+.nav_bar_button_box{
+    -fx-cursor: hand;
+    -fx-border-width: 0 1 0 0;
+    -fx-border-color: rgba(0, 0, 0, 0.2);
+}
+
+.nav_bar_button:hover{
+    -fx-text-fill: #e74c3c;
+}
+
+.nav_bar_button_box:hover{
+    -fx-border-width: 0 1 2 0;
+    -fx-border-color: rgba(0, 0, 0, 0.2) rgba(0, 0, 0, 0.2) #e74c3c rgba(0, 0, 0, 0.2);
+}
+
+.nav_bar_icon_box{
+    -fx-background-color: null;
+    -fx-cursor: hand;
+}
+
+#selected{
+    -fx-border-width: 0 1 2 0;
+    -fx-border-color: rgba(0, 0, 0, 0.2) rgba(0, 0, 0, 0.2) #e74c3c rgba(0, 0, 0, 0.2);
+}
+
+#selected > .nav_bar_button{
+    -fx-text-fill: #e74c3c;
+}
+
+.notification_content_pane{
+    -fx-background-radius: 20 0 20 20;
+    -fx-background-color: white;
+}
+
+.notification_container{
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+
+#notification_panes_container{
+    -fx-background-color: null;
+}

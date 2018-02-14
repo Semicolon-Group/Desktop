@@ -1,6 +1,6 @@
 package util;
 
-import gui.MySoulMate;
+import controller.MySoulMate;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.ZoneId;
