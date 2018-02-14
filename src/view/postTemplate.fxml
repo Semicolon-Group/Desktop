@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="post" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="405.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PostTemplateController">
+   <children>
+      <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="405.0">
+         <children>
+            <ImageView fx:id="photo" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
+            <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="100.0" prefWidth="190.0">
+               <children>
+                  <Label fx:id="name" text="Label">
+                     <VBox.margin>
+                        <Insets left="2.0" top="5.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label fx:id="time" text="time">
+                     <VBox.margin>
+                        <Insets left="2.0" top="60.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <TextArea fx:id="content" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="241.0" prefWidth="405.0" />
+      <HBox prefHeight="59.0" prefWidth="405.0" />
+   </children>
+</VBox>
