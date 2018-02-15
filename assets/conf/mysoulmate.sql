@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.6.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 11, 2018 at 04:44 PM
--- Server version: 10.1.30-MariaDB
--- PHP Version: 7.2.1
+-- Generation Time: Feb 15, 2018 at 07:59 PM
+-- Server version: 5.7.14
+-- PHP Version: 7.0.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -52,7 +50,10 @@ CREATE TABLE `address` (
 --
 
 INSERT INTO `address` (`user_id`, `longitude`, `latitude`, `country`, `city`) VALUES
-(25, 544.5, 646.5, 'tunisia', 'tunis');
+(2, 253.6332, 12544.258963, 'Tunisia', 'La Marsa'),
+(3, 544.5, 646.5, 'tunisia', 'tunis'),
+(4, 544.5, 646.5, 'tunisia', 'tunis'),
+(6, 12543.23, 21547.213, 'Ariana', 'Tunis');
 
 -- --------------------------------------------------------
 
@@ -162,13 +163,6 @@ CREATE TABLE `notification` (
   `seen` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `notification`
---
-
-INSERT INTO `notification` (`id`, `content`, `date`, `icon`, `sender_id`, `receiver_id`, `photo_id`, `answer_id`, `type`, `seen`) VALUES
-(4, 'jjjjjj', '2018-02-10 17:21:54', '****', 11, 22, 1, 1, 4, 0);
-
 -- --------------------------------------------------------
 
 --
@@ -181,13 +175,6 @@ CREATE TABLE `photo` (
   `user_id` int(11) DEFAULT NULL,
   `date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `photo`
---
-
-INSERT INTO `photo` (`id`, `url`, `user_id`, `date`) VALUES
-(1, NULL, 11, NULL);
 
 -- --------------------------------------------------------
 
@@ -286,20 +273,23 @@ CREATE TABLE `user` (
   `port` int(11) DEFAULT NULL,
   `role` tinyint(1) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL
+  `updated_at` datetime DEFAULT NULL,
+  `about` text,
+  `civil_status` int(11) NOT NULL,
+  `connected` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `pseudo`, `firstname`, `lastname`, `email`, `password`, `birth_date`, `gender`, `height`, `body_type`, `children_number`, `relegion`, `relegion_importance`, `smoker`, `drinker`, `min_age`, `max_age`, `proximity`, `last_login`, `locked`, `ip`, `port`, `role`, `created_at`, `updated_at`) VALUES
-(1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(11, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(22, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(23, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(25, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 4, 0, 0, 1, 0, 0, 0, 0, 0, NULL, 0, NULL, 0, 1, '2018-02-11 16:21:36', '2018-02-11 16:21:36');
+INSERT INTO `user` (`id`, `pseudo`, `firstname`, `lastname`, `email`, `password`, `birth_date`, `gender`, `height`, `body_type`, `children_number`, `relegion`, `relegion_importance`, `smoker`, `drinker`, `min_age`, `max_age`, `proximity`, `last_login`, `locked`, `ip`, `port`, `role`, `created_at`, `updated_at`, `about`, `civil_status`, `connected`) VALUES
+(1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'testttt333', 0, 0),
+(2, 'Pofper', 'Seif', 'Abdennadher', 'seif.abdennadher@esprit.tn', '123456', '1995-07-05', 1, 1.85, 2, 3, 1, 1, 0, 0, 20, 23, 1, '2018-02-14 00:00:00', 0, NULL, NULL, 0, '2018-02-12 00:00:00', '2018-02-15 00:00:00', 'But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know extremely painful.', 0, 1),
+(3, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 4, 0, 0, 1, 0, 0, 0, 0, 0, NULL, 0, NULL, 0, 1, '2018-02-14 17:22:32', '2018-02-14 17:22:32', 'tesstttt22', 0, 0),
+(4, NULL, 'Test', NULL, NULL, NULL, NULL, 0, 0, 4, 0, 0, 1, 0, 0, 0, 0, 0, NULL, 0, NULL, 0, 1, '2018-02-14 17:24:31', '2018-02-14 17:24:31', 'teessttt', 0, 1),
+(5, NULL, 'Test', 'Yoo', NULL, NULL, NULL, 0, 0, 4, 0, 0, 1, 0, 0, 0, 0, 0, NULL, 0, NULL, 0, 1, '2018-02-15 20:49:33', '2018-02-15 20:49:33', 'this is a test for about ...............§§§§§!!!!!', 0, 0),
+(6, NULL, 'Test', 'Yoo', NULL, NULL, NULL, 0, 0, 4, 0, 0, 1, 0, 0, 0, 0, 0, NULL, 0, NULL, 0, 1, '2018-02-15 20:50:25', '2018-02-15 20:52:22', 'this is a test for about ...............!!!!!', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -498,67 +488,56 @@ ALTER TABLE `user_signal`
 --
 ALTER TABLE `answer`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
 -- AUTO_INCREMENT for table `choice`
 --
 ALTER TABLE `choice`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `conversation`
 --
 ALTER TABLE `conversation`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `feedback`
 --
 ALTER TABLE `feedback`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `message`
 --
 ALTER TABLE `message`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `photo`
 --
 ALTER TABLE `photo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `question`
 --
 ALTER TABLE `question`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `user_signal`
 --
 ALTER TABLE `user_signal`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
 --
 -- Constraints for dumped tables
 --
@@ -676,7 +655,6 @@ ALTER TABLE `user_like`
 ALTER TABLE `user_signal`
   ADD CONSTRAINT `signal_receiver` FOREIGN KEY (`receiver_id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `signal_sender` FOREIGN KEY (`sender_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
