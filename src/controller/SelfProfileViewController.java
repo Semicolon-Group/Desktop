@@ -8,12 +8,9 @@ package controller;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.time.Period;
 import java.util.Date;
 import java.util.Locale;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -22,7 +19,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
-import models.Enumerations;
 import models.Member;
 import services.MemberService;
 
@@ -67,12 +63,15 @@ public class SelfProfileViewController implements Initializable {
     private Label childNumLabel;
     @FXML
     private Text aboutText;
+    
+    private GlobalViewController controller;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        controller = GlobalViewController.getInstance();
         makeCoverPicture();
         makeProfilePicture();
         populateFields();

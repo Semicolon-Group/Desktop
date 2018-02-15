@@ -5,13 +5,9 @@
  */
 package controller;
 
-import com.sun.javafx.property.adapter.PropertyDescriptor;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -166,10 +162,15 @@ public class GlobalViewController implements Initializable {
             accountIcon.getStyleClass().add("hoverable");
             releaseIcon(accountIcon, "account");
         });
+        setMainContent("/view/HomeView.fxml");
     }
     
     public void setMainContent(String path){
         setContent(path, content);
+    }
+    
+    public void clearMainContent(){
+        clearContent(content);
     }
     
     private void setContent(String path, Pane container){
