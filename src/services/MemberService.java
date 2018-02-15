@@ -124,7 +124,6 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
 
     @Override
     public Member get(Member obj) throws SQLException {
-
         String condition = "";
         if (obj.getId() != 0) {
             condition = "Where id = " + obj.getId();
@@ -158,6 +157,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
             obj.setLocked(rs.getShort("locked"));
             obj.setIp(rs.getString("ip"));
             obj.setPort(rs.getInt("port"));
+            obj.setAbout(rs.getString("about"));
             obj.setAddress(AddressService.getInstance().get(new Address(obj.getId())));
             return obj;
         }
@@ -195,6 +195,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
             mbr.setLocked(rs.getShort("locked"));
             mbr.setIp(rs.getString("ip"));
             mbr.setPort(rs.getInt("port"));
+            obj.setAbout(rs.getString("about"));
 	    mbr.setAddress(AddressService.getInstance().get(new Address(mbr.getId())));
            
             mmbrs.add(mbr);
