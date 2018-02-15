@@ -21,7 +21,7 @@ import javafx.scene.text.TextFlow;
  *
  * @author Elyes
  */
-public class PostTemplateController implements Initializable {
+public class StatusPostViewController implements Initializable {
 
     @FXML
     private VBox post;
@@ -32,7 +32,15 @@ public class PostTemplateController implements Initializable {
     @FXML
     private Label time;
     @FXML
-    private TextFlow content;
+    private TextArea status;
+    @FXML
+    private ImageView smile;
+    @FXML
+    private ImageView love;
+    @FXML
+    private ImageView laugh;
+    @FXML
+    private ImageView scowl;
 
     /**
      * Initializes the controller class.

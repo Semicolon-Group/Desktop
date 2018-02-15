@@ -40,12 +40,13 @@ public class HomeViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
-            VBox post = (VBox) FXMLLoader.load(getClass().getResource("/view/postTemplate.fxml"));
-            feed.getChildren().add(post);
-            VBox post1 = (VBox) FXMLLoader.load(getClass().getResource("/view/postTemplate.fxml"));
-            feed.getChildren().add(post1);
-            VBox post2 = (VBox) FXMLLoader.load(getClass().getResource("/view/postTemplate.fxml"));
+            
+            Parent post2 = FXMLLoader.load(getClass().getResource("/view/StatusWritingView.fxml"));
             feed.getChildren().add(post2);
+            Parent post = FXMLLoader.load(getClass().getResource("/view/StatusPostView.fxml"));
+            feed.getChildren().add(post);
+            Parent post1 = FXMLLoader.load(getClass().getResource("/view/PicturePostView.fxml"));
+            feed.getChildren().add(post1);
         } catch (IOException ex) {
             Logger.getLogger(HomeViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
