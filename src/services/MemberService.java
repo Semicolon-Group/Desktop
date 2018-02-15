@@ -93,6 +93,8 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
                 condition = "Where pseudo ='" + obj.getPseudo() + "' and password='" + obj.getPassword() + "'";
             } else if (obj.getEmail() != null) {
                 condition = "Where email ='" + obj.getEmail()+"'";
+            } else if (obj.getPseudo() != null) {
+                condition = "Where pseudo ='"+obj.getPseudo()+"'";
             }
             String req = "Select * from user " + condition;
             st = CONNECTION.createStatement();

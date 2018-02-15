@@ -18,6 +18,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -35,6 +36,15 @@ public class mainAuthentification extends Application {
       
         Stage.initStyle(StageStyle.UNDECORATED);
         Scene scene = new Scene(root);
+              
+        javafx.geometry.Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        Stage.setX(primaryScreenBounds.getMinX());
+        Stage.setY(primaryScreenBounds.getMinY());
+        Stage.setWidth(primaryScreenBounds.getWidth());
+        Stage.setHeight(primaryScreenBounds.getHeight());
+        
+        Stage.setResizable(false);
+        Stage.initStyle(StageStyle.UNDECORATED);
        
         
         Stage.setScene(scene);
