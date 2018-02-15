@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.TextFlow;
 
 /**
  * FXML Controller class
@@ -30,7 +31,7 @@ public class PostTemplateController implements Initializable {
     @FXML
     private Label time;
     @FXML
-    private TextArea content;
+    private TextFlow content;
 
     /**
      * Initializes the controller class.
