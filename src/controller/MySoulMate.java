@@ -23,6 +23,9 @@ import javafx.stage.StageStyle;
  */
 public class MySoulMate extends Application {
     
+    public static int MEMBER_ID=2;
+    
+    
     @Override
     public void start(Stage primaryStage) throws IOException {
         Parent globalPane = FXMLLoader.load(getClass().getResource("/view/GlobalView.fxml"));

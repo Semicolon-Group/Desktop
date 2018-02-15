@@ -1,0 +1,29 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Feb 15, 2018, 12:29:16 AM
+    Author     : Seif
+*/
+
+.menu_item_box{
+    -fx-border-width: 0 0 2 0;
+    -fx-border-color: lightgray;
+}
+
+.menu_item{
+    -fx-cursor: hand;
+    -fx-background-color: null;
+}
+
+.menu_item:hover{
+    -fx-text-fill: white;
+    -fx-background-color: #e74c3c;
+    -fx-background-radius: 20 0 0 0;
+}
+
+.menu_item:pressed{
+    -fx-background-color: #b23c30;
+}

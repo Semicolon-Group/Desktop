@@ -38,6 +38,7 @@ public class Member extends User{
     private Address address;
     private List<RelationType> preferedRelations;
     private List<MaritalStatus> preferedStatuses;
+    private String about;
 
     public Member() {
         preferedRelations = new ArrayList<>();
@@ -92,7 +93,13 @@ public class Member extends User{
 	this.preferedStatuses = new ArrayList<MaritalStatus>();
     }
 
+    public String getAbout(){
+        return about;
+    }
     
+    public void setAbout(String about){
+        this.about = about;
+    }
 
     public Date getBirthDate() {
 	return birthDate;
