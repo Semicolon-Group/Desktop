@@ -28,6 +28,8 @@ import javafx.stage.Stage;
  */
 public class MainAchref extends Application {
     
+    public static FeedbackContainerViewController container;
+    
     @Override
     public void start(Stage primaryStage) {
 //////
@@ -54,9 +56,10 @@ public class MainAchref extends Application {
 ////            System.out.println(ex.getMessage());
 ////        }
      try {
-            Parent root = FXMLLoader.
-                    load(getClass().getResource("/view/FXMLGetFeed.fxml"));
-            
+            FXMLLoader loader = new FXMLLoader();
+            Parent root = loader.
+                    load(getClass().getResource("/view/FeedbackContainerView.fxml").openStream());
+            container = loader.getController();
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.show();

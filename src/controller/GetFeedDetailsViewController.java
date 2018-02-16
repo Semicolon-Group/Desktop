@@ -5,6 +5,7 @@
  */
 package controller;
 
+import static controller.MainAchref.container;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -12,13 +13,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import models.Feedback;
 
 /**
  * FXML Controller class
  *
  * @author asus
  */
-public class GetFeedView2Controller implements Initializable {
+public class GetFeedDetailsViewController implements Initializable {
 
     @FXML
     private Label name;
@@ -26,6 +28,8 @@ public class GetFeedView2Controller implements Initializable {
     private Label date;
     @FXML
     private Button traiterButton;
+    
+    public static Feedback feed;
 
     /**
      * Initializes the controller class.
@@ -37,6 +41,7 @@ public class GetFeedView2Controller implements Initializable {
 
     @FXML
     private void traiter(ActionEvent event) {
+        container.switchView("GetFeedView");
     }
     
 }

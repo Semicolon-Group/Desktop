@@ -5,7 +5,9 @@
  */
 package models;
 
+import java.sql.SQLException;
 import java.sql.Timestamp;
+import services.MemberService;
 
 
 /**
@@ -58,6 +60,10 @@ public class Feedback {
 	this.id = id;
     }
 
+    public String getSenderName() throws SQLException{
+        return MemberService.getInstance().get(new Member(senderId)).getFirstname();
+    }
+    
     public int getSenderId() {
 	return senderId;
     }
@@ -77,7 +83,11 @@ public class Feedback {
     public boolean isState() {
 	return state;
     }
-
+    
+    public String getStateName(){
+        return state ? "Treated" : "Non-Treated";
+    }
+    
     public void setState(boolean state) {
 	this.state = state;
     }

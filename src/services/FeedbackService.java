@@ -83,7 +83,7 @@ public class FeedbackService extends Service implements Create<Feedback>,Update<
 	    feed.setId(rs.getInt("id"));
             feed.setContent(rs.getString("content"));
             feed.setState(rs.getBoolean("state"));
-            feed.setSenderId(1);
+            feed.setSenderId(rs.getInt("sender_id"));
             feed.setDate(rs.getTimestamp("date"));
             feeds.add(feed);
         }
