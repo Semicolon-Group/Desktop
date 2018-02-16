@@ -25,7 +25,7 @@ public class MySoulMate extends Application {
     
     public static int MEMBER_ID=2;
     public static final String UPLOAD_URL = "http://localhost/mysoulmateuploads/";
-    private static Stage mainStage;
+    public static Stage mainStage;
     private static MySoulMate instance;
     
     public static MySoulMate getInstance(){
