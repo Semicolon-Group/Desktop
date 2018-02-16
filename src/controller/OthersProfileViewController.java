@@ -6,6 +6,7 @@
 package controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -20,15 +21,19 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
@@ -120,6 +125,8 @@ public class OthersProfileViewController implements Initializable {
     private Button messageButton;
     @FXML
     private Button dislikeButton;
+    @FXML
+    private AnchorPane mainAnchorPane;
 
     /**
      * Initializes the controller class.
@@ -176,12 +183,27 @@ public class OthersProfileViewController implements Initializable {
                 hBox.setSpacing(20);
                 hBox.setAlignment(Pos.CENTER);
                 ImageView imageView = new ImageView(MySoulMate.UPLOAD_URL+photo.getUrl());
+                imageView.setCursor(Cursor.HAND);
+                imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> showImage(e));
                 imageView.setPreserveRatio(true);
                 imageView.setFitWidth(300);
                 hBox.getChildren().add(imageView);
                 photosVBox.getChildren().add(hBox);
             }
         } catch (SQLException ex) {
+            util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), null);
+        }
+    }
+    
+    private void showImage(MouseEvent event){
+        try {
+            Image image = ((ImageView)event.getTarget()).getImage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ImageView.fxml"));
+            Pane newLoadedPane =  loader.load();
+            ((ImageViewController)loader.getController()).setImage(image);
+            ((ImageViewController)loader.getController()).setParentAnchorPane(mainAnchorPane);
+            mainAnchorPane.getChildren().add(newLoadedPane);
+        } catch (IOException ex) {
             util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), null);
         }
     }

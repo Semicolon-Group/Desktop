@@ -7,6 +7,7 @@ package controller;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -25,8 +26,10 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -143,6 +146,8 @@ public class SelfProfileViewController implements Initializable {
     private VBox photosVBox;
     @FXML
     private ScrollPane photoScrollPane;
+    @FXML
+    private AnchorPane mainAnchorPane;
 
     /**
      * Initializes the controller class.
@@ -178,6 +183,8 @@ public class SelfProfileViewController implements Initializable {
                 button.getStyleClass().add("regular_button");
                 button.setId(photo.getId()+"");
                 ImageView imageView = new ImageView(MySoulMate.UPLOAD_URL+photo.getUrl());
+                imageView.setCursor(Cursor.HAND);
+                imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> showImage(e));
                 imageView.setPreserveRatio(true);
                 imageView.setFitWidth(300);
                 hBox.getChildren().add(imageView);
@@ -185,6 +192,19 @@ public class SelfProfileViewController implements Initializable {
                 photosVBox.getChildren().add(hBox);
             }
         } catch (SQLException ex) {
+            util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), null);
+        }
+    }
+    
+    private void showImage(MouseEvent event){
+        try {
+            Image image = ((ImageView)event.getTarget()).getImage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ImageView.fxml"));
+            Pane newLoadedPane =  loader.load();
+            ((ImageViewController)loader.getController()).setImage(image);
+            ((ImageViewController)loader.getController()).setParentAnchorPane(mainAnchorPane);
+            mainAnchorPane.getChildren().add(newLoadedPane);
+        } catch (IOException ex) {
             util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), null);
         }
     }
@@ -241,6 +261,7 @@ public class SelfProfileViewController implements Initializable {
                     photoPath = MySoulMate.UPLOAD_URL+photos.get(0).getUrl();
                 }
                 likeImageViews.get(i).setImage(new Image(photoPath));
+                likeImageViews.get(i).setId(member.getId()+"");
                 likeNameLabels.get(i).setText(member.getFirstname()+" "+member.getLastname());
                 likeDateLabels.get(i).setText("Depuis: "+(new SimpleDateFormat("dd MMMM yyyy", Locale.FRANCE).format(like.getDate())));
                 i++;
@@ -321,5 +342,12 @@ public class SelfProfileViewController implements Initializable {
 //            {
 //                e.printStackTrace();
 //            }   
+    }
+
+    @FXML
+    private void toOtherProfile(MouseEvent event) {
+        int memberId = Integer.parseInt(((HBox)event.getSource()).getChildren().get(0).getId());
+        FXMLLoader loader = controller.setMainContent("/view/OthersProfileView.fxml");
+        ((OthersProfileViewController)loader.getController()).setUserId(memberId);
     }
 }
