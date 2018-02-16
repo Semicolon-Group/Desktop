@@ -24,7 +24,8 @@ import javafx.stage.StageStyle;
 public class MySoulMate extends Application {
     
     public static int MEMBER_ID=2;
-    private static Stage mainStage;
+    public static final String UPLOAD_URL = "http://localhost/mysoulmateuploads/";
+    public static Stage mainStage;
     private static MySoulMate instance;
     
     public static MySoulMate getInstance(){
@@ -35,11 +36,12 @@ public class MySoulMate extends Application {
     public void start(Stage primaryStage) throws IOException {
         instance=this;
         mainStage = primaryStage;
-        Parent globalPane = FXMLLoader.load(getClass().getResource("/view/GlobalView.fxml"));
-        Scene scene = new Scene(globalPane);
-        mainStage.setScene(scene);
-        mainStage.initStyle(StageStyle.UNDECORATED);
-        mainStage.show();
+//        Parent globalPane = FXMLLoader.load(getClass().getResource("/view/GlobalView.fxml"));
+//        Scene scene = new Scene(globalPane);
+//        mainStage.setScene(scene);
+       mainStage.initStyle(StageStyle.UNDECORATED);
+//        mainStage.show();
+        ChangeToHomeScene();
     }
     
     public void ChangeToHomeScene(){

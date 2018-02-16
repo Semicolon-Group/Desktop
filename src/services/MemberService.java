@@ -50,8 +50,8 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
     public Member create(Member obj) throws SQLException {
         String query = "insert into user (pseudo, firstname, lastname, email,password,birth_date,gender,height,"
                 + "body_type,children_number,relegion,relegion_importance,smoker,drinker,min_age,max_age,"
-                + "proximity,last_login,locked,ip,port,role,created_at,updated_at,about,civil_status,connected)"
-                + " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                + "proximity,last_login,locked,ip,port,role,created_at,updated_at,about,civil_status,connected,created_at)"
+                + " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement preparedStatement = CONNECTION.prepareStatement(query);
         preparedStatement.setString(1, obj.getPseudo());
         preparedStatement.setString(2, obj.getFirstname());
@@ -80,6 +80,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
         preparedStatement.setString(25, obj.getAbout());
         preparedStatement.setInt(26, obj.getMaritalStatus().ordinal());
         preparedStatement.setBoolean(27, obj.isConnected());
+        preparedStatement.setTimestamp(28, obj.getCreatedAt());
         preparedStatement.executeUpdate();
 	
 	String req = "SELECT MAX(id) max from user";
@@ -169,6 +170,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
             obj.setAbout(rs.getString("about"));
             obj.setMaritalStatus(Enumerations.MaritalStatus.values()[rs.getInt("civil_status")]);
             obj.setConnected(rs.getBoolean("connected"));
+            obj.setCreatedAt(rs.getTimestamp("created_at"));
             obj.setAddress(AddressService.getInstance().get(new Address(obj.getId())));
             return obj;
         }
@@ -209,6 +211,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
             mbr.setAbout(rs.getString("about"));
             mbr.setMaritalStatus(Enumerations.MaritalStatus.values()[rs.getInt("civil_status")]);
             mbr.setConnected(rs.getBoolean("connected"));
+            mbr.setCreatedAt(rs.getTimestamp("created_at"));
 	    mbr.setAddress(AddressService.getInstance().get(new Address(mbr.getId())));
            
             mmbrs.add(mbr);
