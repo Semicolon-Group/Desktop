@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import models.Choice;
-import models.Enumerations.Topic;
+import models.Enumerations.TopicType;
 import models.Question;
 
 /**
@@ -55,7 +55,14 @@ public class QuestionService extends Service implements Create<Question>, Delete
 	
 	return obj;
     }
+    //
+            public void deleteq(int id) throws SQLException{
+                String query = "delete from question where id= " + id;
+                CONNECTION.createStatement().executeUpdate(query);
 
+            }
+            
+            
     @Override
     public void delete(Question obj) throws SQLException {
 	String query = "delete from question where id= " + obj.getId();
@@ -70,7 +77,7 @@ public class QuestionService extends Service implements Create<Question>, Delete
 	if(rs.next()) {
 	    qst.setId(rs.getInt("id"));
 	    qst.setQuestion(rs.getString("question"));
-	    qst.setTopic(Topic.values()[rs.getInt("topic")]);
+	    qst.setTopic(TopicType.values()[rs.getInt("topic")]);
 	    /*
 	    * We're using getAll(Choice) to retrieve the list of choices for our question.
 	     */
@@ -91,7 +98,7 @@ public class QuestionService extends Service implements Create<Question>, Delete
 	    Question qst = new Question();
 	    qst.setId(rs.getInt("id"));
 	    qst.setQuestion(rs.getString("question"));
-	    qst.setTopic(Topic.values()[rs.getInt("topic")]);
+	    qst.setTopic(TopicType.values()[rs.getInt("topic")]);
 	    /*
 	    * We're using getAll(Choice) to retrieve the list of choices for our question.
 	     */

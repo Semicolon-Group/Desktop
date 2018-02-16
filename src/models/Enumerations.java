@@ -29,7 +29,7 @@ public class Enumerations {
 	VEUF,
 	DIVORCE
     }
-    public enum Religion{
+    public enum Relegion{
 	ISLAM,
 	JUDAISME,
 	CHRISTIANISME,
@@ -79,7 +79,7 @@ public class Enumerations {
         STATUS,
         UPDATE
     }
-    public enum Topic{
+    public enum TopicType{
 	RELIGION,
 	SEX,
 	CULTURE,

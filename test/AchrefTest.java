@@ -49,12 +49,12 @@ public class AchrefTest {
         MemberService mem = MemberService.getInstance();
 //        Member m1 = new Member(null, true , 1.8f , BodyType.GROS , 2 , Religion.ISLAM, Importance.IMPORTANT, true, false , 15 , 18, Proximity.DISTANT, null , 1 , "aa" , "achref", "achref7", "bj", "achref@gmail.com", "achref07", "192.168.1.0", 3303);
 
-      Member mbr = new Member();
-      mbr.setAddress(new Address(544.5,646.5,"tunisia","tunis"));
-      mbr.setBodyType(BodyType.FORME);
-      mbr.setReligion(Religion.ISLAM);
-      mbr.setReligionImportance(Importance.UN_PEU_IMPORTANT);
-      mbr.setProximity(Proximity.PROCHE);
-      mem.create(mbr);
+//      Member mbr = new Member();
+//      mbr.setAddress(new Address(544.5,646.5,"tunisia","tunis"));
+//      mbr.setBodyType(BodyType.FORME);
+//      mbr.setReligion(Religion.ISLAM);
+//      mbr.setReligionImportance(Importance.UN_PEU_IMPORTANT);
+//      mbr.setProximity(Proximity.PROCHE);
+//      mem.create(mbr);
     }
 }

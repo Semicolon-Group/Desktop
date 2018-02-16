@@ -56,6 +56,10 @@ public class Notification {
 	this.seen = seen;
     }
 
+    public Notification(String content) {
+        this.content = content;
+    }
+
     public boolean isSeen() {
 	return seen;
     }
