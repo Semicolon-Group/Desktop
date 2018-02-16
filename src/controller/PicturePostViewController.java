@@ -6,10 +6,12 @@
 package controller;
 
 import java.net.URL;
+import java.sql.Timestamp;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
@@ -46,5 +48,12 @@ public class PicturePostViewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+
+    public void fill(Image photo, String name, String time, String picture) {
+        this.photo.setImage(photo);
+        this.name.setText(name);
+        this.time.setText(time);
+        this.picture.setImage(new Image(picture));
+    }
     
 }

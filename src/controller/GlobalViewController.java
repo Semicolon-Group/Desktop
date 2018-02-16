@@ -8,7 +8,10 @@ package controller;
 import com.sun.javafx.property.adapter.PropertyDescriptor;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -25,6 +28,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import models.Member;
+import services.MemberService;
 
 /**
  * FXML Controller class
@@ -80,6 +85,8 @@ public class GlobalViewController implements Initializable {
     @FXML
     private VBox blindDateBox;
     
+    public static Member online;
+    
     private EventHandler notificationPaneHandler = new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
@@ -129,38 +136,45 @@ public class GlobalViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        mainAnchor.addEventFilter(MouseEvent.MOUSE_CLICKED, notificationPaneHandler);
-        scroll.vvalueProperty().addListener( (observable, oldValue, newValue) -> {
-            double yTranslate = (content.getHeight()*newValue.doubleValue())-(scroll.getHeight()*newValue.doubleValue());
-            navBar.translateYProperty().setValue(yTranslate);
-        });
-        notificationPane.visibleProperty().addListener((observable, oldValue, newValue) -> {
-            if(newValue){
-                notificationIcon.getStyleClass().remove(notificationIcon.getStyleClass().size()-1);
-                activeIcon(notificationIcon, "notification");
-                return;
-            }
-            notificationIcon.getStyleClass().add("hoverable");
-            releaseIcon(notificationIcon, "notification");
-        });
-        conversationPane.visibleProperty().addListener((observable, oldValue, newValue) -> {
-            if(newValue){
-                messageIcon.getStyleClass().remove(messageIcon.getStyleClass().size()-1);
-                activeIcon(messageIcon, "message");
-                return;
-            }
-            messageIcon.getStyleClass().add("hoverable");
-            releaseIcon(messageIcon, "message");
-        });
-        accountPane.visibleProperty().addListener((observable, oldValue, newValue) -> {
-            if(newValue){
-                accountIcon.getStyleClass().remove(accountIcon.getStyleClass().size()-1);
-                activeIcon(accountIcon, "account");
-                return;
-            }
-            accountIcon.getStyleClass().add("hoverable");
-            releaseIcon(accountIcon, "account");
-        });
+        
+        try {
+            online = MemberService.getInstance().get(new Member(1));
+            
+            mainAnchor.addEventFilter(MouseEvent.MOUSE_CLICKED, notificationPaneHandler);
+            scroll.vvalueProperty().addListener( (observable, oldValue, newValue) -> {
+                double yTranslate = (content.getHeight()*newValue.doubleValue())-(scroll.getHeight()*newValue.doubleValue());
+                navBar.translateYProperty().setValue(yTranslate);
+            });
+            notificationPane.visibleProperty().addListener((observable, oldValue, newValue) -> {
+                if(newValue){
+                    notificationIcon.getStyleClass().remove(notificationIcon.getStyleClass().size()-1);
+                    activeIcon(notificationIcon, "notification");
+                    return;
+                }
+                notificationIcon.getStyleClass().add("hoverable");
+                releaseIcon(notificationIcon, "notification");
+            });
+            conversationPane.visibleProperty().addListener((observable, oldValue, newValue) -> {
+                if(newValue){
+                    messageIcon.getStyleClass().remove(messageIcon.getStyleClass().size()-1);
+                    activeIcon(messageIcon, "message");
+                    return;
+                }
+                messageIcon.getStyleClass().add("hoverable");
+                releaseIcon(messageIcon, "message");
+            });
+            accountPane.visibleProperty().addListener((observable, oldValue, newValue) -> {
+                if(newValue){
+                    accountIcon.getStyleClass().remove(accountIcon.getStyleClass().size()-1);
+                    activeIcon(accountIcon, "account");
+                    return;
+                }
+                accountIcon.getStyleClass().add("hoverable");
+                releaseIcon(accountIcon, "account");
+            });
+        } catch (SQLException ex) {
+            Logger.getLogger(GlobalViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     private void setContent(String path){

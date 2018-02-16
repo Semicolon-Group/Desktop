@@ -5,9 +5,16 @@ import iservice.Delete;
 import iservice.Read;
 import iservice.Update;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import models.Like;
+import models.Photo;
+import models.PicturePost;
 
-public class PicturePostService extends Service implements Create<PicturePostService>,Delete<PicturePostService>,Read<PicturePostService>,Update<PicturePostService>{
+public class PicturePostService extends Service implements Read<PicturePost>{
 
     private static PicturePostService picturePostService;
     
@@ -23,29 +30,21 @@ public class PicturePostService extends Service implements Create<PicturePostSer
     }
 
     @Override
-    public PicturePostService create(PicturePostService obj) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public PicturePost get(PicturePost obj) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(PicturePostService obj) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<PicturePost> getAll(PicturePost obj) throws SQLException {
+        List<PicturePost> list = new ArrayList();
+        try {
+            list.addAll(PhotoService.getInstance().getAll(new Photo(0,obj.getOwnerId(),null,null))
+            .stream().filter(A -> A.getDate().compareTo(obj.getDate()) > 0)
+            .map(p -> new PicturePost(p.getUrl(),0,p.getUserId(),p.getDate()))
+            .collect(Collectors.toList()));
+        } catch (SQLException ex) {
+            Logger.getLogger(PicturePostService.class.getName()).log(Level.SEVERE, null, ex);
+        };
+        return list;
     }
-
-    @Override
-    public PicturePostService get(PicturePostService obj) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<PicturePostService> getAll(PicturePostService obj) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void update(PicturePostService obj) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    
 }

@@ -89,7 +89,7 @@ public class LikeService extends Service implements Create<Like>,Delete<Like>,Re
         ResultSet rs = CONNECTION.createStatement().executeQuery(query);
         List<Like> likes = new ArrayList<>();
         while (rs.next()) {
-            likes.add(new Like(rs.getInt("receiver_id"), rs.getInt("receiver_id"), rs.getTimestamp("date")));
+            likes.add(new Like(rs.getInt("sender_id"), rs.getInt("receiver_id"), rs.getTimestamp("date")));
         }
         return likes;
     }

@@ -5,6 +5,7 @@
  */
 package services;
 
+import static controller.GlobalViewController.online;
 import iservice.Create;
 import iservice.Delete;
 import iservice.Read;
@@ -13,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import models.Member;
 import models.Photo;
 
 /**
@@ -70,6 +72,15 @@ public class PhotoService extends Service implements Create<Photo>,Read<Photo>,D
     public void delete(Photo obj) throws SQLException {
 	String req = "DELETE FROM `photo` WHERE id = " + obj.getId();
 	CONNECTION.createStatement().executeUpdate(req);
+    }
+    
+    public String getProfileUrl(int userId) throws SQLException{
+        String req = "SELECT * FROM `photo` WHERE user_id = " + userId + " ORDER BY `date` ASC LIMIT 1";
+	ResultSet rs = CONNECTION.createStatement().executeQuery(req);
+	if(rs.next()){
+            return rs.getString("url");
+        }
+	return null;
     }
     
 }
