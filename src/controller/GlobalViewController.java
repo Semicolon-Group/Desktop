@@ -165,24 +165,27 @@ public class GlobalViewController implements Initializable {
         setMainContent("/view/HomeView.fxml");
     }
     
-    public void setMainContent(String path){
-        setContent(path, content);
+    public FXMLLoader setMainContent(String path){
+        return setContent(path, content);
     }
     
     public void clearMainContent(){
         clearContent(content);
     }
     
-    private void setContent(String path, Pane container){
+    private FXMLLoader setContent(String path, Pane container){
         try {
-            Pane newLoadedPane =  FXMLLoader.load(getClass().getResource(path));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
+            Pane newLoadedPane =  loader.load();
             VBox.setVgrow(scroll, Priority.ALWAYS);
             container.getChildren().clear();
             container.getChildren().add(newLoadedPane);
             newLoadedPane.prefWidthProperty().bind(container.widthProperty());
+            return loader;
         } catch (IOException ex) {
             util.Logger.writeLog(ex, GlobalViewController.class.getCanonicalName(), null);
         }
+        return null;
     }
     
     private void clearContent(Pane container){

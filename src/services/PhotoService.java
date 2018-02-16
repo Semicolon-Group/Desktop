@@ -57,7 +57,7 @@ public class PhotoService extends Service implements Create<Photo>,Read<Photo>,D
 
     @Override
     public List<Photo> getAll(Photo obj) throws SQLException {
-	String req = "SELECT * FROM `photo` WHERE user_id = " + obj.getUserId();
+	String req = "SELECT * FROM `photo` WHERE user_id = " + obj.getUserId()+" order by date DESC";
 	ResultSet rs = CONNECTION.createStatement().executeQuery(req);
 	List<Photo> list = new ArrayList();
 	while(rs.next()){

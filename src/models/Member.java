@@ -41,6 +41,7 @@ public class Member extends User{
     private String about;
     private MaritalStatus maritalStatus;
     private boolean connected;
+    private Timestamp createdAt;
 
     public Member() {
         preferedRelations = new ArrayList<>();
@@ -57,7 +58,7 @@ public class Member extends User{
             Importance religionImportance, boolean smoker, boolean drinker, int minAge, int maxAge, 
             Proximity proximity, Timestamp lastLogin, short locked, Address address, String pseudo, 
             String firstname, String lastname, String email, String password, String ip, int port, String about, 
-            MaritalStatus maritalStatus, boolean connected) {
+            MaritalStatus maritalStatus, boolean connected, Timestamp createdAt) {
 	super(id, pseudo, firstname, lastname, email, password, ip, port);
 	this.birthDate = birthDate;
 	this.gender = gender;
@@ -77,6 +78,7 @@ public class Member extends User{
         this.about = about;
         this.maritalStatus = maritalStatus;
         this.connected = connected;
+        this.createdAt = createdAt;
 	this.preferedRelations = new ArrayList<RelationType>();
 	this.preferedStatuses = new ArrayList<MaritalStatus>();
     }
@@ -84,7 +86,8 @@ public class Member extends User{
     public Member(Date birthDate, boolean gender, float height, BodyType bodyType, int childrenNumber, Religion religion, 
             Importance religionImportance, boolean smoker, boolean drinker, int minAge, int maxAge, Proximity proximity, 
             Timestamp lastLogin, short locked, Address address, String pseudo, String firstname, String lastname, String email, 
-            String password, String ip, int port, String about, MaritalStatus maritalStatus, boolean connected) {
+            String password, String ip, int port, String about, MaritalStatus maritalStatus, boolean connected,
+            Timestamp createdAt) {
 	super(pseudo, firstname, lastname, email, password, ip, port);
 	this.birthDate = birthDate;
 	this.gender = gender;
@@ -104,8 +107,17 @@ public class Member extends User{
         this.about = about;
         this.maritalStatus = maritalStatus;
         this.connected = connected;
+        this.createdAt = createdAt;
 	this.preferedRelations = new ArrayList<RelationType>();
 	this.preferedStatuses = new ArrayList<MaritalStatus>();
+    }
+
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
     }
 
     public MaritalStatus getMaritalStatus() {
