@@ -6,6 +6,7 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.image.Image?>
@@ -137,7 +138,7 @@
       <AnchorPane layoutY="533.0" prefHeight="200.0" prefWidth="1920.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="533.0">
          <children>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" />
-            <TabPane layoutX="134.0" layoutY="57.0" prefHeight="634.0" prefWidth="1058.0" tabClosingPolicy="UNAVAILABLE">
+            <TabPane layoutX="134.0" layoutY="57.0" prefHeight="634.0" prefWidth="1058.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.topAnchor="57.0">
               <tabs>
                 <Tab text="Profile">
                   <content>
@@ -469,6 +470,9 @@
                                              </children>
                                           </VBox>
                                        </children>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
                                     </HBox>
                                     <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="197.0" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
                                        <children>
@@ -502,6 +506,9 @@
                                              </children>
                                           </VBox>
                                        </children>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
                                     </HBox>
                                     <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="383.0" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                                        <children>
@@ -535,6 +542,9 @@
                                              </children>
                                           </VBox>
                                        </children>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
                                     </HBox>
                                     <HBox alignment="CENTER_LEFT" layoutX="535.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                        <children>
@@ -568,6 +578,9 @@
                                              </children>
                                           </VBox>
                                        </children>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
                                     </HBox>
                                     <HBox alignment="CENTER_LEFT" layoutX="535.0" layoutY="197.0" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                        <children>
@@ -600,7 +613,19 @@
                                                 </HBox>
                                              </children>
                                           </VBox>
+                                          <AnchorPane prefHeight="187.0" prefWidth="97.0" HBox.hgrow="NEVER">
+                                             <children>
+                                                <Label layoutX="97.0" layoutY="142.0" styleClass="link" text="Voir tout" textFill="#0398dd" underline="true" AnchorPane.rightAnchor="20.0">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </AnchorPane>
                                        </children>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
                                     </HBox>
                                  </children>
                               </GridPane>
@@ -613,7 +638,7 @@
                   <String fx:value="paragraph_container" />
                </styleClass>
             </TabPane>
-            <AnchorPane layoutX="1258.0" layoutY="95.0" prefHeight="588.0" prefWidth="660.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <AnchorPane layoutX="1244.0" layoutY="5.0" prefHeight="588.0" prefWidth="660.0" AnchorPane.bottomAnchor="-5.0" AnchorPane.rightAnchor="15.345477456336539" AnchorPane.topAnchor="5.0" />
             <AnchorPane layoutY="738.0" prefHeight="1876.0" prefWidth="1260.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="660.0" AnchorPane.topAnchor="738.0">
                <children>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="paragraph_container" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -632,6 +657,28 @@
                               </Text>
                            </children>
                         </AnchorPane>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="1301.0" styleClass="paragraph_container" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="1301.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="57.0">
+               <children>
+                  <Label text="Photos" textFill="#e74c3c" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="20.0">
+                     <font>
+                        <Font name="System Bold" size="30.0" />
+                     </font>
+                  </Label>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="70.0">
+                     <children>
+                        <ScrollPane fx:id="photoScrollPane" fitToWidth="true" hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <content>
+                              <VBox fx:id="photosVBox" alignment="CENTER" spacing="40.0">
+                                 <padding>
+                                    <Insets bottom="20.0" top="20.0" />
+                                 </padding>
+                              </VBox>
+                           </content>
+                        </ScrollPane>
                      </children>
                   </AnchorPane>
                </children>

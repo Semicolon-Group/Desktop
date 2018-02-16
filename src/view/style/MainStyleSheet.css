@@ -62,3 +62,11 @@ and open the template in the editor.
 #notification_panes_container{
     -fx-background-color: null;
 }
+
+.link:hover{
+    -fx-text-fill: #017cb0;
+}
+
+.photo_delete_button{
+    -fx-background-color: #b43e32;
+}

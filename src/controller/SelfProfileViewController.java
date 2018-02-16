@@ -20,12 +20,19 @@ import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -127,6 +134,10 @@ public class SelfProfileViewController implements Initializable {
     private List<Label> likeNameLabels;
     private List<Label> likeDateLabels;
     private List<ImageView> likeImageViews;
+    @FXML
+    private VBox photosVBox;
+    @FXML
+    private ScrollPane photoScrollPane;
 
     /**
      * Initializes the controller class.
@@ -134,6 +145,7 @@ public class SelfProfileViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         controller = GlobalViewController.getInstance();
+        photosVBox.fillWidthProperty().bind(photoScrollPane.fitToWidthProperty());
         members = new ArrayList<>();
         likeNameLabels = new ArrayList<>();
         likeNameLabels.addAll(Arrays.asList(likeName1, likeName2, likeName3, likeName4, likeName5, likeName6));
@@ -144,6 +156,41 @@ public class SelfProfileViewController implements Initializable {
         makeCoverPicture();
         makeProfilePicture();
         populateFields();
+        populatePhotosPane();
+    }
+    
+    private void populatePhotosPane(){
+        photosVBox.getChildren().clear();
+        try {
+            List<Photo> photos = PhotoService.getInstance().getAll(new Photo(0, MySoulMate.MEMBER_ID, null, null));
+            
+            for(Photo photo:photos){
+                HBox hBox = new HBox();
+                hBox.setSpacing(20);
+                hBox.setAlignment(Pos.CENTER);
+                Button button = new Button("Supprimer");
+                button.setOnAction(e-> supprimerPhoto(e));
+                button.getStyleClass().add("regular_button");
+                button.setId(photo.getId()+"");
+                ImageView imageView = new ImageView(MySoulMate.UPLOAD_URL+photo.getUrl());
+                imageView.setPreserveRatio(true);
+                imageView.setFitWidth(300);
+                hBox.getChildren().add(imageView);
+                hBox.getChildren().add(button);
+                photosVBox.getChildren().add(hBox);
+            }
+        } catch (SQLException ex) {
+            util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), null);
+        }
+    }
+    
+    private void supprimerPhoto(ActionEvent event){
+        try {
+            PhotoService.getInstance().delete(new Photo(Integer.parseInt(((Button)event.getTarget()).getId())));
+            populatePhotosPane();
+        } catch (SQLException ex) {
+            util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), null);
+        }
     }
     
     private void populateFields(){
