@@ -20,6 +20,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -30,9 +31,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -44,6 +47,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import models.Like;
 import models.Member;
 import models.Photo;
@@ -148,6 +153,8 @@ public class SelfProfileViewController implements Initializable {
     private ScrollPane photoScrollPane;
     @FXML
     private AnchorPane mainAnchorPane;
+    @FXML
+    private TextArea aboutTextarea;
 
     /**
      * Initializes the controller class.
@@ -156,6 +163,7 @@ public class SelfProfileViewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         controller = GlobalViewController.getInstance();
         photosVBox.fillWidthProperty().bind(photoScrollPane.fitToWidthProperty());
+        aboutTextarea.focusedProperty().addListener((o, oldValue, newValue) -> updateAbout(o, oldValue, newValue));
         members = new ArrayList<>();
         likeNameLabels = new ArrayList<>();
         likeNameLabels.addAll(Arrays.asList(likeName1, likeName2, likeName3, likeName4, likeName5, likeName6));
@@ -349,5 +357,53 @@ public class SelfProfileViewController implements Initializable {
         int memberId = Integer.parseInt(((HBox)event.getSource()).getChildren().get(0).getId());
         FXMLLoader loader = controller.setMainContent("/view/OthersProfileView.fxml");
         ((OthersProfileViewController)loader.getController()).setUserId(memberId);
+    }
+
+    @FXML
+    private void toEditView(ActionEvent event) {
+        try {
+            final Stage dialog = new Stage();
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.initOwner(MySoulMate.mainStage);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/EditProfileView.fxml"));
+            Pane content = loader.load();
+            ((EditProfileViewController)loader.getController()).setMember(MemberService.getInstance().get(new Member(MySoulMate.MEMBER_ID)));
+            ((EditProfileViewController)loader.getController()).setController(this);
+            ((EditProfileViewController)loader.getController()).setDialog(dialog);
+            Scene dialogScene = new Scene(content, 1200, 775);
+            dialog.setScene(dialogScene);
+            dialog.show();
+        } catch (IOException ex) {
+            util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), null);
+        } catch (SQLException ex) {
+            util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), null);
+        }
+    }
+    
+    public void updateMemberInfo(){
+        populateFields();
+    }
+
+    @FXML
+    private void editAbout(MouseEvent event) {
+        aboutTextarea.setText(aboutText.getText());
+        aboutText.setVisible(false);
+        aboutTextarea.setVisible(true);
+        aboutTextarea.requestFocus();
+    }
+    
+    private void updateAbout(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue){
+        if(!newPropertyValue){
+            try {
+                Member m = MemberService.getInstance().get(new Member(MySoulMate.MEMBER_ID));
+                m.setAbout(aboutTextarea.getText());
+                MemberService.getInstance().update(m);
+                aboutTextarea.setVisible(false);
+                aboutText.setVisible(true);
+                populateFields();
+            } catch (SQLException ex) {
+                Logger.getLogger(SelfProfileViewController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }

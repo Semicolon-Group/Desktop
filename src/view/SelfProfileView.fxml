@@ -9,6 +9,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -117,7 +118,7 @@
                            <children>
                               <VBox alignment="CENTER" prefHeight="119.0" prefWidth="376.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <Button mnemonicParsing="false" prefHeight="70.0" prefWidth="250.0" styleClass="regular_button" text="Editer">
+                                    <Button mnemonicParsing="false" onAction="#toEditView" prefHeight="70.0" prefWidth="250.0" styleClass="regular_button" text="Editer">
                                        <font>
                                           <Font name="System Bold" size="30.0" />
                                        </font>
@@ -645,11 +646,24 @@
                      <children>
                         <AnchorPane prefHeight="211.0" prefWidth="1200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="0.0">
                            <children>
+                              <ImageView fitHeight="33.0" fitWidth="41.0" layoutX="1117.0" layoutY="18.0" onMouseClicked="#editAbout" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@assets/icons/edit.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </ImageView>
                               <Label styleClass="paragraph_title" text="A propos de moi" AnchorPane.leftAnchor="30.0">
                                  <font>
                                     <Font name="System Bold" size="64.0" />
                                  </font>
                               </Label>
+                              <TextArea fx:id="aboutTextarea" prefHeight="200.0" prefWidth="200.0" visible="false" wrapText="true" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="107.0">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </TextArea>
                               <Text fx:id="aboutText" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="JUSTIFY" wrappingWidth="1086.309799194336" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="107.0">
                                  <font>
                                     <Font size="25.0" />
