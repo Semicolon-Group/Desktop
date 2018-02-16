@@ -41,8 +41,8 @@ public class FeedbackService extends Service implements Create<Feedback>,Update<
         String query = "insert into feedback ( content, state, sender_id, date) values(?,?,?,?)";
         PreparedStatement preparedStatement = CONNECTION.prepareStatement(query);
         preparedStatement.setString(1, obj.getContent());
-        preparedStatement.setBoolean(2, obj.isState());
-        preparedStatement.setInt(3, obj.getSenderId());
+        preparedStatement.setBoolean(2, false);
+        preparedStatement.setInt(3, 1);
         preparedStatement.setTimestamp(4, new Timestamp(new Date().getTime()));
         preparedStatement.executeUpdate();
         return obj;
@@ -83,7 +83,7 @@ public class FeedbackService extends Service implements Create<Feedback>,Update<
 	    feed.setId(rs.getInt("id"));
             feed.setContent(rs.getString("content"));
             feed.setState(rs.getBoolean("state"));
-            feed.setSenderId(rs.getInt("sender_id"));
+            feed.setSenderId(1);
             feed.setDate(rs.getTimestamp("date"));
             feeds.add(feed);
         }

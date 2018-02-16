@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="333.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GetFeedView2Controller">
+   <children>
+      <HBox prefHeight="104.0" prefWidth="590.0">
+         <children>
+            <ImageView fitHeight="100.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/im.png" />
+               </image>
+            </ImageView>
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+               <children>
+                  <Label fx:id="name" text="Label" />
+                  <Label fx:id="date" text="Label" />
+               </children>
+               <padding>
+                  <Insets left="5.0" />
+               </padding>
+            </VBox>
+         </children>
+      </HBox>
+      <TextArea prefHeight="200.0" prefWidth="541.0" />
+      <HBox alignment="CENTER_RIGHT" prefHeight="38.0" prefWidth="600.0">
+         <children>
+            <Button fx:id="traiterButton" mnemonicParsing="false" onAction="#traiter" text="Button" />
+         </children>
+      </HBox>
+   </children>
+</VBox>

@@ -18,12 +18,21 @@ public class Feedback {
     private String content;
     private boolean state;
     private Timestamp date;
-
+    
     public Feedback() {
     }
     
     public Feedback(int id){
         this.id = id;
+    }
+
+    public Feedback(String content) {
+        this.content = content;
+    }
+
+    public Feedback(String content, boolean state) {
+        this.content = content;
+        this.state = state;
     }
 
     public Feedback(int id, int senderId, String content, boolean state, Timestamp date) {

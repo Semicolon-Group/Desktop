@@ -50,6 +50,16 @@ public class Member extends User{
         preferedStatuses = new ArrayList<>();
     }
 
+    public Member(String pseudo, String firstname, String lastname, String email, String password) {
+        super(pseudo, firstname, lastname, email, password);
+    }
+
+    public Member(String pseudo, String firstname, String lastname, String email, String password,Date birthDate) {
+        super(pseudo, firstname, lastname, email, password);
+        this.birthDate = birthDate;
+    }
+    
+
     public Member(Date birthDate, boolean gender, float height, BodyType bodyType, int childrenNumber, Religion religion, Importance religionImportance, boolean smoker, boolean drinker, int minAge, int maxAge, Proximity proximity, Timestamp lastLogin, short locked, Address address, int id, String pseudo, String firstname, String lastname, String email, String password, String ip, int port) {
 	super(id, pseudo, firstname, lastname, email, password, ip, port);
 	this.birthDate = birthDate;
@@ -91,8 +101,7 @@ public class Member extends User{
 	this.preferedRelations = new ArrayList<RelationType>();
 	this.preferedStatuses = new ArrayList<MaritalStatus>();
     }
-
-    
+         
 
     public Date getBirthDate() {
 	return birthDate;

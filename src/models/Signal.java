@@ -19,6 +19,7 @@ public class Signal {
     private SignalReason reason;
     private boolean state;
     private Timestamp date;
+    private String content;
 
     public Signal() {
     }
@@ -27,6 +28,16 @@ public class Signal {
         this.id = id;
     }
 
+    public Signal(SignalReason reason, String content) {
+        this.reason = reason;
+        this.content= content;
+    }
+
+    public String getContent() {
+        return content;
+    }
+    
+    
     public Signal(int senderId, int receiverId, SignalReason reason, boolean state, Timestamp date) {
 	this.senderId = senderId;
 	this.receiverId = receiverId;

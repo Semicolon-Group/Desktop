@@ -40,13 +40,14 @@ public class SignalService extends Service implements Create<Signal>,Update<Sign
 
     @Override
     public Signal create(Signal obj) throws SQLException {
-        String query = "insert into user_signal (reason, date, state, sender_id, receiver_id) values(?,?,?,?,?)";
+        String query = "insert into user_signal (reason, date, state, sender_id, receiver_id, content) values(?,?,?,?,?,?)";
         PreparedStatement preparedStatement = CONNECTION.prepareStatement(query);
         preparedStatement.setInt(1, obj.getReason().ordinal());
         preparedStatement.setTimestamp(2, new Timestamp(new Date().getTime()));
-        preparedStatement.setBoolean(3, obj.isState());
-        preparedStatement.setInt(4, obj.getSenderId());
-        preparedStatement.setInt(5, obj.getReceiverId());
+        preparedStatement.setBoolean(3, false);
+        preparedStatement.setInt(4, 1);
+        preparedStatement.setInt(5, 2);
+        preparedStatement.setString(6, obj.getContent());
         preparedStatement.executeUpdate();
         return obj;
     }

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import javafx.scene.control.TreeTableColumn?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="380.0" prefWidth="579.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="controller.GetFeedViewController">
+   <children>
+      <JFXTreeTableView prefHeight="380.0" prefWidth="582.0">
+         <columns>
+            <TreeTableColumn fx:id="Sender" prefWidth="162.0" text="Sender" />
+            <TreeTableColumn fx:id="Date" prefWidth="205.0" text="Date" />
+            <TreeTableColumn fx:id="State" prefWidth="214.0" text="State" />
+         </columns>
+      </JFXTreeTableView>
+   </children>
+</AnchorPane>
