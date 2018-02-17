@@ -74,8 +74,8 @@ public class HomeViewController implements Initializable {
                     loader.getLocation().openStream();
                     spc = (StatusPostViewController)loader.getController();
                     spc.fill(new Image(PhotoService.getInstance().get(new Photo(p.getOwnerId())).getUrl()),
-                            ((StatusPost)p).getContent(),MemberService.getInstance().get(new Member(p.getOwnerId())).getPseudo(),
-                            p.getDate().toString());
+                        ((StatusPost)p).getContent(), MemberService.getInstance().get(new Member(p.getOwnerId())).getPseudo(),
+                        p.getDate().toString(), p.getId());
                 }
                 else if(p instanceof PicturePost){
                     loader.setLocation(getClass().getResource("/view/PicturePostView.fxml"));
@@ -84,7 +84,7 @@ public class HomeViewController implements Initializable {
                     ppc = (PicturePostViewController)loader.getController();
                     ppc.fill(new Image(PhotoService.getInstance().get(new Photo(p.getOwnerId())).getUrl()),
                         MemberService.getInstance().get(new Member(p.getOwnerId())).getPseudo(),
-                        p.getDate().toString(), ((PicturePost)p).getUrl());
+                        p.getDate().toString(), ((PicturePost)p).getUrl(), ((PicturePost)p).getPhotoId());
                 }
                 feed.getChildren().add(root);
             }

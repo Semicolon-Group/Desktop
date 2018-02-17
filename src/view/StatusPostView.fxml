@@ -20,13 +20,16 @@
                </image></ImageView>
             <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="100.0" prefWidth="190.0">
                <children>
-                  <Label fx:id="name" text="Ashley Connor" textFill="#29487d">
+                  <Label fx:id="name" onMouseClicked="#onPseudoClick" text="Ashley Connor" textFill="#29487d">
                      <VBox.margin>
                         <Insets left="7.0" />
                      </VBox.margin>
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Label>
                   <Label fx:id="time" text="1 hr" textFill="#9a9ea5">
                      <VBox.margin>
@@ -45,9 +48,9 @@
             <Font size="16.0" />
          </font>
       </TextArea>
-      <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="436.0" spacing="10.0" style="-fx-background-color: white;">
+      <HBox fx:id="reactions" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="436.0" spacing="10.0" style="-fx-background-color: white;">
          <children>
-            <ImageView fx:id="smile" fitHeight="32.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="smile" fitHeight="32.0" fitWidth="39.0" onMouseClicked="#onSmileClick" opacity="0.4" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@assets/icons/emoticons/003-happy.png" />
                </image>
@@ -55,7 +58,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <ImageView fx:id="love" fitHeight="32.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="love" fitHeight="32.0" fitWidth="39.0" onMouseClicked="#onLoveClick" opacity="0.4" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@assets/icons/emoticons/004-in-love.png" />
                </image>
@@ -63,7 +66,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <ImageView fx:id="laugh" fitHeight="32.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="laugh" fitHeight="32.0" fitWidth="39.0" onMouseClicked="#onLaughClick" opacity="0.4" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@assets/icons/emoticons/002-happy-1.png" />
                </image>
@@ -71,7 +74,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <ImageView fx:id="scowl" fitHeight="32.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="scowl" fitHeight="32.0" fitWidth="39.0" onMouseClicked="#onScowlClick" opacity="0.4" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@assets/icons/emoticons/001-suspicious.png" />
                </image>

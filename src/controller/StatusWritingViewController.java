@@ -68,8 +68,8 @@ public class StatusWritingViewController implements Initializable {
             loader.getLocation().openStream();
             StatusPostViewController c = (StatusPostViewController)loader.getController();
             
-            c.fill(photo.getImage(), text.getText(), online.getPseudo(), "Now");
-            StatusPostService.getInstance().create(new StatusPost(text.getText(), online.getId(), new Timestamp(new Date().getTime())));
+            StatusPost sp = StatusPostService.getInstance().create(new StatusPost(text.getText(), online.getId(), new Timestamp(new Date().getTime())));
+            c.fill(photo.getImage(), text.getText(), online.getPseudo(), "Now", sp.getId());
             HomeViewController.getInstance().addToTopFeed(p);
             text.clear();
             
