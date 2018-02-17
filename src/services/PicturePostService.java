@@ -38,9 +38,8 @@ public class PicturePostService extends Service implements Read<PicturePost>{
     public List<PicturePost> getAll(PicturePost obj) throws SQLException {
         List<PicturePost> list = new ArrayList();
         try {
-            list.addAll(PhotoService.getInstance().getAll(new Photo(0,obj.getOwnerId(),null,null))
-            .stream().filter(A -> A.getDate().compareTo(obj.getDate()) > 0)
-            .map(p -> new PicturePost(p.getUrl(),0,p.getUserId(),p.getDate()))
+            list.addAll(PhotoService.getInstance().getAll(new Photo(0,obj.getOwnerId(),null,obj.getDate(),false))
+            .stream().map(p -> new PicturePost(p.getUrl(),0,p.getUserId(),p.getDate()))
             .collect(Collectors.toList()));
         } catch (SQLException ex) {
             Logger.getLogger(PicturePostService.class.getName()).log(Level.SEVERE, null, ex);

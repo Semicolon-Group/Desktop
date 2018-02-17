@@ -23,6 +23,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import models.Member;
+import models.Photo;
 import models.PicturePost;
 import models.Post;
 import models.StatusPost;
@@ -67,22 +68,23 @@ public class HomeViewController implements Initializable {
             feed.getChildren().add(root);
             for(Post p : NewsFeed.getInstance().getFeed(online)){
                 loader = new FXMLLoader();
-                PicturePostViewController cpp;
-                StatusPostViewController csp;
+                PicturePostViewController ppc;
+                StatusPostViewController spc;
                 if(p instanceof StatusPost){
                     loader.setLocation(getClass().getResource("/view/StatusPostView.fxml"));
                     root = loader.load();
                     loader.getLocation().openStream();
-                    csp = (StatusPostViewController)loader.getController();
-                    csp.fill(new Image(PhotoService.getInstance().getProfileUrl(p.getOwnerId())), ((StatusPost)p).getContent(),
-                        MemberService.getInstance().get(new Member(p.getOwnerId())).getPseudo(), p.getDate().toString());
+                    spc = (StatusPostViewController)loader.getController();
+                    spc.fill(new Image(PhotoService.getInstance().get(new Photo(p.getOwnerId())).getUrl()),
+                            ((StatusPost)p).getContent(),MemberService.getInstance().get(new Member(p.getOwnerId())).getPseudo(),
+                            p.getDate().toString());
                 }
                 else if(p instanceof PicturePost){
                     loader.setLocation(getClass().getResource("/view/PicturePostView.fxml"));
                     root = loader.load();
                     loader.getLocation().openStream();
-                    cpp = (PicturePostViewController)loader.getController();
-                    cpp.fill(new Image(PhotoService.getInstance().getProfileUrl(p.getOwnerId())),
+                    ppc = (PicturePostViewController)loader.getController();
+                    ppc.fill(new Image(PhotoService.getInstance().get(new Photo(p.getOwnerId())).getUrl()),
                         MemberService.getInstance().get(new Member(p.getOwnerId())).getPseudo(),
                         p.getDate().toString(), ((PicturePost)p).getUrl());
                 }

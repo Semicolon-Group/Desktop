@@ -16,19 +16,34 @@ public class Photo {
     private int userId;
     private String url;
     private Timestamp date;
+    private boolean profile;
 
     public Photo() {
     }
 
-    public Photo(int id) {
-	this.id = id;
+    public Photo(int id, int userId, String url, Timestamp date, boolean profile) {
+        this.id = id;
+        this.userId = userId;
+        this.url = url;
+        this.date = date;
+        this.profile = profile;
     }
 
-    public Photo(int id, int userId, String url, Timestamp date) {
-	this.id = id;
-	this.userId = userId;
-	this.url = url;
-	this.date = date;
+    public Photo(int userId, Timestamp date) {
+        this.userId = userId;
+        this.date = date;
+    }
+
+    public Photo(int userId) {
+        this.userId = userId;
+    }
+
+    public boolean isProfile() {
+        return profile;
+    }
+
+    public void setProfile(boolean profile) {
+        this.profile = profile;
     }
 
     public int getId() {

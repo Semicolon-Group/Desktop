@@ -24,7 +24,7 @@ import models.StatusPost;
  * @author Elyes
  */
 public class NewsFeed {
-    private List<Post> feed;
+    private Set<Post> feed;
     
     private static NewsFeed instance;
     
@@ -35,11 +35,10 @@ public class NewsFeed {
     }
     
     private NewsFeed(){
-        //feed = new TreeSet<Post>((a,b) -> a.getDate().compareTo(b.getDate()));
-        feed = new ArrayList();
+        feed = new TreeSet<Post>((a,b) -> a.getDate().compareTo(b.getDate()));
     }
     
-    public List<Post> getFeed(final Member M) throws SQLException{
+    public Set<Post> getFeed(final Member M) throws SQLException{
         /*
         * Extracting list of members liked.
         */

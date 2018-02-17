@@ -9,9 +9,11 @@ import static controller.GlobalViewController.online;
 import iservice.Create;
 import iservice.Delete;
 import iservice.Read;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import models.Member;
@@ -48,22 +50,36 @@ public class PhotoService extends Service implements Create<Photo>,Read<Photo>,D
     }
 
     @Override
+    /*
+    * Always returns the profile photo for a user.
+    */
     public Photo get(Photo obj) throws SQLException {
-	String req = "SELECT * FROM `photo` WHERE id = " + obj.getId();
+	String req = "SELECT * FROM `photo` WHERE user_id = " + obj.getUserId() + " and `profile` = 1";
 	ResultSet rs = CONNECTION.createStatement().executeQuery(req);
 	if(rs.next()){
-            return new Photo(rs.getInt("id"), rs.getInt("user_id"), rs.getString("url"), rs.getTimestamp("date"));
+            return new Photo(rs.getInt("id"), rs.getInt("user_id"), rs.getString("url"), rs.getTimestamp("date"), true);
         }
 	return null;
     }
 
     @Override
     public List<Photo> getAll(Photo obj) throws SQLException {
-	String req = "SELECT * FROM `photo` WHERE user_id = " + obj.getUserId();
-	ResultSet rs = CONNECTION.createStatement().executeQuery(req);
+	String req = "SELECT * FROM `photo` WHERE `user_id` = ? AND `date` > ? AND `profile` = 0 ORDER BY `date` DESC";
+        
+        Timestamp date;
+        if (obj.getDate() == null)
+            date = new Timestamp(new Date(0).getTime());
+        else
+            date = obj.getDate();
+        
+        PreparedStatement ps = CONNECTION.prepareStatement(req);
+        ps.setInt(1, obj.getUserId());
+        ps.setTimestamp(2, date);
+	ResultSet rs = ps.executeQuery();
 	List<Photo> list = new ArrayList();
 	while(rs.next()){
-	    list.add(new Photo(rs.getInt("id"), rs.getInt("user_id"), rs.getString("url"), rs.getTimestamp("date")));
+	    list.add(new Photo(rs.getInt("id"), rs.getInt("user_id"), rs.getString("url"),
+                    rs.getTimestamp("date"),rs.getBoolean("profile")));
 	}
 	return list;
     }
@@ -72,15 +88,6 @@ public class PhotoService extends Service implements Create<Photo>,Read<Photo>,D
     public void delete(Photo obj) throws SQLException {
 	String req = "DELETE FROM `photo` WHERE id = " + obj.getId();
 	CONNECTION.createStatement().executeUpdate(req);
-    }
-    
-    public String getProfileUrl(int userId) throws SQLException{
-        String req = "SELECT * FROM `photo` WHERE user_id = " + userId + " ORDER BY `date` ASC LIMIT 1";
-	ResultSet rs = CONNECTION.createStatement().executeQuery(req);
-	if(rs.next()){
-            return rs.getString("url");
-        }
-	return null;
     }
     
 }

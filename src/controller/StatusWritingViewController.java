@@ -47,7 +47,7 @@ public class StatusWritingViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
-            photo.setImage(new Image(PhotoService.getInstance().getProfileUrl(online.getId())));
+            photo.setImage(new Image(PhotoService.getInstance().get(new Photo(online.getId())).getUrl()));
         } catch (SQLException ex) {
             Logger.getLogger(StatusWritingViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
