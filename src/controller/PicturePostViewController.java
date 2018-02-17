@@ -54,6 +54,7 @@ public class PicturePostViewController implements Initializable {
     
     private int photoId;
     private ImageView selectedReaction;
+    private Reaction r;
 
     /**
      * Initializes the controller class.
@@ -70,7 +71,7 @@ public class PicturePostViewController implements Initializable {
         this.picture.setImage(new Image(picture));
         this.photoId = photoId;
         try {
-            Reaction r = ReactionService.getInstance().get(new Reaction(online.getId(),0,photoId,0,null));
+            r = ReactionService.getInstance().get(new Reaction(online.getId(),0,photoId,0,null));
             if(r != null) switch (r.getReactionType()) {
                 case SMILE:
                     selectedReaction = smile;
@@ -105,7 +106,10 @@ public class PicturePostViewController implements Initializable {
                 smile.setOpacity(0.4);
             }
             else{
-                ReactionService.getInstance().update(new Reaction(online.getId(), 0, photoId, 0, Enumerations.ReactionType.SMILE));
+                if(r == null)
+                    ReactionService.getInstance().create(new Reaction(online.getId(), 0, photoId, 0, Enumerations.ReactionType.SMILE));
+                else
+                    ReactionService.getInstance().update(new Reaction(online.getId(), 0, photoId, 0, Enumerations.ReactionType.SMILE));
                 smile.setOpacity(1);
                 if (selectedReaction != null)
                     selectedReaction.setOpacity(0.4);
@@ -125,7 +129,10 @@ public class PicturePostViewController implements Initializable {
                 love.setOpacity(0.4);
             }
             else{
-                ReactionService.getInstance().update(new Reaction(online.getId(), 0, photoId, 0, Enumerations.ReactionType.LOVE));
+                if(r == null)
+                    ReactionService.getInstance().create(new Reaction(online.getId(), 0, photoId, 0, Enumerations.ReactionType.LOVE));
+                else
+                    ReactionService.getInstance().update(new Reaction(online.getId(), 0, photoId, 0, Enumerations.ReactionType.LOVE));
                 love.setOpacity(1);
                 if (selectedReaction != null)
                     selectedReaction.setOpacity(0.4);
@@ -145,7 +152,10 @@ public class PicturePostViewController implements Initializable {
                 laugh.setOpacity(0.4);
             }
             else{
-                ReactionService.getInstance().update(new Reaction(online.getId(), 0, photoId, 0, Enumerations.ReactionType.LAUGH));
+                if(r == null)
+                    ReactionService.getInstance().create(new Reaction(online.getId(), 0, photoId, 0, Enumerations.ReactionType.LAUGH));
+                else
+                    ReactionService.getInstance().update(new Reaction(online.getId(), 0, photoId, 0, Enumerations.ReactionType.LAUGH));
                 laugh.setOpacity(1);
                 if (selectedReaction != null)
                     selectedReaction.setOpacity(0.4);
@@ -165,7 +175,10 @@ public class PicturePostViewController implements Initializable {
                 scowl.setOpacity(0.4);
             }
             else{
-                ReactionService.getInstance().update(new Reaction(online.getId(), 0, photoId, 0, Enumerations.ReactionType.SCOWL));
+                if(r == null)
+                    ReactionService.getInstance().create(new Reaction(online.getId(), 0, photoId, 0, Enumerations.ReactionType.SCOWL));
+                else
+                    ReactionService.getInstance().update(new Reaction(online.getId(), 0, photoId, 0, Enumerations.ReactionType.SCOWL));
                 scowl.setOpacity(1);
                 if (selectedReaction != null)
                     selectedReaction.setOpacity(0.4);

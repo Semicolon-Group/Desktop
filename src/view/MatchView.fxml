@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+
+<VBox prefHeight="800.0" prefWidth="1838.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Region maxHeight="-Infinity" minHeight="-Infinity" prefHeight="45.0" prefWidth="200.0" />
+      <HBox fx:id="filter" alignment="CENTER" prefHeight="175.0" prefWidth="1838.0" />
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="1300.0">
+         <children>
+            <HBox alignment="CENTER_RIGHT" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="1300.0" spacing="10.0">
+               <children>
+                  <Label text="Sort by:" />
+                  <ComboBox fx:id="sort" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="80.0" />
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+      <StackPane alignment="TOP_CENTER" minHeight="-Infinity" prefHeight="567.0" prefWidth="1838.0">
+         <children>
+            <FlowPane fx:id="result" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="727.0" prefWidth="1300.0" />
+         </children>
+      </StackPane>
+   </children>
+</VBox>
