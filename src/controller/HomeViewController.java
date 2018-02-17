@@ -42,8 +42,6 @@ public class HomeViewController implements Initializable {
     private VBox feed;
     @FXML
     private AnchorPane anchor;
-    @FXML
-    private ImageView headPhoto;
 
     private static HomeViewController instance;
     
