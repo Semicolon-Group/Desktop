@@ -86,4 +86,9 @@ public class Enumerations {
 	SPORT,
 	GENERAL
     }
+    public enum PhotoType{
+        REGULAR,
+        PROFILE,
+        COVER
+    }
 }

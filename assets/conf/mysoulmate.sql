@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 11, 2018 at 04:44 PM
+-- Generation Time: Feb 17, 2018 at 02:36 PM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.1
 
@@ -46,13 +46,6 @@ CREATE TABLE `address` (
   `country` varchar(100) DEFAULT NULL,
   `city` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `address`
---
-
-INSERT INTO `address` (`user_id`, `longitude`, `latitude`, `country`, `city`) VALUES
-(25, 544.5, 646.5, 'tunisia', 'tunis');
 
 -- --------------------------------------------------------
 
@@ -162,13 +155,6 @@ CREATE TABLE `notification` (
   `seen` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `notification`
---
-
-INSERT INTO `notification` (`id`, `content`, `date`, `icon`, `sender_id`, `receiver_id`, `photo_id`, `answer_id`, `type`, `seen`) VALUES
-(4, 'jjjjjj', '2018-02-10 17:21:54', '****', 11, 22, 1, 1, 4, 0);
-
 -- --------------------------------------------------------
 
 --
@@ -179,15 +165,22 @@ CREATE TABLE `photo` (
   `id` int(11) NOT NULL,
   `url` text,
   `user_id` int(11) DEFAULT NULL,
-  `date` datetime DEFAULT NULL
+  `date` datetime DEFAULT NULL,
+  `type` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `photo`
 --
 
-INSERT INTO `photo` (`id`, `url`, `user_id`, `date`) VALUES
-(1, NULL, 11, NULL);
+INSERT INTO `photo` (`id`, `url`, `user_id`, `date`, `type`) VALUES
+(2, '/view/assets/img/girl1.jpg', 2, '2018-02-16 05:00:01', 1),
+(3, '/view/assets/img/girl2.jpg', 5, '2018-02-16 00:00:03', 1),
+(4, '/view/assets/img/mens-hairstyles-18.jpg', 1, '2018-02-16 00:00:00', 1),
+(5, '/view/assets/img/girl3.jpg', 4, '2018-02-15 00:00:00', 1),
+(6, '/view/assets/img/girl4.jpg', 3, '2018-02-13 00:00:00', 1),
+(7, '/view/assets/img/girl5.jpg', 2, '2018-02-16 00:00:01', 0),
+(8, '/view/assets/img/girl6.jpg', 5, '2018-02-17 00:00:00', 0);
 
 -- --------------------------------------------------------
 
@@ -201,6 +194,16 @@ CREATE TABLE `post` (
   `content` text,
   `user_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `post`
+--
+
+INSERT INTO `post` (`id`, `date`, `content`, `user_id`) VALUES
+(1, '2018-02-16 00:00:00', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mi justo, congue quis dolor et, rhoncus sollicitudin sapien. Donec sed massa at nunc ullamcorper pretium.', 3),
+(2, '2018-02-16 00:00:02', 'Aenean sit amet nibh vitae tellus semper sagittis. Quisque auctor libero vehicula libero ornare, in congue eros fringilla. Donec sollicitudin egestas enim, in ullamcorper tellus imperdiet ut. Donec vitae odio in lectus mollis facilisis quis at sem. Vivamus id augue tincidunt ', 4),
+(4, '2018-02-17 14:33:50', 'Hello people', 1),
+(5, '2018-02-17 14:35:24', 'man', 1);
 
 -- --------------------------------------------------------
 
@@ -253,7 +256,7 @@ CREATE TABLE `question` (
 --
 
 INSERT INTO `question` (`id`, `question`, `topic`) VALUES
-(1, 'Exemple question?', 1);
+(2, 'Your favorite pet?', 4);
 
 -- --------------------------------------------------------
 
@@ -294,12 +297,11 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `pseudo`, `firstname`, `lastname`, `email`, `password`, `birth_date`, `gender`, `height`, `body_type`, `children_number`, `relegion`, `relegion_importance`, `smoker`, `drinker`, `min_age`, `max_age`, `proximity`, `last_login`, `locked`, `ip`, `port`, `role`, `created_at`, `updated_at`) VALUES
-(1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(11, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(22, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(23, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(25, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 4, 0, 0, 1, 0, 0, 0, 0, 0, NULL, 0, NULL, 0, 1, '2018-02-11 16:21:36', '2018-02-11 16:21:36');
+(1, 'Elyes Mansour', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-02-15 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL),
+(2, 'Ashley Connor', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(3, 'Sara Leeman', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(4, 'Narimen', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(5, 'Chaima', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -325,6 +327,16 @@ CREATE TABLE `user_like` (
   `date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `user_like`
+--
+
+INSERT INTO `user_like` (`sender_id`, `receiver_id`, `date`) VALUES
+(1, 2, NULL),
+(1, 3, NULL),
+(1, 4, NULL),
+(1, 5, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -339,14 +351,6 @@ CREATE TABLE `user_signal` (
   `sender_id` int(11) DEFAULT NULL,
   `receiver_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `user_signal`
---
-
-INSERT INTO `user_signal` (`id`, `reason`, `date`, `state`, `sender_id`, `receiver_id`) VALUES
-(3, 1, '2018-02-11 16:02:45', 0, 1, 2),
-(4, 1, '2018-02-11 16:09:22', 1, 2, 1);
 
 --
 -- Indexes for dumped tables
@@ -527,37 +531,37 @@ ALTER TABLE `message`
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `photo`
 --
 ALTER TABLE `photo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `question`
 --
 ALTER TABLE `question`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `user_signal`
 --
 ALTER TABLE `user_signal`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables

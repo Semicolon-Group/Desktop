@@ -6,6 +6,7 @@
 package models;
 
 import java.sql.Timestamp;
+import models.Enumerations.PhotoType;
 
 /**
  *
@@ -16,17 +17,17 @@ public class Photo {
     private int userId;
     private String url;
     private Timestamp date;
-    private boolean profile;
+    private PhotoType type;
 
     public Photo() {
     }
 
-    public Photo(int id, int userId, String url, Timestamp date, boolean profile) {
+    public Photo(int id, int userId, String url, Timestamp date, PhotoType type) {
         this.id = id;
         this.userId = userId;
         this.url = url;
         this.date = date;
-        this.profile = profile;
+        this.type = type;
     }
 
     public Photo(int userId, Timestamp date) {
@@ -34,16 +35,22 @@ public class Photo {
         this.date = date;
     }
 
+    public Photo(int userId, PhotoType type) {
+        this.userId = userId;
+        this.type = type;
+    }
+    
+
     public Photo(int userId) {
         this.userId = userId;
     }
 
-    public boolean isProfile() {
-        return profile;
+    public PhotoType getType() {
+        return type;
     }
 
-    public void setProfile(boolean profile) {
-        this.profile = profile;
+    public void setProfile(PhotoType type) {
+        this.type = type;
     }
 
     public int getId() {

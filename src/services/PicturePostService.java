@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import models.Enumerations;
+import models.Enumerations.PhotoType;
 import models.Like;
 import models.Photo;
 import models.PicturePost;
@@ -38,7 +40,7 @@ public class PicturePostService extends Service implements Read<PicturePost>{
     public List<PicturePost> getAll(PicturePost obj) throws SQLException {
         List<PicturePost> list = new ArrayList();
         try {
-            list.addAll(PhotoService.getInstance().getAll(new Photo(0,obj.getOwnerId(),null,obj.getDate(),false))
+            list.addAll(PhotoService.getInstance().getAll(new Photo(0,obj.getOwnerId(),null,obj.getDate(),PhotoType.REGULAR))
             .stream().map(p -> new PicturePost(p.getUrl(),0,p.getUserId(),p.getDate()))
             .collect(Collectors.toList()));
         } catch (SQLException ex) {

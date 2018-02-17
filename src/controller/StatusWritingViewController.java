@@ -9,6 +9,8 @@ import static controller.GlobalViewController.online;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,9 +25,13 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import models.Enumerations;
+import models.Enumerations.PhotoType;
 import models.Photo;
+import models.StatusPost;
 import services.NewsFeed;
 import services.PhotoService;
+import services.StatusPostService;
 
 /**
  * FXML Controller class
@@ -47,7 +53,7 @@ public class StatusWritingViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
-            photo.setImage(new Image(PhotoService.getInstance().get(new Photo(online.getId())).getUrl()));
+            photo.setImage(new Image(PhotoService.getInstance().get(new Photo(online.getId(),PhotoType.PROFILE)).getUrl()));
         } catch (SQLException ex) {
             Logger.getLogger(StatusWritingViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -63,10 +69,11 @@ public class StatusWritingViewController implements Initializable {
             StatusPostViewController c = (StatusPostViewController)loader.getController();
             
             c.fill(photo.getImage(), text.getText(), online.getPseudo(), "Now");
-            text.clear();
+            StatusPostService.getInstance().create(new StatusPost(text.getText(), online.getId(), new Timestamp(new Date().getTime())));
             HomeViewController.getInstance().addToTopFeed(p);
+            text.clear();
             
-        } catch (IOException ex) {
+        } catch (IOException | SQLException ex) {
             Logger.getLogger(StatusWritingViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
