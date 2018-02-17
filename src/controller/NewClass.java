@@ -1,11 +1,14 @@
+
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import models.Conversation;
 import models.Member;
 import models.Message;
 import models.User;
+import services.ConversationService;
 import services.MemberService;
 import services.MessageService;
 
@@ -22,12 +25,13 @@ public class NewClass {
 
     public static void main(String[] args) throws SQLException {
  getMembreTest();
-//          getAllMessageTest(); ci bon
-        //       createMessageTest(); ci bon
-
+//         getAllMessageTest();
+////    createMessageTest(); 
+        getAllConversationsTest();
 // getAllMessageTest(); ci bon
-//        getMsgTest(); ci bon 
+//        getMsgTest(); 
 //            updateMsg(); ci bon
+//getC();
 
     }
 
@@ -49,29 +53,69 @@ public class NewClass {
         //id	content	seen	seen_date	date	sender_id	receiver_id
 
     }
+    
+    
+    
+    
+    
+    
 
     public static void getAllMessageTest() throws SQLException {
-        MessageService messageService = MessageService.getInstance();
-        Member sender = new Member();
-        sender.setId(1);
-        Member receiver = new Member();
-        receiver.setId(2);
+
+        
         Message m2 = new Message();
-        m2.setSenderId(sender.getId());
-        m2.setReceiverId(receiver.getId());
+        m2.setSenderId(1);
+        m2.setReceiverId(2);
+        MessageService messageService = MessageService.getInstance();
         List<Message> messages = messageService.getAll(m2);
-        messages.forEach(e2-> System.out.println(m2.getId() + " " + m2.getContent() + " " + m2.isSeen() + " " + m2.getSeenDate() + " " + m2.getSenderId() + " " + m2.getReceiverId())
-        );//id	content	seen	seen_date	date	sender_id	receiver_id
+        messages.forEach(e2 -> System.out.println(m2.getId() + " " + m2.getContent() + " " + m2.isSeen() +
+                " " + m2.getSeenDate() + " " + m2.getSenderId() + " " + m2.getReceiverId())
+        );
+
+    }
+    
+    
+    
+    
+    
+    
+
+    public static void getAllConversationsTest() throws SQLException {
+
+     
+       
+        ConversationService cs = ConversationService.getInstance();
+   Conversation c = new Conversation();
+
+        c.setPerson1Id(2);
+        List<Conversation> convs = cs.getAll(c);
+      
+
+        convs.forEach(e -> System.out.println(c.getId() + " " + c.getLabel() + 
+                " " + c.getPerson1Id() + " " + c.getPerson2Id()));
 
     }
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     public static void getMembreTest() throws SQLException {
         Member m = new Member();
         String x = "bdas";
-        m.setPseudo("bdas");
-        m.setPassword("5555");
+        m.setId(2);
+//        m.setPseudo("bdas");
 //        m.setPassword("5555");
-     
+//        m.setPassword("5555");
+
         MemberService memberService = MemberService.getInstance();
         m = memberService.get(m);
         System.out.println(m.getId() + " " + m.getPseudo() + " " + m.getFirstname() + " " + m.getLastname() + " " + m.getEmail() + " " + m.getPassword() + " " + m.getBirthDate()
@@ -80,16 +124,23 @@ public class NewClass {
                 + " " + m.getLastLogin() + " " + m.getLocked() + " " + m.getIp() + " " + m.getPort() + " " + m.getPreferedRelations() + " " + m.getPreferedStatuses());
     }
 
+    public static void getC() throws SQLException {
+        Conversation x = new Conversation();
+        x.setId(1);
+        ConversationService cs = ConversationService.getInstance();
+        x = cs.get(x);
+        System.out.println(x.getId() + " " + x.getLabel() + " " + x.getPerson1Id());
+
+    }
+
     public static void createMessageTest() throws SQLException {
         MessageService msg1 = MessageService.getInstance();
         User sender = new Member();
         sender.setId(1);
         User receiver = new Member();
         receiver.setId(2);
-        
-        
-        //    public Message(String content, Timestamp date, int senderId, int receiverId, boolean seen, Timestamp seenDate) {
 
+        //    public Message(String content, Timestamp date, int senderId, int receiverId, boolean seen, Timestamp seenDate) {
         Message msg = new Message("yoo2", new Timestamp(System.currentTimeMillis()), 2, 1, false, new Timestamp(System.currentTimeMillis()));
         msg = msg1.create(msg);
         System.out.println(msg.getId() + " " + msg.getContent() + " " + msg.getSeenDate());
@@ -97,16 +148,12 @@ public class NewClass {
     }
 
     public static void updateMsg() throws SQLException {
-         MessageService msg1 = MessageService.getInstance();
-         Message msg = new Message();
-         msg.setId(11);
-         msg.setSeenDate(new Timestamp(System.currentTimeMillis()));
-         msg.setSeen(true);
-         msg1.update(msg);
-        
-       
-        
-        
+        MessageService msg1 = MessageService.getInstance();
+        Message msg = new Message();
+        msg.setId(11);
+        msg.setSeenDate(new Timestamp(System.currentTimeMillis()));
+        msg.setSeen(true);
+        msg1.update(msg);
 
     }
 }

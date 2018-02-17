@@ -111,10 +111,6 @@ public class MessageService extends Service implements Create<Message>, Update<M
             m.setContent(rs.getString("content"));
             m.setSeen(rs.getBoolean("seen"));
             m.setSeenDate(rs.getTimestamp("date"));
-            Member sender = new Member();
-            sender.setId(rs.getInt("sender_id"));
-            Member receiver = new Member();
-            receiver.setId(rs.getInt("receiver_id"));
             m.setSenderId(rs.getInt("sender_id"));
             m.setReceiverId(rs.getInt("receiver_id"));
             m.setDate(rs.getTimestamp("date"));

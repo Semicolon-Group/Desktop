@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+<AnchorPane id="bg" fx:id="msgAnchore" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../view/style/fazet.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.InstantMessagingViewController">
+   <children>
+      <HBox layoutX="20.0" layoutY="8.0" prefHeight="88.0" prefWidth="67.0" style="-fx-border-radius: 30 30 30 30;" AnchorPane.leftAnchor="20.0">
+         <children>
+            <ImageView fitHeight="88.0" fitWidth="112.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../view/assets/soul-1.png" />
+               </image>
+            </ImageView>
+         </children>
+      </HBox>
+      <Label id="nom" fx:id="nom" layoutX="108.0" layoutY="14.0" prefHeight="17.0" prefWidth="150.0" />
+      <Label fx:id="age" layoutX="108.0" layoutY="44.0" prefHeight="17.0" prefWidth="150.0" />
+      <Label fx:id="status" layoutX="108.0" layoutY="72.0" prefHeight="17.0" prefWidth="150.0" />
+      <ScrollPane id="msg" fitToHeight="true" focusTraversable="false" hbarPolicy="NEVER" layoutX="20.0" layoutY="122.0" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" onDragDetected="#goReceive" prefHeight="419.0" prefWidth="700.0" vvalue="1.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="122.0" fx:id="x" />
+      <HBox alignment="BOTTOM_CENTER" maxHeight="-Infinity" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="544.0">
+         <children>
+            <TextArea id="msg" fx:id="inputmsg" onInputMethodTextChanged="#isWriting" prefHeight="46.0" prefWidth="594.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </TextArea>
+            <Button id="button" fx:id="send" mnemonicParsing="false" onAction="#goSend" prefHeight="46.0" prefWidth="204.0" text="send">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </HBox>
+      <Label fx:id="typing" layoutX="17.0" layoutY="96.0" prefHeight="26.0" prefWidth="96.0" />
+   </children>
+</AnchorPane>

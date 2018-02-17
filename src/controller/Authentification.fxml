@@ -27,11 +27,17 @@
          <image>
             <Image url="@../view/assets/az.png" />
          </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </ImageView>
       <ImageView fitHeight="45.0" fitWidth="40.0" layoutX="469.0" layoutY="289.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../view/assets/Webp.net-resizeimage.png" />
          </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </ImageView>
       <Label layoutX="276.0" layoutY="342.0" prefHeight="18.0" prefWidth="249.0" text="Not yet a member ? Register Here ." />
       <Label fx:id="recover" accessibleRole="BUTTON" layoutX="276.0" layoutY="262.0" onMouseClicked="#goRecover" prefHeight="18.0" prefWidth="249.0" text="Forgot Password ? Click Here .">

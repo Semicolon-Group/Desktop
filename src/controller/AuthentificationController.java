@@ -43,7 +43,7 @@ import services.SendMail;
  * @author badis
  */
 public class AuthentificationController implements Initializable {
-    
+
     @FXML
     private TextField username;
     @FXML
@@ -64,35 +64,29 @@ public class AuthentificationController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
-    
+
     @FXML
     private void goAuthentification(ActionEvent event) throws SQLException, IOException {
         Member m = new Member();
         MemberService memberService = MemberService.getInstance();
         m.setPseudo(username.getText());
         m.setPassword(pw.getText());
-        
+
         try {
             m = memberService.get(m);
-            
+
             System.out.println(m.getId() + " " + m.getPseudo() + " " + m.getFirstname() + " " + m.getLastname() + " " + m.getEmail() + " " + m.getPassword() + " " + m.getBirthDate() + " " + m.isGender() + " " + m.getHeight() + " " + m.getHeight() + " " + m.getBodyType() + " " + m.getChildrenNumber() + " " + m.getReligion() + " " + m.getReligionImportance() + " " + m.isSmoker() + " "
                     + m.isDrinker() + " " + m.getMaxAge() + " " + m.getMinAge() + " " + m.getProximity() + " " + m.getLastLogin() + " " + m.getLocked() + " " + m.getIp() + " " + m.getPort() + " " + m.getPreferedRelations() + " " + m.getPreferedStatuses());
 
-//             FXMLLoader fxmlLoader2 = new FXMLLoader(getClass().getResource("a.fxml"));
-//            
-//                Parent root2 = (Parent) fxmlLoader2.load();
-//                Stage stage = new Stage();
-//                stage.setScene(new Scene(root2));
-//                stage.show();
             button.getScene().setRoot(FXMLLoader.load(getClass().getResource("/view/GlobalView.fxml")));
-            
+
         } catch (SQLException e) {
-            
+
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Empty username");
             alert.setHeaderText("Username ");
             alert.setContentText("No username was inserted");
-            
+
             alert.showAndWait();
         }
 
@@ -145,15 +139,15 @@ public class AuthentificationController implements Initializable {
 //        
 //        }
     }
-    
+
     @FXML
     private void goClose(MouseEvent event) {
         Platform.exit();
     }
-    
+
     @FXML
     private void goFb(MouseEvent event) throws IOException {
-        
+
         String appSecret = "15378d7426361fe464f5af2e08f780e3";
         String domain = "http://localhost";
         String appId = "212394559315715";
@@ -172,63 +166,61 @@ public class AuthentificationController implements Initializable {
 
                 String url = dr1.getCurrentUrl();
                 accessToken = url.replaceAll(".*#access_token=(.+)&.*", "$1");
-                
+
                 FacebookClient fbClient = new DefaultFacebookClient(accessToken, appSecret, com.restfb.Version.UNVERSIONED);
                 User user = fbClient.fetchObject("me", User.class);
-                 Member m = new Member();
-        MemberService memberService = MemberService.getInstance();
-        m.setPseudo(user.getName());
-        
-        
-        try {
-            m = memberService.get(m);
-            
-            System.out.println(m.getId() + " " + m.getPseudo() + " " + m.getFirstname() + " " + m.getLastname() + " " + m.getEmail() + " " + m.getPassword() + " " + m.getBirthDate() + " " + m.isGender() + " " + m.getHeight() + " " + m.getHeight() + " " + m.getBodyType() + " " + m.getChildrenNumber() + " " + m.getReligion() + " " + m.getReligionImportance() + " " + m.isSmoker() + " "
-                    + m.isDrinker() + " " + m.getMaxAge() + " " + m.getMinAge() + " " + m.getProximity() + " " + m.getLastLogin() + " " + m.getLocked() + " " + m.getIp() + " " + m.getPort() + " " + m.getPreferedRelations() + " " + m.getPreferedStatuses());
+                Member m = new Member();
+                MemberService memberService = MemberService.getInstance();
+                m.setPseudo(user.getName());
 
+                try {
+                    m = memberService.get(m);
 
-            button.getScene().setRoot(FXMLLoader.load(getClass().getResource("/view/GlobalView.fxml")));
-            
-        } catch (SQLException e) {
-            
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Empty username");
-            alert.setHeaderText("Username ");
-            alert.setContentText("No username was inserted");
-            
-            alert.showAndWait();
-        }
+                    System.out.println(m.getId() + " " + m.getPseudo() + " " + m.getFirstname() + " " + m.getLastname() + " " + m.getEmail() + " " + m.getPassword() + " " + m.getBirthDate() + " " + m.isGender() + " " + m.getHeight() + " " + m.getHeight() + " " + m.getBodyType() + " " + m.getChildrenNumber() + " " + m.getReligion() + " " + m.getReligionImportance() + " " + m.isSmoker() + " "
+                            + m.isDrinker() + " " + m.getMaxAge() + " " + m.getMinAge() + " " + m.getProximity() + " " + m.getLastLogin() + " " + m.getLocked() + " " + m.getIp() + " " + m.getPort() + " " + m.getPreferedRelations() + " " + m.getPreferedStatuses());
+
+                    button.getScene().setRoot(FXMLLoader.load(getClass().getResource("/view/GlobalView.fxml")));
+
+                } catch (SQLException e) {
+
+                    Alert alert = new Alert(AlertType.ERROR);
+                    alert.setTitle("Empty username");
+                    alert.setHeaderText("Username ");
+                    alert.setContentText("No username was inserted");
+
+                    alert.showAndWait();
+                }
 //                System.out.println(user.getName());
-        
+
                 if (dr1.getCurrentUrl().contains("localhost")) {
                     return;
                 }
-                
+
                 dr1.quit();
-                dr1 = null;                
+                dr1 = null;
             }
         }
     }
 
     @FXML
     private void goRecover(MouseEvent event) {
-        
-         Member m = new Member();
+
+        Member m = new Member();
         MemberService memberService = MemberService.getInstance();
         m.setPseudo(username.getText());
-     
-        
+
         try {
             m = memberService.get(m);
-    SendMail sm = new SendMail(m.getEmail(), "Email recovery", "Bonjour "+m.getFirstname()+" , Votre mot de passe est : "+m.getPassword());
-  
+            SendMail sm = new SendMail(m.getEmail(), "Email recovery", "Bonjour " + m.getFirstname() + " , Votre mot de passe est : " + m.getPassword());
+
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Recovery mail ");
             alert.setHeaderText("Mail Sent ! ");
             alert.setContentText("Nous avons envoyé un mail de récuperation , veuillez consulter votre boit Mail ! ");
-            
+
             alert.showAndWait();
-        }catch (SQLException e ){}
-        
+        } catch (SQLException e) {
+        }
+
     }
 }

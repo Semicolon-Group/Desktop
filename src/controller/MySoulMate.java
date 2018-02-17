@@ -25,7 +25,7 @@ public class MySoulMate extends Application {
     
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Parent globalPane = FXMLLoader.load(getClass().getResource("/view/GlobalView.fxml"));
+        Parent globalPane = FXMLLoader.load(getClass().getResource("Authentification.fxml"));
         Scene scene = new Scene(globalPane);
         primaryStage.setScene(scene);
         

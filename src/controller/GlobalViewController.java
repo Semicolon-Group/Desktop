@@ -177,7 +177,7 @@ public class GlobalViewController implements Initializable {
 
     @FXML
     private void showHomeContent(ActionEvent event) {
-        setContent("/view/HomeView.fxml");
+        setContent("InstantMessagingView.fxml");
         homeBox.setId("selected");
         matchBox.setId("");
         quickSearchBox.setId("");
