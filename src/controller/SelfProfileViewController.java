@@ -49,11 +49,13 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import models.Answer;
 import models.Like;
 import models.Member;
 import models.Photo;
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
+import services.AnswerService;
 import services.LikeService;
 import services.MemberService;
 import services.PhotoService;
@@ -155,6 +157,8 @@ public class SelfProfileViewController implements Initializable {
     private AnchorPane mainAnchorPane;
     @FXML
     private TextArea aboutTextarea;
+    @FXML
+    private VBox answersVBox;
 
     /**
      * Initializes the controller class.
@@ -175,6 +179,23 @@ public class SelfProfileViewController implements Initializable {
         makeProfilePicture();
         populateFields();
         populatePhotosPane();
+        makeAnswersPane();
+    }
+    
+    private void makeAnswersPane(){
+        try {
+            List<Answer> answers = AnswerService.getInstance().getAll(new Answer(0, null, null, MySoulMate.MEMBER_ID));
+            for(Answer answer: answers){
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AnswerView.fxml"));
+                AnchorPane pane = loader.load();
+                ((AnswerViewController)loader.getController()).setAnswer(answer);
+                answersVBox.getChildren().add(pane);
+            }
+        } catch (SQLException ex) {
+            util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), null);
+        } catch (IOException ex) {
+            util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), null);
+        }
     }
     
     private void populatePhotosPane(){

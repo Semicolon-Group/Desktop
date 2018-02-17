@@ -19,13 +19,18 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -38,12 +43,17 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import models.Block;
+import models.Enumerations;
 import models.Like;
 import models.Member;
 import models.Photo;
+import models.Signal;
+import services.BlockService;
 import services.LikeService;
 import services.MemberService;
 import services.PhotoService;
+import services.SignalService;
 
 /**
  * FXML Controller class
@@ -127,6 +137,12 @@ public class OthersProfileViewController implements Initializable {
     private Button dislikeButton;
     @FXML
     private AnchorPane mainAnchorPane;
+    @FXML
+    private AnchorPane sideMenu;
+    @FXML
+    private HBox blockBox;
+    @FXML
+    private HBox signalBox;
 
     /**
      * Initializes the controller class.
@@ -292,5 +308,64 @@ public class OthersProfileViewController implements Initializable {
             util.Logger.writeLog(ex, OthersProfileViewController.class.getName(), null);
         }
     }
+
+    @FXML
+    private void showMenu(MouseEvent event) {
+        if(sideMenu.isVisible()){
+            hideSideMenu();
+            return;
+        }
+        sideMenu.setPrefWidth(202);
+        sideMenu.setPrefHeight(164);
+        sideMenu.setVisible(true);
+    }
     
+    private void hideSideMenu(){
+        sideMenu.setPrefWidth(0);
+        sideMenu.setPrefHeight(0);
+        sideMenu.setVisible(false);
+    }
+
+    @FXML
+    private void showBlockAlert(MouseEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Étes-vous sûr de vouloire bloquer cette personne?", ButtonType.YES, ButtonType.CANCEL);
+        alert.showAndWait().ifPresent(response -> {
+            hideSideMenu();
+            if(response == ButtonType.YES){
+                createBlock();
+            }
+        });
+    }
+    
+    private void createBlock(){
+        try {
+            BlockService.getInstance().create(new Block(MySoulMate.MEMBER_ID, userId, null));
+            LikeService.getInstance().delete(new Like(MySoulMate.MEMBER_ID, userId, null));
+            LikeService.getInstance().delete(new Like(userId, MySoulMate.MEMBER_ID, null));
+            controller.setMainContent("/view/SelfProfileView.fxml");
+        } catch (SQLException ex) {
+            util.Logger.writeLog(ex, OthersProfileViewController.class.getName(), null);
+        }
+    }
+
+    @FXML
+    private void showSignalAlert(MouseEvent event) {
+        ChoiceDialog<Enumerations.SignalReason> dialog = new ChoiceDialog<>(Enumerations.SignalReason.values()[0], Enumerations.SignalReason.values());
+        dialog.setTitle("Signaler cette personne");
+        dialog.setContentText("Sélectionner la raison de signale: ");
+        dialog.showAndWait().ifPresent(reason -> {
+            try {
+                SignalService.getInstance().create(new Signal(MySoulMate.MEMBER_ID, userId, reason, false, null));
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Voulez-vous bloquer cette personne?", ButtonType.YES, ButtonType.NO);
+                alert.showAndWait().ifPresent(response -> {
+                    hideSideMenu();
+                    if(response == ButtonType.YES){
+                        createBlock();
+                    }
+                });
+            } catch (SQLException ex) {
+                util.Logger.writeLog(ex, OthersProfileViewController.class.getName(), null);
+            }
+        });
+    }
 }
