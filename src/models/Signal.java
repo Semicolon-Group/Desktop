@@ -5,8 +5,10 @@
  */
 package models;
 
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import models.Enumerations.SignalReason;
+import services.MemberService;
 
 /**
  *
@@ -36,6 +38,11 @@ public class Signal {
     public String getContent() {
         return content;
     }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+    
     
     
     public Signal(int senderId, int receiverId, SignalReason reason, boolean state, Timestamp date) {
@@ -102,7 +109,13 @@ public class Signal {
     public void setDate(Timestamp date) {
 	this.date = date;
     }
-
+    public String getSenderName() throws SQLException{
+        return MemberService.getInstance().get(new Member(senderId)).getFirstname();
+    }
+    public String getReceiverName() throws SQLException{
+        return MemberService.getInstance().get(new Member(receiverId)).getFirstname();
+    }
+    
     @Override
     public String toString() {
 	return "Signal{" + "id=" + id + ", senderId=" + senderId + ", receiverId=" + receiverId + ", reason=" + reason + ", state=" + state + ", date=" + date + '}';

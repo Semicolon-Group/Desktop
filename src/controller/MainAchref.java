@@ -55,11 +55,22 @@ public class MainAchref extends Application {
 ////        } catch (IOException ex) {
 ////            System.out.println(ex.getMessage());
 ////        }
-     try {
-            FXMLLoader loader = new FXMLLoader();
-            Parent root = loader.
-                    load(getClass().getResource("/view/FeedbackContainerView.fxml").openStream());
-            container = loader.getController();
+////    try {
+////            FXMLLoader loader = new FXMLLoader();
+////            Parent root = loader.
+////                    load(getClass().getResource("/view/FeedbackContainerView.fxml").openStream());
+////            container = loader.getController();
+////            Scene scene = new Scene(root);
+////            primaryStage.setScene(scene);
+////            primaryStage.show();
+////
+////        } catch (IOException ex) {
+////            System.out.println(ex.getMessage());
+////        }
+                try {
+            Parent root = FXMLLoader.
+                    load(getClass().getResource("/view/GetSignalView.fxml"));
+            
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.show();
@@ -67,6 +78,23 @@ public class MainAchref extends Application {
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
+        
+
+   
+     
+//try {
+//            Parent root = FXMLLoader.
+//                    load(getClass().getResource("/view/InsView.fxml"));
+//            
+//            Scene scene = new Scene(root);
+//            primaryStage.setScene(scene);
+//            primaryStage.show();
+//
+//        } catch (IOException ex) {
+//            System.out.println(ex.getMessage());
+//        }
+     
+     
 //   try {
 //            Parent root = FXMLLoader.
 //                    load(getClass().getResource("/view/FXMLInscrit.fxml"));

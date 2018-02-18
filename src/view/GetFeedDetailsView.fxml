@@ -13,7 +13,7 @@
    <children>
       <HBox prefHeight="104.0" prefWidth="590.0">
          <children>
-            <ImageView fitHeight="100.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="photo" fitHeight="100.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/im.png" />
                </image>
@@ -29,7 +29,7 @@
             </VBox>
          </children>
       </HBox>
-      <TextArea prefHeight="200.0" prefWidth="541.0" />
+      <TextArea fx:id="content" prefHeight="200.0" prefWidth="541.0" />
       <HBox alignment="CENTER_RIGHT" prefHeight="38.0" prefWidth="600.0">
          <children>
             <Button fx:id="traiterButton" mnemonicParsing="false" onAction="#traiter" text="Button" />

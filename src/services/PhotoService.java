@@ -53,7 +53,25 @@ public class PhotoService extends Service implements Create<Photo>,Read<Photo>,D
             return new Photo(rs.getInt("id"), rs.getInt("user_id"), rs.getString("url"), rs.getTimestamp("date"));
         }
 	return null;
+    }    
+    
+    
+    
+    public Photo getuserphoto(int id) throws SQLException {
+	String req = "SELECT * FROM `photo` WHERE id = " + id;
+	ResultSet rs = CONNECTION.createStatement().executeQuery(req);
+	if(rs.next()){
+            return new Photo(rs.getInt("id"), rs.getInt("user_id"), rs.getString("url"));
+        }
+	return null;
     }
+
+    
+    
+    
+    
+    
+    
 
     @Override
     public List<Photo> getAll(Photo obj) throws SQLException {

@@ -72,6 +72,7 @@ public class SignalService extends Service implements Create<Signal>,Update<Sign
             obj.setState(rs.getBoolean("state"));
             obj.setSenderId(rs.getInt("sender_id"));
             obj.setReceiver(rs.getInt("receiver_id"));
+            obj.setContent(rs.getString("content"));
             return obj;
         }
 	return null;
@@ -92,6 +93,7 @@ public class SignalService extends Service implements Create<Signal>,Update<Sign
             s.setState(rs.getBoolean("state"));
             s.setSenderId(rs.getInt("sender_id"));
             s.setReceiver(rs.getInt("receiver_id"));
+            s.setContent(rs.getString("content"));
             signaux.add(s);
         }
         return signaux;

@@ -45,6 +45,9 @@ public class GetFeedViewController implements Initializable {
     @FXML
     private TableView<Feedback> table;
     private ObservableList<Feedback> data;
+    
+    public static Feedback f1;
+    
     /**
      * Initializes the controller class.
      */
@@ -58,9 +61,20 @@ public class GetFeedViewController implements Initializable {
     }    
     
      private void afficher() throws SQLException {
+               
+        data= FXCollections.observableArrayList(FeedbackService.getInstance().getFalse(null));
+	
+        Sender.setCellValueFactory(new PropertyValueFactory<>("senderName"));
+        Date.setCellValueFactory(new PropertyValueFactory<>("date"));
+        State.setCellValueFactory(new PropertyValueFactory<>("stateName"));      
+        table.setItems(null);
+        table.setItems(data);
         
-          
-        
+    }
+     
+     
+          private void afficherboth() throws SQLException {       
+              
         data= FXCollections.observableArrayList(FeedbackService.getInstance().getAll(null));
 	
         Sender.setCellValueFactory(new PropertyValueFactory<>("senderName"));
@@ -73,10 +87,15 @@ public class GetFeedViewController implements Initializable {
     }
 
     @FXML
-    private void onMouseClick(MouseEvent event) throws IOException {
+    private void onMouseClick(MouseEvent event) throws IOException, SQLException {
         
-        //GetFeedDetailsViewController.feed = 
-        
-        container.switchView("GetFeedDetailsView");
+//        GetFeedDetailsViewController.feed = 
+//       
+            FeedbackService feed = FeedbackService.getInstance();
+             f1 = (Feedback) table.getSelectionModel().getSelectedItem();
+                
+////        
+          container.switchView("GetFeedDetailsView");
+//    }
     }
 }

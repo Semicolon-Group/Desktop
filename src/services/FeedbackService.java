@@ -53,7 +53,7 @@ public class FeedbackService extends Service implements Create<Feedback>,Update<
     public void update(Feedback obj) throws SQLException {
         String query = "UPDATE feedback SET state = ?  WHERE id = ?";
         PreparedStatement pst = CONNECTION.prepareStatement(query);
-        pst.setBoolean(1, obj.isState());
+        pst.setBoolean(1, true);
         pst.setInt(2, obj.getId());
         pst.executeUpdate();
     }
@@ -90,6 +90,27 @@ public class FeedbackService extends Service implements Create<Feedback>,Update<
         return feeds;
         
     }
+
+
+
+ public List<Feedback> getFalse(Feedback obj) throws SQLException {
+        String query = "select * from feedback where state = 0";
+        ResultSet rs = CONNECTION.createStatement().executeQuery(query);
+        List<Feedback> feeds = new ArrayList<>();
+        while(rs.next()){
+            Feedback feed = new Feedback();
+	    feed.setId(rs.getInt("id"));
+            feed.setContent(rs.getString("content"));
+            feed.setState(rs.getBoolean("state"));
+            feed.setSenderId(rs.getInt("sender_id"));
+            feed.setDate(rs.getTimestamp("date"));
+            feeds.add(feed);
+        }
+        return feeds;
+        
+    }
+
+
 
     
 }
