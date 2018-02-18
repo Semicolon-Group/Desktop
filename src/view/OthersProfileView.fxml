@@ -3,6 +3,7 @@
 <?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -19,136 +20,6 @@
 
 <AnchorPane id="AnchorPane" fx:id="mainAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="1920.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.OthersProfileViewController">
    <children>
-      <AnchorPane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <AnchorPane fx:id="coverContainer" prefHeight="486.0" prefWidth="200.0" style="-fx-background-color: lightgray;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <ImageView fx:id="coverImage" fitHeight="486.0" pickOnBounds="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-               </children>
-            </AnchorPane>
-            <AnchorPane id="under_info_pane" layoutX="-4.0" layoutY="285.0" prefHeight="130.0" AnchorPane.bottomAnchor="47.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-            <AnchorPane id="profile_image_pane" fx:id="profileImgPane" prefHeight="290.0" prefWidth="290.0" AnchorPane.leftAnchor="197.0" AnchorPane.topAnchor="242.0">
-               <children>
-                  <ImageView fx:id="profileImage" fitHeight="270.0" fitWidth="270.0" pickOnBounds="true" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
-                     <image>
-                        <Image url="@assets/img/profil.jpg" />
-                     </image>
-                  </ImageView>
-               </children>
-            </AnchorPane>
-            <AnchorPane layoutX="500.0" layoutY="368.0" prefHeight="118.0" prefWidth="1420.0" AnchorPane.leftAnchor="500.0" AnchorPane.rightAnchor="0.0">
-               <children>
-                  <HBox prefHeight="108.0" prefWidth="237.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <AnchorPane prefHeight="119.0" prefWidth="733.0">
-                           <children>
-                              <HBox prefHeight="10.0" prefWidth="200.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <children>
-                                    <Label fx:id="nameLabel" text="Lena Adams" textFill="WHITE">
-                                       <font>
-                                          <Font name="System Bold" size="40.0" />
-                                       </font>
-                                    </Label>
-                                    <VBox alignment="CENTER_LEFT" prefHeight="58.0" prefWidth="42.0">
-                                       <children>
-                                          <Label fx:id="ageLabel" text="24" textFill="WHITE">
-                                             <font>
-                                                <Font name="System Bold" size="18.0" />
-                                             </font>
-                                             <VBox.margin>
-                                                <Insets left="15.0" top="4.0" />
-                                             </VBox.margin>
-                                          </Label>
-                                       </children>
-                                    </VBox>
-                                    <VBox alignment="CENTER_LEFT" prefHeight="58.0" prefWidth="123.0">
-                                       <children>
-                                          <Label prefHeight="36.0" prefWidth="117.0" text="years old" textFill="WHITE">
-                                             <font>
-                                                <Font name="System Bold" size="18.0" />
-                                             </font>
-                                          </Label>
-                                       </children>
-                                    </VBox>
-                                 </children>
-                              </HBox>
-                              <HBox prefHeight="58.0" prefWidth="1359.0" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="61.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="56.0">
-                                 <children>
-                                    <Label fx:id="addressLabel" text="Paris, France" textFill="WHITE">
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font>
-                                    </Label>
-                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="30.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="3.0">
-                                       <HBox.margin>
-                                          <Insets left="20.0" top="4.0" />
-                                       </HBox.margin>
-                                    </Rectangle>
-                                    <VBox prefHeight="15.0" prefWidth="141.0">
-                                       <children>
-                                          <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="121.0">
-                                             <children>
-                                                <Label fx:id="matchPercentageLabel" text="80%" textFill="WHITE">
-                                                   <font>
-                                                      <Font name="System Bold" size="20.0" />
-                                                   </font>
-                                                </Label>
-                                                <Label text="Match" textFill="WHITE">
-                                                   <font>
-                                                      <Font name="System Bold" size="20.0" />
-                                                   </font>
-                                                </Label>
-                                             </children>
-                                             <VBox.margin>
-                                                <Insets left="20.0" />
-                                             </VBox.margin>
-                                          </HBox>
-                                       </children>
-                                    </VBox>
-                                 </children>
-                              </HBox>
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane prefHeight="119.0" prefWidth="684.0">
-                           <children>
-                              <VBox alignment="CENTER" prefHeight="119.0" prefWidth="672.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <children>
-                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="566.0" spacing="50.0">
-                                       <children>
-                                          <Button fx:id="messageButton" mnemonicParsing="false" onAction="#startChat" prefHeight="71.0" prefWidth="188.0" styleClass="regular_button" text="Message">
-                                             <font>
-                                                <Font name="System Bold" size="30.0" />
-                                             </font>
-                                          </Button>
-                                          <AnchorPane prefHeight="100.0" prefWidth="207.0">
-                                             <children>
-                                                <Button fx:id="dislikeButton" layoutX="18.0" layoutY="14.0" mnemonicParsing="false" onAction="#doUnlike" prefHeight="71.0" prefWidth="214.0" styleClass="regular_button" text="Dislike">
-                                                   <font>
-                                                      <Font name="System Bold" size="30.0" />
-                                                   </font>
-                                                </Button>
-                                                <Button fx:id="likeButton" layoutX="18.0" layoutY="14.0" mnemonicParsing="false" onAction="#doLike" prefHeight="71.0" prefWidth="214.0" styleClass="regular_button" text="Like">
-                                                   <font>
-                                                      <Font name="System Bold" size="30.0" />
-                                                   </font>
-                                                </Button>
-                                             </children>
-                                          </AnchorPane>
-                                       </children>
-                                       <VBox.margin>
-                                          <Insets right="50.0" />
-                                       </VBox.margin>
-                                    </HBox>
-                                 </children>
-                              </VBox>
-                           </children>
-                        </AnchorPane>
-                     </children>
-                  </HBox>
-               </children>
-            </AnchorPane>
-         </children>
-      </AnchorPane>
       <AnchorPane layoutY="533.0" prefHeight="200.0" prefWidth="1920.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="533.0">
          <children>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" />
@@ -401,6 +272,40 @@
                         </AnchorPane>
                   </content>
                 </Tab>
+                  <Tab text="Likes">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <ScrollPane fitToWidth="true" hbarPolicy="NEVER" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0">
+                                 <content>
+                                    <VBox fx:id="likesVBox" spacing="20.0">
+                                       <padding>
+                                          <Insets left="20.0" right="20.0" top="20.0" />
+                                       </padding>
+                                    </VBox>
+                                 </content>
+                              </ScrollPane>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text="Réponses">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <ScrollPane fitToWidth="true" hbarPolicy="NEVER" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0">
+                                 <content>
+                                    <VBox fx:id="answersVBox" spacing="20.0">
+                                       <padding>
+                                          <Insets left="20.0" right="20.0" top="20.0" />
+                                       </padding>
+                                    </VBox>
+                                 </content>
+                              </ScrollPane>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
               </tabs>
                <styleClass>
                   <String fx:value="tab_pane" />
@@ -454,6 +359,174 @@
                         </ScrollPane>
                      </children>
                   </AnchorPane>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <AnchorPane fx:id="coverContainer" prefHeight="486.0" prefWidth="200.0" style="-fx-background-color: lightgray;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <ImageView fx:id="coverImage" fitHeight="486.0" pickOnBounds="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane id="under_info_pane" layoutX="-4.0" layoutY="285.0" prefHeight="130.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="369.29089465432963" />
+            <AnchorPane id="profile_image_pane" fx:id="profileImgPane" prefHeight="290.0" prefWidth="290.0" AnchorPane.leftAnchor="197.0" AnchorPane.topAnchor="242.0">
+               <children>
+                  <ImageView fx:id="profileImage" fitHeight="270.0" fitWidth="270.0" pickOnBounds="true" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                     <image>
+                        <Image url="@assets/img/profil.jpg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="500.0" layoutY="368.0" prefHeight="118.0" prefWidth="1420.0" AnchorPane.leftAnchor="500.0" AnchorPane.rightAnchor="0.0">
+               <children>
+                  <HBox prefHeight="108.0" prefWidth="237.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <AnchorPane prefHeight="119.0" prefWidth="733.0">
+                           <children>
+                              <HBox prefHeight="10.0" prefWidth="200.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <Label fx:id="nameLabel" text="Lena Adams" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="40.0" />
+                                       </font>
+                                    </Label>
+                                    <VBox alignment="CENTER_LEFT" prefHeight="58.0" prefWidth="42.0">
+                                       <children>
+                                          <Label fx:id="ageLabel" text="24" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                             <VBox.margin>
+                                                <Insets left="15.0" top="4.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="CENTER_LEFT" prefHeight="58.0" prefWidth="123.0">
+                                       <children>
+                                          <Label prefHeight="36.0" prefWidth="117.0" text="years old" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="58.0" prefWidth="1359.0" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="61.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="56.0">
+                                 <children>
+                                    <Label fx:id="addressLabel" text="Paris, France" textFill="WHITE">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="30.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="3.0">
+                                       <HBox.margin>
+                                          <Insets left="20.0" top="4.0" />
+                                       </HBox.margin>
+                                    </Rectangle>
+                                    <VBox prefHeight="15.0" prefWidth="141.0">
+                                       <children>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="121.0">
+                                             <children>
+                                                <Label fx:id="matchPercentageLabel" text="80%" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="System Bold" size="20.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label text="Match" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="System Bold" size="20.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets left="20.0" />
+                                             </VBox.margin>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="119.0" prefWidth="684.0">
+                           <children>
+                              <VBox alignment="CENTER" prefHeight="119.0" prefWidth="672.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="566.0" spacing="50.0">
+                                       <children>
+                                          <Button fx:id="messageButton" mnemonicParsing="false" onAction="#startChat" prefHeight="71.0" prefWidth="188.0" styleClass="regular_button" text="Message">
+                                             <font>
+                                                <Font name="System Bold" size="30.0" />
+                                             </font>
+                                          </Button>
+                                          <AnchorPane prefHeight="100.0" prefWidth="207.0">
+                                             <children>
+                                                <Button fx:id="dislikeButton" layoutX="18.0" layoutY="14.0" mnemonicParsing="false" onAction="#doUnlike" prefHeight="71.0" prefWidth="214.0" styleClass="regular_button" text="Dislike">
+                                                   <font>
+                                                      <Font name="System Bold" size="30.0" />
+                                                   </font>
+                                                </Button>
+                                                <Button fx:id="likeButton" layoutX="18.0" layoutY="14.0" mnemonicParsing="false" onAction="#doLike" prefHeight="71.0" prefWidth="214.0" styleClass="regular_button" text="Like">
+                                                   <font>
+                                                      <Font name="System Bold" size="30.0" />
+                                                   </font>
+                                                </Button>
+                                             </children>
+                                          </AnchorPane>
+                                          <AnchorPane prefHeight="100.0" prefWidth="65.0">
+                                             <children>
+                                                <ImageView fitHeight="58.0" fitWidth="59.0" layoutX="4.0" layoutY="21.0" onMouseClicked="#showMenu" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@assets/icons/menu.png" />
+                                                   </image>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </ImageView>
+                                             </children>
+                                          </AnchorPane>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets right="50.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="sideMenu" layoutX="1781.0" layoutY="457.0" prefHeight="0.0" prefWidth="0.0" styleClass="side_menu" visible="false" AnchorPane.rightAnchor="97.0">
+               <children>
+                  <VBox prefHeight="130.0" prefWidth="202.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <HBox fx:id="blockBox" alignment="CENTER" onMouseClicked="#showBlockAlert" prefHeight="100.0" prefWidth="200.0" styleClass="side_menu_item">
+                           <children>
+                              <Label text="Bloquer" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox fx:id="signalBox" alignment="CENTER" layoutX="10.0" layoutY="10.0" onMouseClicked="#showSignalAlert" prefHeight="100.0" prefWidth="200.0" styleClass="side_menu_item">
+                           <children>
+                              <Label text="Signaler" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
                </children>
             </AnchorPane>
          </children>
