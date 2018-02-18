@@ -159,6 +159,8 @@ public class SelfProfileViewController implements Initializable {
     private TextArea aboutTextarea;
     @FXML
     private VBox answersVBox;
+    
+    private List<Answer> answers;
 
     /**
      * Initializes the controller class.
@@ -182,19 +184,56 @@ public class SelfProfileViewController implements Initializable {
         makeAnswersPane();
     }
     
-    private void makeAnswersPane(){
+    public List<Answer> getAnswers(){
+        return answers;
+    }
+    
+    public void makeAnswersPane(){
         try {
-            List<Answer> answers = AnswerService.getInstance().getAll(new Answer(0, null, null, MySoulMate.MEMBER_ID));
+            answersVBox.getChildren().clear();
+            answers = AnswerService.getInstance().getAll(new Answer(0, null, null, MySoulMate.MEMBER_ID));
             for(Answer answer: answers){
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AnswerView.fxml"));
                 AnchorPane pane = loader.load();
                 ((AnswerViewController)loader.getController()).setAnswer(answer);
+                ((AnswerViewController)loader.getController()).setController(this);
                 answersVBox.getChildren().add(pane);
             }
+            AnchorPane buttomPane = new AnchorPane();
+            HBox hBox = new HBox();
+            hBox.setAlignment(Pos.CENTER);
+            hBox.getChildren().add(new ImageView(getClass().getResource("/view/assets/icons/add.png").toExternalForm()));
+            buttomPane.getChildren().add(hBox);
+            AnchorPane.setBottomAnchor(hBox, 0.0);
+            AnchorPane.setLeftAnchor(hBox, 0.0);
+            AnchorPane.setRightAnchor(hBox, 0.0);
+            AnchorPane.setTopAnchor(hBox, 0.0);
+            buttomPane.setPrefHeight(80);
+            buttomPane.getStyleClass().add("add_answer");
+            buttomPane.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> showAddAnswerDialog(e));
+            answersVBox.getChildren().add(buttomPane);
         } catch (SQLException ex) {
             util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), null);
         } catch (IOException ex) {
             util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), null);
+        }
+    }
+    
+    private void showAddAnswerDialog(MouseEvent e){
+        try {
+            final Stage dialog = new Stage();
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.initOwner(MySoulMate.mainStage);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AddAnswerView.fxml"));
+            Pane content = loader.load();
+            ((AddAnswerViewController)loader.getController()).setAnswers(answers);
+            ((AddAnswerViewController)loader.getController()).setDialog(dialog);
+            ((AddAnswerViewController)loader.getController()).setSelfProfileViewController(this);
+            Scene dialogScene = new Scene(content, 690, 508);
+            dialog.setScene(dialogScene);
+            dialog.show();
+        } catch (IOException ex) {
+            Logger.getLogger(SelfProfileViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
