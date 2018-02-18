@@ -5,13 +5,18 @@
  */
 package controller;
 
+import impl.org.controlsfx.autocompletion.AutoCompletionTextFieldBinding;
+import impl.org.controlsfx.autocompletion.SuggestionProvider;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
@@ -21,11 +26,18 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.InputMethodEvent;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.util.converter.NumberStringConverter;
+import models.Address;
 import models.Enumerations;
 import models.Member;
+import org.controlsfx.control.textfield.AutoCompletionBinding;
+import org.controlsfx.control.textfield.AutoCompletionBinding.AutoCompletionEvent;
+import org.controlsfx.control.textfield.TextFields;
 import services.MemberService;
+import util.GooglePlaceAPI;
 
 /**
  * FXML Controller class
@@ -82,6 +94,8 @@ public class EditProfileViewController implements Initializable {
     private TextField cityField;
     @FXML
     private TextField countryField;
+    private List<Address> addresses;
+    private SuggestionProvider<Address> provider;
 
     /**
      * Initializes the controller class.
@@ -90,8 +104,33 @@ public class EditProfileViewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         heightFiled.setTextFormatter(new TextFormatter<>(new NumberStringConverter()));
         childNumberFiled.setTextFormatter(new TextFormatter<>(new NumberStringConverter()));
-        // TODO
-    }  
+        addresses = new ArrayList<>();
+        provider = SuggestionProvider.create(addresses);
+        AutoCompletionTextFieldBinding actfb = new AutoCompletionTextFieldBinding<>(cityField, provider);
+        actfb.setOnAutoCompleted(manageAutoCompletion);
+    }
+    
+    private EventHandler<AutoCompletionEvent<Address>> manageAutoCompletion =
+        new EventHandler<AutoCompletionEvent<Address>>() {
+            @Override
+            public void handle(AutoCompletionEvent<Address> event) {
+                Address address = GooglePlaceAPI.getPlaceDetails(event.getCompletion());
+                member.getAddress().setCity(address.getCity());
+                member.getAddress().setCountry(address.getCountry());
+                member.getAddress().setLatitude(address.getLatitude());
+                member.getAddress().setLongitude(address.getLongitude());
+                cityField.setText(member.getAddress().getCity());
+                countryField.setText(member.getAddress().getCountry());
+            }
+        };
+    
+    @FXML
+    private void checkPlaces(KeyEvent event) {
+        addresses.clear();
+        addresses.addAll(GooglePlaceAPI.autoCompleteAddress(cityField.getText()));
+        provider.clearSuggestions();
+        provider.addPossibleSuggestions(addresses);
+    }
     
     public void setMember(Member member){
         this.member = member;
@@ -132,10 +171,7 @@ public class EditProfileViewController implements Initializable {
         try {
             member.setFirstname(firstNameField.getText());
             member.setLastname(lastnameField.getText());
-            member.getAddress().setCity(cityField.getText());
-            member.getAddress().setCountry(countryField.getText());
             if(maleRadio.isSelected()) member.setGender(true); else member.setGender(false);
-            System.out.println(java.sql.Date.valueOf(birthdayPicker.getValue()));
             member.setBirthDate(java.sql.Date.valueOf(birthdayPicker.getValue()));
             member.setHeight(Float.parseFloat(heightFiled.getText()));
             member.setBodyType(bodyTypeBox.getSelectionModel().getSelectedItem());
