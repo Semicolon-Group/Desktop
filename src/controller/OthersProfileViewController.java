@@ -103,33 +103,12 @@ public class OthersProfileViewController implements Initializable {
     private Label childNumLabel;
     @FXML
     private Label createdAtLabel;
-    private ImageView likeImage1;
-    private Label likeName1;
-    private Label likeDate1;
-    private ImageView likeImage2;
-    private Label likeName2;
-    private Label likeDate2;
-    private ImageView likeImage3;
-    private Label likeName3;
-    private Label likeDate3;
-    private ImageView likeImage4;
-    private Label likeName4;
-    private Label likeDate4;
-    private ImageView likeImage5;
-    private Label likeName5;
-    private Label likeDate5;
-    private ImageView likeImage6;
-    private Label likeName6;
-    private Label likeDate6;
     @FXML
     private Text aboutText;
     @FXML
     private ScrollPane photoScrollPane;
     @FXML
     private VBox photosVBox;
-    private List<Label> likeNameLabels;
-    private List<Label> likeDateLabels;
-    private List<ImageView> likeImageViews;
     private GlobalViewController controller;
     List<Member> members;
     
@@ -150,6 +129,8 @@ public class OthersProfileViewController implements Initializable {
     private HBox signalBox;
     @FXML
     private VBox answersVBox;
+    @FXML
+    private VBox likesVBox;
 
     /**
      * Initializes the controller class.
@@ -159,12 +140,25 @@ public class OthersProfileViewController implements Initializable {
         controller = GlobalViewController.getInstance();
         photosVBox.fillWidthProperty().bind(photoScrollPane.fitToWidthProperty());
         members = new ArrayList<>();
-        likeNameLabels = new ArrayList<>();
-        likeNameLabels.addAll(Arrays.asList(likeName1, likeName2, likeName3, likeName4, likeName5, likeName6));
-        likeDateLabels = new ArrayList<>();
-        likeDateLabels.addAll(Arrays.asList(likeDate1, likeDate2, likeDate3, likeDate4, likeDate5, likeDate6));
-        likeImageViews = new ArrayList<>();
-        likeImageViews.addAll(Arrays.asList(likeImage1, likeImage2, likeImage3, likeImage4, likeImage5, likeImage6));
+    }
+    
+    private void makeMemberLikePane(){
+        try {
+            List<Like> likes = LikeService.getInstance().getAll(new Like(userId, 0, null)).stream().limit(6)
+                    .collect(Collectors.toList());
+            likesVBox.getChildren().clear();
+            for(Like like: likes){
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/LikedUserView.fxml"));
+                AnchorPane likedUserPane = loader.load();
+                ((LikedUserViewController)loader.getController()).setLike(like);
+                ((LikedUserViewController)loader.getController()).setController(controller);
+                likesVBox.getChildren().add(likedUserPane);
+            }
+        } catch (SQLException ex) {
+            util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), null);
+        } catch (IOException ex) {
+            util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), null);
+        }
     }
     
     public void makeAnswersPane(){
@@ -212,6 +206,7 @@ public class OthersProfileViewController implements Initializable {
     public void setUserId(int userId){
         this.userId = userId;
         populate();
+        makeMemberLikePane();
         makeAnswersPane();
     }
     

@@ -107,48 +107,7 @@ public class SelfProfileViewController implements Initializable {
     private Label civilStatusLabel;
     @FXML
     private Label createdAtLabel;
-    private VBox leftLikesPane;
     List<Member> members;
-    @FXML
-    private ImageView likeImage1;
-    @FXML
-    private Label likeName1;
-    @FXML
-    private Label likeDate1;
-    @FXML
-    private ImageView likeImage2;
-    @FXML
-    private Label likeName2;
-    @FXML
-    private Label likeDate2;
-    @FXML
-    private ImageView likeImage3;
-    @FXML
-    private Label likeName3;
-    @FXML
-    private Label likeDate3;
-    @FXML
-    private ImageView likeImage4;
-    @FXML
-    private Label likeName4;
-    @FXML
-    private Label likeDate4;
-    @FXML
-    private ImageView likeImage5;
-    @FXML
-    private Label likeName5;
-    @FXML
-    private Label likeDate5;
-    @FXML
-    private ImageView likeImage6;
-    @FXML
-    private Label likeName6;
-    @FXML
-    private Label likeDate6;
-    
-    private List<Label> likeNameLabels;
-    private List<Label> likeDateLabels;
-    private List<ImageView> likeImageViews;
     @FXML
     private VBox photosVBox;
     @FXML
@@ -161,6 +120,8 @@ public class SelfProfileViewController implements Initializable {
     private VBox answersVBox;
     
     private List<Answer> answers;
+    @FXML
+    private VBox likesVBox;
 
     /**
      * Initializes the controller class.
@@ -171,12 +132,6 @@ public class SelfProfileViewController implements Initializable {
         photosVBox.fillWidthProperty().bind(photoScrollPane.fitToWidthProperty());
         aboutTextarea.focusedProperty().addListener((o, oldValue, newValue) -> updateAbout(o, oldValue, newValue));
         members = new ArrayList<>();
-        likeNameLabels = new ArrayList<>();
-        likeNameLabels.addAll(Arrays.asList(likeName1, likeName2, likeName3, likeName4, likeName5, likeName6));
-        likeDateLabels = new ArrayList<>();
-        likeDateLabels.addAll(Arrays.asList(likeDate1, likeDate2, likeDate3, likeDate4, likeDate5, likeDate6));
-        likeImageViews = new ArrayList<>();
-        likeImageViews.addAll(Arrays.asList(likeImage1, likeImage2, likeImage3, likeImage4, likeImage5, likeImage6));
         makeCoverPicture();
         makeProfilePicture();
         populateFields();
@@ -319,23 +274,17 @@ public class SelfProfileViewController implements Initializable {
         try {
             List<Like> likes = LikeService.getInstance().getAll(new Like(MySoulMate.MEMBER_ID, 0, null)).stream().limit(6)
                     .collect(Collectors.toList());
-            int i = 0;
+            likesVBox.getChildren().clear();
             for(Like like: likes){
-                Member member = MemberService.getInstance().get(new Member(like.getReceiverId()));
-                List<Photo> photos = PhotoService.getInstance().getAll(new Photo(0, member.getId(), null, null));
-                String photoPath="";
-                if(photos.isEmpty()){
-                    photoPath = "/view/assets/icons/member.jpg";
-                }else{
-                    photoPath = MySoulMate.UPLOAD_URL+photos.get(0).getUrl();
-                }
-                likeImageViews.get(i).setImage(new Image(photoPath));
-                likeImageViews.get(i).setId(member.getId()+"");
-                likeNameLabels.get(i).setText(member.getFirstname()+" "+member.getLastname());
-                likeDateLabels.get(i).setText("Depuis: "+(new SimpleDateFormat("dd MMMM yyyy", Locale.FRANCE).format(like.getDate())));
-                i++;
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/LikedUserView.fxml"));
+                AnchorPane likedUserPane = loader.load();
+                ((LikedUserViewController)loader.getController()).setLike(like);
+                ((LikedUserViewController)loader.getController()).setController(controller);
+                likesVBox.getChildren().add(likedUserPane);
             }
         } catch (SQLException ex) {
+            util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), null);
+        } catch (IOException ex) {
             util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), null);
         }
     }
@@ -413,7 +362,6 @@ public class SelfProfileViewController implements Initializable {
 //            }   
     }
 
-    @FXML
     private void toOtherProfile(MouseEvent event) {
         int memberId = Integer.parseInt(((HBox)event.getSource()).getChildren().get(0).getId());
         FXMLLoader loader = controller.setMainContent("/view/OthersProfileView.fxml");
