@@ -29,6 +29,7 @@ import javafx.stage.Stage;
 public class MainAchref extends Application {
     
     public static FeedbackContainerViewController container;
+    public static GetSignalContainerViewController container2;
     
     @Override
     public void start(Stage primaryStage) {
@@ -67,10 +68,22 @@ public class MainAchref extends Application {
 ////        } catch (IOException ex) {
 ////            System.out.println(ex.getMessage());
 ////        }
-                try {
-            Parent root = FXMLLoader.
-                    load(getClass().getResource("/view/GetSignalView.fxml"));
-            
+//                try {
+//            Parent root = FXMLLoader.
+//                    load(getClass().getResource("/view/GetSignalView.fxml"));
+//            
+//            Scene scene = new Scene(root);
+//            primaryStage.setScene(scene);
+//            primaryStage.show();
+//
+//        } catch (IOException ex) {
+//            System.out.println(ex.getMessage());
+//        }
+    try {
+            FXMLLoader loader = new FXMLLoader();
+            Parent root = loader.
+                    load(getClass().getResource("/view/GetSignalContainerView.fxml").openStream());
+            container2 = loader.getController();
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.show();
@@ -78,10 +91,7 @@ public class MainAchref extends Application {
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
-        
-
    
-     
 //try {
 //            Parent root = FXMLLoader.
 //                    load(getClass().getResource("/view/InsView.fxml"));

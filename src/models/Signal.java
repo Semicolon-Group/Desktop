@@ -115,6 +115,9 @@ public class Signal {
     public String getReceiverName() throws SQLException{
         return MemberService.getInstance().get(new Member(receiverId)).getFirstname();
     }
+    public String getStateName(){
+        return state ? "Treated" : "Non-Treated";
+    }
     
     @Override
     public String toString() {

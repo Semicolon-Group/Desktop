@@ -38,7 +38,7 @@ public class GetSignalContainerViewController implements Initializable {
             Parent signalView = FXMLLoader.load(getClass().getResource("/view/GetSignalView.fxml"));
             anchor.getChildren().add(signalView);
         } catch (IOException ex) {
-            Logger.getLogger(FeedbackContainerViewController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GetSignalContainerViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     public void switchView(String view){

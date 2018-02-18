@@ -81,8 +81,8 @@ public class SignalService extends Service implements Create<Signal>,Update<Sign
     @Override
     public List<Signal> getAll(Signal obj) throws SQLException {
 	String query = "select * from user_signal " ;
-	if (obj.getSenderId() > 0)
-	    query += "WHERE sender_id = " + obj.getSenderId();
+//	if (obj.getSenderId() > 0)
+//	    query += "WHERE sender_id = " + obj.getSenderId();
         ResultSet rs = CONNECTION.createStatement().executeQuery(query);
         List<Signal> signaux = new ArrayList<>();
         while(rs.next()){

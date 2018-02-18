@@ -5,7 +5,7 @@
  */
 package controller;
 
-import static controller.MainAchref.container;
+import static controller.MainAchref.container2;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -55,7 +55,7 @@ public class GetSignalViewController implements Initializable {
           try {
             afficher();
         } catch (SQLException ex) {
-            Logger.getLogger(GetFeedViewController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GetSignalViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }    
     
@@ -72,10 +72,11 @@ public class GetSignalViewController implements Initializable {
     
     
     }
+    @FXML
     private void onMouseClick(MouseEvent event) throws IOException, SQLException {
         
           SignalService signal = SignalService.getInstance();
           s1 = (Signal) table.getSelectionModel().getSelectedItem();
-           container.switchView("GetSignalDetailsView");
+            container2.switchView("GetSignalDetailsView");
 }
 }

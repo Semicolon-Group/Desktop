@@ -67,7 +67,6 @@ public class GetFeedDetailsViewController implements Initializable {
      public void initialize(URL url, ResourceBundle rb) {
         try {
             feed1 = FeedbackService.getInstance();
-            
             feed1.update(f1);       
             
 //                sender=f1.getSenderId();  
