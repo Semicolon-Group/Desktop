@@ -18,6 +18,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -51,6 +52,12 @@ public class AnswerViewController implements Initializable {
     private AnchorPane mainAnchorPane;
     
     private SelfProfileViewController controller;
+    
+    private boolean editable;
+    @FXML
+    private ImageView editIcon;
+    @FXML
+    private ImageView deleteIcon;
 
     /**
      * Initializes the controller class.
@@ -58,6 +65,10 @@ public class AnswerViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+    }
+    
+    public void setEditable(boolean editable){
+        this.editable = editable;
     }
 
     public void setController(SelfProfileViewController controller) {
@@ -71,6 +82,8 @@ public class AnswerViewController implements Initializable {
     
     private void poulateFields(){
         try {
+            editIcon.setVisible(editable);
+            deleteIcon.setVisible(editable);
             Question question = QuestionService.getInstance().get(new Question(answer.getQuestionId()));
             questionLabel.setText(question.getQuestion());
             String selectedChoices ="";

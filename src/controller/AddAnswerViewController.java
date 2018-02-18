@@ -68,7 +68,6 @@ public class AddAnswerViewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         possibleSelectedChoices = new ArrayList<>();
         possibleAcceptedChoices = new ArrayList<>();
-        // TODO
     }
     
     public void setAnswers(List<Answer> answers){
@@ -99,33 +98,39 @@ public class AddAnswerViewController implements Initializable {
     }
     
     private void populateFieldsFromAnswer(){
-        Question question = questions.stream().filter(q -> q.getId() == answer.getQuestionId()).findFirst().orElse(null);
-        topicBox.getSelectionModel().select(question.getTopic());
-        importanceBox.getSelectionModel().select(answer.getImportance());
-        questionBox.getSelectionModel().select(question);
-        for(CheckBox checkBox : possibleSelectedChoices){
-            int checkBoxId = Integer.parseInt(checkBox.getId());
-            checkBox.setSelected(answer.getSelectedChoices().stream().anyMatch(c -> c.getId() == checkBoxId));
+        try {
+            Question question = QuestionService.getInstance().get(new Question(answer.getQuestionId()));
+            topicBox.getItems().clear();
+            topicBox.getItems().add(question.getTopic());
+            topicBox.getSelectionModel().select(0);
+            importanceBox.getSelectionModel().select(answer.getImportance());
+            questionBox.getSelectionModel().selectedItemProperty().addListener((obv, oldValue, newValue) -> questionChanged(obv, oldValue, newValue));
+            questionBox.getSelectionModel().select(question);
+            for(CheckBox checkBox : possibleSelectedChoices){
+                int checkBoxId = Integer.parseInt(checkBox.getId());
+                checkBox.setSelected(answer.getSelectedChoices().stream().anyMatch(c -> c.getId() == checkBoxId));
+            }
+            for(CheckBox checkBox : possibleAcceptedChoices){
+                int checkBoxId = Integer.parseInt(checkBox.getId());
+                checkBox.setSelected(answer.getAcceptedChoices().stream().anyMatch(c -> c.getId() == checkBoxId));
+            }
+        } catch (SQLException ex) {
+            util.Logger.writeLog(ex, AddAnswerViewController.class.getName(), null);
         }
-        for(CheckBox checkBox : possibleAcceptedChoices){
-            int checkBoxId = Integer.parseInt(checkBox.getId());
-            checkBox.setSelected(answer.getAcceptedChoices().stream().anyMatch(c -> c.getId() == checkBoxId));
-        }
-        //TODO
     }
 
     private void subjectChanged(ObservableValue<? extends Enumerations.Topic> arg0, Enumerations.Topic arg1, Enumerations.Topic arg2) {
         try {
-            questions = QuestionService.getInstance().getAll(new Question(null, topicBox.getSelectionModel().getSelectedItem()));
             if(answer == null){
+                questions = QuestionService.getInstance().getAll(new Question(null, topicBox.getSelectionModel().getSelectedItem()));
                 for(Answer a:answers){
                     questions.remove(questions.stream().filter(q -> q.getId() == a.getQuestionId()).findFirst().orElse(null));
                 }
+                questionBox.getItems().clear();
+                questionBox.getItems().addAll(questions);
+                questionBox.getSelectionModel().selectedItemProperty().addListener((obv, oldValue, newValue) -> questionChanged(obv, oldValue, newValue));
+                questionBox.getSelectionModel().select(0);
             }
-            questionBox.getItems().clear();
-            questionBox.getItems().addAll(questions);
-            questionBox.getSelectionModel().selectedItemProperty().addListener((obv, oldValue, newValue) -> questionChanged(obv, oldValue, newValue));
-            questionBox.getSelectionModel().select(0);
         } catch (SQLException ex) {
             util.Logger.writeLog(ex, AddAnswerViewController.class.getName(), null);        
         }
@@ -171,18 +176,22 @@ public class AddAnswerViewController implements Initializable {
         try {
             if(answer != null){
                 answer.setImportance(importanceBox.getValue());
+                answer.getSelectedChoices().clear();
                 for(CheckBox checkBox: possibleSelectedChoices){
                     if(checkBox.isSelected()){
                         Choice ch = choices.stream().filter(c -> c.getId() == Integer.parseInt(checkBox.getId())).findFirst().orElse(null);
                         answer.getSelectedChoices().add(ch);
                     }
                 }
+                
+                answer.getAcceptedChoices().clear();
                 for(CheckBox checkBox: possibleAcceptedChoices){
                     if(checkBox.isSelected()){
                         Choice ch = choices.stream().filter(c -> c.getId() == Integer.parseInt(checkBox.getId())).findFirst().orElse(null);
                         answer.getAcceptedChoices().add(ch);
                     }
                 }
+                
                 AnswerService.getInstance().update(answer);
             }else{
                 Answer a = new Answer(

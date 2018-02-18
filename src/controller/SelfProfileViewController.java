@@ -195,6 +195,7 @@ public class SelfProfileViewController implements Initializable {
             for(Answer answer: answers){
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AnswerView.fxml"));
                 AnchorPane pane = loader.load();
+                ((AnswerViewController)loader.getController()).setEditable(true);
                 ((AnswerViewController)loader.getController()).setAnswer(answer);
                 ((AnswerViewController)loader.getController()).setController(this);
                 answersVBox.getChildren().add(pane);

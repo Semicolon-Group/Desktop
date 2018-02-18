@@ -27,6 +27,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -43,12 +44,16 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import models.Answer;
 import models.Block;
 import models.Enumerations;
 import models.Like;
 import models.Member;
 import models.Photo;
 import models.Signal;
+import services.AnswerService;
 import services.BlockService;
 import services.LikeService;
 import services.MemberService;
@@ -143,6 +148,8 @@ public class OthersProfileViewController implements Initializable {
     private HBox blockBox;
     @FXML
     private HBox signalBox;
+    @FXML
+    private VBox answersVBox;
 
     /**
      * Initializes the controller class.
@@ -158,6 +165,24 @@ public class OthersProfileViewController implements Initializable {
         likeDateLabels.addAll(Arrays.asList(likeDate1, likeDate2, likeDate3, likeDate4, likeDate5, likeDate6));
         likeImageViews = new ArrayList<>();
         likeImageViews.addAll(Arrays.asList(likeImage1, likeImage2, likeImage3, likeImage4, likeImage5, likeImage6));
+    }
+    
+    public void makeAnswersPane(){
+        try {
+            answersVBox.getChildren().clear();
+            List<Answer> answers = AnswerService.getInstance().getAll(new Answer(0, null, null, userId));
+            for(Answer answer: answers){
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AnswerView.fxml"));
+                AnchorPane pane = loader.load();
+                ((AnswerViewController)loader.getController()).setEditable(false);
+                ((AnswerViewController)loader.getController()).setAnswer(answer);
+                answersVBox.getChildren().add(pane);
+            }
+        } catch (SQLException ex) {
+            util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), null);
+        } catch (IOException ex) {
+            util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), null);
+        }
     }
     
     private void checkForLike(){
@@ -187,6 +212,7 @@ public class OthersProfileViewController implements Initializable {
     public void setUserId(int userId){
         this.userId = userId;
         populate();
+        makeAnswersPane();
     }
     
     private void populatePhotosPane(){

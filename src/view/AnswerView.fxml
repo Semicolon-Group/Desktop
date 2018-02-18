@@ -13,8 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" fx:id="mainAnchorPane" prefHeight="172.0" prefWidth="862.0" styleClass="card_pane" stylesheets="@style/MainStyleSheet.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9.0.1" fx:controller="controller.AnswerViewController">
+<AnchorPane id="AnchorPane" fx:id="mainAnchorPane" prefHeight="172.0" prefWidth="862.0" styleClass="card_pane" stylesheets="@style/MainStyleSheet.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AnswerViewController">
    <children>
       <AnchorPane prefHeight="91.0" prefWidth="862.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
@@ -81,7 +80,7 @@
                               </HBox>
                               <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1">
                                  <children>
-                                    <ImageView fitHeight="30.0" fitWidth="30.0" onMouseClicked="#showEditDialog" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="editIcon" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#showEditDialog" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@assets/icons/edit.png" />
                                        </image>
@@ -89,7 +88,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </ImageView>
-                                    <ImageView fitHeight="30.0" fitWidth="30.0" onMouseClicked="#confirmDelete" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="deleteIcon" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#confirmDelete" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@assets/icons/close.png" />
                                        </image>
@@ -111,7 +110,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="802.0" spacing="20.0">
                      <children>
-                        <Label text="Vos réponses:">
+                        <Label text="Réponses:">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -128,7 +127,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" layoutX="70.0" layoutY="74.0" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                      <children>
-                        <Label text="Vous acceptez:">
+                        <Label text="Réponses acceptées:">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
