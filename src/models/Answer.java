@@ -125,5 +125,10 @@ public class Answer {
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "Answer{" + "id=" + id + ", questionId=" + questionId + ", date=" + date + ", importance=" + importance + ", memberId=" + memberId + ", selectedChoices=" + selectedChoices + ", acceptedChoices=" + acceptedChoices + "}\n";
+    }
     
 }

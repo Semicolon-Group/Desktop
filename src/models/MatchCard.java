@@ -128,6 +128,11 @@ public class MatchCard {
     public void setDistance(float distance) {
         this.distance = distance;
     }
+
+    @Override
+    public String toString() {
+        return "MatchCard{" + "memberId=" + memberId + ", pseudo=" + pseudo + ", photoUrl=" + photoUrl + ", age=" + age + ", city=" + city + ", match=" + match + ", enemy=" + enemy + ", lastLogin=" + lastLogin + ", online=" + online + ", distance=" + distance + "}\n";
+    }
     
     
 }

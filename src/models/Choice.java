@@ -68,6 +68,11 @@ public class Choice {
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "Choice{" + "id=" + id + ", questionId=" + questionId + ", choice=" + choice + '}';
+    }
     
     
 }

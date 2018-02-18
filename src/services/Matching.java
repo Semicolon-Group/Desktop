@@ -23,6 +23,18 @@ import models.Photo;
  */
 public class Matching {
     
+    private static Matching instance;
+    
+    private Matching(){
+        
+    }
+    
+    public static Matching getInstance(){
+        if (instance == null)
+            instance = new Matching();
+        return instance;
+    }
+    
     private int getMatch(Answer A, Answer B){
         if(A.getImportance() == Importance.INDIFFERENT)
             return 1;
@@ -60,13 +72,13 @@ public class Matching {
     }
     
     public int getMatchTotal(List<Answer> A, List<Answer> B){
-        int sum = 0;
+        float sum = 0;
         int count = 0;
         for(Map.Entry<Answer,Answer> e : coupleAnswer(A,B).entrySet()){
             sum += getMatch(e.getKey(),e.getValue());
             count++;
         }
-        return count == 0 ? 0 : (sum / count) * 100;
+        return (int) (count == 0 ? 0 : (sum / count) * 100);
     }
     
     public int getEnemyTotal(List<Answer> A, List<Answer> B){
@@ -76,29 +88,30 @@ public class Matching {
             sum += getEnemy(e.getKey(),e.getValue());
             count++;
         }
-        return (int) (count == 0 ? 0 : (sum / count) * 100 + 1); //+1 coz if we get just 0.5, we should show at least 1.
+        return ((int) (count == 0 ? 0 : Math.ceil((sum / count) * 100))); //we should show at least 1.
     }
     
-    public List<MatchCard> getMatches(int MemberId) throws SQLException{
+    public List<MatchCard> getMatches(Member M) throws SQLException{
         List<Member> list = MemberService.getInstance().getAll(null);
-        list.removeIf(m -> m.getId() == MemberId);
+        list.removeIf(m -> m.isGender() == M.isGender());
         List<MatchCard> cards = new ArrayList();
         for(Member m : list){
             MatchCard card = new MatchCard();
+            card.setMemberId(m.getId());
             card.setAge(m.getAge());
             card.setCity(m.getAddress().getCity());
             card.setLastLogin(m.getLastLogin());
             card.setPseudo(m.getPseudo());
             card.setPhotoUrl(PhotoService.getInstance().get(new Photo(m.getId())).getUrl());
             
-            List<Answer> A = AnswerService.getInstance().getAll(new Answer(0, null, null, MemberId));
+            List<Answer> A = AnswerService.getInstance().getAll(new Answer(0, null, null, M.getId()));
             List<Answer> B = AnswerService.getInstance().getAll(new Answer(0, null, null, m.getId()));
             card.setMatch(getMatchTotal(A,B));
             card.setEnemy(getEnemyTotal(A,B));
             
             cards.add(card);
         }
-        cards.sort((a,b) -> a.getMatch() - b.getMatch());
+        cards.sort((a,b) -> b.getMatch() - a.getMatch()); //adding in flowPane makes first element in list last in GUI.
         return cards;
     }
 }

@@ -7,6 +7,8 @@ package models;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 import models.Enumerations.BodyType;
@@ -228,7 +230,8 @@ public class Member extends User{
     }
 
     public int getAge() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return Period.between(LocalDate.of(birthDate.getYear() + 1900, birthDate.getMonth() + 1,
+                birthDate.getDate()), LocalDate.now()).getYears();
     }
     
 }

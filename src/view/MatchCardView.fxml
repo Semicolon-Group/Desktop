@@ -53,7 +53,7 @@
       </HBox>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
          <children>
-            <VBox alignment="CENTER" prefHeight="80.0" prefWidth="60.0">
+            <VBox alignment="CENTER" prefHeight="77.0" prefWidth="85.0">
                <children>
                   <Label fx:id="match" text="91%">
                      <font>
@@ -66,7 +66,7 @@
                </children>
             </VBox>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="47.0" stroke="#949aa6" strokeType="INSIDE" width="1.0" />
-            <VBox alignment="CENTER" prefHeight="80.0" prefWidth="60.0">
+            <VBox alignment="CENTER" prefHeight="80.0" prefWidth="85.0">
                <children>
                   <Label fx:id="enemy" text="15%" textFill="#949aa6">
                      <font>
