@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.FlowPane?>
@@ -8,24 +9,29 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-
-<VBox prefHeight="800.0" prefWidth="1838.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="800.0" prefWidth="1838.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MatchViewController">
    <children>
       <Region maxHeight="-Infinity" minHeight="-Infinity" prefHeight="45.0" prefWidth="200.0" />
-      <HBox fx:id="filter" alignment="CENTER" prefHeight="175.0" prefWidth="1838.0" />
+      <HBox fx:id="filter" alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="175.0" prefWidth="1838.0" />
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="1300.0">
          <children>
-            <HBox alignment="CENTER_RIGHT" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="1300.0" spacing="10.0">
+            <HBox alignment="CENTER_RIGHT" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="860.0" spacing="10.0">
                <children>
-                  <Label text="Sort by:" />
+                  <Label text="Sort by" textFill="#949aa6" />
                   <ComboBox fx:id="sort" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="80.0" />
                </children>
             </HBox>
          </children>
       </HBox>
-      <StackPane alignment="TOP_CENTER" minHeight="-Infinity" prefHeight="567.0" prefWidth="1838.0">
+      <StackPane alignment="TOP_CENTER" prefHeight="567.0" prefWidth="1838.0">
          <children>
-            <FlowPane fx:id="result" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="727.0" prefWidth="1300.0" />
+            <FlowPane fx:id="result" hgap="20.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="727.0" prefWidth="900.0" vgap="30.0">
+               <StackPane.margin>
+                  <Insets />
+               </StackPane.margin>
+               <padding>
+                  <Insets bottom="20.0" top="20.0" />
+               </padding></FlowPane>
          </children>
       </StackPane>
    </children>

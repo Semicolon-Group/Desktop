@@ -181,6 +181,7 @@ public class GlobalViewController implements Initializable {
         try {
             Pane newLoadedPane =  FXMLLoader.load(getClass().getResource(path));
             VBox.setVgrow(scroll, Priority.ALWAYS);
+            content.getChildren().clear();
             content.getChildren().add(newLoadedPane);
             newLoadedPane.prefWidthProperty().bind(content.widthProperty());
             newLoadedPane.prefHeightProperty().bind(content.heightProperty());
@@ -202,6 +203,7 @@ public class GlobalViewController implements Initializable {
 
     @FXML
     private void showMatchContent(ActionEvent event) {
+        setContent("/view/MatchView.fxml");
         homeBox.setId("");
         matchBox.setId("selected");
         quickSearchBox.setId("");
