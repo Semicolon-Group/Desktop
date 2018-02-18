@@ -37,12 +37,11 @@ public class AccountMenuViewController implements Initializable {
         }
     }
 
-    @FXML
-    private void showOtherProfile(ActionEvent event) {
-        GlobalViewController controller = GlobalViewController.getInstance();
-        if(controller!=null){
-            FXMLLoader loader = controller.setMainContent("/view/OthersProfileView.fxml");
-            ((OthersProfileViewController)loader.getController()).setUserId(1);
-        }
-    }
+//    private void showOtherProfile(ActionEvent event) {
+//        GlobalViewController controller = GlobalViewController.getInstance();
+//        if(controller!=null){
+//            FXMLLoader loader = controller.setMainContent("/view/OthersProfileView.fxml");
+//            ((OthersProfileViewController)loader.getController()).setUserId(1);
+//        }
+//    }
 }

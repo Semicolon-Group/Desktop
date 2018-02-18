@@ -73,3 +73,16 @@ and open the template in the editor.
     -fx-text-fill: #383c43;
 }
 
+.add_answer{
+    -fx-cursor: hand;
+    -fx-border-color: black;
+    -fx-border-width: 3;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
+.add_answer:hover{
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+
