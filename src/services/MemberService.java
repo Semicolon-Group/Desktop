@@ -203,7 +203,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
             mbr.setLocked(rs.getShort("locked"));
             mbr.setIp(rs.getString("ip"));
             mbr.setPort(rs.getInt("port"));
-	    //mbr.setAddress(AddressService.getInstance().get(new Address(mbr.getId())));
+	    mbr.setAddress(AddressService.getInstance().get(new Address(mbr.getId())));
            
             mmbrs.add(mbr);
         }

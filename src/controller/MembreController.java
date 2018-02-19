@@ -100,7 +100,7 @@ public class MembreController extends Service implements Initializable {
     private TextField txt_lock;
     @FXML
     private TextField txt_id;
-
+    private int selected_id;
     /**
      * Initializes the controller class.
      */

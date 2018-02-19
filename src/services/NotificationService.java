@@ -83,6 +83,29 @@ public class NotificationService extends Service implements Create<Notification>
         }
 	return null;
     }
+    
+    
+    
+//    public String getNomPrenom(Notification obj) throws SQLException{
+//        String query = "select (u.firstname,u.lastname) "
+//                + "from notification n , user u  "
+//                + "where u.sender_id=n.sender_id "
+//                + "and id  = " +obj.getSenderId();
+//	ResultSet rs = CONNECTION.createStatement().executeQuery(query);
+////        if(rs.next())
+////        return rs.getString("content");
+////        return ("nope");
+//        return query;
+//    }
+//    
+//    public String getUrl(Notification obj)throws SQLException{
+//        String query="select p.url "
+//                + "from notification n , photo p"
+//                + "where p.photo_id=n.photo_id"
+//                + "and id = "+obj.getPhotoId();
+//        ResultSet rs = CONNECTION.createStatement().executeQuery(query);
+//        return query;
+//    }
 
     @Override
     public List<Notification> getAll(Notification obj) throws SQLException {

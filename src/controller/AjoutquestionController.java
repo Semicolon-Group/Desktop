@@ -85,7 +85,7 @@ public class AjoutquestionController implements Initializable {
 
     @FXML
     private void ajout(ActionEvent event) throws SQLException {
-        System.out.println("********");
+       
         Question question=new Question(txt_question.getText(),TopicType.valueOf(topicsBox.getValue()));
         QuestionService questionService= QuestionService.getInstance();
         question=questionService.create(question);
