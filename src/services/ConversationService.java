@@ -73,7 +73,8 @@ public class ConversationService extends Service implements Create<Conversation>
 
     @Override
     public Conversation get(Conversation obj) throws SQLException {
-        String req = "SELECT * FROM `conversation` WHERE id=" + obj.getId();
+        String req = "SELECT * FROM `conversation` WHERE person1_id ="+obj.getPerson1Id()+" and person2_id ="+
+                obj.getPerson2Id()+" or person1_id="+obj.getPerson2Id()+" and person2_id="+obj.getPerson1Id();
         st = CONNECTION.createStatement();
         rs = st.executeQuery(req);
         while (rs.next()) {

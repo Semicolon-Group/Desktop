@@ -39,13 +39,11 @@
     
     
 }
-#msg {    -fx-background-color : #fff ;
+#msg {    
+    -fx-background-color : #fff ;
    -fx-border-color :  #e74c3c ; 
-    
     -fx-border-width : 2 ; 
-    -fx-border-radius : 1 1 1 1 ; 
-    -fx-background-radius : 1 1 1 1 ;
-    
-    
-    
+    -fx-border-radius : 3 3 3 3 ; 
+    -fx-background-radius : 3 3 3 3 ;
+
 }

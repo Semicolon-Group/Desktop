@@ -6,6 +6,8 @@
 package controller;
 
 import java.io.IOException;
+import java.util.Date;
+import java.util.UUID;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -23,22 +25,53 @@ import javafx.stage.StageStyle;
  */
 public class MySoulMate extends Application {
     
+    public static int MEMBER_ID=2;
+    public static final String UPLOAD_URL = "http://localhost/mysoulmateuploads/";
+    public static Stage mainStage;
+    private static MySoulMate instance;
+    
+    public static MySoulMate getInstance(){
+        return instance;
+    }
+    
     @Override
     public void start(Stage primaryStage) throws IOException {
+
+        instance=this;
+        mainStage = primaryStage;
         Parent globalPane = FXMLLoader.load(getClass().getResource("Authentification.fxml"));
         Scene scene = new Scene(globalPane);
-        primaryStage.setScene(scene);
-        
-        javafx.geometry.Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-        primaryStage.setX(primaryScreenBounds.getMinX());
-        primaryStage.setY(primaryScreenBounds.getMinY());
-        primaryStage.setWidth(primaryScreenBounds.getWidth());
-        primaryStage.setHeight(primaryScreenBounds.getHeight());
-        
-        primaryStage.setResizable(false);
-        primaryStage.initStyle(StageStyle.UNDECORATED);
-        
-        primaryStage.show();
+                    javafx.geometry.Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+            mainStage.setX(primaryScreenBounds.getMinX());
+            mainStage.setY(primaryScreenBounds.getMinY());
+            mainStage.setWidth(primaryScreenBounds.getWidth());
+            mainStage.setHeight(primaryScreenBounds.getHeight());
+
+            mainStage.setResizable(false);
+        mainStage.setScene(scene);
+        mainStage.initStyle(StageStyle.UNDECORATED);
+        mainStage.show();
+    }
+    
+    public void ChangeToHomeScene(){
+        try {
+            Parent globalPane = FXMLLoader.load(getClass().getResource("/view/GlobalView.fxml"));
+            Scene scene = new Scene(globalPane);
+            mainStage.setScene(scene);
+
+            javafx.geometry.Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+            mainStage.setX(primaryScreenBounds.getMinX());
+            mainStage.setY(primaryScreenBounds.getMinY());
+            mainStage.setWidth(primaryScreenBounds.getWidth());
+            mainStage.setHeight(primaryScreenBounds.getHeight());
+
+            mainStage.setResizable(false);
+            mainStage.hide();
+            mainStage.show();
+            
+        } catch (IOException ex) {
+            util.Logger.writeLog(ex, GlobalViewController.class.getCanonicalName(), null);
+        }
     }
 
     /**
@@ -46,6 +79,9 @@ public class MySoulMate extends Application {
      */
     public static void main(String[] args){
         launch(args);
+
+ 
+ 
     }
     
     public static void showAlert(Alert.AlertType alertType, String content, ButtonType... buttonType){
