@@ -6,10 +6,19 @@ public class PlaceSuggestion {
     private String photoRef;
     private double rating;
     private String distance;
+    private String duration;
     private boolean open;
     private double lat;
     private double lng;
     private String address;
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
 
     public String getAddress() {
         return address;
@@ -85,6 +94,6 @@ public class PlaceSuggestion {
 
     @Override
     public String toString() {
-        return "PlaceSuggestion{" + "placeId=" + placeId + ", name=" + name + ", photoRef=" + photoRef + ", rating=" + rating + ", distance=" + distance + ", open=" + open + ", lat=" + lat + ", lng=" + lng + ", address=" + address + '}';
+        return "PlaceSuggestion{" + "placeId=" + placeId + ", name=" + name + ", photoRef=" + photoRef + ", rating=" + rating + ", distance=" + distance + ", duration=" + duration + ", open=" + open + ", lat=" + lat + ", lng=" + lng + ", address=" + address + '}';
     }
 }

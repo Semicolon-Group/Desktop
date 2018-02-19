@@ -108,6 +108,7 @@ public class GooglePlacesAPI {
                 if(photos!= null && photos.size() != 0){
                     suggestion.setPhotoRef((String)((JSONObject)photos.get(0)).get("photo_reference"));
                 }
+                suggestion = GoogleDistanceMatrixAPI.getDistanceAndDuration(address, suggestion);
                 
                 suggestions.add(suggestion);
             }
