@@ -9,6 +9,15 @@ public class PlaceSuggestion {
     private boolean open;
     private double lat;
     private double lng;
+    private String address;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     public double getLat() {
         return lat;
@@ -76,6 +85,6 @@ public class PlaceSuggestion {
 
     @Override
     public String toString() {
-        return "PlaceSuggestion{" + "placeId=" + placeId + ", name=" + name + ", photoRef=" + photoRef + ", rating=" + rating + ", distance=" + distance + ", open=" + open + ", lat=" + lat + ", lng=" + lng + '}';
+        return "PlaceSuggestion{" + "placeId=" + placeId + ", name=" + name + ", photoRef=" + photoRef + ", rating=" + rating + ", distance=" + distance + ", open=" + open + ", lat=" + lat + ", lng=" + lng + ", address=" + address + '}';
     }
 }

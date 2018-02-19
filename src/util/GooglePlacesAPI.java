@@ -100,6 +100,7 @@ public class GooglePlacesAPI {
                 suggestion.setName((String)place.get("name"));
                 suggestion.setOpen(jsonOpeningHours==null?false:(boolean)jsonOpeningHours.get("open_now"));
                 suggestion.setPlaceId((String)place.get("place_id"));
+                suggestion.setAddress((String)place.get("vicinity"));
                 double rating = ((place.get("rating")==null) || (place.get("rating") instanceof Long))?
                         0
                         :(double)place.get("rating");
