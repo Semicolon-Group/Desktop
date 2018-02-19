@@ -12,17 +12,34 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.Address;
+import models.PlaceSuggestion;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-public class GooglePlaceAPI {
+public class GooglePlacesAPI {
+    public enum TYPE {
+        REST("restaurant"), 
+        CAFE("cafe"),
+        PARK("park");
+
+        private String name;
+
+        TYPE(String name) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
+    }
+    
     private static final String URLString = "https://maps.googleapis.com/maps/api/place/#&language=fr&key=";
     private static final String KEY = "AIzaSyBEMYjEYCOujIR7uzIX6t-fO1m0ZjpC0Wc";
     
     public static List<Address> autoCompleteAddress(String input){
         input = input.replace(" ", "+");
         String preparedURL = URLString.replace("#", "autocomplete/json?input="+input+"&types=(regions)")+KEY;
-        String content = connect(preparedURL);
+        String content = HTTPConnector.connect(preparedURL);
         if(content != null){
             JSONObject jsonObject = JSONParserUtils.extractor(new StringReader(content.toString()));
             JSONArray addressArray = (JSONArray) jsonObject.get("predictions");
@@ -45,7 +62,7 @@ public class GooglePlaceAPI {
     
     public static Address getPlaceDetails(Address address){
         String preparedURL = URLString.replace("#", "details/json?placeid="+address.getPlaceId())+KEY;
-        String content = connect(preparedURL);
+        String content = HTTPConnector.connect(preparedURL);
         if(content!=null){
             JSONObject jsonObject = JSONParserUtils.extractor(new StringReader(content.toString()));
             JSONObject jsonAddress = (JSONObject) jsonObject.get("result");
@@ -56,26 +73,40 @@ public class GooglePlaceAPI {
         }
         return null;
     }
-
-    private static String connect(String preparedURL){
-        try {
-            URL url = new URL(preparedURL);
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            if(con.getResponseCode() == HttpURLConnection.HTTP_OK){
-                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                String inputLine;
-                StringBuffer content = new StringBuffer();
-                while ((inputLine = in.readLine()) != null) {
-                    content.append(inputLine);
+    
+    public static List<PlaceSuggestion> getNearByPlaces(Address address, TYPE type, int radius){
+        String locationString = "location="+address.getLatitude()+","+address.getLongitude();
+        String radiusString = "radius="+radius;
+        String typeString = "type="+type.getName();
+        String preparedURL = URLString.replace("#", "nearbysearch/json?"+locationString+"&"+radiusString+"&"+typeString)+KEY;
+        String content = HTTPConnector.connect(preparedURL);
+        if(content!=null){
+            JSONObject jsonObject = JSONParserUtils.extractor(new StringReader(content.toString()));
+            JSONArray jsonPlaces = (JSONArray) jsonObject.get("results");
+            List<PlaceSuggestion> suggestions = new ArrayList<>();
+            for(int i=0; i<jsonPlaces.size(); i++){
+                JSONObject place = (JSONObject)jsonPlaces.get(i);
+                JSONObject jsonLocation = (JSONObject)((JSONObject)place.get("geometry")).get("location");
+                JSONArray photos = (JSONArray)place.get("photos");
+                JSONObject jsonOpeningHours = (JSONObject)place.get("opening_hours");
+                
+                PlaceSuggestion suggestion = new PlaceSuggestion();
+                suggestion.setLat((double)jsonLocation.get("lat"));
+                suggestion.setLng((double)jsonLocation.get("lng"));
+                suggestion.setName((String)place.get("name"));
+                suggestion.setOpen(jsonOpeningHours==null?false:(boolean)jsonOpeningHours.get("open_now"));
+                suggestion.setPlaceId((String)place.get("place_id"));
+                double rating = ((place.get("rating")==null) || (place.get("rating") instanceof Long))?
+                        0
+                        :(double)place.get("rating");
+                suggestion.setRating(rating);
+                if(photos!= null && photos.size() != 0){
+                    suggestion.setPhotoRef((String)((JSONObject)photos.get(0)).get("photo_reference"));
                 }
-                in.close();
-                return content.toString();
+                
+                suggestions.add(suggestion);
             }
-            return null;
-        } catch (MalformedURLException ex) {
-            Logger.getLogger(GooglePlaceAPI.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(GooglePlaceAPI.class.getName()).log(Level.SEVERE, null, ex);
+            return suggestions;
         }
         return null;
     }

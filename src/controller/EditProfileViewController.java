@@ -37,7 +37,7 @@ import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.AutoCompletionBinding.AutoCompletionEvent;
 import org.controlsfx.control.textfield.TextFields;
 import services.MemberService;
-import util.GooglePlaceAPI;
+import util.GooglePlacesAPI;
 
 /**
  * FXML Controller class
@@ -114,7 +114,7 @@ public class EditProfileViewController implements Initializable {
         new EventHandler<AutoCompletionEvent<Address>>() {
             @Override
             public void handle(AutoCompletionEvent<Address> event) {
-                Address address = GooglePlaceAPI.getPlaceDetails(event.getCompletion());
+                Address address = GooglePlacesAPI.getPlaceDetails(event.getCompletion());
                 member.getAddress().setCity(address.getCity());
                 member.getAddress().setCountry(address.getCountry());
                 member.getAddress().setLatitude(address.getLatitude());
@@ -127,7 +127,7 @@ public class EditProfileViewController implements Initializable {
     @FXML
     private void checkPlaces(KeyEvent event) {
         addresses.clear();
-        addresses.addAll(GooglePlaceAPI.autoCompleteAddress(cityField.getText()));
+        addresses.addAll(GooglePlacesAPI.autoCompleteAddress(cityField.getText()));
         provider.clearSuggestions();
         provider.addPossibleSuggestions(addresses);
     }

@@ -6,6 +6,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.List;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +17,9 @@ import javafx.scene.control.ButtonType;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import models.Address;
+import models.PlaceSuggestion;
+import util.GooglePlacesAPI;
 
 /**
  *
@@ -68,6 +72,8 @@ public class MySoulMate extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args){
+        List<PlaceSuggestion> suggestions = GooglePlacesAPI.getNearByPlaces(new Address(10.310501, 36.8964803, "", ""), GooglePlacesAPI.TYPE.REST, 1000);
+        suggestions.forEach(s -> System.out.println(s));
         launch(args);
     }
     
