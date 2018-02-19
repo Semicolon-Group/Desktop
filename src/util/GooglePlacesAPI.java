@@ -1,5 +1,6 @@
 package util;
 
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -11,6 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.Image;
+import javax.imageio.ImageIO;
 import models.Address;
 import models.PlaceSuggestion;
 import org.json.simple.JSONArray;
@@ -33,12 +37,12 @@ public class GooglePlacesAPI {
         }
     }
     
-    private static final String URLString = "https://maps.googleapis.com/maps/api/place/#&language=fr&key=";
+    private static final String URLString = "https://maps.googleapis.com/maps/api/place/#&key=";
     private static final String KEY = "AIzaSyBEMYjEYCOujIR7uzIX6t-fO1m0ZjpC0Wc";
     
     public static List<Address> autoCompleteAddress(String input){
         input = input.replace(" ", "+");
-        String preparedURL = URLString.replace("#", "autocomplete/json?input="+input+"&types=(regions)")+KEY;
+        String preparedURL = URLString.replace("#", "autocomplete/json?input="+input+"&types=(regions)&language=fr")+KEY;
         String content = HTTPConnector.connect(preparedURL);
         if(content != null){
             JSONObject jsonObject = JSONParserUtils.extractor(new StringReader(content.toString()));
@@ -61,7 +65,7 @@ public class GooglePlacesAPI {
     }
     
     public static Address getPlaceDetails(Address address){
-        String preparedURL = URLString.replace("#", "details/json?placeid="+address.getPlaceId())+KEY;
+        String preparedURL = URLString.replace("#", "details/json?placeid="+address.getPlaceId()+"&language=fr")+KEY;
         String content = HTTPConnector.connect(preparedURL);
         if(content!=null){
             JSONObject jsonObject = JSONParserUtils.extractor(new StringReader(content.toString()));
@@ -78,7 +82,7 @@ public class GooglePlacesAPI {
         String locationString = "location="+address.getLatitude()+","+address.getLongitude();
         String radiusString = "radius="+radius;
         String typeString = "type="+type.getName();
-        String preparedURL = URLString.replace("#", "nearbysearch/json?"+locationString+"&"+radiusString+"&"+typeString)+KEY;
+        String preparedURL = URLString.replace("#", "nearbysearch/json?"+locationString+"&"+radiusString+"&"+typeString+"&language=fr")+KEY;
         String content = HTTPConnector.connect(preparedURL);
         if(content!=null){
             JSONObject jsonObject = JSONParserUtils.extractor(new StringReader(content.toString()));
@@ -107,6 +111,21 @@ public class GooglePlacesAPI {
                 suggestions.add(suggestion);
             }
             return suggestions;
+        }
+        return null;
+    }
+    
+    public static Image getPhoto(String photoRef, int maxWidth){
+        try {
+            String preparedURL = URLString.replace("#", "photo?maxwidth="+maxWidth+"&photoreference="+photoRef)+KEY;
+            URL url = new URL(preparedURL);
+            BufferedImage bufferedImage = ImageIO.read(url);
+            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+            return image;
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(GooglePlacesAPI.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(GooglePlacesAPI.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
