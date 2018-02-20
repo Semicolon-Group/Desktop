@@ -8,6 +8,7 @@ package controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -232,11 +233,20 @@ public class GlobalViewController implements Initializable {
 
     @FXML
     private void showRecommandationContent(ActionEvent event) {
+        setContent("/view/RecommandationView.fxml", content);
         homeBox.setId("");
         matchBox.setId("");
         quickSearchBox.setId("");
         blindDateBox.setId("");
         recommandationBox.setId("selected");
+    }
+    
+    public void clearMenuSelection(){
+        homeBox.setId("");
+        matchBox.setId("");
+        quickSearchBox.setId("");
+        blindDateBox.setId("");
+        recommandationBox.setId("");
     }
 
     @FXML
