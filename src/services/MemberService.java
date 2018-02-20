@@ -50,8 +50,8 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
     public Member create(Member obj) throws SQLException {
         String query = "insert into user (pseudo, firstname, lastname, email,password,birth_date,gender,height,"
                 + "body_type,children_number,relegion,relegion_importance,smoker,drinker,min_age,max_age,"
-                + "proximity,last_login,locked,ip,port,role,created_at,updated_at,about,civil_status,connected,created_at)"
-                + " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                + "proximity,last_login,locked,ip,port,role,created_at,updated_at,about,civil_status,connected)"
+                + " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement preparedStatement = CONNECTION.prepareStatement(query);
         preparedStatement.setString(1, obj.getPseudo());
         preparedStatement.setString(2, obj.getFirstname());
@@ -80,7 +80,6 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
         preparedStatement.setString(25, obj.getAbout());
         preparedStatement.setInt(26, obj.getMaritalStatus().ordinal());
         preparedStatement.setBoolean(27, obj.isConnected());
-        preparedStatement.setTimestamp(28, obj.getCreatedAt());
         preparedStatement.executeUpdate();
 	
 	String req = "SELECT MAX(id) max from user";
