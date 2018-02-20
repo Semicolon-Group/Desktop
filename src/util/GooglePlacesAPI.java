@@ -38,7 +38,7 @@ public class GooglePlacesAPI {
     }
     
     private static final String URLString = "https://maps.googleapis.com/maps/api/place/#&key=";
-    private static final String KEY = "AIzaSyBEMYjEYCOujIR7uzIX6t-fO1m0ZjpC0Wc";
+    private static final String KEY = "AIzaSyBvQa5SklGJM3mGKNaTNIYth_Ky1H3Yznw";
     
     public static List<Address> autoCompleteAddress(String input){
         input = input.replace(" ", "+");
@@ -83,6 +83,7 @@ public class GooglePlacesAPI {
         String radiusString = "radius="+radius;
         String typeString = "type="+type.getName();
         String preparedURL = URLString.replace("#", "nearbysearch/json?"+locationString+"&"+radiusString+"&"+typeString+"&language=fr")+KEY;
+        System.out.println(preparedURL);
         String content = HTTPConnector.connect(preparedURL);
         if(content!=null){
             JSONObject jsonObject = JSONParserUtils.extractor(new StringReader(content.toString()));

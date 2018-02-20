@@ -9,7 +9,7 @@ import org.json.simple.JSONObject;
 public class GoogleDistanceMatrixAPI {
     
     private static final String URLString = "https://maps.googleapis.com/maps/api/distancematrix/json?#&key=";
-    private static final String KEY = "AIzaSyC-woUReyrA0JM7bbQjPHxBhzxgDeGZoao";
+    private static final String KEY = "AIzaSyA2CqTk_LZxl3Rw5Cz-Nav6KlbL0jYwBVA";
     
     public static PlaceSuggestion getDistanceAndDuration(Address memberAddress, PlaceSuggestion suggestion){
         String originsString = "origins="+memberAddress.getLatitude()+","+memberAddress.getLongitude();
