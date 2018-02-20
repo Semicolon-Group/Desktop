@@ -83,7 +83,6 @@ public class GooglePlacesAPI {
         String radiusString = "radius="+radius;
         String typeString = "type="+type.getName();
         String preparedURL = URLString.replace("#", "nearbysearch/json?"+locationString+"&"+radiusString+"&"+typeString+"&language=fr")+KEY;
-        System.out.println(preparedURL);
         String content = HTTPConnector.connect(preparedURL);
         if(content!=null){
             JSONObject jsonObject = JSONParserUtils.extractor(new StringReader(content.toString()));
