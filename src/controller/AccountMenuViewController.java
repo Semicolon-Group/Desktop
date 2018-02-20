@@ -34,6 +34,7 @@ public class AccountMenuViewController implements Initializable {
         GlobalViewController controller = GlobalViewController.getInstance();
         if(controller!=null){
             controller.setMainContent("/view/SelfProfileView.fxml");
+            controller.clearMenuSelection();
         }
     }
 

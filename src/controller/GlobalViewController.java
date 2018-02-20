@@ -232,11 +232,20 @@ public class GlobalViewController implements Initializable {
 
     @FXML
     private void showRecommandationContent(ActionEvent event) {
+        setContent("/view/RecommandationView.fxml", content);
         homeBox.setId("");
         matchBox.setId("");
         quickSearchBox.setId("");
         blindDateBox.setId("");
         recommandationBox.setId("selected");
+    }
+    
+    public void clearMenuSelection(){
+        homeBox.setId("");
+        matchBox.setId("");
+        quickSearchBox.setId("");
+        blindDateBox.setId("");
+        recommandationBox.setId("");
     }
 
     @FXML
