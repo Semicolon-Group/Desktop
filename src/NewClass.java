@@ -1,4 +1,5 @@
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -24,16 +25,17 @@ import services.MessageService;
  */
 public class NewClass {
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws SQLException, IOException {
 // getMembreTest();
-//         getAllMessageTest();
+//        getAllMessageTest();
 ////    createMessageTest(); 
 //        getAllConversationsTest();
 // getAllMessageTest(); ci bon
 //        getMsgTest(); 
 ////            updateMsg(); ci bon
-//getC();
-        updateMembre();
+        getC();
+//        updateMembre();
+//createConver();
 
     }
 
@@ -42,8 +44,7 @@ public class NewClass {
 
         Message m = new Message();
 
-        m.setSenderId(1);
-        m.setReceiverId(2);
+        m.setId(5);
         m = messageService.get(m);
         System.out.println(m.getId() + " " + m.getContent() + " " + m.isSeen() + " " + m.getSeenDate() + " " + m.getSenderId() + " " + m.getReceiverId());
         //messages.forEach(m2
@@ -52,17 +53,18 @@ public class NewClass {
 
     }
 
-    public static void getAllMessageTest() throws SQLException {
+    public static void getAllMessageTest() throws SQLException, IOException {
+        MessageService ms = MessageService.getInstance();
 
         try {
+            List<Message> messages = new ArrayList<>();
             Message m2 = new Message();
             m2.setSenderId(1);
-            m2.setReceiverId(2);
+            m2.setReceiverId(7);
 
-            List<Message> messages = MessageService.getInstance().getAll(m2);
-            messages.forEach(e2 -> System.out.println(m2.getId() + " " + m2.getContent() + " " + m2.isSeen()
-                    + " " + m2.getSeenDate() + " " + m2.getSenderId() + " " + m2.getReceiverId())
-            );
+            messages = ms.getAll(m2);
+//            messages.forEach(e -> System.out.println(m2));
+            System.out.println(messages);
         } catch (SQLException e) {
             System.out.println(e);
         }
@@ -74,11 +76,11 @@ public class NewClass {
         ConversationService cs = ConversationService.getInstance();
         Conversation c = new Conversation();
 
-        c.setPerson1Id(2);
+        c.setPerson1Id(1);
         List<Conversation> convs = cs.getAll(c);
 
-        convs.forEach(e -> System.out.println(c.getId() + " " + c.getLabel()
-                + " " + c.getPerson1Id() + " " + c.getPerson2Id()));
+        convs.forEach(e -> System.out.println(e.getId() + " " + e.getLabel()
+                + " " + e.getPerson1Id() + " " + e.getPerson2Id() + " " + e.getSeenDate().toString()));
 
     }
 
@@ -101,12 +103,31 @@ public class NewClass {
 
     }
 
-    public static void getC() throws SQLException {
-        Conversation x = new Conversation();
-        x.setId(1);
+    public static void getC() throws SQLException,IOException {
+
         ConversationService cs = ConversationService.getInstance();
-        x = cs.get(x);
-        System.out.println(x.getId() + " " + x.getLabel() + " " + x.getPerson1Id());
+        
+         
+        try {
+            
+           
+            Conversation x = new Conversation();
+         x.setPerson1Id(2);
+            x.setPerson2Id(6);
+            if (cs.get(x)!= null) {
+                
+                x.setLabel("no");
+             cs.update(x);
+                System.out.println("yea");
+            } else {
+                x= cs.create(x);
+                System.out.println(x.getId() + " " + x.getLabel() + " " + x.getPerson1Id());
+            }
+            
+
+        } catch (Exception e) {
+            
+        }
 
     }
 
@@ -161,5 +182,27 @@ public class NewClass {
             System.out.println(e + "a");
         }
     }
+    
+    public static void createConver() throws SQLException {
+    
+        ConversationService cs = ConversationService.getInstance();
+        Conversation m = new Conversation();
+        m.setLabel("f");
+        m.setPerson1Id(7);
+        m.setPerson2Id(3);
+        m.setSeen(true);
+        m.setSeenDate(new Timestamp(System.currentTimeMillis()));
+        try{
+        
+        m=cs.create(m);
+            System.out.println(m);
+        
+        
+        }catch(Exception e)
+        
+        {System.out.println(e);}
+        
+        
+        }
 
 }

@@ -5,6 +5,7 @@
  */
 package controller;
 
+import com.jfoenix.controls.JFXTextField;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
 import com.restfb.types.User;
@@ -48,7 +49,7 @@ public class AuthentificationController implements Initializable {
     @FXML
     private TextField username;
     @FXML
-    private PasswordField pw;
+    private JFXTextField pw;
     @FXML
     private Button button;
     @FXML
@@ -104,13 +105,25 @@ public class AuthentificationController implements Initializable {
                     alert.setContentText("No one !");
 
                     alert.showAndWait();
-
-                } else {
-                    FXMLLoader fxmlLoader2 = new FXMLLoader(getClass().getResource("/view/GlobalView.fxml"));
+                }
+                    else if (m.getPseudo().equals(username.getText()) && m.getPassword().equals(pw.getText()))
+                            {
+                             FXMLLoader fxmlLoader2 = new FXMLLoader(getClass().getResource("/view/GlobalView.fxml"));
                     Parent root2 = (Parent) fxmlLoader2.load();
                     Stage stage = new Stage();
                     stage.setScene(new Scene(root2));
                     stage.show();
+                            
+                            
+
+                } else {
+                     Alert alert = new Alert(AlertType.ERROR);
+
+                    alert.setTitle("No one !");
+                    alert.setHeaderText(" No one ! ");
+                    alert.setContentText("No one !");
+
+                    alert.showAndWait();
 
                 }
 
@@ -146,7 +159,7 @@ public class AuthentificationController implements Initializable {
         dr1.get(auth);
         while (true) {
             if (!dr1.getCurrentUrl().contains("www.facebook.com")) {
-//                              accessToken.substring(13, accessToken.lastIndexOf("&"));
+
 
                 String url = dr1.getCurrentUrl();
                 accessToken = url.replaceAll(".*#access_token=(.+)&.*", "$1");
@@ -159,22 +172,22 @@ public class AuthentificationController implements Initializable {
 
                 try {
                     m = memberService.get(m);
+                    if (m!=null)
 
-                    System.out.println(m.getId() + " " + m.getPseudo() + " " + m.getFirstname() + " " + m.getLastname() + " " + m.getEmail() + " " + m.getPassword() + " " + m.getBirthDate() + " " + m.isGender() + " " + m.getHeight() + " " + m.getHeight() + " " + m.getBodyType() + " " + m.getChildrenNumber() + " " + m.getReligion() + " " + m.getReligionImportance() + " " + m.isSmoker() + " "
-                            + m.isDrinker() + " " + m.getMaxAge() + " " + m.getMinAge() + " " + m.getProximity() + " " + m.getLastLogin() + " " + m.getLocked() + " " + m.getIp() + " " + m.getPort() + " " + m.getPreferedRelations() + " " + m.getPreferedStatuses());
 
                     button.getScene().setRoot(FXMLLoader.load(getClass().getResource("/view/GlobalView.fxml")));
+                    else { Alert alert = new Alert(AlertType.ERROR);
+                    alert.setTitle("Not registred");
+                    alert.setHeaderText("Error ");
+                    alert.setContentText("No user is registred with such account");
+
+                    alert.showAndWait();}
 
                 } catch (SQLException e) {
 
-                    Alert alert = new Alert(AlertType.ERROR);
-                    alert.setTitle("Empty username");
-                    alert.setHeaderText("Username ");
-                    alert.setContentText("No username was inserted");
-
-                    alert.showAndWait();
+                    System.out.println(e);
                 }
-//                System.out.println(user.getName());
+
 
                 if (dr1.getCurrentUrl().contains("localhost")) {
                     return;
@@ -186,27 +199,7 @@ public class AuthentificationController implements Initializable {
         }
     }
 
-//    @FXML
-//    private void goRecover(MouseEvent event) {
-//
-//        Member m = new Member();
-//        MemberService memberService = MemberService.getInstance();
-//        m.setPseudo(username.getText());
-//
-//        try {
-//            m = memberService.get(m);
-//            SendMail sm = new SendMail(m.getEmail(), "Email recovery", "Bonjour " + m.getFirstname() + " , Votre mot de passe est : " + m.getPassword());
-//
-//            Alert alert = new Alert(AlertType.ERROR);
-//            alert.setTitle("Recovery mail ");
-//            alert.setHeaderText("Mail Sent ! ");
-//            alert.setContentText("Nous avons envoyé un mail de récuperation , veuillez consulter votre boit Mail ! ");
-//
-//            alert.showAndWait();
-//        } catch (SQLException e) {
-//        }
-//
-//    }
+
     @FXML
     private void goRecover1(MouseEvent event) throws IOException {
         Parent globalPane = FXMLLoader.load(getClass().getResource("/view/RecoveryView.fxml"));

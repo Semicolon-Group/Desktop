@@ -28,7 +28,7 @@ import models.User;
 public class MessageService extends Service implements Create<Message>, Update<Message>, Read<Message> {
 
     Statement st;
-    
+
     PreparedStatement pst;
     ResultSet rs;
 
@@ -79,28 +79,27 @@ public class MessageService extends Service implements Create<Message>, Update<M
         String req = "Select * from message where id=" + obj.getId();
         st = CONNECTION.createStatement();
         rs = st.executeQuery(req);
-        while (rs.next())
-        {
+        if (rs.next()) {
 
-        obj.setContent(rs.getString("content"));
-        obj.setSeen(rs.getBoolean("seen"));
-        obj.setDate(rs.getTimestamp("date"));
-        obj.setSeenDate(rs.getTimestamp("seen_date"));
-        obj.setSenderId(rs.getInt("sender_id"));
-        obj.setReceiverId(rs.getInt("receiver_id"));
+            obj.setContent(rs.getString("content"));
+            obj.setSeen(rs.getBoolean("seen"));
+            obj.setDate(rs.getTimestamp("date"));
+            obj.setSeenDate(rs.getTimestamp("seen_date"));
+            obj.setSenderId(rs.getInt("sender_id"));
+            obj.setReceiverId(rs.getInt("receiver_id"));
 
-        return obj;
-    }
-        return obj;
+            return obj;
+        }
+        return null;
     }
 
     @Override
     public List<Message> getAll(Message obj) throws SQLException {
-        String req = "Select * from message where receiver_id=? and sender_id=? or receiver_id=? and sender_id=? ";
+        String req = "Select * from message where sender_id=? and receiver_id=? or sender_id=? and receiver_id=? ";
         pst = CONNECTION.prepareStatement(req);
-        pst.setInt(2, obj.getReceiverId());
         pst.setInt(1, obj.getSenderId());
-        pst.setInt(3, obj.getReceiverId());
+        pst.setInt(2, obj.getReceiverId());
+         pst.setInt(3, obj.getReceiverId());
         pst.setInt(4, obj.getSenderId());
         rs = pst.executeQuery();
 
@@ -108,15 +107,18 @@ public class MessageService extends Service implements Create<Message>, Update<M
         while (rs.next()) {
             Message m = new Message();
             m.setId(rs.getInt("id"));
+//            System.out.println(rs.getInt("id"));
             m.setContent(rs.getString("content"));
             m.setSeen(rs.getBoolean("seen"));
             m.setSeenDate(rs.getTimestamp("date"));
             m.setSenderId(rs.getInt("sender_id"));
             m.setReceiverId(rs.getInt("receiver_id"));
             m.setDate(rs.getTimestamp("date"));
-
+//            System.out.println(m);
             Messages.add(m);
+           
         }
+        
         return Messages;
     }
 

@@ -47,6 +47,17 @@ public class Message {
 	this.seenDate = seenDate;
     }
 
+    public Message(int senderId, int receiverId) {
+        this.senderId = senderId;
+        this.receiverId = receiverId;
+    }
+
+    @Override
+    public String toString() {
+        return "Message{" + "id=" + id + ", content=" + content + ", date=" + date + ", senderId=" + senderId + ", receiverId=" + receiverId + ", seen=" + seen + ", seenDate=" + seenDate + "}\n";
+    }
+    
+
     public int getId() {
 	return id;
     }

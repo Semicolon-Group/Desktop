@@ -140,7 +140,9 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
     @Override
     public Member get(Member obj) throws SQLException {
         String condition = "";
-        if (obj.getId() != 0) {
+        if(obj.getPseudo()!=null)
+             condition = " Where pseudo ='" + obj.getPseudo()+"'";
+        else  if (obj.getId() != 0) {
             condition = " Where id =" + obj.getId();
         } else if (obj.getPseudo() != null && obj.getEmail() != null) {
             condition = " Where pseudo ='" + obj.getPseudo() + "' and email='" + obj.getEmail() + "'";

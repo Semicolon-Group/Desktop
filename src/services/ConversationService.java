@@ -55,6 +55,7 @@ public class ConversationService extends Service implements Create<Conversation>
         pst.setString(3, obj.getLabel());
         pst.setInt(4, obj.isSeen() ? 1 : 0);
         pst.setTimestamp(5, new Timestamp(new Date().getTime()));
+        pst.executeUpdate();
 
         return obj;
 
@@ -62,22 +63,29 @@ public class ConversationService extends Service implements Create<Conversation>
 
     @Override
     public void update(Conversation obj) throws SQLException {
-        String req = "UPDATE `conversation` SET `label`=?,`seen`=?,`seen_date`=? WHERE id = ?";
+        String condition = "";
+
+        if (obj.getId() != 0) {
+            condition = " where id =?" + obj.getId();
+        } else if (obj.getPerson1Id() != 0 && obj.getPerson2Id() != 0) {
+            condition = "Where person1_id=" + obj.getPerson1Id() + " and person2_id=" + obj.getPerson2Id();
+        }
+        String req = "UPDATE `conversation` SET `label`=?,`seen`=?,`seen_date`=? " + condition;
         pst = CONNECTION.prepareStatement(req);
         pst.setString(1, obj.getLabel());
         pst.setInt(2, obj.isSeen() ? 1 : 0);
         pst.setTimestamp(3, new Timestamp(new Date().getTime()));
-        pst.setInt(4, obj.getId());
+        pst.executeUpdate();
 
     }
 
     @Override
     public Conversation get(Conversation obj) throws SQLException {
-        String req = "SELECT * FROM `conversation` WHERE person1_id ="+obj.getPerson1Id()+" and person2_id ="+
-                obj.getPerson2Id()+" or person1_id="+obj.getPerson2Id()+" and person2_id="+obj.getPerson1Id();
+        String req = "SELECT * FROM `conversation` WHERE person1_id =" + obj.getPerson1Id() + " and person2_id ="
+                + obj.getPerson2Id() + " or person1_id=" + obj.getPerson2Id() + " and person2_id=" + obj.getPerson1Id();
         st = CONNECTION.createStatement();
         rs = st.executeQuery(req);
-        while (rs.next()) {
+        if (rs.next()) {
             obj.setPerson1Id(rs.getInt("person1_id"));
             obj.setPerson2Id(rs.getInt("person2_id"));
             obj.setLabel(rs.getString("label"));
@@ -86,7 +94,7 @@ public class ConversationService extends Service implements Create<Conversation>
 
             return obj;
         }
-        return obj;
+        return null;
 
     }
 
@@ -103,7 +111,7 @@ public class ConversationService extends Service implements Create<Conversation>
         while (rs.next()) {
             Conversations.add(new Conversation(rs.getInt("id"), rs.getString("label"),
                     rs.getBoolean("seen"), rs.getTimestamp("seen_date"),
-                     rs.getInt("person1_id"), rs.getInt("person2_id")));
+                    rs.getInt("person1_id"), rs.getInt("person2_id")));
 
         }
 
