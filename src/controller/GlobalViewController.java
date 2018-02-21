@@ -292,6 +292,7 @@ public class GlobalViewController implements Initializable {
 
     @FXML
     private void affiche_notif(MouseEvent event) {
+        setContent("/view/NotificationPane.fxml", notificationPane);
     }
 
     @FXML

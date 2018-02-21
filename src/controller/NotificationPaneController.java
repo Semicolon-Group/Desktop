@@ -5,7 +5,6 @@
  */
 package controller;
 
-import static controller.GestionNotification.online;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -45,7 +44,7 @@ public class NotificationPaneController implements Initializable {
 
          try {
              Notification not = new Notification();
-             not.setReceiverId(online.getId());
+             not.setReceiverId(GlobalViewController.online.getId());
             for(Notification n : NotificationService.getInstance().getAll(not)){
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/NotificationContent.fxml"));
                     Parent notif = loader.load();
