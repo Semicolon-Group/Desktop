@@ -10,11 +10,11 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="197.0" prefWidth="460.0" style="-fx-background-color: white; -fx-border-color: #E5E5E5; -fx-border-radius: 8 8 8 8; -fx-background-radius: 8 8 8 8;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.StatusWritingViewController">
+<VBox maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="197.0" prefWidth="460.0" style="-fx-background-color: white; -fx-border-color: #E5E5E5; -fx-border-radius: 8 8 8 8; -fx-background-radius: 8 8 8 8;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.StatusWritingViewController">
    <children>
       <HBox maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="138.0" prefWidth="438.0" spacing="5.0" style="-fx-background-color: white;">
          <children>
-            <ImageView fx:id="photo" fitHeight="70.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="photo" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@assets/img/obama.jpg" />
                </image>

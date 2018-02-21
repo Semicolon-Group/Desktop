@@ -130,7 +130,7 @@ public class GlobalViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
-            online = MemberService.getInstance().get(new Member(1));
+            online = MemberService.getInstance().get(new Member(MySoulMate.MEMBER_ID));
         } catch (SQLException ex) {
             Logger.getLogger(GlobalViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
