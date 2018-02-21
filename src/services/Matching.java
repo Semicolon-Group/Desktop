@@ -94,8 +94,7 @@ public class Matching {
     }
     
     public List<MatchCard> getMatches(Member M) throws SQLException{
-        List<Member> list = MemberService.getInstance().getAll(null);
-        list.removeIf(m -> m.isGender() == M.isGender());
+        List<Member> list = MemberService.getInstance().getFiltered(new Filter());
         List<MatchCard> cards = new ArrayList();
         for(Member m : list){
             MatchCard card = new MatchCard();

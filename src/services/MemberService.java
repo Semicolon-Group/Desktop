@@ -258,7 +258,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
             req = req.substring(0, req.length() - 1) + ")) ";
         }
 
-        req += " and (gender = " + online.isGender() + ") ";
+        req += " and (gender = " + !online.isGender() + ") ";
 
         if (F.getSmokes() != -1) {
             req += "and (smoker = " + F.getSmokes() + ") ";
