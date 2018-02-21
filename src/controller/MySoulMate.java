@@ -39,7 +39,7 @@ public class MySoulMate extends Application {
 
         instance=this;
         mainStage = primaryStage;
-        Parent globalPane = FXMLLoader.load(getClass().getResource("Authentification.fxml"));
+        Parent globalPane = FXMLLoader.load(getClass().getResource("/view/Authentification.fxml"));
         Scene scene = new Scene(globalPane);
                     javafx.geometry.Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
             mainStage.setX(primaryScreenBounds.getMinX());

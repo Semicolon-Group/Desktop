@@ -273,7 +273,7 @@ public class GlobalViewController implements Initializable {
     }
 
     private void showMessagerie() {
-        FXMLLoader loader = setMainContent("InstantMessagingView.fxml");
+        FXMLLoader loader = setMainContent("/view/InstantMessagingView.fxml");
         ((InstantMessagingViewController) loader.getController()).setReceiverId(2);
 
     }

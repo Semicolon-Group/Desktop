@@ -37,7 +37,7 @@ import models.Member;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import services.MemberService;
-import services.SendMail;
+import util.SendMail;
 
 /**
  * FXML Controller class
