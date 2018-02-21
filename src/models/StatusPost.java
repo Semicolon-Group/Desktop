@@ -42,5 +42,10 @@ public class StatusPost extends Post{
     public void setContent(String Content) {
 	this.Content = Content;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + "StatusPost{" + "Content=" + Content + '}';
+    }
     
 }

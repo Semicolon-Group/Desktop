@@ -1,3 +1,13 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 15 févr. 2018, 22:19:13
+    Author     : Elyes
+*/
+
 .text-area {
     -fx-background-insets: 0;
     -fx-background-color: transparent, white, transparent, white;
@@ -20,4 +30,4 @@
     -fx-padding: 10px;
     -fx-text-fill: gray;
     -fx-highlight-fill: #7ecfff;
-} 
+}
