@@ -53,7 +53,12 @@ public class Enumerations {
     }
     public enum SignalReason{
 	CONTENU_INAPPROPRIE,
-	RACISME
+	RACISME,
+        Violence,
+        Harcélement,
+        Faux_Profil,
+        Autre
+        
     }
     public enum Proximity{
 	PROCHE,

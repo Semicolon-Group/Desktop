@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" style="-fx-background-color: #175676;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GetFeedViewController">
+   <children>
+      <Text fill="WHITE" layoutX="203.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Liste des Feedbacks reçues">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Text>
+      <TableView fx:id="table" layoutX="-1.0" layoutY="53.0" onMouseClicked="#onMouseClick">
+        <columns>
+          <TableColumn fx:id="Sender" prefWidth="181.0" text="Expéditeur" />
+          <TableColumn fx:id="Date" minWidth="0.0" prefWidth="201.0" text="Date d'envoi" />
+            <TableColumn fx:id="State" maxWidth="222.0" minWidth="-1.0" prefWidth="196.0" text="Etat du Feedback" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

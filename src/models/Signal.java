@@ -5,8 +5,10 @@
  */
 package models;
 
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import models.Enumerations.SignalReason;
+import services.MemberService;
 
 /**
  *
@@ -19,6 +21,7 @@ public class Signal {
     private SignalReason reason;
     private boolean state;
     private Timestamp date;
+    private String content;
 
     public Signal() {
     }
@@ -27,6 +30,21 @@ public class Signal {
         this.id = id;
     }
 
+    public Signal(SignalReason reason, String content) {
+        this.reason = reason;
+        this.content= content;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+    
+    
+    
     public Signal(int senderId, int receiverId, SignalReason reason, boolean state, Timestamp date) {
 	this.senderId = senderId;
 	this.receiverId = receiverId;
@@ -91,7 +109,16 @@ public class Signal {
     public void setDate(Timestamp date) {
 	this.date = date;
     }
-
+    public String getSenderName() throws SQLException{
+        return MemberService.getInstance().get(new Member(senderId)).getFirstname() +" "+MemberService.getInstance().get(new Member(senderId)).getLastname();
+    }
+    public String getReceiverName() throws SQLException{
+        return MemberService.getInstance().get(new Member(receiverId)).getFirstname()+" "+MemberService.getInstance().get(new Member(receiverId)).getLastname();
+    }
+    public String getStateName(){
+        return state ? "Consulted" : "Non-Consulted";
+    }
+    
     @Override
     public String toString() {
 	return "Signal{" + "id=" + id + ", senderId=" + senderId + ", receiverId=" + receiverId + ", reason=" + reason + ", state=" + state + ", date=" + date + '}';
