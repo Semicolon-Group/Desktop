@@ -1,4 +1,6 @@
 
+import com.github.sarxos.webcam.Webcam;
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -6,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import javax.imageio.ImageIO;
 import models.Conversation;
 import models.Member;
 import models.Message;
@@ -33,9 +36,13 @@ public class NewClass {
 // getAllMessageTest(); ci bon
 //        getMsgTest(); 
 ////            updateMsg(); ci bon
-        getC();
+//        getC();
 //        updateMembre();
 //createConver();
+  MemberService ms = MemberService.getInstance();
+        Webcam webcam = Webcam.getDefault();
+        webcam.open();
+        ImageIO.write(webcam.getImage(),"JPG",new File("First.jpg") );
 
     }
 
