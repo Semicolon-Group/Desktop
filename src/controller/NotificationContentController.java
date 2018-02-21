@@ -37,6 +37,7 @@ import services.NotificationService;
  * @author vaider
  */
 public class NotificationContentController implements Initializable {
+
     @FXML
     private AnchorPane NotificationElement;
     @FXML
@@ -68,49 +69,45 @@ public class NotificationContentController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-    }    
-    
-    public void fill(Notification n){
-        
+
+    }
+
+    public void fill(Notification n) {
+
         try {
-                FnameSender.setText(n.getSenderFName());
-                LnameSender.setText(n.getSenderLName());
-                Action.setText(n.getContent());
-                n_date.setText(n.getDate().toString());
+            FnameSender.setText(n.getSenderFName());
+            LnameSender.setText(n.getSenderLName());
+            Action.setText(n.getContent());
+            n_date.setText(n.getDate().toString());
 
-                File f1=new File(n.getUrlPhoto());
-                Image img1 = new Image(f1.toURI().toString());
-                Img.setImage(img1);
+//                File f1=new File(n.getUrlPhoto());
+            Image img1 = new Image(MySoulMate.UPLOAD_URL + n.getUrlPhoto());
+            Img.setImage(img1);
 
-                File f2=new File(n.getIcon());
-                Image icon1 = new Image(iconType(n.getType()));
-                Icon.setImage(icon1);
-            
+//                File f2=new File(n.getIcon());
+            Image icon1 = new Image(iconType(n.getType()));
+            Icon.setImage(icon1);
+
         } catch (SQLException ex) {
             Logger.getLogger(NotificationContentController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public String iconType(NotificationType type){
-        String path="/view/assets/icons/";
-        if(type == MESSAGE){
-            path+="Message.png";
+
+    public String iconType(NotificationType type) {
+        String path = "/view/assets/icons/";
+        if (type == MESSAGE) {
+            path += "Message.png";
+        } else if (type == LIKE) {
+            path += "LIKE.png";
+        } else if (type == REACTION) {
+            path += "Reaction.png";
+        } else if (type == SIGNAL) {
+            path += "Signal.png";
+        } else {
+            path += "Feedback.png";
         }
-               else if (type == LIKE){
-                    path+="LIKE.png";
-                }
-                    else if (type == REACTION){
-                        path+="Reaction.png";
-                    }
-                        else if (type == SIGNAL){
-                           path+="Signal.png";
-                       }
-                            else
-                                 path+="Feedback.png"; 
-                                return this.getClass().getResource(path).toExternalForm();
-        
-              
-    }   
-    
+        return path;
+
+    }
+
 }

@@ -30,7 +30,7 @@ public class GestionNotification extends Application {
     
     @Override
     public void start(Stage primaryStage) throws IOException, SQLException {
-        online = MemberService.getInstance().get(new Member(12));
+        online = MemberService.getInstance().get(new Member(2));
         window = primaryStage;
         Parent root=FXMLLoader.load(getClass().getResource("/view/NotificationPane.fxml"));
 

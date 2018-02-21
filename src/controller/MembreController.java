@@ -45,6 +45,7 @@ import services.Service;
  * @author vaider
  */
 public class MembreController extends Service implements Initializable {
+
     @FXML
     private TableView<Member> table;
     @FXML
@@ -99,23 +100,24 @@ public class MembreController extends Service implements Initializable {
     @FXML
     private TextField txt_id;
     private int selected_id;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-      txt_id.setVisible(false);
-         data= FXCollections.observableArrayList();
-            List<Member> membres = null;
+        txt_id.setVisible(false);
+        data = FXCollections.observableArrayList();
+        List<Member> membres = null;
         try {
             membres = MemberService.getInstance().getAll(new Member());
         } catch (SQLException ex) {
             Logger.getLogger(MembreController.class.getName()).log(Level.SEVERE, null, ex);
         }
-                for(Member i : membres){
-                    data.add(i);
-                }
-                
+        for (Member i : membres) {
+            data.add(i);
+        }
+
         Pseudo.setCellValueFactory(new PropertyValueFactory<>("Pseudo"));
         firstname.setCellValueFactory(new PropertyValueFactory<>("firstname"));
         lastname.setCellValueFactory(new PropertyValueFactory<>("lastname"));
@@ -138,32 +140,23 @@ public class MembreController extends Service implements Initializable {
         ip.setCellValueFactory(new PropertyValueFactory<>("ip"));
         port.setCellValueFactory(new PropertyValueFactory<>("port"));
         //adresse.setCellValueFactory(new PropertyValueFactory<>("adresse"));
-        
-        
-        
-        
-        
+
         table.setItems(null);
         table.setItems(data);
-    }    
-
-    
-
-   
+    }
 
     @FXML
     private void Banner_click(MouseEvent event) {
-        MemberService ms=MemberService.getInstance();
-        Member m=(Member) table.getSelectionModel().getSelectedItem();
+        MemberService ms = MemberService.getInstance();
+        Member m = (Member) table.getSelectionModel().getSelectedItem();
         txt_lock.setText(String.valueOf(m.getLocked()));
         txt_id.setText(String.valueOf(m.getId()));
     }
 
     @FXML
     private void BannerAction(ActionEvent event) throws SQLException {
-        MemberService ms=MemberService.getInstance();
-        ms.updatelock(Integer.parseInt(txt_id.getText()),Short.parseShort(txt_lock.getText()));
+        if(txt_id == null || txt_id.getText().isEmpty()) return;
+        MemberService ms = MemberService.getInstance();
+        ms.updatelock(Integer.parseInt(txt_id.getText()), Short.parseShort(txt_lock.getText()));
     }
-    }
-    
-
+}
