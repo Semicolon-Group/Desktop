@@ -17,9 +17,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -29,11 +31,15 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import models.Choice;
 import models.Enumerations.TopicType;
+import models.Notification;
 import models.Question;
+import org.controlsfx.control.Notifications;
 import services.ChoiceService;
 import services.QuestionService;
+import tray.notification.TrayNotification;
 
 /**
  * FXML Controller class
@@ -61,7 +67,7 @@ public class AjoutquestionController implements Initializable {
      * Initializes the controller class.
      */
     
- 
+
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -74,6 +80,7 @@ public class AjoutquestionController implements Initializable {
             topicsList.add(i.toString());
         }
         topicsBox.setItems(topicsList);
+        
         
     }
     
@@ -97,8 +104,8 @@ public class AjoutquestionController implements Initializable {
                 String c=((TextField)((HBox)n.getChildren().get(0)).getChildren().get(1)).getText();
                 choiceService.create(new Choice(0, question.getId(), c));
             }
-          
-    }
+            
+             }
     
     private Pane createChoiceBox(){
         Pane p=new Pane();

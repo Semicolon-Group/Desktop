@@ -48,8 +48,6 @@ import services.Service;
 public class QuestionController extends Service implements Initializable {
    
     @FXML
-    private Button bt_affiche;
-    @FXML
     private TableView<Question> table;
 
      @FXML
@@ -94,36 +92,6 @@ public class QuestionController extends Service implements Initializable {
         table.setItems(data);
         
     }    
-
-    @FXML
-    private void affichage(ActionEvent event) throws SQLException {
-            
-       
-        
-            data= FXCollections.observableArrayList();
-	List<Question> questions=QuestionService.getInstance().getAll(new Question());
-                for(Question i : questions){
-                    
-                    data.add(i);
-                
-
-        c_question.setCellValueFactory(new PropertyValueFactory<>("Question"));
-        
-        c_topic.setCellValueFactory(new PropertyValueFactory<>("Topic"));
-        c_choices.setCellValueFactory(new PropertyValueFactory<>("choices"));
-        
-        
-        }
-        
-        
-        table.setItems(null);
-        table.setItems(data);
-
-}
-
-
-    
-
 
     @FXML
     private void movetoajoutquestion(ActionEvent event) throws IOException {

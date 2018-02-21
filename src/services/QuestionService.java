@@ -55,10 +55,10 @@ public class QuestionService extends Service implements Create<Question>, Delete
 	
 	return obj;
     }
-    //
-            public void deleteq(int id) throws SQLException{
-                String query = "delete from question where id= " + id;
-                CONNECTION.createStatement().executeUpdate(query);
+   
+     public void deleteq(int id) throws SQLException{
+        String query = "delete from question where id= " + id;
+        CONNECTION.createStatement().executeUpdate(query);
 
             }
             

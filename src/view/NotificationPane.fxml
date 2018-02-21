@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
@@ -10,9 +10,10 @@
       <Insets right="176.0" top="54.0" />
    </padding>
    <children>
-      <VBox fx:id="NotificationsBox" prefHeight="550.0" prefWidth="413.0">
-         <children>
-            <Button mnemonicParsing="false" text="Button" />
-         </children></VBox>
+      <ScrollPane>
+         <content>
+            <VBox id="bg" fx:id="NotificationsBox" prefHeight="550.0" prefWidth="413.0" stylesheets="@style/QuestionStyle.css" />
+         </content>
+      </ScrollPane>
    </children>
 </AnchorPane>

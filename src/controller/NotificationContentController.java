@@ -21,6 +21,11 @@ import java.sql.Timestamp;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import models.Enumerations.NotificationType;
+import static models.Enumerations.NotificationType.LIKE;
+import static models.Enumerations.NotificationType.MESSAGE;
+import static models.Enumerations.NotificationType.REACTION;
+import static models.Enumerations.NotificationType.SIGNAL;
 import models.Member;
 import models.Notification;
 import services.MemberService;
@@ -63,38 +68,49 @@ public class NotificationContentController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        NotificationService ns=NotificationService.getInstance();
-        Notification n=new Notification(1);
-        try {
-            n= ns.get(n);
-        } catch (SQLException ex) {
-            Logger.getLogger(NotificationContentController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-       
+        
+    }    
+    
+    public void fill(Notification n){
         
         try {
-          
-            FnameSender.setText(n.getSenderFName());
-            LnameSender.setText(n.getSenderLName());
-            
-            Action.setText(n.getContent());
-            
-          
-            n_date.setText(n.getDate().toString());
-            
-            
-            File f1=new File(n.getUrlPhoto());
-            Image img1 = new Image(f1.toURI().toString());
-            Img.setImage(img1);
-            
-            //File f2=new File("C:/Users/vaider/Documents/NetBeansProjects/Mysoulmate_2/Desktop/src/view/assets/icons/profilNotification.png");
-            File f2=new File(n.getIcon());
-            Image icon1 = new Image(f2.toURI().toString());
-            Icon.setImage(icon1);
+                FnameSender.setText(n.getSenderFName());
+                LnameSender.setText(n.getSenderLName());
+                Action.setText(n.getContent());
+                n_date.setText(n.getDate().toString());
+
+                File f1=new File(n.getUrlPhoto());
+                Image img1 = new Image(f1.toURI().toString());
+                Img.setImage(img1);
+
+                File f2=new File(n.getIcon());
+                Image icon1 = new Image(iconType(n.getType()));
+                Icon.setImage(icon1);
             
         } catch (SQLException ex) {
             Logger.getLogger(NotificationContentController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }    
+    }
+    
+    public String iconType(NotificationType type){
+        String path="/view/assets/icons/";
+        if(type == MESSAGE){
+            path+="Message.png";
+        }
+               else if (type == LIKE){
+                    path+="LIKE.png";
+                }
+                    else if (type == REACTION){
+                        path+="Reaction.png";
+                    }
+                        else if (type == SIGNAL){
+                           path+="Signal.png";
+                       }
+                            else
+                                 path+="Feedback.png"; 
+                                return this.getClass().getResource(path).toExternalForm();
+        
+              
+    }   
     
 }

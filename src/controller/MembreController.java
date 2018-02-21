@@ -48,8 +48,6 @@ public class MembreController extends Service implements Initializable {
     @FXML
     private TableView<Member> table;
     @FXML
-    private Button bt_affiche;
-    @FXML
     private TableColumn<MemberService, String> Pseudo;
     @FXML
     private TableColumn<MemberService, String> firstname;
@@ -106,8 +104,7 @@ public class MembreController extends Service implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-        txt_id.setVisible(false);
+      txt_id.setVisible(false);
          data= FXCollections.observableArrayList();
             List<Member> membres = null;
         try {
@@ -150,49 +147,7 @@ public class MembreController extends Service implements Initializable {
         table.setItems(data);
     }    
 
-    @FXML
-    private void affichage(ActionEvent event) throws SQLException {
-        
-
-       
-        data= FXCollections.observableArrayList();
-            List<Member> membres=MemberService.getInstance().getAll(new Member());
-                for(Member i : membres){
-                    data.add(i);
-                }
-                
-        Pseudo.setCellValueFactory(new PropertyValueFactory<>("Pseudo"));
-        firstname.setCellValueFactory(new PropertyValueFactory<>("firstname"));
-        lastname.setCellValueFactory(new PropertyValueFactory<>("lastname"));
-        Email.setCellValueFactory(new PropertyValueFactory<>("Email"));
-        password.setCellValueFactory(new PropertyValueFactory<>("password"));
-        birth_date.setCellValueFactory(new PropertyValueFactory<>("birth_date"));
-        gender.setCellValueFactory(new PropertyValueFactory<>("gender"));
-        height.setCellValueFactory(new PropertyValueFactory<>("height"));
-        body_type.setCellValueFactory(new PropertyValueFactory<>("body_type"));
-        children_nember.setCellValueFactory(new PropertyValueFactory<>("children_nember"));
-        relegion.setCellValueFactory(new PropertyValueFactory<>("relegion"));
-        relegion_importance.setCellValueFactory(new PropertyValueFactory<>("relegion_importance"));
-        smoker.setCellValueFactory(new PropertyValueFactory<>("smoker"));
-        drinker.setCellValueFactory(new PropertyValueFactory<>("drinker"));
-        min_age.setCellValueFactory(new PropertyValueFactory<>("min_age"));
-        max_age.setCellValueFactory(new PropertyValueFactory<>("max_age"));
-        proximity.setCellValueFactory(new PropertyValueFactory<>("proximity"));
-        last_login.setCellValueFactory(new PropertyValueFactory<>("last_login"));
-        locked.setCellValueFactory(new PropertyValueFactory<>("locked"));
-        ip.setCellValueFactory(new PropertyValueFactory<>("ip"));
-        port.setCellValueFactory(new PropertyValueFactory<>("port"));
-        //adresse.setCellValueFactory(new PropertyValueFactory<>("adresse"));
-        
-        
-        
-        
-        
-        table.setItems(null);
-        table.setItems(data);
-                    
     
-            } 
 
    
 

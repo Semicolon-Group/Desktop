@@ -7,6 +7,7 @@ package controller;
 
 import static controller.GestionQuestion.window;
 import java.io.IOException;
+import java.sql.SQLException;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -16,6 +17,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import models.Member;
+import services.MemberService;
 
 /**
  *
@@ -23,8 +26,11 @@ import javafx.stage.Stage;
  */
 public class GestionNotification extends Application {
     
+    public static Member online;
+    
     @Override
-    public void start(Stage primaryStage) throws IOException {
+    public void start(Stage primaryStage) throws IOException, SQLException {
+        online = MemberService.getInstance().get(new Member(12));
         window = primaryStage;
         Parent root=FXMLLoader.load(getClass().getResource("/view/NotificationPane.fxml"));
 

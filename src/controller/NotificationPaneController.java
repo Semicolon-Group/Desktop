@@ -5,8 +5,10 @@
  */
 package controller;
 
+import static controller.GestionNotification.online;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,6 +23,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import models.Notification;
+import services.NotificationService;
 
 /**
  * FXML Controller class
@@ -38,51 +42,24 @@ public class NotificationPaneController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-//        notificationsBoxs=FXCollections.
-////        NotificationsBox.add(createNotificationBox());
-////        NotificationsBox.add(createNotificationBox());
-//          NotificationsBox.getChildren().
-         try {
-            
-            Parent notif = FXMLLoader.load(getClass().getResource("/view/NotificationContent.fxml"));
-            NotificationsBox.getChildren().add(notif);
-            
-        } catch (IOException ex) {
-            Logger.getLogger(NotificationPaneController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-         
-         
-    }
-    
-//    private void onNotificationListChange(){
-//        
-//        NotificationsBox.getChildren().add(notificationsBoxs.get(notificationsBoxs.size()-1));
-//        
-//    }
-    
-//    private Pane createNotificationBox(){
-//        //Pane p=new Pane();
-//        VBox vb=new VBox();
-//        
-//        
-//        Pane p=new Pane();
-//        vb.getChildren().clear();
-//        vb.getChildren().add(p);
-//        
-//        
-//        p.getChildren().clear();
-//        p.getChildren().add(vb);
-//        
-//        return p;
-//    }
 
-//    @FXML
-//    private void ajoutNotification(ActionEvent event) {
-//        
-//        Pane p=createNotificationBox();
-//        NotificationsBoxs.add(p);
-//    }
-        
-    }    
+         try {
+             Notification not = new Notification();
+             not.setReceiverId(online.getId());
+            for(Notification n : NotificationService.getInstance().getAll(not)){
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/NotificationContent.fxml"));
+                    Parent notif = loader.load();
+                    NotificationContentController c = (NotificationContentController)loader.getController();
+                    c.fill(n);
+                    NotificationsBox.getChildren().add(notif);
+            }
+
+            
+            } catch (IOException | SQLException ex) {
+                Logger.getLogger(NotificationPaneController.class.getName()).log(Level.SEVERE, null, ex);
+            }    
+    }
+
+}    
     
 
