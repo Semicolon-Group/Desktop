@@ -229,8 +229,7 @@ CREATE TABLE `notification` (
   `receiver_id` int(11) DEFAULT NULL,
   `photo_id` int(11) DEFAULT NULL,
   `answer_id` int(11) DEFAULT NULL,
-  `type` int(11) NOT NULL,
-  `seen` tinyint(4) NOT NULL
+  `type` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------

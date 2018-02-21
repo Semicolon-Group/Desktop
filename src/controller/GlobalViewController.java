@@ -293,4 +293,9 @@ public class GlobalViewController implements Initializable {
     @FXML
     private void affiche_notif(MouseEvent event) {
     }
+
+    @FXML
+    private void onMessageIconClick(MouseEvent event) {
+        setContent("/view/InstantMessagingView.fxml", content);
+    }
 }

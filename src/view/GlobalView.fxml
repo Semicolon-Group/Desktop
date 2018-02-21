@@ -147,7 +147,7 @@
                                              </VBox>
                                              <VBox id="message_icon_box" alignment="CENTER" layoutX="636.0" layoutY="10.0" onMouseEntered="#hover" onMouseExited="#exit" prefHeight="48.0" prefWidth="70.0" styleClass="nav_bar_icon_box">
                                                 <children>
-                                                   <ImageView id="message_icon" fx:id="messageIcon" fitHeight="24.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                                   <ImageView id="message_icon" fx:id="messageIcon" fitHeight="24.0" fitWidth="200.0" onMouseClicked="#onMessageIconClick" pickOnBounds="true" preserveRatio="true">
                                                       <image>
                                                          <Image url="@assets/icons/natural/message.png" />
                                                       </image>

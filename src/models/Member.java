@@ -48,7 +48,11 @@ public class Member extends User{
         preferedRelations = new ArrayList<>();
         preferedStatuses = new ArrayList<>();
     }
-    
+
+    public Member(String pseudo, String email) {
+        super(pseudo, email);
+    }
+  
     public Member(int id){
         super(id);
         preferedRelations = new ArrayList<>();

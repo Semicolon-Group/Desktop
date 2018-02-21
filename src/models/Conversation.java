@@ -44,6 +44,13 @@ public class Conversation {
 	this.person2Id = person2Id;
     }
 
+    public Conversation(int person1Id, int person2Id) {
+        this.person1Id = person1Id;
+        this.person2Id = person2Id;
+    }
+    
+    
+
     public int getId() {
 	return id;
     }
@@ -78,6 +85,11 @@ public class Conversation {
 
     public int getPerson1Id() {
 	return person1Id;
+    }
+
+    @Override
+    public String toString() {
+        return "Conversation{" + "id=" + id + ", label=" + label + ", seen=" + seen + ", seenDate=" + seenDate + ", person1Id=" + person1Id + ", person2Id=" + person2Id + '}';
     }
 
     public void setPerson1Id(int person1Id) {

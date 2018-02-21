@@ -17,11 +17,9 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import models.Enumerations.Role;
 import models.Address;
 import models.Enumerations;
 import models.Member;
-
 
 /**
  *
@@ -35,7 +33,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
     PreparedStatement pst;
     ResultSet rs;
 
-    private MemberService() {
+    public MemberService() {
         super();
     }
 
@@ -74,23 +72,23 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
         preparedStatement.setShort(19, obj.getLocked());
         preparedStatement.setString(20, obj.getIp());
         preparedStatement.setInt(21, obj.getPort());
-	preparedStatement.setInt(22, Role.MEMBER.ordinal());
-	preparedStatement.setTimestamp(23, new Timestamp(new Date().getTime()));
-	preparedStatement.setTimestamp(24, new Timestamp(new Date().getTime()));
+//	preparedStatement.setInt(22, Role.MEMBER.ordinal());
+        preparedStatement.setTimestamp(23, new Timestamp(new Date().getTime()));
+        preparedStatement.setTimestamp(24, new Timestamp(new Date().getTime()));
         preparedStatement.setString(25, obj.getAbout());
         preparedStatement.setInt(26, obj.getMaritalStatus().ordinal());
         preparedStatement.setBoolean(27, obj.isConnected());
         preparedStatement.executeUpdate();
-	
-	String req = "SELECT MAX(id) max from user";
-	ResultSet rs = CONNECTION.createStatement().executeQuery(req);
-	rs.next();
-	
-	obj.getAddress().setUserId(rs.getInt("max"));
-	AddressService.getInstance().create(obj.getAddress());
-	
+
+        String req = "SELECT MAX(id) max from user";
+        ResultSet rs = CONNECTION.createStatement().executeQuery(req);
+        rs.next();
+
+        obj.getAddress().setUserId(rs.getInt("max"));
+        AddressService.getInstance().create(obj.getAddress());
+
         return obj;
-    
+
     }
     //methode update pour modifichier l'attribut locked , bannir un membre
             public void updatelock(int id,short locked) throws SQLException{
@@ -139,20 +137,23 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
         AddressService.getInstance().update(obj.getAddress());
     }
 
-    @Override
+
+ @Override
     public Member get(Member obj) throws SQLException {
         String condition = "";
         if (obj.getId() != 0) {
             condition = "Where id = " + obj.getId();
         } else if (obj.getPseudo() != null) {
-            condition = "Where pseudo = " + obj.getPseudo();
+            condition = "Where pseudo = '" + obj.getPseudo()+"'";
         } else if (obj.getEmail() != null) {
-            condition = "Where email = " + obj.getEmail();
+            condition = "Where email = '" + obj.getEmail()+"'";
         }
         String req = "Select * from user " + condition;
         st = CONNECTION.createStatement();
         rs = st.executeQuery(req);
+        
         if(rs.next()){
+            obj.setId(rs.getInt("id"));
             obj.setPseudo(rs.getString("pseudo"));
             obj.setFirstname(rs.getString("firstname"));
             obj.setLastname(rs.getString("lastname"));
@@ -186,13 +187,13 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
 
     @Override
     public List<Member> getAll(Member obj) throws SQLException {
-	String query = "select * from user";
+        String query = "select * from user";
         ResultSet rs = CONNECTION.createStatement().executeQuery(query);
         List<Member> mmbrs = new ArrayList<>();
-        while(rs.next()){
-            
+        while (rs.next()) {
+
             Member mbr = new Member();
-            
+
             mbr.setId(rs.getInt("id"));
             mbr.setPseudo(rs.getString("pseudo"));
             mbr.setFirstname(rs.getString("firstname"));
@@ -219,8 +220,8 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
             mbr.setMaritalStatus(Enumerations.MaritalStatus.values()[rs.getInt("civil_status")]);
             mbr.setConnected(rs.getBoolean("connected"));
             mbr.setCreatedAt(rs.getTimestamp("created_at"));
-	    mbr.setAddress(AddressService.getInstance().get(new Address(mbr.getId())));
-           
+            mbr.setAddress(AddressService.getInstance().get(new Address(mbr.getId())));
+
             mmbrs.add(mbr);
         }
         return mmbrs;

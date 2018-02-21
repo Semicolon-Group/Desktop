@@ -57,10 +57,8 @@ public class StatusPostService extends Service implements Create<StatusPost>,Del
 	String req = "SELECT * FROM `post` WHERE id = " + obj.getId();
 	Statement st = CONNECTION.createStatement();
 	ResultSet rs = st.executeQuery(req);
-	if(rs.next()){
-            return new StatusPost(rs.getString("content"), rs.getInt("id"), rs.getInt("user_id"), rs.getTimestamp("date"));
-        }
-        return null;
+	rs.next();
+	return new StatusPost(rs.getString("content"), rs.getInt("id"), rs.getInt("user_id"), rs.getTimestamp("date"));
     }
 
     @Override
