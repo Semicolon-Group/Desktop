@@ -25,6 +25,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
@@ -48,7 +49,6 @@ public class RecommandationViewController implements Initializable {
     private AnchorPane mainPane;
     @FXML
     private VBox restaurantVBox;
-    private VBox cafeVBox;
     @FXML
     private VBox parkVBox;
 
@@ -97,6 +97,14 @@ public class RecommandationViewController implements Initializable {
     private CheckBox parkOpenCheck;
     @FXML
     private Label restRangeLabel;
+    @FXML
+    private VBox restLoading;
+    @FXML
+    private VBox cafeLoading;
+    @FXML
+    private VBox parcLoading;
+    @FXML
+    private ProgressIndicator cafeIndicator;
 
     /**
      * Initializes the controller class.
@@ -224,10 +232,14 @@ public class RecommandationViewController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends Worker.State> observable, Worker.State oldValue, Worker.State newValue) {
                 if (newValue == Worker.State.SUCCEEDED) {
+                    parkVBox.setVisible(true);
+                    parcLoading.setVisible(false);
                     applyParkFilter();
                 }
             }
         });
+        parkVBox.setVisible(false);
+        parcLoading.setVisible(true);
         new Thread(task).start();
     }
     
@@ -262,10 +274,14 @@ public class RecommandationViewController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends Worker.State> observable, Worker.State oldValue, Worker.State newValue) {
                 if (newValue == Worker.State.SUCCEEDED) {
+                    cafeeVBox.setVisible(true);
+                    cafeLoading.setVisible(false);
                     applyCafeeFilter();
                 }
             }
         });
+        cafeeVBox.setVisible(false);
+        cafeLoading.setVisible(true);
         new Thread(task).start();
     }
     
@@ -300,10 +316,14 @@ public class RecommandationViewController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends Worker.State> observable, Worker.State oldValue, Worker.State newValue) {
                 if (newValue == Worker.State.SUCCEEDED) {
+                    restaurantVBox.setVisible(true);
+                    restLoading.setVisible(false);
                     applyRestaurantFilter();
                 }
             }
         });
+        restaurantVBox.setVisible(false);
+        restLoading.setVisible(true);
         new Thread(task).start();
     }
 
