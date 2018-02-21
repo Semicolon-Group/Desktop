@@ -122,7 +122,7 @@ public class Notification {
     }
     
     public String getUrlPhoto() throws SQLException{
-        return  PhotoService.getInstance().get(new Photo(photoId)).getUrl();
+        return  PhotoService.getInstance().get(new Photo(photoId,0,null,null,null)).getUrl();
     }
     
 //     public HashSet<Choice> getAnswer() throws SQLException{
