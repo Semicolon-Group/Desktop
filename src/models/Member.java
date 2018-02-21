@@ -7,6 +7,8 @@ package models;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 import models.Enumerations.BodyType;
@@ -25,8 +27,8 @@ public class Member extends User{
     private float height;
     private BodyType bodyType;
     private int childrenNumber;
-    private Enumerations.Religion relegion;
-    private Importance relegionImportance;
+    private Enumerations.Religion religion;
+    private Importance religionImportance;
     private boolean smoker;
     private boolean drinker;
     private int minAge;
@@ -64,8 +66,8 @@ public class Member extends User{
 	this.height = height;
 	this.bodyType = bodyType;
 	this.childrenNumber = childrenNumber;
-	this.relegion = relegion;
-	this.relegionImportance = relegionImportance;
+	this.religion = religion;
+	this.religionImportance = religionImportance;
 	this.smoker = smoker;
 	this.drinker = drinker;
 	this.minAge = minAge;
@@ -93,8 +95,8 @@ public class Member extends User{
 	this.height = height;
 	this.bodyType = bodyType;
 	this.childrenNumber = childrenNumber;
-	this.relegion = religion;
-	this.relegionImportance = relegionImportance;
+	this.religion = religion;
+	this.religionImportance = religionImportance;
 	this.smoker = smoker;
 	this.drinker = drinker;
 	this.minAge = minAge;
@@ -184,19 +186,19 @@ public class Member extends User{
     }
 
     public Enumerations.Religion getReligion() {
-	return relegion;
+	return religion;
     }
 
     public void setReligion(Enumerations.Religion religion) {
-	this.relegion = religion;
+	this.religion = religion;
     }
 
     public Importance getReligionImportance() {
-	return relegionImportance;
+	return religionImportance;
     }
 
     public void setReligionImportance(Importance religionImportance) {
-	this.relegionImportance = religionImportance;
+	this.religionImportance = religionImportance;
     }
 
     public boolean isSmoker() {
@@ -281,7 +283,12 @@ public class Member extends User{
         
     @Override
     public String toString() {
-	return super.toString() + "Member{" + "birthDate=" + birthDate + ", gender=" + gender + ", height=" + height + ", bodyType=" + bodyType + ", childrenNumber=" + childrenNumber + ", religion=" + relegion + ", religionImportance=" + relegionImportance + ", smoker=" + smoker + ", drinker=" + drinker + ", minAge=" + minAge + ", maxAge=" + maxAge + ", proximity=" + proximity + ", lastLogin=" + lastLogin + ", locked=" + locked + ", address=" + address + ", preferedRelations=" + preferedRelations + ", preferedStatuses=" + preferedStatuses + '}';
+	return super.toString() + "Member{" + "birthDate=" + birthDate + ", gender=" + gender + ", height=" + height + ", bodyType=" + bodyType + ", childrenNumber=" + childrenNumber + ", religion=" + religion + ", religionImportance=" + religionImportance + ", smoker=" + smoker + ", drinker=" + drinker + ", minAge=" + minAge + ", maxAge=" + maxAge + ", proximity=" + proximity + ", lastLogin=" + lastLogin + ", locked=" + locked + ", address=" + address + ", preferedRelations=" + preferedRelations + ", preferedStatuses=" + preferedStatuses + "}\n";
+    }
+
+    public int getAge() {
+        return Period.between(LocalDate.of(birthDate.getYear() + 1900, birthDate.getMonth() + 1,
+                birthDate.getDate()), LocalDate.now()).getYears();
     }
     
 }

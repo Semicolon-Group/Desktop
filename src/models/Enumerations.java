@@ -49,7 +49,10 @@ public class Enumerations {
     public enum ReactionType{
 	LIKE,
 	SUPER_LIKE,
-	LAUGH
+	LAUGH,
+        SMILE,
+        LOVE,
+        SCOWL
     }
     public enum SignalReason{
 	CONTENU_INAPPROPRIE,
@@ -90,5 +93,10 @@ public class Enumerations {
 	CULTURE,
 	SPORT,
 	GENERAL
+    }
+    public enum PhotoType{
+        REGULAR,
+        PROFILE,
+        COVER
     }
 }

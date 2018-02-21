@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="375.0" prefWidth="280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MatchCardViewController">
+   <children>
+      <ImageView fx:id="photo" fitHeight="215.0" fitWidth="280.0" pickOnBounds="true">
+         <image>
+            <Image url="@assets/img/girl1.jpg" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></ImageView>
+      <HBox alignment="CENTER" prefHeight="106.0" prefWidth="280.0">
+         <children>
+            <VBox prefHeight="80.0" prefWidth="262.0">
+               <children>
+                  <HBox alignment="BOTTOM_CENTER" prefHeight="54.0" prefWidth="262.0">
+                     <children>
+                        <Label fx:id="pseudo" text="Ashley Connor">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="20.0" prefWidth="262.0" spacing="5.0">
+                     <children>
+                        <Label fx:id="age" text="20" textFill="#949aa6">
+                           <font>
+                              <Font size="17.0" />
+                           </font></Label>
+                        <Circle fill="#949aa6" radius="1.0" stroke="#949aa6" strokeType="INSIDE" />
+                        <Label fx:id="city" text="Ariana" textFill="#949aa6">
+                           <font>
+                              <Font size="17.0" />
+                           </font></Label>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+         <children>
+            <VBox alignment="CENTER" prefHeight="77.0" prefWidth="85.0">
+               <children>
+                  <Label fx:id="match" text="91%">
+                     <font>
+                        <Font size="25.0" />
+                     </font></Label>
+                  <Label text="Match">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Label>
+               </children>
+            </VBox>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="47.0" stroke="#949aa6" strokeType="INSIDE" width="1.0" />
+            <VBox alignment="CENTER" prefHeight="80.0" prefWidth="85.0">
+               <children>
+                  <Label fx:id="enemy" text="15%" textFill="#949aa6">
+                     <font>
+                        <Font size="25.0" />
+                     </font></Label>
+                  <Label text="Enemy" textFill="#949aa6">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Label>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</VBox>

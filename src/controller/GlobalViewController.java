@@ -7,7 +7,10 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -24,6 +27,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import models.Member;
+import services.MemberService;
 
 /**
  * FXML Controller class
@@ -81,6 +86,8 @@ public class GlobalViewController implements Initializable {
     @FXML
     private ImageView accountIcon;
     
+    public static Member online;
+    
     private static GlobalViewController instance;
     
     public static GlobalViewController getInstance(){
@@ -122,6 +129,11 @@ public class GlobalViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        try {
+            online = MemberService.getInstance().get(new Member(MySoulMate.MEMBER_ID));
+        } catch (SQLException ex) {
+            Logger.getLogger(GlobalViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         instance = this;
         mainAnchor.addEventFilter(MouseEvent.MOUSE_CLICKED, notificationPaneHandler);
         scroll.vvalueProperty().addListener( (observable, oldValue, newValue) -> {
@@ -206,6 +218,7 @@ public class GlobalViewController implements Initializable {
 
     @FXML
     private void showMatchContent(ActionEvent event) {
+        setContent("/view/MatchView.fxml", content);
         homeBox.setId("");
         matchBox.setId("selected");
         quickSearchBox.setId("");
