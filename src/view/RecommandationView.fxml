@@ -31,12 +31,12 @@
                                                 <Font name="System Bold" size="24.0" />
                                              </font>
                                           </Label>
-                                          <Label fx:id="rangeLabel" layoutX="1330.0" layoutY="67.0" text="(1.0 Km)">
+                                          <Label fx:id="restRangeLabel" layoutX="1330.0" layoutY="67.0" text="(1.0 Km)">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
                                           </Label>
-                                          <Slider fx:id="restaurantRangeSlider" blockIncrement="0.5" layoutX="1415.0" layoutY="54.0" majorTickUnit="1.0" max="5.0" min="0.5" minorTickCount="1" onMouseReleased="#updateRangeLabel" prefHeight="65.0" prefWidth="264.0" showTickMarks="true" snapToTicks="true" value="1.0" />
+                                          <Slider fx:id="restaurantRangeSlider" blockIncrement="0.5" layoutX="1415.0" layoutY="54.0" majorTickUnit="1.0" max="5.0" min="0.5" minorTickCount="1" onMouseReleased="#updateRestRange" prefHeight="65.0" prefWidth="264.0" showTickMarks="true" snapToTicks="true" value="1.0" />
                                           <ComboBox fx:id="restSortComboBox" layoutX="978.0" layoutY="60.0" prefHeight="40.0" prefWidth="168.0" />
                                           <Label layoutX="845.0" layoutY="63.0" text="Triée par">
                                              <font>
@@ -75,16 +75,104 @@
                      <content>
                         <AnchorPane prefWidth="200.0">
                            <children>
-                              <VBox fx:id="cafeVBox" spacing="40.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="30.0" />
+                              <VBox prefWidth="100.0" spacing="40.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="30.0">
+                                 <children>
+                                    <AnchorPane prefHeight="166.0" prefWidth="1721.0" style="-fx-background-color: white;" VBox.vgrow="NEVER">
+                                       <children>
+                                          <Label layoutX="1205.0" layoutY="64.0" text="Périmétre">
+                                             <font>
+                                                <Font name="System Bold" size="24.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="cafeRangeLabel" layoutX="1330.0" layoutY="67.0" text="(1.0 Km)">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <Slider fx:id="cafeRangeSlider" blockIncrement="0.5" layoutX="1415.0" layoutY="54.0" majorTickUnit="1.0" max="5.0" min="0.5" minorTickCount="1" onMouseReleased="#updateCafeRange" prefHeight="65.0" prefWidth="264.0" showTickMarks="true" snapToTicks="true" value="1.0" />
+                                          <ComboBox fx:id="cafeSortComboBox" layoutX="978.0" layoutY="60.0" prefHeight="40.0" prefWidth="168.0" />
+                                          <Label layoutX="845.0" layoutY="63.0" text="Triée par">
+                                             <font>
+                                                <Font name="System Bold" size="24.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="cafeSearchField" layoutX="214.0" layoutY="61.0" onKeyReleased="#applyCafeeSearch" prefHeight="41.0" prefWidth="302.0" promptText="Mot clé...">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </TextField>
+                                          <Label layoutX="44.0" layoutY="64.0" text="Recherche">
+                                             <font>
+                                                <Font name="System Bold" size="24.0" />
+                                             </font>
+                                          </Label>
+                                          <CheckBox fx:id="cafeeOpenCheck" layoutX="590.0" layoutY="67.0" mnemonicParsing="false" onAction="#cafeOpenActivated" text="Afficher les ouverts">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </CheckBox>
+                                       </children>
+                                    </AnchorPane>
+                                    <VBox fx:id="cafeeVBox" spacing="40.0" VBox.vgrow="ALWAYS">
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </VBox>
+                                 </children>
+                              </VBox>
                            </children>
                         </AnchorPane>
                      </content>
                   </Tab>
-                  <Tab text="Parc">
+                  <Tab onSelectionChanged="#setParkPane" text="Parc">
                      <content>
                         <AnchorPane prefWidth="200.0">
                            <children>
-                              <VBox fx:id="parkVBox" spacing="40.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="30.0" />
+                              <VBox prefWidth="100.0" spacing="40.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="30.0">
+                                 <children>
+                                    <AnchorPane prefHeight="166.0" prefWidth="1721.0" style="-fx-background-color: white;" VBox.vgrow="NEVER">
+                                       <children>
+                                          <Label layoutX="1205.0" layoutY="64.0" text="Périmétre">
+                                             <font>
+                                                <Font name="System Bold" size="24.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="parkRangeLabel" layoutX="1330.0" layoutY="67.0" text="(1.0 Km)">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <Slider fx:id="parkRangeSlider" blockIncrement="0.5" layoutX="1415.0" layoutY="54.0" majorTickUnit="1.0" max="5.0" min="0.5" minorTickCount="1" onMouseReleased="#updateParkRange" prefHeight="65.0" prefWidth="264.0" showTickMarks="true" snapToTicks="true" value="1.0" />
+                                          <ComboBox fx:id="parkSortComboBox" layoutX="978.0" layoutY="60.0" prefHeight="40.0" prefWidth="168.0" />
+                                          <Label layoutX="845.0" layoutY="63.0" text="Triée par">
+                                             <font>
+                                                <Font name="System Bold" size="24.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="parkSearchField" layoutX="214.0" layoutY="61.0" onKeyReleased="#applyParkSearch" prefHeight="41.0" prefWidth="302.0" promptText="Mot clé...">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </TextField>
+                                          <Label layoutX="44.0" layoutY="64.0" text="Recherche">
+                                             <font>
+                                                <Font name="System Bold" size="24.0" />
+                                             </font>
+                                          </Label>
+                                          <CheckBox fx:id="parkOpenCheck" layoutX="590.0" layoutY="67.0" mnemonicParsing="false" onAction="#parcOpenActivated" text="Afficher les ouverts">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </CheckBox>
+                                       </children>
+                                    </AnchorPane>
+                                    <VBox fx:id="parkVBox" spacing="40.0" VBox.vgrow="ALWAYS">
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </VBox>
+                                 </children>
+                              </VBox>
                            </children>
                         </AnchorPane>
                      </content>
