@@ -1,7 +1,3 @@
-
-import com.facepp.error.FaceppParseException;
-import com.facepp.http.HttpRequests;
-import com.facepp.http.PostParameters;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,8 +12,6 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Base64;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -30,7 +24,7 @@ import org.json.JSONObject;
  */
 public class NewClass {
 
-    public static void main(String[] args) throws IOException, InterruptedException, FaceppParseException, JSONException {
+    public static void main(String[] args) throws IOException, InterruptedException {
 //        Date birthDate = new Date(1418984496227l);
 //        /*System.out.println(LocalDate.of(birthDate.getYear()+1900, birthDate.getMonth() + 1,
 //                birthDate.getDate()).toString());*/

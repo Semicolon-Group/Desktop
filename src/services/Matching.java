@@ -12,7 +12,9 @@ import java.util.List;
 import java.util.Map;
 import models.Answer;
 import models.Choice;
+import models.Enumerations;
 import models.Enumerations.Importance;
+import models.Enumerations.PhotoType;
 import models.MatchCard;
 import models.Member;
 import models.Photo;
@@ -102,7 +104,7 @@ public class Matching {
             card.setCity(m.getAddress().getCity());
             card.setLastLogin(m.getLastLogin());
             card.setPseudo(m.getPseudo());
-            card.setPhotoUrl(PhotoService.getInstance().get(new Photo(m.getId())).getUrl());
+            card.setPhotoUrl(PhotoService.getInstance().get(new Photo(0, m.getId(), null, null, PhotoType.PROFILE)).getUrl());
             
             List<Answer> A = AnswerService.getInstance().getAll(new Answer(0, null, null, M.getId()));
             List<Answer> B = AnswerService.getInstance().getAll(new Answer(0, null, null, m.getId()));

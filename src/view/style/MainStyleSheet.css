@@ -62,3 +62,36 @@ and open the template in the editor.
 #notification_panes_container{
     -fx-background-color: null;
 }
+
+.link:hover{
+    -fx-text-fill: #017cb0;
+}
+
+.photo_delete_button{
+    -fx-background-color: #b43e32;
+}
+
+.side_menu{
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+
+.side_menu_item{
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: lightgray;
+    -fx-cursor: hand;
+}
+
+.side_menu_item:hover{
+    -fx-background-color: #e74c3c;
+}
+
+.card_pane{
+    -fx-cursor: hand;
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 0, 0);
+}
+
+.card_pane:hover{
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,1), 10, 0, 0, 0);
+}

@@ -22,6 +22,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import models.Enumerations;
+import models.Enumerations.PhotoType;
 import models.Member;
 import models.Photo;
 import models.PicturePost;
@@ -73,7 +75,7 @@ public class HomeViewController implements Initializable {
                     root = loader.load();
                     loader.getLocation().openStream();
                     spc = (StatusPostViewController)loader.getController();
-                    spc.fill(new Image(PhotoService.getInstance().get(new Photo(p.getOwnerId())).getUrl()),
+                    spc.fill(new Image(PhotoService.getInstance().get(new Photo(0,p.getOwnerId(),null,null,PhotoType.PROFILE)).getUrl()),
                         ((StatusPost)p).getContent(), MemberService.getInstance().get(new Member(p.getOwnerId())).getPseudo(),
                         p.getDate().toString(), p.getId());
                 }
@@ -82,7 +84,7 @@ public class HomeViewController implements Initializable {
                     root = loader.load();
                     loader.getLocation().openStream();
                     ppc = (PicturePostViewController)loader.getController();
-                    ppc.fill(new Image(PhotoService.getInstance().get(new Photo(p.getOwnerId())).getUrl()),
+                    ppc.fill(new Image(PhotoService.getInstance().get(new Photo(0,p.getOwnerId(),null,null,PhotoType.PROFILE)).getUrl()),
                         MemberService.getInstance().get(new Member(p.getOwnerId())).getPseudo(),
                         p.getDate().toString(), ((PicturePost)p).getUrl(), ((PicturePost)p).getPhotoId());
                 }

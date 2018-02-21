@@ -15,6 +15,7 @@ public class Address {
     private double latitude;
     private String country;
     private String city;
+    private String placeId;
 
     public Address() {
     }
@@ -36,6 +37,14 @@ public class Address {
 	this.latitude = latitude;
 	this.country = country;
 	this.city = city;
+    }
+
+    public String getPlaceId() {
+        return placeId;
+    }
+
+    public void setPlaceId(String placeId) {
+        this.placeId = placeId;
     }
 
     public int getUserId() {
@@ -76,6 +85,10 @@ public class Address {
 
     public void setCity(String city) {
 	this.city = city;
+    }
+    
+    public String toString(){
+        return city+", "+country;
     }
     
 }

@@ -77,7 +77,8 @@ public class Question {
 
     @Override
     public String toString() {
-	return "Question{" + "id=" + id + ", question=" + question + ", choices=" + choices + '}';
+//	return "Question{" + "id=" + id + ", question=" + question + ", choices=" + choices + '}';
+        return this.question;
     }
     
 }
