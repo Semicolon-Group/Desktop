@@ -111,7 +111,7 @@ public class Member extends User{
 	this.preferedRelations = new ArrayList<RelationType>();
 	this.preferedStatuses = new ArrayList<MaritalStatus>();
     }
-
+      
     public Timestamp getCreatedAt() {
         return createdAt;
     }
@@ -268,10 +268,18 @@ public class Member extends User{
         return preferedRelations;
     }
 
+    public void setPreferedRelations(List<RelationType> preferedRelations) {
+        this.preferedRelations = preferedRelations;
+    }
+
     public List<MaritalStatus> getPreferedStatuses() {
         return preferedStatuses;
     }
 
+    public void setPreferedStatuses(List<MaritalStatus> preferedStatuses) {
+        this.preferedStatuses = preferedStatuses;
+    }
+        
     @Override
     public String toString() {
 	return super.toString() + "Member{" + "birthDate=" + birthDate + ", gender=" + gender + ", height=" + height + ", bodyType=" + bodyType + ", childrenNumber=" + childrenNumber + ", religion=" + religion + ", religionImportance=" + religionImportance + ", smoker=" + smoker + ", drinker=" + drinker + ", minAge=" + minAge + ", maxAge=" + maxAge + ", proximity=" + proximity + ", lastLogin=" + lastLogin + ", locked=" + locked + ", address=" + address + ", preferedRelations=" + preferedRelations + ", preferedStatuses=" + preferedStatuses + '}';
