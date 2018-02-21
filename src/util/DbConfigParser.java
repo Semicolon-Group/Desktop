@@ -30,13 +30,9 @@ public final class DbConfigParser {
     
     private static String extractor(String paramName){
         try {
-            JSONParser parser = new JSONParser();
-            Object obj = parser.parse(new FileReader(new File("").getAbsolutePath()+"/assets/conf/db_config.json"));
- 
-            JSONObject jsonObject = (JSONObject) obj;
- 
-            String value = (String) jsonObject.get(paramName);
-            return value;
+            JSONObject jsonObject = JSONParserUtils
+                    .extractor(new FileReader(new File("").getAbsolutePath()+"/assets/conf/db_config.json"));
+            return (String) jsonObject.get(paramName);
         } catch (Exception ex) {
             util.Logger.writeLog(ex, DbConfigParser.class.getName(), "Fichier de base de donnée introuvable!");
         }

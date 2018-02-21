@@ -36,7 +36,14 @@ public class QuestionService extends Service implements Create<Question>,Delete<
     public Question create(Question obj) throws SQLException {
 	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+   
+     public void deleteq(int id) throws SQLException{
+        String query = "delete from question where id= " + id;
+        CONNECTION.createStatement().executeUpdate(query);
 
+            }
+            
+            
     @Override
     public void delete(Question obj) throws SQLException {
 	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -49,7 +56,26 @@ public class QuestionService extends Service implements Create<Question>,Delete<
 
     @Override
     public List<Question> getAll(Question obj) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	String query = "select * from question";
+        if(obj.getTopic() != null)
+            query+=" where topic = "+obj.getTopic().ordinal();
+	ResultSet rs = CONNECTION.createStatement().executeQuery(query);
+	List<Question> qsts = new ArrayList<>();
+	while (rs.next()) {
+	    Question qst = new Question();
+	    qst.setId(rs.getInt("id"));
+	    qst.setQuestion(rs.getString("question"));
+	    qst.setTopic(Topic.values()[rs.getInt("topic")]);
+	    /*
+	    * We're using getAll(Choice) to retrieve the list of choices for our question.
+	     */
+	    Choice c = new Choice();
+	    c.setQuestionId(qst.getId());
+	    qst.setChoices(new HashSet<Choice>(ChoiceService.getInstance().getAll(c)));
+
+	    qsts.add(qst);
+	}
+	return qsts;
     }
 
     @Override

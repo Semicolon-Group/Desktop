@@ -34,15 +34,15 @@ public class AccountMenuViewController implements Initializable {
         GlobalViewController controller = GlobalViewController.getInstance();
         if(controller!=null){
             controller.setMainContent("/view/SelfProfileView.fxml");
+            controller.clearMenuSelection();
         }
     }
 
-    @FXML
-    private void showOtherProfile(ActionEvent event) {
-        GlobalViewController controller = GlobalViewController.getInstance();
-        if(controller!=null){
-            FXMLLoader loader = controller.setMainContent("/view/OthersProfileView.fxml");
-            ((OthersProfileViewController)loader.getController()).setUserId(1);
-        }
-    }
+//    private void showOtherProfile(ActionEvent event) {
+//        GlobalViewController controller = GlobalViewController.getInstance();
+//        if(controller!=null){
+//            FXMLLoader loader = controller.setMainContent("/view/OthersProfileView.fxml");
+//            ((OthersProfileViewController)loader.getController()).setUserId(1);
+//        }
+//    }
 }

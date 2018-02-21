@@ -55,4 +55,24 @@ public class Question {
     public HashSet<Choice> getChoices() {
 	return choices;
     }
+
+    public void setChoices(HashSet<Choice> choices) {
+	this.choices = choices;
+    }
+
+    public Topic getTopic() {
+	return topic;
+    }
+
+    public void setTopic(Topic topic) {
+	this.topic = topic;
+    }
+    
+
+    @Override
+    public String toString() {
+//	return "Question{" + "id=" + id + ", question=" + question + ", choices=" + choices + '}';
+        return this.question;
+    }
+    
 }

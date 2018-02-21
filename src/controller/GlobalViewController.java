@@ -7,7 +7,11 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -23,6 +27,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import models.Member;
+import services.MemberService;
 
 /**
  * FXML Controller class
@@ -79,59 +85,65 @@ public class GlobalViewController implements Initializable {
     private VBox blindDateBox;
     @FXML
     private ImageView accountIcon;
-
+    
+    public static Member online;
+    
     private static GlobalViewController instance;
-
-    public static GlobalViewController getInstance() {
+    
+    public static GlobalViewController getInstance(){
         return instance;
     }
-
+    
     private EventHandler notificationPaneHandler = new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-            String id = ((Node) event.getTarget()).getId();
-            if (id != null && (id.equals("notification_icon") || id.equals("notification_icon_box"))) {
+            String id = ((Node)event.getTarget()).getId();
+            if(id != null && (id.equals("notification_icon") || id.equals("notification_icon_box"))){
                 notificationPane.setVisible(!notificationPane.isVisible());
                 conversationPane.setVisible(false);
                 accountPane.setVisible(false);
-            } else if (id != null && (id.equals("message_icon") || id.equals("message_icon_box"))) {
-                showMessagerie();
-//                conversationPane.setVisible(!conversationPane.isVisible());
+            }else if(id != null && (id.equals("message_icon") || id.equals("message_icon_box"))){
+                conversationPane.setVisible(!conversationPane.isVisible());
                 notificationPane.setVisible(false);
                 accountPane.setVisible(false);
-            } else if (id != null && (id.equals("account_icon") || id.equals("account_icon_box"))) {
+            }else if(id != null && (id.equals("account_icon") || id.equals("account_icon_box"))){
                 accountPane.setVisible(!accountPane.isVisible());
                 conversationPane.setVisible(false);
                 notificationPane.setVisible(false);
-            } else {
-                if (!((Node) event.getTarget()).getStyleClass().contains(new String("notificationClickable"))) {
-                    notificationPane.setVisible(false);
+            }else{
+                if(!((Node)event.getTarget()).getStyleClass().contains(new String("notificationClickable"))){
+                notificationPane.setVisible(false);
                 }
-                if (!((Node) event.getTarget()).getStyleClass().contains(new String("conversationClickable"))) {
+                if(!((Node)event.getTarget()).getStyleClass().contains(new String("conversationClickable"))){
                     conversationPane.setVisible(false);
                 }
-                if (!((Node) event.getTarget()).getStyleClass().contains(new String("accountClickable"))) {
+                if(!((Node)event.getTarget()).getStyleClass().contains(new String("accountClickable"))){
                     accountPane.setVisible(false);
                 }
             }
         }
     };
-
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        try {
+            online = MemberService.getInstance().get(new Member(MySoulMate.MEMBER_ID));
+        } catch (SQLException ex) {
+            Logger.getLogger(GlobalViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         instance = this;
         mainAnchor.addEventFilter(MouseEvent.MOUSE_CLICKED, notificationPaneHandler);
-        scroll.vvalueProperty().addListener((observable, oldValue, newValue) -> {
-            double yTranslate = (content.getHeight() * newValue.doubleValue()) - (scroll.getHeight() * newValue.doubleValue());
+        scroll.vvalueProperty().addListener( (observable, oldValue, newValue) -> {
+            double yTranslate = (content.getHeight()*newValue.doubleValue())-(scroll.getHeight()*newValue.doubleValue());
             navBar.translateYProperty().setValue(yTranslate);
         });
         notificationPane.visibleProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue) {
+            if(newValue){
                 notificationPane.setPrefHeight(600);
-                notificationIcon.getStyleClass().remove(notificationIcon.getStyleClass().size() - 1);
+                notificationIcon.getStyleClass().remove(notificationIcon.getStyleClass().size()-1);
                 activeIcon(notificationIcon, "notification");
                 return;
             }
@@ -140,9 +152,9 @@ public class GlobalViewController implements Initializable {
             releaseIcon(notificationIcon, "notification");
         });
         conversationPane.visibleProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue) {
+            if(newValue){
                 conversationPane.setPrefHeight(600);
-                messageIcon.getStyleClass().remove(messageIcon.getStyleClass().size() - 1);
+                messageIcon.getStyleClass().remove(messageIcon.getStyleClass().size()-1);
                 activeIcon(messageIcon, "message");
                 return;
             }
@@ -151,10 +163,10 @@ public class GlobalViewController implements Initializable {
             releaseIcon(messageIcon, "message");
         });
         accountPane.visibleProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue) {
+            if(newValue){
                 accountPane.setPrefHeight(600);
                 setContent("/view/AccountMenuView.fxml", accountContent);
-                accountIcon.getStyleClass().remove(accountIcon.getStyleClass().size() - 1);
+                accountIcon.getStyleClass().remove(accountIcon.getStyleClass().size()-1);
                 activeIcon(accountIcon, "account");
                 return;
             }
@@ -165,19 +177,19 @@ public class GlobalViewController implements Initializable {
         });
         setMainContent("/view/HomeView.fxml");
     }
-
-    public FXMLLoader setMainContent(String path) {
+    
+    public FXMLLoader setMainContent(String path){
         return setContent(path, content);
     }
-
-    public void clearMainContent() {
+    
+    public void clearMainContent(){
         clearContent(content);
     }
-
-    private FXMLLoader setContent(String path, Pane container) {
+    
+    private FXMLLoader setContent(String path, Pane container){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
-            Pane newLoadedPane = loader.load();
+            Pane newLoadedPane =  loader.load();
             VBox.setVgrow(scroll, Priority.ALWAYS);
             container.getChildren().clear();
             container.getChildren().add(newLoadedPane);
@@ -188,8 +200,8 @@ public class GlobalViewController implements Initializable {
         }
         return null;
     }
-
-    private void clearContent(Pane container) {
+    
+    private void clearContent(Pane container){
         container.getChildren().clear();
     }
 
@@ -201,11 +213,12 @@ public class GlobalViewController implements Initializable {
         quickSearchBox.setId("");
         blindDateBox.setId("");
         recommandationBox.setId("");
-
+        
     }
 
     @FXML
     private void showMatchContent(ActionEvent event) {
+        setContent("/view/MatchView.fxml", content);
         homeBox.setId("");
         matchBox.setId("selected");
         quickSearchBox.setId("");
@@ -233,48 +246,51 @@ public class GlobalViewController implements Initializable {
 
     @FXML
     private void showRecommandationContent(ActionEvent event) {
+        setContent("/view/RecommandationView.fxml", content);
         homeBox.setId("");
         matchBox.setId("");
         quickSearchBox.setId("");
         blindDateBox.setId("");
         recommandationBox.setId("selected");
     }
+    
+    public void clearMenuSelection(){
+        homeBox.setId("");
+        matchBox.setId("");
+        quickSearchBox.setId("");
+        blindDateBox.setId("");
+        recommandationBox.setId("");
+    }
 
     @FXML
     private void hover(MouseEvent event) {
-        Pane target = ((Pane) event.getTarget());
-        ImageView icon = ((ImageView) target.getChildren().get(0));
-        if (!icon.getStyleClass().contains(new String("hoverable"))) {
-            return;
-        }
+        Pane target = ((Pane)event.getTarget());
+        ImageView icon = ((ImageView)target.getChildren().get(0));
+        if(!icon.getStyleClass().contains(new String("hoverable"))) return;
         String id = target.getId();
         activeIcon(icon, id.substring(0, id.indexOf("_")));
     }
 
     @FXML
     private void exit(MouseEvent event) {
-        Pane target = ((Pane) event.getTarget());
-        ImageView icon = ((ImageView) target.getChildren().get(0));
-        if (!icon.getStyleClass().contains(new String("hoverable"))) {
-            return;
-        }
+        Pane target = ((Pane)event.getTarget());
+        ImageView icon = ((ImageView)target.getChildren().get(0));
+        if(!icon.getStyleClass().contains(new String("hoverable"))) return;
         String id = target.getId();
         releaseIcon(icon, id.substring(0, id.indexOf("_")));
     }
-
-    private void activeIcon(ImageView imageView, String imageName) {
-        String url = getClass().getResource("/view/assets/icons/hovered/" + imageName + ".png").toExternalForm();
+    
+    private void activeIcon(ImageView imageView, String imageName){
+        String url = getClass().getResource("/view/assets/icons/hovered/"+imageName+".png").toExternalForm();
+        imageView.setImage(new Image(url));
+    }
+    
+    private void releaseIcon(ImageView imageView, String imageName){
+        String url = getClass().getResource("/view/assets/icons/natural/"+imageName+".png").toExternalForm();
         imageView.setImage(new Image(url));
     }
 
-    private void releaseIcon(ImageView imageView, String imageName) {
-        String url = getClass().getResource("/view/assets/icons/natural/" + imageName + ".png").toExternalForm();
-        imageView.setImage(new Image(url));
-    }
-
-    private void showMessagerie() {
-        FXMLLoader loader = setMainContent("/view/InstantMessagingView.fxml");
-        ((InstantMessagingViewController) loader.getController()).setReceiverId(2);
-
+    @FXML
+    private void affiche_notif(MouseEvent event) {
     }
 }

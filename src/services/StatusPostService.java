@@ -35,6 +35,13 @@ public class StatusPostService extends Service implements Create<StatusPost>,Del
 	pst.setString(2, obj.getContent());
 	pst.setInt(3,obj.getOwnerId());
 	pst.executeUpdate();
+        
+        req = "SELECT MAX(id) max from post";
+	ResultSet rs = CONNECTION.createStatement().executeQuery(req);
+	rs.next();
+	
+	obj.setId(rs.getInt("max"));
+        
 	return obj;
     }
 

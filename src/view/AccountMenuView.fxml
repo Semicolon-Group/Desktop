@@ -27,23 +27,6 @@
                   </VBox>
                </children>
             </VBox>
-            <VBox layoutX="10.0" layoutY="10.0" prefHeight="58.0" prefWidth="279.0" styleClass="accountClickable">
-               <children>
-                  <VBox alignment="CENTER" prefHeight="200.0">
-                     <styleClass>
-                        <String fx:value="menu_item_box" />
-                        <String fx:value="accountClickable" />
-                     </styleClass>
-                     <children>
-                        <Button mnemonicParsing="false" onAction="#showOtherProfile" prefHeight="58.0" prefWidth="429.0" styleClass="menu_item" text="Test Other Profile" VBox.vgrow="ALWAYS">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                        </Button>
-                     </children>
-                  </VBox>
-               </children>
-            </VBox>
          </children>
       </VBox>
    </children>

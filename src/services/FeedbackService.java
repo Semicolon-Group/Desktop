@@ -33,12 +33,24 @@ public class FeedbackService extends Service implements Create<Feedback>,Update<
 
     @Override
     public Feedback create(Feedback obj) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String query = "insert into feedback ( content, state, sender_id, date) values(?,?,?,?)";
+        PreparedStatement preparedStatement = CONNECTION.prepareStatement(query);
+        preparedStatement.setString(1, obj.getContent());
+        preparedStatement.setBoolean(2, false);
+        preparedStatement.setInt(3, 1);
+        preparedStatement.setTimestamp(4, new Timestamp(new Date().getTime()));
+        preparedStatement.executeUpdate();
+        return obj;
+    
     }
 
     @Override
     public void update(Feedback obj) throws SQLException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String query = "UPDATE feedback SET state = ?  WHERE id = ?";
+        PreparedStatement pst = CONNECTION.prepareStatement(query);
+        pst.setBoolean(1, true);
+        pst.setInt(2, obj.getId());
+        pst.executeUpdate();
     }
 
     @Override
@@ -50,6 +62,27 @@ public class FeedbackService extends Service implements Create<Feedback>,Update<
     public List<Feedback> getAll(Feedback obj) throws SQLException {
 	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+
+
+ public List<Feedback> getFalse(Feedback obj) throws SQLException {
+        String query = "select * from feedback where state = 0";
+        ResultSet rs = CONNECTION.createStatement().executeQuery(query);
+        List<Feedback> feeds = new ArrayList<>();
+        while(rs.next()){
+            Feedback feed = new Feedback();
+	    feed.setId(rs.getInt("id"));
+            feed.setContent(rs.getString("content"));
+            feed.setState(rs.getBoolean("state"));
+            feed.setSenderId(rs.getInt("sender_id"));
+            feed.setDate(rs.getTimestamp("date"));
+            feeds.add(feed);
+        }
+        return feeds;
+        
+    }
+
+
 
     
 }

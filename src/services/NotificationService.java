@@ -45,6 +45,7 @@ public class NotificationService extends Service implements Create<Notification>
     public Notification get(Notification obj) throws SQLException {
 	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+ 
 
     @Override
     public List<Notification> getAll(Notification obj) throws SQLException {

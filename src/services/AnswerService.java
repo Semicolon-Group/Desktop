@@ -105,6 +105,8 @@ public class AnswerService extends Service implements Create<Answer>,Delete<Answ
         PreparedStatement prepare = CONNECTION.prepareStatement(query);
         prepare.setInt(1, obj.getImportance().ordinal());
         prepare.setInt(2, obj.getId());
+        prepare.executeUpdate();
+        
         deleteAcceptedChoices(obj);
         deleteSelectedChoices(obj);
         insertAcceptedChoices(obj);

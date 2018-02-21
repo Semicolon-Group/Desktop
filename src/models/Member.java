@@ -7,13 +7,14 @@ package models;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 import models.Enumerations.BodyType;
 import models.Enumerations.Importance;
 import models.Enumerations.MaritalStatus;
 import models.Enumerations.Proximity;
-import models.Enumerations.Religion;
 import models.Enumerations.RelationType;
 
 /**
@@ -26,7 +27,7 @@ public class Member extends User{
     private float height;
     private BodyType bodyType;
     private int childrenNumber;
-    private Religion religion;
+    private Enumerations.Religion religion;
     private Importance religionImportance;
     private boolean smoker;
     private boolean drinker;
@@ -57,10 +58,8 @@ public class Member extends User{
         preferedRelations = new ArrayList<>();
         preferedStatuses = new ArrayList<>();
     }
-    
-    
-
-    public Member(int id, Date birthDate, boolean gender, float height, BodyType bodyType, int childrenNumber, Religion religion, 
+  
+    public Member(int id, Date birthDate, boolean gender, float height, BodyType bodyType, int childrenNumber, Enumerations.Religion religion, 
             Importance religionImportance, boolean smoker, boolean drinker, int minAge, int maxAge, 
             Proximity proximity, Timestamp lastLogin, short locked, Address address, String pseudo, 
             String firstname, String lastname, String email, String password, String ip, int port, String about, 
@@ -88,8 +87,8 @@ public class Member extends User{
 	this.preferedRelations = new ArrayList<RelationType>();
 	this.preferedStatuses = new ArrayList<MaritalStatus>();
     }
-
-    public Member(Date birthDate, boolean gender, float height, BodyType bodyType, int childrenNumber, Religion religion, 
+  
+    public Member(Date birthDate, boolean gender, float height, BodyType bodyType, int childrenNumber, Enumerations.Religion religion, 
             Importance religionImportance, boolean smoker, boolean drinker, int minAge, int maxAge, Proximity proximity, 
             Timestamp lastLogin, short locked, Address address, String pseudo, String firstname, String lastname, String email, 
             String password, String ip, int port, String about, MaritalStatus maritalStatus, boolean connected,
@@ -117,7 +116,7 @@ public class Member extends User{
 	this.preferedRelations = new ArrayList<RelationType>();
 	this.preferedStatuses = new ArrayList<MaritalStatus>();
     }
-
+      
     public Timestamp getCreatedAt() {
         return createdAt;
     }
@@ -190,11 +189,11 @@ public class Member extends User{
 	this.childrenNumber = childrenNumber;
     }
 
-    public Religion getReligion() {
+    public Enumerations.Religion getReligion() {
 	return religion;
     }
 
-    public void setReligion(Religion religion) {
+    public void setReligion(Enumerations.Religion religion) {
 	this.religion = religion;
     }
 
@@ -274,7 +273,26 @@ public class Member extends User{
         return preferedRelations;
     }
 
+    public void setPreferedRelations(List<RelationType> preferedRelations) {
+        this.preferedRelations = preferedRelations;
+    }
+
     public List<MaritalStatus> getPreferedStatuses() {
         return preferedStatuses;
     }
+
+    public void setPreferedStatuses(List<MaritalStatus> preferedStatuses) {
+        this.preferedStatuses = preferedStatuses;
+    }
+        
+    @Override
+    public String toString() {
+	return super.toString() + "Member{" + "birthDate=" + birthDate + ", gender=" + gender + ", height=" + height + ", bodyType=" + bodyType + ", childrenNumber=" + childrenNumber + ", religion=" + religion + ", religionImportance=" + religionImportance + ", smoker=" + smoker + ", drinker=" + drinker + ", minAge=" + minAge + ", maxAge=" + maxAge + ", proximity=" + proximity + ", lastLogin=" + lastLogin + ", locked=" + locked + ", address=" + address + ", preferedRelations=" + preferedRelations + ", preferedStatuses=" + preferedStatuses + "}\n";
+    }
+
+    public int getAge() {
+        return Period.between(LocalDate.of(birthDate.getYear() + 1900, birthDate.getMonth() + 1,
+                birthDate.getDate()), LocalDate.now()).getYears();
+    }
+    
 }
