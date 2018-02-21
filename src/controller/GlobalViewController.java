@@ -123,6 +123,8 @@ public class GlobalViewController implements Initializable {
             }
         }
     };
+    @FXML
+    private AnchorPane supportPane;
     
     /**
      * Initializes the controller class.
@@ -143,10 +145,12 @@ public class GlobalViewController implements Initializable {
         notificationPane.visibleProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue){
                 notificationPane.setPrefHeight(600);
+                setContent("/view/NotificationPaneView.fxml", notificationContent);
                 notificationIcon.getStyleClass().remove(notificationIcon.getStyleClass().size()-1);
                 activeIcon(notificationIcon, "notification");
                 return;
             }
+            notificationContent.getChildren().clear();
             notificationPane.setPrefHeight(0);
             notificationIcon.getStyleClass().add("hoverable");
             releaseIcon(notificationIcon, "notification");
@@ -291,12 +295,7 @@ public class GlobalViewController implements Initializable {
     }
 
     @FXML
-    private void affiche_notif(MouseEvent event) {
-        setContent("/view/NotificationPane.fxml", notificationPane);
-    }
-
-    @FXML
     private void onMessageIconClick(MouseEvent event) {
-        setContent("/view/InstantMessagingView.fxml", content);
+//        setContent("/view/InstantMessagingView.fxml", content);
     }
 }

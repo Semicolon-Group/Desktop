@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" fx:id="mainAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1838.0" stylesheets="@style/MainStyleSheet.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GlobalViewController">
+<AnchorPane id="AnchorPane" fx:id="mainAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1838.0" stylesheets="@style/MainStyleSheet.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GlobalViewController">
    <children>
       <ScrollPane fx:id="scroll" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" pickOnBounds="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <content>
@@ -27,7 +27,7 @@
                            </children></AnchorPane>
                      <AnchorPane id="notification_panes_container" fx:id="navBar" prefHeight="48.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                         <children>
-                              <AnchorPane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <AnchorPane fx:id="supportPane" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
                                     <AnchorPane fx:id="notificationPane" prefHeight="0.0" prefWidth="413.0" styleClass="notification_container, notificationClickable" visible="false" AnchorPane.rightAnchor="176.0" AnchorPane.topAnchor="54.0">
                                        <children>
@@ -129,7 +129,7 @@
                                              </VBox>
                                              <VBox id="notification_icon_box" alignment="CENTER" layoutX="610.0" layoutY="10.0" onMouseEntered="#hover" onMouseExited="#exit" prefHeight="48.0" prefWidth="70.0">
                                                 <children>
-                                                   <ImageView id="notification_icon" fx:id="notificationIcon" fitHeight="24.0" fitWidth="200.0" onMouseClicked="#affiche_notif" pickOnBounds="true" preserveRatio="true">
+                                                   <ImageView id="notification_icon" fx:id="notificationIcon" fitHeight="24.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                                       <image>
                                                          <Image url="@assets/icons/natural/notification.png" />
                                                       </image>
