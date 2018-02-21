@@ -103,11 +103,7 @@ public class AuthentificationController implements Initializable {
                     if (m.getPseudo().equals(username.getText()) && m.getPassword().equals(pw.getText())) {
 
                         MySoulMate.MEMBER_ID = m.getId();
-                        FXMLLoader fxmlLoader2 = new FXMLLoader(getClass().getResource("/view/GlobalView.fxml"));
-                        Parent root2 = (Parent) fxmlLoader2.load();
-                        Stage stage = new Stage();
-                        stage.setScene(new Scene(root2));
-                        stage.show();
+                        MySoulMate.getInstance().ChangeToHomeScene();
 
                     } else {
                         Alert alert = new Alert(AlertType.ERROR);

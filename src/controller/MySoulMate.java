@@ -66,8 +66,6 @@ public class MySoulMate extends Application {
             mainStage.setHeight(primaryScreenBounds.getHeight());
 
             mainStage.setResizable(false);
-            mainStage.hide();
-            mainStage.show();
             
         } catch (IOException ex) {
             util.Logger.writeLog(ex, GlobalViewController.class.getCanonicalName(), null);
