@@ -6,7 +6,7 @@
 package models;
 
 import java.util.HashSet;
-import models.Enumerations.Topic;
+import models.Enumerations.TopicType;
 
 /**
  *
@@ -15,7 +15,7 @@ import models.Enumerations.Topic;
 public class Question {
     private int id;
     private String question;
-    private Topic topic;
+    private TopicType topic;
     private HashSet<Choice> choices;
 
     public Question() {
@@ -27,14 +27,14 @@ public class Question {
         choices = new HashSet<>();
     }
 
-    public Question(int id, String question, Topic topic) {
+    public Question(int id, String question, TopicType topic) {
 	this.id = id;
 	this.question = question;
 	this.topic = topic;
 	choices = new HashSet<>();
     }
 
-    public Question(String question, Topic topic) {
+    public Question(String question, TopicType topic) {
 	this.question = question;
 	this.topic = topic;
 	choices = new HashSet<>();
@@ -66,11 +66,11 @@ public class Question {
 	this.choices = choices;
     }
 
-    public Topic getTopic() {
+    public TopicType getTopic() {
 	return topic;
     }
 
-    public void setTopic(Topic topic) {
+    public void setTopic(TopicType topic) {
 	this.topic = topic;
     }
     

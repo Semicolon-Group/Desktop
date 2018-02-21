@@ -276,4 +276,8 @@ public class GlobalViewController implements Initializable {
         String url = getClass().getResource("/view/assets/icons/natural/"+imageName+".png").toExternalForm();
         imageView.setImage(new Image(url));
     }
+
+    @FXML
+    private void affiche_notif(MouseEvent event) {
+    }
 }

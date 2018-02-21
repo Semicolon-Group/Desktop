@@ -42,5 +42,8 @@ public class Choice {
         this.choice = choice;
     }
     
+    public String toString(){
+        return this.choice;
+    }
     
 }
