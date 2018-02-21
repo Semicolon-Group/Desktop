@@ -204,11 +204,11 @@ public class InstantMessagingViewController implements Initializable {
 
         msg = new Message();
         msg.setSenderId(1);
-        msg.setReceiverId(2);
+        msg.setReceiverId(3);
 
         List<Message> messages = MessageService.getInstance().getAll(msg);
         messages.forEach(e -> {
-            if (e.getSenderId() == 1 && e.getReceiverId() == 2) {
+            if (e.getSenderId() == 1 && e.getReceiverId() == 3) {
 
                 textField[i] = new Label();
                 textField[i].nodeOrientationProperty().setValue(NodeOrientation.RIGHT_TO_LEFT);
@@ -229,7 +229,7 @@ public class InstantMessagingViewController implements Initializable {
                 x.setContent(content2);
                 x.setVvalue(1.0d);
 
-            } else if (e.getSenderId() == 2 && e.getReceiverId() == 1) {
+            } else if (e.getSenderId() == 3 && e.getReceiverId() == 1) {
                 textField[i] = new Label();
 
                 textField[i].setText(" " + e.getContent() + " \n");
@@ -301,8 +301,8 @@ public class InstantMessagingViewController implements Initializable {
         try {
             Conversation c = new Conversation();
             cons = new VBox();
-            c.setPerson1Id(2);
-            c.setPerson2Id(1);
+            c.setPerson1Id(1);
+            c.setPerson2Id(3);
             Member m = new Member();
             m.setId(c.getPerson1Id());
            m= ms.get(m);
@@ -390,9 +390,9 @@ public class InstantMessagingViewController implements Initializable {
         ConversationService cs = ConversationService.getInstance();
         MessageService ms = MessageService.getInstance();
         msg = new Message();
-        msg.setSenderId(2);
+        msg.setSenderId(MySoulMate.MEMBER_ID);
 
-        msg.setReceiverId(6);
+        msg.setReceiverId(3);
         msg.setContent(message);
         try {
             connection.send((message.toString()));

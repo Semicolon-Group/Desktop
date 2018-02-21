@@ -100,9 +100,9 @@ public class AuthentificationController implements Initializable {
                 m = memberService.get(m);
 
                 if (m != null) {
-                        System.out.println(m);
                     if (m.getPseudo().equals(username.getText()) && m.getPassword().equals(pw.getText())) {
 
+                        MySoulMate.MEMBER_ID = m.getId();
                         FXMLLoader fxmlLoader2 = new FXMLLoader(getClass().getResource("/view/GlobalView.fxml"));
                         Parent root2 = (Parent) fxmlLoader2.load();
                         Stage stage = new Stage();

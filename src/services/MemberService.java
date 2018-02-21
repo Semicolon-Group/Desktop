@@ -152,7 +152,6 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
         st = CONNECTION.createStatement();
         rs = st.executeQuery(req);
         
-        System.out.println(rs);
         if(rs.next()){
             obj.setId(rs.getInt("id"));
             obj.setPseudo(rs.getString("pseudo"));

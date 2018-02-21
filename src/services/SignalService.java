@@ -8,8 +8,15 @@ package services;
 import iservice.Create;
 import iservice.Read;
 import iservice.Update;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import models.Enumerations;
+import models.Enumerations.SignalReason;
 import models.Signal;
 
 /**
@@ -70,7 +77,7 @@ public class SignalService extends Service implements Create<Signal>,Update<Sign
         }
 	return null;
     }
-
+    
     @Override
     public List<Signal> getAll(Signal obj) throws SQLException {
 	String query = "select * from user_signal " ;
