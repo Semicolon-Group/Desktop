@@ -23,22 +23,45 @@ import javafx.stage.StageStyle;
  */
 public class MySoulMate extends Application {
     
+    public static int MEMBER_ID=2;
+    public static final String UPLOAD_URL = "http://localhost/mysoulmateuploads/";
+    public static Stage mainStage;
+    private static MySoulMate instance;
+    
+    public static MySoulMate getInstance(){
+        return instance;
+    }
+    
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Parent globalPane = FXMLLoader.load(getClass().getResource("/view/GlobalView.fxml"));
-        Scene scene = new Scene(globalPane);
-        primaryStage.setScene(scene);
-        
-        javafx.geometry.Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-        primaryStage.setX(primaryScreenBounds.getMinX());
-        primaryStage.setY(primaryScreenBounds.getMinY());
-        primaryStage.setWidth(primaryScreenBounds.getWidth());
-        primaryStage.setHeight(primaryScreenBounds.getHeight());
-        
-        primaryStage.setResizable(false);
-        primaryStage.initStyle(StageStyle.UNDECORATED);
-        
-        primaryStage.show();
+        instance=this;
+        mainStage = primaryStage;
+//        Parent globalPane = FXMLLoader.load(getClass().getResource("/view/GlobalView.fxml"));
+//        Scene scene = new Scene(globalPane);
+//        mainStage.setScene(scene);
+       mainStage.initStyle(StageStyle.UNDECORATED);
+//        mainStage.show();
+        ChangeToHomeScene();
+    }
+    
+    public void ChangeToHomeScene(){
+        try {
+            Parent globalPane = FXMLLoader.load(getClass().getResource("/view/GlobalView.fxml"));
+            Scene scene = new Scene(globalPane);
+            mainStage.setScene(scene);
+
+            javafx.geometry.Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+            mainStage.setX(primaryScreenBounds.getMinX());
+            mainStage.setY(primaryScreenBounds.getMinY());
+            mainStage.setWidth(primaryScreenBounds.getWidth());
+            mainStage.setHeight(primaryScreenBounds.getHeight());
+
+            mainStage.setResizable(false);
+
+            mainStage.show();
+        } catch (IOException ex) {
+            util.Logger.writeLog(ex, GlobalViewController.class.getCanonicalName(), null);
+        }
     }
 
     /**

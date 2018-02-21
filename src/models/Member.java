@@ -38,7 +38,10 @@ public class Member extends User{
     private Address address;
     private List<RelationType> preferedRelations;
     private List<MaritalStatus> preferedStatuses;
-    
+    private String about;
+    private MaritalStatus maritalStatus;
+    private boolean connected;
+    private Timestamp createdAt;
 
     public Member() {
         preferedRelations = new ArrayList<>();
@@ -51,36 +54,11 @@ public class Member extends User{
         preferedStatuses = new ArrayList<>();
     }
 
-    public Member(String pseudo, String firstname, String lastname, String email, String password) {
-        super(pseudo, firstname, lastname, email, password);
-    }
-
-    public Member(String pseudo, String firstname, String lastname, String email, String password,Date birthDate) {
-        super(pseudo, firstname, lastname, email, password);
-        this.birthDate = birthDate;
-    }
-
-    public Member(Date birthDate, boolean gender, float height, BodyType bodyType, int childrenNumber, Religion religion, Importance religionImportance, boolean smoker, boolean drinker, int minAge, int maxAge, Proximity proximity, List<RelationType> preferedRelations, List<MaritalStatus> preferedStatuses, String pseudo, String firstname, String lastname, String email, String password) {
-        super(pseudo, firstname, lastname, email, password);
-        this.birthDate = birthDate;
-        this.gender = gender;
-        this.height = height;
-        this.bodyType = bodyType;
-        this.childrenNumber = childrenNumber;
-        this.religion = religion;
-        this.religionImportance = religionImportance;
-        this.smoker = smoker;
-        this.drinker = drinker;
-        this.minAge = minAge;
-        this.maxAge = maxAge;
-        this.proximity = proximity;
-        this.preferedRelations = preferedRelations;
-        this.preferedStatuses = preferedStatuses;
-    }
-    
-    
-    
-    public Member(Date birthDate, boolean gender, float height, BodyType bodyType, int childrenNumber, Religion religion, Importance religionImportance, boolean smoker, boolean drinker, int minAge, int maxAge, Proximity proximity, Timestamp lastLogin, short locked, Address address, int id, String pseudo, String firstname, String lastname, String email, String password, String ip, int port) {
+    public Member(int id, Date birthDate, boolean gender, float height, BodyType bodyType, int childrenNumber, Religion religion, 
+            Importance religionImportance, boolean smoker, boolean drinker, int minAge, int maxAge, 
+            Proximity proximity, Timestamp lastLogin, short locked, Address address, String pseudo, 
+            String firstname, String lastname, String email, String password, String ip, int port, String about, 
+            MaritalStatus maritalStatus, boolean connected, Timestamp createdAt) {
 	super(id, pseudo, firstname, lastname, email, password, ip, port);
 	this.birthDate = birthDate;
 	this.gender = gender;
@@ -97,11 +75,19 @@ public class Member extends User{
 	this.lastLogin = lastLogin;
 	this.locked = locked;
 	this.address = address;
+        this.about = about;
+        this.maritalStatus = maritalStatus;
+        this.connected = connected;
+        this.createdAt = createdAt;
 	this.preferedRelations = new ArrayList<RelationType>();
 	this.preferedStatuses = new ArrayList<MaritalStatus>();
     }
 
-    public Member(Date birthDate, boolean gender, float height, BodyType bodyType, int childrenNumber, Religion religion, Importance religionImportance, boolean smoker, boolean drinker, int minAge, int maxAge, Proximity proximity, Timestamp lastLogin, short locked, Address address, String pseudo, String firstname, String lastname, String email, String password, String ip, int port) {
+    public Member(Date birthDate, boolean gender, float height, BodyType bodyType, int childrenNumber, Religion religion, 
+            Importance religionImportance, boolean smoker, boolean drinker, int minAge, int maxAge, Proximity proximity, 
+            Timestamp lastLogin, short locked, Address address, String pseudo, String firstname, String lastname, String email, 
+            String password, String ip, int port, String about, MaritalStatus maritalStatus, boolean connected,
+            Timestamp createdAt) {
 	super(pseudo, firstname, lastname, email, password, ip, port);
 	this.birthDate = birthDate;
 	this.gender = gender;
@@ -118,10 +104,45 @@ public class Member extends User{
 	this.lastLogin = lastLogin;
 	this.locked = locked;
 	this.address = address;
+        this.about = about;
+        this.maritalStatus = maritalStatus;
+        this.connected = connected;
+        this.createdAt = createdAt;
 	this.preferedRelations = new ArrayList<RelationType>();
 	this.preferedStatuses = new ArrayList<MaritalStatus>();
     }
-         
+      
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public MaritalStatus getMaritalStatus() {
+        return maritalStatus;
+    }
+
+    public void setMaritalStatus(MaritalStatus maritalStatus) {
+        this.maritalStatus = maritalStatus;
+    }
+
+    public boolean isConnected() {
+        return connected;
+    }
+
+    public void setConnected(boolean connected) {
+        this.connected = connected;
+    }
+
+    public String getAbout(){
+        return about;
+    }
+    
+    public void setAbout(String about){
+        this.about = about;
+    }
 
     public Date getBirthDate() {
 	return birthDate;
