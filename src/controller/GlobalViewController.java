@@ -36,8 +36,6 @@ import services.MemberService;
  * @author Seif
  */
 public class GlobalViewController implements Initializable {
-    
-    public static Member online;
 
     @FXML
     private AnchorPane mainAnchor;
@@ -87,6 +85,8 @@ public class GlobalViewController implements Initializable {
     private VBox blindDateBox;
     @FXML
     private ImageView accountIcon;
+    
+    public static Member online;
     
     private static GlobalViewController instance;
     
@@ -288,5 +288,9 @@ public class GlobalViewController implements Initializable {
     private void releaseIcon(ImageView imageView, String imageName){
         String url = getClass().getResource("/view/assets/icons/natural/"+imageName+".png").toExternalForm();
         imageView.setImage(new Image(url));
+    }
+
+    @FXML
+    private void affiche_notif(MouseEvent event) {
     }
 }

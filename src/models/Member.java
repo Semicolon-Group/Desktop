@@ -27,8 +27,8 @@ public class Member extends User{
     private float height;
     private BodyType bodyType;
     private int childrenNumber;
-    private Enumerations.Religion relegion;
-    private Importance relegionImportance;
+    private Enumerations.Religion religion;
+    private Importance religionImportance;
     private boolean smoker;
     private boolean drinker;
     private int minAge;
@@ -66,8 +66,8 @@ public class Member extends User{
 	this.height = height;
 	this.bodyType = bodyType;
 	this.childrenNumber = childrenNumber;
-	this.relegion = relegion;
-	this.relegionImportance = relegionImportance;
+	this.religion = religion;
+	this.religionImportance = religionImportance;
 	this.smoker = smoker;
 	this.drinker = drinker;
 	this.minAge = minAge;
@@ -95,8 +95,8 @@ public class Member extends User{
 	this.height = height;
 	this.bodyType = bodyType;
 	this.childrenNumber = childrenNumber;
-	this.relegion = religion;
-	this.relegionImportance = relegionImportance;
+	this.religion = religion;
+	this.religionImportance = religionImportance;
 	this.smoker = smoker;
 	this.drinker = drinker;
 	this.minAge = minAge;
@@ -186,19 +186,19 @@ public class Member extends User{
     }
 
     public Enumerations.Religion getReligion() {
-	return relegion;
+	return religion;
     }
 
     public void setReligion(Enumerations.Religion religion) {
-	this.relegion = religion;
+	this.religion = religion;
     }
 
     public Importance getReligionImportance() {
-	return relegionImportance;
+	return religionImportance;
     }
 
     public void setReligionImportance(Importance religionImportance) {
-	this.relegionImportance = religionImportance;
+	this.religionImportance = religionImportance;
     }
 
     public boolean isSmoker() {
