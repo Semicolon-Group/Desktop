@@ -85,6 +85,8 @@ public class QuestionService extends Service implements Create<Question>, Delete
     @Override
     public List<Question> getAll(Question obj) throws SQLException {
 	String query = "select * from question";
+        if(obj.getTopic() != null)
+            query+=" where topic = "+obj.getTopic().ordinal();
 	ResultSet rs = CONNECTION.createStatement().executeQuery(query);
 	List<Question> qsts = new ArrayList<>();
 	while (rs.next()) {
