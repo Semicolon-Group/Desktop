@@ -99,4 +99,10 @@ public class Enumerations {
         PROFILE,
         COVER
     }
+    public enum LastLogin{
+        UN_JOUR,
+        SEMAINE,
+        MOIS,
+        ANNEE
+    }
 }

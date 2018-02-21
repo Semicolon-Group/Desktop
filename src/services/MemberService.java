@@ -5,6 +5,7 @@
  */
 package services;
 
+import static controller.GlobalViewController.online;
 import iservice.Create;
 import iservice.Read;
 import iservice.Update;
@@ -90,15 +91,17 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
         return obj;
 
     }
-    //methode update pour modifichier l'attribut locked , bannir un membre
-            public void updatelock(int id,short locked) throws SQLException{
-                String query = "UPDATE user SET  locked=? WHERE id=?";
-                PreparedStatement prepare = CONNECTION.prepareStatement(query);
-                prepare.setShort(1, locked);
-                prepare.setInt(2, id);
-                prepare.executeUpdate();
 
-            }
+    //methode update pour modifichier l'attribut locked , bannir un membre
+    public void updatelock(int id, short locked) throws SQLException {
+        String query = "UPDATE user SET  locked=? WHERE id=?";
+        PreparedStatement prepare = CONNECTION.prepareStatement(query);
+        prepare.setShort(1, locked);
+        prepare.setInt(2, id);
+        prepare.executeUpdate();
+
+    }
+
     @Override
     public void update(Member obj) throws SQLException {
         String query = "UPDATE user SET pseudo=?, firstname=?, lastname=?,"
@@ -137,22 +140,21 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
         AddressService.getInstance().update(obj.getAddress());
     }
 
-
- @Override
+    @Override
     public Member get(Member obj) throws SQLException {
         String condition = "";
         if (obj.getId() != 0) {
             condition = "Where id = " + obj.getId();
         } else if (obj.getPseudo() != null) {
-            condition = "Where pseudo = '" + obj.getPseudo()+"'";
+            condition = "Where pseudo = '" + obj.getPseudo() + "'";
         } else if (obj.getEmail() != null) {
-            condition = "Where email = '" + obj.getEmail()+"'";
+            condition = "Where email = '" + obj.getEmail() + "'";
         }
         String req = "Select * from user " + condition;
         st = CONNECTION.createStatement();
         rs = st.executeQuery(req);
-        
-        if(rs.next()){
+
+        if (rs.next()) {
             obj.setId(rs.getInt("id"));
             obj.setPseudo(rs.getString("pseudo"));
             obj.setFirstname(rs.getString("firstname"));
@@ -227,4 +229,86 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
         return mmbrs;
     }
 
+    public List<Member> getFiltered(Filter F) throws SQLException {
+        String req = "select * from user WHERE ";
+
+        req += "(height >=" + F.getHeightMin() + " and height <= " + F.getHeightMax() + ") ";
+
+        if (!F.getBodyType().isEmpty()) {
+            req += "and (body_type in (";
+            for (Enumerations.BodyType bt : F.getBodyType()) {
+                req += bt.ordinal() + ",";
+            }
+            req = req.substring(0, req.length() - 1) + ")) ";
+        }
+
+        if (!F.getReligion().isEmpty()) {
+            req += " and (relegion in (";
+            for (Enumerations.Religion r : F.getReligion()) {
+                req += r.ordinal() + ",";
+            }
+            req = req.substring(0, req.length() - 1) + ")) ";
+        }
+
+        if (!F.getMaritalStatus().isEmpty()) {
+            req += " and (civil_status in (";
+            for (Enumerations.MaritalStatus m : F.getMaritalStatus()) {
+                req += m.ordinal() + ",";
+            }
+            req = req.substring(0, req.length() - 1) + ")) ";
+        }
+
+        req += " and (gender = " + online.isGender() + ") ";
+
+        if (F.getSmokes() != -1) {
+            req += "and (smoker = " + F.getSmokes() + ") ";
+        }
+
+        if (F.getDrinks() != -1) {
+            req += "and (drinker = " + F.getDrinks() + ") ";
+        }
+
+        req += " and `last_login` >= ?";
+
+        PreparedStatement pst = CONNECTION.prepareStatement(req);
+        pst.setTimestamp(1, F.getLastLogin());
+
+        ResultSet rs = pst.executeQuery();
+        List<Member> mmbrs = new ArrayList<>();
+        while (rs.next()) {
+
+            Member mbr = new Member();
+
+            mbr.setId(rs.getInt("id"));
+            mbr.setPseudo(rs.getString("pseudo"));
+            mbr.setFirstname(rs.getString("firstname"));
+            mbr.setLastname(rs.getString("lastname"));
+            mbr.setEmail(rs.getString("Email"));
+            mbr.setPassword(rs.getString("password"));
+            mbr.setBirthDate(rs.getDate("birth_date"));
+            mbr.setGender(rs.getBoolean("gender"));
+            mbr.setHeight(rs.getFloat("height"));
+            mbr.setBodyType((Enumerations.BodyType.values()[rs.getInt("body_type")]));
+            mbr.setChildrenNumber(rs.getInt("children_number"));
+            mbr.setReligion((Enumerations.Religion.values()[rs.getInt("relegion")]));
+            mbr.setReligionImportance((Enumerations.Importance.values()[rs.getInt("relegion_importance")]));
+            mbr.setSmoker(rs.getBoolean("smoker"));
+            mbr.setDrinker(rs.getBoolean("drinker"));
+            mbr.setMinAge(rs.getInt("min_age"));
+            mbr.setMaxAge(rs.getInt("max_age"));
+            mbr.setProximity(Enumerations.Proximity.values()[rs.getInt("proximity")]);
+            mbr.setLastLogin(rs.getTimestamp("last_login"));
+            mbr.setLocked(rs.getShort("locked"));
+            mbr.setIp(rs.getString("ip"));
+            mbr.setPort(rs.getInt("port"));
+            mbr.setAbout(rs.getString("about"));
+            mbr.setMaritalStatus(Enumerations.MaritalStatus.values()[rs.getInt("civil_status")]);
+            mbr.setConnected(rs.getBoolean("connected"));
+            mbr.setCreatedAt(rs.getTimestamp("created_at"));
+            mbr.setAddress(AddressService.getInstance().get(new Address(mbr.getId())));
+
+            mmbrs.add(mbr);
+        }
+        return mmbrs;
+    }
 }

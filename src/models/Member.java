@@ -124,7 +124,7 @@ public class Member extends User{
     public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
     }
-
+    
     public MaritalStatus getMaritalStatus() {
         return maritalStatus;
     }
