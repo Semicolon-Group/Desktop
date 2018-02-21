@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
@@ -38,16 +39,12 @@
                <children>
                   <VBox prefHeight="100.0" prefWidth="857.0">
                      <children>
-                        <JFXTextField fx:id="username" alignment="CENTER" focusColor="#e74c3c" maxWidth="860.0" minWidth="676.0" prefHeight="75.0" prefWidth="855.0" promptText="Pseudo">
+                        <JFXTextField fx:id="username" alignment="CENTER" focusColor="#e74c3c" maxWidth="860.0" minWidth="676.0" prefHeight="82.0" prefWidth="857.0" promptText="Pseudo">
                            <font>
                               <Font size="25.0" />
                            </font>
                         </JFXTextField>
-                        <JFXTextField fx:id="pw" alignment="CENTER" focusColor="#e74c3c" maxWidth="862.0" minWidth="706.0" prefHeight="70.0" prefWidth="862.0" promptText="Password">
-                           <font>
-                              <Font size="25.0" />
-                           </font>
-                        </JFXTextField>
+                        <JFXPasswordField fx:id="pw" focusColor="#e74c3c" maxWidth="857.0" minWidth="676.0" prefHeight="80.0" prefWidth="857.0" />
                      </children>
                   </VBox>
                </children>

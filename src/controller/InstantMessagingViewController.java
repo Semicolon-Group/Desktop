@@ -145,7 +145,7 @@ public class InstantMessagingViewController implements Initializable {
                 wrap = new HBox();
 
 //
-                if (data.equals(t)) {
+                if ((data.toString()).equals(t)) {
                     typing.setText("Is typing");
                     typing.getStyleClass().add("typing");
 
@@ -177,7 +177,7 @@ public class InstantMessagingViewController implements Initializable {
                 wrap = new HBox();
 
 //
-                if (data.equals(t)) {
+                if ((data.toString()).equals(t)) {
                     typing.setText("Is typing");
                     typing.getStyleClass().add("typing");
 
@@ -301,17 +301,17 @@ public class InstantMessagingViewController implements Initializable {
         try {
             Conversation c = new Conversation();
             cons = new VBox();
-            c.setPerson1Id(1);
-//            c.setPerson2Id(2);
+            c.setPerson1Id(2);
+            c.setPerson2Id(1);
             Member m = new Member();
             m.setId(c.getPerson1Id());
-            ms.get(m);
+           m= ms.get(m);
             List<Conversation> convers = cs.getAll(c);
             convers.forEach(e -> {
                 Member m2 = new Member();
                 m2.setId(c.getPerson2Id());
                 try {
-                    ms.get(m2);
+                   m2= ms.get(m2);
                 } catch (SQLException ex) {
                     Logger.getLogger(InstantMessagingViewController.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -351,6 +351,7 @@ public class InstantMessagingViewController implements Initializable {
             });
 
         } catch (Exception e) {
+              Logger.getLogger(InstantMessagingViewController.class.getName()).log(Level.SEVERE, null, e);
         }
 
         cons.setMinWidth(300);

@@ -5,6 +5,7 @@
  */
 package controller;
 
+import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
@@ -46,10 +47,11 @@ import util.SendMail;
  */
 public class AuthentificationController implements Initializable {
 
+    int logged = 0;
     @FXML
     private TextField username;
     @FXML
-    private JFXTextField pw;
+    private JFXPasswordField pw;
     @FXML
     private Button button;
     @FXML
@@ -71,70 +73,70 @@ public class AuthentificationController implements Initializable {
     private void goAuthentification(ActionEvent event) throws SQLException, IOException {
 
         MemberService memberService = MemberService.getInstance();
+        if (username.getText().isEmpty()) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Empty username");
+            alert.setHeaderText("Username ");
+            alert.setContentText("No username was inserted");
 
-        try {
-            if (username.getText().isEmpty()) {
-                Alert alert = new Alert(AlertType.ERROR);
-                alert.setTitle("Empty username");
-                alert.setHeaderText("Username ");
-                alert.setContentText("No username was inserted");
+            alert.showAndWait();
 
-                alert.showAndWait();
+        } else if (pw.getText().isEmpty()) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Empty password");
+            alert.setHeaderText(" Password ");
+            alert.setContentText("No Password was inserted");
 
-            } else if (pw.getText().isEmpty()) {
-                Alert alert = new Alert(AlertType.ERROR);
-                alert.setTitle("Empty password");
-                alert.setHeaderText(" Password ");
-                alert.setContentText("No Password was inserted");
+            alert.showAndWait();
+        } else {
 
-                alert.showAndWait();
-            } else {
+            try {
 
                 Member m = new Member();
 
                 m.setPseudo(username.getText());
-                m.setPassword(pw.getText());
+//                m.setPassword(pw.getText());
 
                 m = memberService.get(m);
 
-                if (m == null) {
-                    Alert alert = new Alert(AlertType.ERROR);
+                if (m != null) {
+                        System.out.println(m);
+                    if (m.getPseudo().equals(username.getText()) && m.getPassword().equals(pw.getText())) {
 
-                    alert.setTitle("No one !");
-                    alert.setHeaderText(" No one ! ");
-                    alert.setContentText("No one !");
+                        FXMLLoader fxmlLoader2 = new FXMLLoader(getClass().getResource("/view/GlobalView.fxml"));
+                        Parent root2 = (Parent) fxmlLoader2.load();
+                        Stage stage = new Stage();
+                        stage.setScene(new Scene(root2));
+                        stage.show();
 
-                    alert.showAndWait();
-                }
-                    else if (m.getPseudo().equals(username.getText()) && m.getPassword().equals(pw.getText()))
-                            {
-                             FXMLLoader fxmlLoader2 = new FXMLLoader(getClass().getResource("/view/GlobalView.fxml"));
-                    Parent root2 = (Parent) fxmlLoader2.load();
-                    Stage stage = new Stage();
-                    stage.setScene(new Scene(root2));
-                    stage.show();
-                            
-                            
+                    } else {
+                        Alert alert = new Alert(AlertType.ERROR);
+
+                        alert.setTitle("Wrong password !");
+                        alert.setHeaderText(" Wrong password ! ");
+                        alert.setContentText(" Wrong password !");
+
+                        alert.showAndWait();
+
+                    }
 
                 } else {
-                     Alert alert = new Alert(AlertType.ERROR);
 
-                    alert.setTitle("No one !");
-                    alert.setHeaderText(" No one ! ");
-                    alert.setContentText("No one !");
+                    Alert alert = new Alert(AlertType.ERROR);
+
+                    alert.setTitle("This member doesn't exist!");
+                    alert.setHeaderText(" This member doesn't exist! ");
+                    alert.setContentText(" This member doesn't exist!");
 
                     alert.showAndWait();
-
                 }
 
-                System.out.println(m.getId() + " " + m.getPseudo() + " " + m.getFirstname() + " " + m.getLastname() + " " + m.getEmail() + " " + m.getPassword() + " " + m.getBirthDate() + " " + m.isGender() + " " + m.getHeight() + " " + m.getHeight() + " " + m.getBodyType() + " " + m.getChildrenNumber() + " " + m.getReligion() + " " + m.getReligionImportance() + " " + m.isSmoker() + " "
-                        + m.isDrinker() + " " + m.getMaxAge() + " " + m.getMinAge() + " " + m.getProximity() + " " + m.getLastLogin() + " " + m.getLocked() + " " + m.getIp() + " " + m.getPort() + " " + m.getPreferedRelations() + " " + m.getPreferedStatuses());
+            } catch (Exception e) {
+                System.out.println(e);
             }
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        Stage stagex = (Stage) username.getScene().getWindow();
+            Stage stagex = (Stage) username.getScene().getWindow();
 
+        }
     }
 
     @FXML
@@ -160,7 +162,6 @@ public class AuthentificationController implements Initializable {
         while (true) {
             if (!dr1.getCurrentUrl().contains("www.facebook.com")) {
 
-
                 String url = dr1.getCurrentUrl();
                 accessToken = url.replaceAll(".*#access_token=(.+)&.*", "$1");
 
@@ -172,22 +173,21 @@ public class AuthentificationController implements Initializable {
 
                 try {
                     m = memberService.get(m);
-                    if (m!=null)
+                    if (m != null) {
+                        button.getScene().setRoot(FXMLLoader.load(getClass().getResource("/view/GlobalView.fxml")));
+                    } else {
+                        Alert alert = new Alert(AlertType.ERROR);
+                        alert.setTitle("Not registred");
+                        alert.setHeaderText("Error ");
+                        alert.setContentText("No user is registred with such account");
 
-
-                    button.getScene().setRoot(FXMLLoader.load(getClass().getResource("/view/GlobalView.fxml")));
-                    else { Alert alert = new Alert(AlertType.ERROR);
-                    alert.setTitle("Not registred");
-                    alert.setHeaderText("Error ");
-                    alert.setContentText("No user is registred with such account");
-
-                    alert.showAndWait();}
+                        alert.showAndWait();
+                    }
 
                 } catch (SQLException e) {
 
                     System.out.println(e);
                 }
-
 
                 if (dr1.getCurrentUrl().contains("localhost")) {
                     return;
@@ -198,7 +198,6 @@ public class AuthentificationController implements Initializable {
             }
         }
     }
-
 
     @FXML
     private void goRecover1(MouseEvent event) throws IOException {

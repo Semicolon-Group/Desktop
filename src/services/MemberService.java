@@ -92,20 +92,13 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
 
     }
 
-    @Override
+     @Override
     public void update(Member obj) throws SQLException {
-        String condition ="";
-        if (obj.getEmail()!=null && obj.getPseudo()!=null) 
-        { condition= " Where  pseudo='"+obj.getPseudo()+"' and email='"+obj.getEmail()+"'";}
-        else if(obj.getId()!=0){
-            condition = " Where id="+obj.getId();
-        
-        }
         String query = "UPDATE user SET pseudo=?, firstname=?, lastname=?,"
                 + "email=?, password=?, birth_date=?, gender=?, height=?,"
                 + "body_type=?, children_number=?, relegion=?, relegion_importance=?,"
                 + "smoker=?, drinker=?, min_age=?, max_age=?, proximity=?,"
-                + "last_login=?, locked=?, ip=?, port=?, updated_at=?, about=?, civil_status=?, connected=? "+condition;
+                + "last_login=?, locked=?, ip=?, port=?, updated_at=?, about=?, civil_status=?, connected=? WHERE id=?";
         PreparedStatement prepare = CONNECTION.prepareStatement(query);
         prepare.setString(1, obj.getPseudo());
         prepare.setString(2, obj.getFirstname());
@@ -132,29 +125,29 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
         prepare.setString(23, obj.getAbout());
         prepare.setInt(24, obj.getMaritalStatus().ordinal());
         prepare.setBoolean(25, obj.isConnected());
-       
+        prepare.setInt(26, obj.getId());
         prepare.executeUpdate();
-//        AddressService.getInstance().update(obj.getAddress());
+        AddressService.getInstance().update(obj.getAddress());
     }
 
-    @Override
+
+ @Override
     public Member get(Member obj) throws SQLException {
         String condition = "";
-        if(obj.getPseudo()!=null)
-             condition = " Where pseudo ='" + obj.getPseudo()+"'";
-        else  if (obj.getId() != 0) {
-            condition = " Where id =" + obj.getId();
-        } else if (obj.getPseudo() != null && obj.getEmail() != null) {
-            condition = " Where pseudo ='" + obj.getPseudo() + "' and email='" + obj.getEmail() + "'";
-        } else if (obj.getPseudo() != null && obj.getPassword() != null) {
-            condition = " Where pseudo ='" + obj.getPseudo() + "' and password='" + obj.getPassword() + "'";
-
+        if (obj.getId() != 0) {
+            condition = "Where id = " + obj.getId();
+        } else if (obj.getPseudo() != null) {
+            condition = "Where pseudo = '" + obj.getPseudo()+"'";
+        } else if (obj.getEmail() != null) {
+            condition = "Where email = '" + obj.getEmail()+"'";
         }
         String req = "Select * from user " + condition;
         st = CONNECTION.createStatement();
         rs = st.executeQuery(req);
-        if (rs.next()) {
-
+        
+        System.out.println(rs);
+        if(rs.next()){
+            obj.setId(rs.getInt("id"));
             obj.setPseudo(rs.getString("pseudo"));
             obj.setFirstname(rs.getString("firstname"));
             obj.setLastname(rs.getString("lastname"));
@@ -180,7 +173,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
             obj.setMaritalStatus(Enumerations.MaritalStatus.values()[rs.getInt("civil_status")]);
             obj.setConnected(rs.getBoolean("connected"));
             obj.setCreatedAt(rs.getTimestamp("created_at"));
-//            obj.setAddress(AddressService.getInstance().get(new Address(obj.getId())));
+            obj.setAddress(AddressService.getInstance().get(new Address(obj.getId())));
             return obj;
         }
         return null;
