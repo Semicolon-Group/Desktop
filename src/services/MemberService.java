@@ -63,8 +63,8 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
         preparedStatement.setFloat(8, obj.getHeight());
         preparedStatement.setInt(9, obj.getBodyType().ordinal());
         preparedStatement.setInt(10, obj.getChildrenNumber());
-        preparedStatement.setInt(11, obj.getRelegion().ordinal());
-        preparedStatement.setInt(12, obj.getRelegionImportance().ordinal());
+        preparedStatement.setInt(11, obj.getReligion().ordinal());
+        preparedStatement.setInt(12, obj.getReligionImportance().ordinal());
         preparedStatement.setBoolean(13, obj.isSmoker());
         preparedStatement.setBoolean(14, obj.isDrinker());
         preparedStatement.setInt(15, obj.getMinAge());
@@ -119,8 +119,8 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
         prepare.setFloat(8, obj.getHeight());
         prepare.setInt(9, obj.getBodyType().ordinal());
         prepare.setInt(10, obj.getChildrenNumber());
-        prepare.setInt(11, obj.getRelegion().ordinal());
-        prepare.setInt(12, obj.getRelegionImportance().ordinal());
+        prepare.setInt(11, obj.getReligion().ordinal());
+        prepare.setInt(12, obj.getReligionImportance().ordinal());
         prepare.setBoolean(13, obj.isSmoker());
         prepare.setBoolean(14, obj.isDrinker());
         prepare.setInt(15, obj.getMinAge());
@@ -163,8 +163,8 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
             obj.setHeight(rs.getFloat("height"));
             obj.setBodyType(Enumerations.BodyType.values()[rs.getInt("body_type")]);
             obj.setChildrenNumber(rs.getInt("children_number"));
-            obj.setRelegion(Enumerations.Relegion.values()[rs.getInt("relegion")]);
-            obj.setRelegionImportance(Enumerations.Importance.values()[rs.getInt("relegion_importance")]);
+            obj.setReligion(Enumerations.Religion.values()[rs.getInt("relegion")]);
+            obj.setReligionImportance(Enumerations.Importance.values()[rs.getInt("relegion_importance")]);
             obj.setSmoker(rs.getBoolean("smoker"));
             obj.setDrinker(rs.getBoolean("drinker"));
             obj.setMinAge(rs.getInt("min_age"));
@@ -204,8 +204,8 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
             mbr.setHeight(rs.getFloat("height"));
             mbr.setBodyType((Enumerations.BodyType.values()[rs.getInt("body_type")]));
             mbr.setChildrenNumber(rs.getInt("children_number"));
-            mbr.setRelegion((Enumerations.Relegion.values()[rs.getInt("relegion")]));
-            mbr.setRelegionImportance((Enumerations.Importance.values()[rs.getInt("relegion_importance")]));
+            mbr.setReligion((Enumerations.Religion.values()[rs.getInt("relegion")]));
+            mbr.setReligionImportance((Enumerations.Importance.values()[rs.getInt("relegion_importance")]));
             mbr.setSmoker(rs.getBoolean("smoker"));
             mbr.setDrinker(rs.getBoolean("drinker"));
             mbr.setMinAge(rs.getInt("min_age"));

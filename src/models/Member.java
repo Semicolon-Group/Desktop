@@ -13,7 +13,6 @@ import models.Enumerations.BodyType;
 import models.Enumerations.Importance;
 import models.Enumerations.MaritalStatus;
 import models.Enumerations.Proximity;
-import models.Enumerations.Relegion;
 import models.Enumerations.RelationType;
 
 /**
@@ -26,7 +25,7 @@ public class Member extends User{
     private float height;
     private BodyType bodyType;
     private int childrenNumber;
-    private Relegion relegion;
+    private Enumerations.Religion relegion;
     private Importance relegionImportance;
     private boolean smoker;
     private boolean drinker;
@@ -54,7 +53,7 @@ public class Member extends User{
         preferedStatuses = new ArrayList<>();
     }
   
-    public Member(int id, Date birthDate, boolean gender, float height, BodyType bodyType, int childrenNumber, Religion religion, 
+    public Member(int id, Date birthDate, boolean gender, float height, BodyType bodyType, int childrenNumber, Enumerations.Religion religion, 
             Importance religionImportance, boolean smoker, boolean drinker, int minAge, int maxAge, 
             Proximity proximity, Timestamp lastLogin, short locked, Address address, String pseudo, 
             String firstname, String lastname, String email, String password, String ip, int port, String about, 
@@ -83,7 +82,7 @@ public class Member extends User{
 	this.preferedStatuses = new ArrayList<MaritalStatus>();
     }
   
-    public Member(Date birthDate, boolean gender, float height, BodyType bodyType, int childrenNumber, Religion religion, 
+    public Member(Date birthDate, boolean gender, float height, BodyType bodyType, int childrenNumber, Enumerations.Religion religion, 
             Importance religionImportance, boolean smoker, boolean drinker, int minAge, int maxAge, Proximity proximity, 
             Timestamp lastLogin, short locked, Address address, String pseudo, String firstname, String lastname, String email, 
             String password, String ip, int port, String about, MaritalStatus maritalStatus, boolean connected,
@@ -184,19 +183,19 @@ public class Member extends User{
 	this.childrenNumber = childrenNumber;
     }
 
-    public Relegion getRelegion() {
+    public Enumerations.Religion getReligion() {
 	return relegion;
     }
 
-    public void setRelegion(Relegion religion) {
+    public void setReligion(Enumerations.Religion religion) {
 	this.relegion = religion;
     }
 
-    public Importance getRelegionImportance() {
+    public Importance getReligionImportance() {
 	return relegionImportance;
     }
 
-    public void setRelegionImportance(Importance religionImportance) {
+    public void setReligionImportance(Importance religionImportance) {
 	this.relegionImportance = religionImportance;
     }
 

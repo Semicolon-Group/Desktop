@@ -1,7 +1,7 @@
 
 import java.sql.SQLException;
 import models.Enumerations;
-import models.Enumerations.TopicType;
+import models.Enumerations.Topic;
 import models.Notification;
 import models.Question;
 import services.MemberService;

@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import models.Choice;
-import models.Enumerations.TopicType;
+import models.Enumerations.Topic;
 import models.Question;
 
 /**
@@ -77,7 +77,7 @@ public class QuestionService extends Service implements Create<Question>, Delete
 	if(rs.next()) {
 	    qst.setId(rs.getInt("id"));
 	    qst.setQuestion(rs.getString("question"));
-	    qst.setTopic(TopicType.values()[rs.getInt("topic")]);
+	    qst.setTopic(Topic.values()[rs.getInt("topic")]);
 	    /*
 	    * We're using getAll(Choice) to retrieve the list of choices for our question.
 	     */
@@ -100,7 +100,7 @@ public class QuestionService extends Service implements Create<Question>, Delete
 	    Question qst = new Question();
 	    qst.setId(rs.getInt("id"));
 	    qst.setQuestion(rs.getString("question"));
-	    qst.setTopic(TopicType.values()[rs.getInt("topic")]);
+	    qst.setTopic(Topic.values()[rs.getInt("topic")]);
 	    /*
 	    * We're using getAll(Choice) to retrieve the list of choices for our question.
 	     */

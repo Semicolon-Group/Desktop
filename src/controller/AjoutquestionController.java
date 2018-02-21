@@ -33,7 +33,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import models.Choice;
-import models.Enumerations.TopicType;
+import models.Enumerations.Topic;
 import models.Notification;
 import models.Question;
 import org.controlsfx.control.Notifications;
@@ -76,7 +76,7 @@ public class AjoutquestionController implements Initializable {
         choiceBoxs.addListener((ListChangeListener)(c->onChoiceListChange()));
         choiceBoxs.add(createChoiceBox());
         choiceBoxs.add(createChoiceBox());
-         for (TopicType i : TopicType.values()){
+         for (Topic i : Topic.values()){
             topicsList.add(i.toString());
         }
         topicsBox.setItems(topicsList);
@@ -93,7 +93,7 @@ public class AjoutquestionController implements Initializable {
     @FXML
     private void ajout(ActionEvent event) throws SQLException {
        
-        Question question=new Question(txt_question.getText(),TopicType.valueOf(topicsBox.getValue()));
+        Question question=new Question(txt_question.getText(),Topic.valueOf(topicsBox.getValue()));
         QuestionService questionService= QuestionService.getInstance();
         question=questionService.create(question);
         
