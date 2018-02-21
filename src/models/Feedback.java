@@ -7,6 +7,7 @@ package models;
 
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.Date;
 import services.MemberService;
 
 
@@ -61,8 +62,15 @@ public class Feedback {
     }
 
     public String getSenderName() throws SQLException{
-        return MemberService.getInstance().get(new Member(senderId)).getFirstname();
+        return MemberService.getInstance().get(new Member(senderId)).getFirstname() +" "+ MemberService.getInstance().get(new Member(senderId)).getLastname();
     }
+    public boolean getGender() throws SQLException {
+        return MemberService.getInstance().get(new Member(senderId)).isGender();    
+    }
+    public java.sql.Date getBirthDate () throws SQLException{
+        return MemberService.getInstance().get(new Member(senderId)).getBirthDate();
+    }
+ 
     
     public int getSenderId() {
 	return senderId;
@@ -85,7 +93,7 @@ public class Feedback {
     }
     
     public String getStateName(){
-        return state ? "Treated" : "Non-Treated";
+        return state ? "Consulted" : "Non-Consulted";
     }
     
     public void setState(boolean state) {

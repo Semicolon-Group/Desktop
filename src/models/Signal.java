@@ -110,13 +110,13 @@ public class Signal {
 	this.date = date;
     }
     public String getSenderName() throws SQLException{
-        return MemberService.getInstance().get(new Member(senderId)).getFirstname();
+        return MemberService.getInstance().get(new Member(senderId)).getFirstname() +" "+MemberService.getInstance().get(new Member(senderId)).getLastname();
     }
     public String getReceiverName() throws SQLException{
-        return MemberService.getInstance().get(new Member(receiverId)).getFirstname();
+        return MemberService.getInstance().get(new Member(receiverId)).getFirstname()+" "+MemberService.getInstance().get(new Member(receiverId)).getLastname();
     }
     public String getStateName(){
-        return state ? "Treated" : "Non-Treated";
+        return state ? "Consulted" : "Non-Consulted";
     }
     
     @Override

@@ -10,9 +10,9 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AjoutFeedbackController">
    <children>
-      <AnchorPane prefHeight="89.0" prefWidth="601.0" style="-fx-background-color: #2B5580;">
+      <AnchorPane prefHeight="89.0" prefWidth="601.0" style="-fx-background-color: #343e43;">
          <children>
-            <Text fill="#f8f6f6" layoutX="28.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aidez_nous à comprendre ce qui se passe ?" textAlignment="CENTER" wrappingWidth="476.0000037252903">
+            <Text fill="#f8f6f6" layoutX="28.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aidez_nous à comprendre ce qui se passe !" textAlignment="CENTER" wrappingWidth="476.0000037252903" AnchorPane.leftAnchor="55.0">
                <font>
                   <Font name="System Bold Italic" size="18.0" />
                </font>
@@ -30,11 +30,11 @@
          </children>
       </AnchorPane>
       <TextArea fx:id="content" layoutX="42.0" layoutY="114.0" prefHeight="226.0" prefWidth="514.0" promptText="Ajouter une description" />
-      <Button fx:id="btn" accessibleRole="CHECK_BOX" blendMode="SRC_ATOP" layoutX="486.0" layoutY="347.0" mnemonicParsing="false" onAction="#ajoutFeed" prefHeight="29.0" prefWidth="64.0" style="-fx-background-color: #FFD47F;" text="Envoyer">
+      <Button fx:id="btn" accessibleRole="CHECK_BOX" blendMode="SRC_ATOP" layoutX="483.0" layoutY="347.0" mnemonicParsing="false" onAction="#ajoutFeed" pickOnBounds="false" prefHeight="31.0" prefWidth="67.0" style="-fx-border-color: #343e43;" text="Envoyer">
          <font>
             <Font size="13.0" />
          </font>
       </Button>
-      <Button layoutX="410.0" layoutY="347.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="64.0" style="-fx-background-color: #FFD47F;" text="Cancel" />
+      <Button fx:id="cancelButton" cancelButton="true" layoutX="391.0" layoutY="348.0" mnemonicParsing="false" onAction="#closeWindow" prefHeight="29.0" prefWidth="74.0" style="-fx-border-color: #343e43;" text="Cancel" />
    </children>
 </AnchorPane>

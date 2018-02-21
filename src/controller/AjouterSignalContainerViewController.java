@@ -21,7 +21,7 @@ import javafx.scene.layout.AnchorPane;
  *
  * @author asus
  */
-public class InscriptionContainerViewController implements Initializable {
+public class AjouterSignalContainerViewController implements Initializable {
 
     @FXML
     private AnchorPane anchor;
@@ -32,19 +32,19 @@ public class InscriptionContainerViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-          try {
-            Parent feedView = FXMLLoader.load(getClass().getResource("/view/InsView.fxml"));
+               try {
+            Parent feedView = FXMLLoader.load(getClass().getResource("/view/AjouterSignalView.fxml"));
             anchor.getChildren().add(feedView);
         } catch (IOException ex) {
-            Logger.getLogger(InscriptionContainerViewController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AjouterSignalContainerViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     public FXMLLoader switchView(String view){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/" + view + ".fxml"));
-            Parent insView = loader.load();
+            Parent signalView = loader.load();
             anchor.getChildren().clear();
-            anchor.getChildren().add(insView);
+            anchor.getChildren().add(signalView);
             return loader;
 //            Parent insView = FXMLLoader.load(getClass().getResource("/view/" + view + ".fxml"));
 //            anchor.getChildren().clear();
@@ -54,6 +54,6 @@ public class InscriptionContainerViewController implements Initializable {
         }
         return null;
     }
-}    
+    }    
     
 

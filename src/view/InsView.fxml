@@ -7,45 +7,44 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="controller.InsViewController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.InsViewController">
    <children>
-      <VBox layoutX="-6.0" layoutY="14.0" prefHeight="630.0" prefWidth="300.0" style="-fx-background-color: #FFD4AA;">
+      <VBox alignment="CENTER" layoutX="-6.0" prefHeight="644.0" prefWidth="300.0" spacing="70.0" style="-fx-background-color: #cce6f4;">
          <children>
-            <Label contentDisplay="RIGHT" text="Welcome to" textFill="#545454">
-               <font>
-                  <Font name="Impact" size="18.0" />
-               </font>
+            <ImageView fitHeight="92.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <VBox.margin>
-                  <Insets left="20.0" right="20.0" top="20.0" />
+                  <Insets top="90.0" />
                </VBox.margin>
-            </Label>
-            <Label text="MySoulmate" textAlignment="CENTER" textFill="#e85c5c">
-               <font>
-                  <Font name="Ebrima Bold" size="16.0" />
-               </font>
-               <opaqueInsets>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
-               </opaqueInsets>
-               <VBox.margin>
-                  <Insets bottom="10.0" left="40.0" right="50.0" />
-               </VBox.margin>
-            </Label>
+               <image>
+                  <Image url="@images/logo.png" />
+               </image>
+            </ImageView>
+            <HBox alignment="BOTTOM_CENTER" prefHeight="542.0" prefWidth="300.0">
+               <children>
+                  <ImageView fitHeight="397.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/Registration_man.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
          </children>
       </VBox>
       <ImageView fitHeight="55.0" fitWidth="153.0" layoutX="349.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true" />
-      <Label layoutX="336.0" layoutY="88.0" prefHeight="29.0" prefWidth="195.0" text="Registration Form" textFill="#545454">
+      <Label layoutX="328.0" layoutY="72.0" prefHeight="29.0" prefWidth="195.0" text="Registration Form" textFill="#545454">
          <font>
             <Font name="Impact" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="386.0" layoutY="127.0" text="Fill the form for the registration" textFill="#f5ad8e">
+      <Label layoutX="388.0" layoutY="110.0" text="Fill the form for the registration" textFill="#f5ad8e">
          <font>
             <Font name="Ebrima Bold" size="13.0" />
          </font>
@@ -66,8 +65,11 @@
                <padding>
                   <Insets left="10.0" right="10.0" />
                </padding>
+               <toggleGroup>
+                  <ToggleGroup fx:id="gender" />
+               </toggleGroup>
             </RadioButton>
-            <RadioButton fx:id="female" mnemonicParsing="false" prefHeight="17.0" prefWidth="75.0" text="Female">
+            <RadioButton fx:id="female" mnemonicParsing="false" prefHeight="17.0" prefWidth="75.0" selected="true" text="Female" toggleGroup="$gender">
                <HBox.margin>
                   <Insets left="37.0" right="10.0" />
                </HBox.margin>
@@ -83,5 +85,10 @@
       <Label fx:id="labelrepass" layoutX="328.0" layoutY="488.0" prefHeight="17.0" prefWidth="178.0" textFill="#ee0e0e" />
       <Label fx:id="labeldate" layoutX="502.0" layoutY="565.0" prefHeight="17.0" prefWidth="88.0" textFill="RED" />
       <Button fx:id="btnR" layoutX="417.0" layoutY="600.0" mnemonicParsing="false" onAction="#Reset" prefHeight="25.0" prefWidth="69.0" text="Reset" />
+      <ImageView fx:id="image" fitHeight="21.0" fitWidth="29.0" layoutX="513.0" layoutY="76.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@imagesFeed/icons8_Love_32px_2.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

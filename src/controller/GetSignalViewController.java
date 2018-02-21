@@ -60,6 +60,18 @@ public class GetSignalViewController implements Initializable {
     }    
     
     public void afficher() throws SQLException{
+        data= FXCollections.observableArrayList(SignalService.getInstance().getFalse(null));
+	
+        sender.setCellValueFactory(new PropertyValueFactory<>("senderName"));
+        receiver.setCellValueFactory(new PropertyValueFactory<>("receiverName"));
+        reason.setCellValueFactory(new PropertyValueFactory<>("reason"));
+        state.setCellValueFactory(new PropertyValueFactory<>("stateName"));
+        date.setCellValueFactory(new PropertyValueFactory<>("date"));
+        table.setItems(null);
+        table.setItems(data);
+   
+    }
+      public void afficherBoth() throws SQLException{
         data= FXCollections.observableArrayList(SignalService.getInstance().getAll(null));
 	
         sender.setCellValueFactory(new PropertyValueFactory<>("senderName"));
@@ -69,8 +81,7 @@ public class GetSignalViewController implements Initializable {
         date.setCellValueFactory(new PropertyValueFactory<>("date"));
         table.setItems(null);
         table.setItems(data);
-    
-    
+   
     }
     @FXML
     private void onMouseClick(MouseEvent event) throws IOException, SQLException {

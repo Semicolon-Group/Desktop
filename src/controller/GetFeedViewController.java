@@ -95,7 +95,7 @@ public class GetFeedViewController implements Initializable {
              f1 = (Feedback) table.getSelectionModel().getSelectedItem();
                 
 ////        
-          container.switchView("GetFeedDetailsView");
+          container.switchView("GetFeedbackDetailsView");
 //    }
     }
 }

@@ -56,7 +56,7 @@ public class SignalService extends Service implements Create<Signal>,Update<Sign
     public void update(Signal obj) throws SQLException {
         String query = "UPDATE user_signal SET state = ?  WHERE id = ?";
         PreparedStatement pst = CONNECTION.prepareStatement(query);
-        pst.setBoolean(1, obj.isState());
+        pst.setBoolean(1, true);
         pst.setInt(2, obj.getId());
         pst.executeUpdate();
     }
@@ -98,6 +98,25 @@ public class SignalService extends Service implements Create<Signal>,Update<Sign
         }
         return signaux;
     }
-
+        
+    public List<Signal> getFalse ( Signal obj )  throws SQLException {
+	String query = "select * from user_signal where state=0" ;
+        ResultSet rs = CONNECTION.createStatement().executeQuery(query);
+        List<Signal> signaux = new ArrayList<>();
+        while(rs.next()){
+            Signal s = new Signal();
+	    s.setId(rs.getInt("id"));
+            s.setReason(Enumerations.SignalReason.values()[rs.getInt("reason")]);
+            s.setDate(rs.getTimestamp("date"));
+            s.setState(rs.getBoolean("state"));
+            s.setSenderId(rs.getInt("sender_id"));
+            s.setReceiver(rs.getInt("receiver_id"));
+            s.setContent(rs.getString("content"));
+            signaux.add(s);
+        }
+        return signaux;
+    }
+            
+    
     
 }

@@ -48,7 +48,10 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
 
     @Override
     public Member create(Member obj) throws SQLException {
-        String query = "insert into user (pseudo, firstname, lastname, email,password,birth_date,gender,height,body_type,children_number,relegion,relegion_importance,smoker,drinker,min_age,max_age,proximity,last_login,locked,ip,port,role,created_at,updated_at) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String query = "insert into user (pseudo, firstname, lastname, email,password,birth_date,gender,"
+                + "height,body_type,children_number,relegion,relegion_importance,smoker,drinker,min_age,"
+                + "max_age,proximity,last_login,locked,ip,port,role,created_at,updated_at) "
+                + "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement preparedStatement = CONNECTION.prepareStatement(query);
         preparedStatement.setString(1, obj.getPseudo());
         preparedStatement.setString(2, obj.getFirstname());

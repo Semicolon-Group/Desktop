@@ -65,14 +65,7 @@ public class PhotoService extends Service implements Create<Photo>,Read<Photo>,D
         }
 	return null;
     }
-
     
-    
-    
-    
-    
-    
-
     @Override
     public List<Photo> getAll(Photo obj) throws SQLException {
 	String req = "SELECT * FROM `photo` WHERE user_id = " + obj.getUserId();
@@ -83,7 +76,7 @@ public class PhotoService extends Service implements Create<Photo>,Read<Photo>,D
 	}
 	return list;
     }
-
+    
     @Override
     public void delete(Photo obj) throws SQLException {
 	String req = "DELETE FROM `photo` WHERE id = " + obj.getId();

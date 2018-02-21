@@ -5,31 +5,34 @@
  */
 package controller;
 
+import static controller.MainAchref.container4;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
-import models.Feedback;
-import services.FeedbackService;
+import javafx.scene.control.ToggleGroup;
+import models.Signal;
+import services.SignalService;
 
 /**
  * FXML Controller class
  *
  * @author asus
  */
-public class AjoutFeedbackController implements Initializable {
+public class AjouterSignalDetailsViewController implements Initializable {
 
     @FXML
     private TextArea content;
     @FXML
-    private Button btn;
+    private Button envoyer;
+    private Signal signal;
     @FXML
-    private Button cancelButton;
+    private Button retour;
 
     /**
      * Initializes the controller class.
@@ -37,20 +40,22 @@ public class AjoutFeedbackController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+    }
+        public void setSignal(Signal signal) {
+        this.signal = signal;
+        
     }    
 
     @FXML
-    private void ajoutFeed(ActionEvent event) throws SQLException {
-        
-            FeedbackService f = FeedbackService.getInstance();
-            Feedback f1 = new Feedback(content.getText());
-            f.create(f1);
-        
+    private void envoyerSignal(ActionEvent event) throws SQLException {
+        signal.setContent(content.getText());
+        SignalService.getInstance().create(signal);
+    
     }
 
     @FXML
-    private void closeWindow(ActionEvent event) {
-            Platform.exit();
+    private void back(ActionEvent event) {
+        container4.switchView("AjouterSignalView");
     }
     
 }
