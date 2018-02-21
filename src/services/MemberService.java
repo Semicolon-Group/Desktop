@@ -92,7 +92,15 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
         return obj;
     
     }
+    //methode update pour modifichier l'attribut locked , bannir un membre
+            public void updatelock(int id,short locked) throws SQLException{
+                String query = "UPDATE user SET  locked=? WHERE id=?";
+                PreparedStatement prepare = CONNECTION.prepareStatement(query);
+                prepare.setShort(1, locked);
+                prepare.setInt(2, id);
+                prepare.executeUpdate();
 
+            }
     @Override
     public void update(Member obj) throws SQLException {
         String query = "UPDATE user SET pseudo=?, firstname=?, lastname=?,"

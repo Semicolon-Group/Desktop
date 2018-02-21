@@ -83,6 +83,7 @@ public class NotificationService extends Service implements Create<Notification>
         }
 	return null;
     }
+ 
 
     @Override
     public List<Notification> getAll(Notification obj) throws SQLException {

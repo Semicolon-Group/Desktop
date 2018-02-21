@@ -63,8 +63,19 @@ public class PhotoService extends Service implements Create<Photo>,Read<Photo>,D
                     PhotoType.values()[rs.getInt("type")]);
         }
 	return null;
+    }    
+    
+    
+    
+    public Photo getuserphoto(int id) throws SQLException {
+	String req = "SELECT * FROM `photo` WHERE id = " + id;
+	ResultSet rs = CONNECTION.createStatement().executeQuery(req);
+	if(rs.next()){
+            return new Photo(rs.getInt("id"), rs.getInt("user_id"), rs.getString("url"));
+        }
+	return null;
     }
-
+    
     @Override
     public List<Photo> getAll(Photo obj) throws SQLException {
 	String req = "SELECT * FROM `photo` WHERE `user_id` = ? AND `date` > ? AND `type` = ? ORDER BY `date` DESC";
@@ -87,7 +98,7 @@ public class PhotoService extends Service implements Create<Photo>,Read<Photo>,D
 	}
 	return list;
     }
-
+    
     @Override
     public void delete(Photo obj) throws SQLException {
 	String req = "DELETE FROM `photo` WHERE id = " + obj.getId();

@@ -15,7 +15,6 @@ import models.Enumerations.BodyType;
 import models.Enumerations.Importance;
 import models.Enumerations.MaritalStatus;
 import models.Enumerations.Proximity;
-import models.Enumerations.Religion;
 import models.Enumerations.RelationType;
 
 /**
@@ -28,8 +27,8 @@ public class Member extends User{
     private float height;
     private BodyType bodyType;
     private int childrenNumber;
-    private Religion religion;
-    private Importance religionImportance;
+    private Enumerations.Religion relegion;
+    private Importance relegionImportance;
     private boolean smoker;
     private boolean drinker;
     private int minAge;
@@ -55,8 +54,8 @@ public class Member extends User{
         preferedRelations = new ArrayList<>();
         preferedStatuses = new ArrayList<>();
     }
-
-    public Member(int id, Date birthDate, boolean gender, float height, BodyType bodyType, int childrenNumber, Religion religion, 
+  
+    public Member(int id, Date birthDate, boolean gender, float height, BodyType bodyType, int childrenNumber, Enumerations.Religion religion, 
             Importance religionImportance, boolean smoker, boolean drinker, int minAge, int maxAge, 
             Proximity proximity, Timestamp lastLogin, short locked, Address address, String pseudo, 
             String firstname, String lastname, String email, String password, String ip, int port, String about, 
@@ -67,8 +66,8 @@ public class Member extends User{
 	this.height = height;
 	this.bodyType = bodyType;
 	this.childrenNumber = childrenNumber;
-	this.religion = religion;
-	this.religionImportance = religionImportance;
+	this.relegion = relegion;
+	this.relegionImportance = relegionImportance;
 	this.smoker = smoker;
 	this.drinker = drinker;
 	this.minAge = minAge;
@@ -84,8 +83,8 @@ public class Member extends User{
 	this.preferedRelations = new ArrayList<RelationType>();
 	this.preferedStatuses = new ArrayList<MaritalStatus>();
     }
-
-    public Member(Date birthDate, boolean gender, float height, BodyType bodyType, int childrenNumber, Religion religion, 
+  
+    public Member(Date birthDate, boolean gender, float height, BodyType bodyType, int childrenNumber, Enumerations.Religion religion, 
             Importance religionImportance, boolean smoker, boolean drinker, int minAge, int maxAge, Proximity proximity, 
             Timestamp lastLogin, short locked, Address address, String pseudo, String firstname, String lastname, String email, 
             String password, String ip, int port, String about, MaritalStatus maritalStatus, boolean connected,
@@ -96,8 +95,8 @@ public class Member extends User{
 	this.height = height;
 	this.bodyType = bodyType;
 	this.childrenNumber = childrenNumber;
-	this.religion = religion;
-	this.religionImportance = religionImportance;
+	this.relegion = religion;
+	this.relegionImportance = relegionImportance;
 	this.smoker = smoker;
 	this.drinker = drinker;
 	this.minAge = minAge;
@@ -113,7 +112,7 @@ public class Member extends User{
 	this.preferedRelations = new ArrayList<RelationType>();
 	this.preferedStatuses = new ArrayList<MaritalStatus>();
     }
-
+      
     public Timestamp getCreatedAt() {
         return createdAt;
     }
@@ -186,20 +185,20 @@ public class Member extends User{
 	this.childrenNumber = childrenNumber;
     }
 
-    public Religion getReligion() {
-	return religion;
+    public Enumerations.Religion getReligion() {
+	return relegion;
     }
 
-    public void setReligion(Religion religion) {
-	this.religion = religion;
+    public void setReligion(Enumerations.Religion religion) {
+	this.relegion = religion;
     }
 
     public Importance getReligionImportance() {
-	return religionImportance;
+	return relegionImportance;
     }
 
     public void setReligionImportance(Importance religionImportance) {
-	this.religionImportance = religionImportance;
+	this.relegionImportance = religionImportance;
     }
 
     public boolean isSmoker() {
@@ -270,10 +269,18 @@ public class Member extends User{
         return preferedRelations;
     }
 
+    public void setPreferedRelations(List<RelationType> preferedRelations) {
+        this.preferedRelations = preferedRelations;
+    }
+
     public List<MaritalStatus> getPreferedStatuses() {
         return preferedStatuses;
     }
 
+    public void setPreferedStatuses(List<MaritalStatus> preferedStatuses) {
+        this.preferedStatuses = preferedStatuses;
+    }
+        
     @Override
     public String toString() {
 	return super.toString() + "Member{" + "birthDate=" + birthDate + ", gender=" + gender + ", height=" + height + ", bodyType=" + bodyType + ", childrenNumber=" + childrenNumber + ", religion=" + religion + ", religionImportance=" + religionImportance + ", smoker=" + smoker + ", drinker=" + drinker + ", minAge=" + minAge + ", maxAge=" + maxAge + ", proximity=" + proximity + ", lastLogin=" + lastLogin + ", locked=" + locked + ", address=" + address + ", preferedRelations=" + preferedRelations + ", preferedStatuses=" + preferedStatuses + "}\n";

@@ -74,5 +74,8 @@ public class Choice {
         return "Choice{" + "id=" + id + ", questionId=" + questionId + ", choice=" + choice + '}';
     }
     
+    public String toString(){
+        return this.choice;
+    }
     
 }

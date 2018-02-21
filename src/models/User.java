@@ -21,6 +21,15 @@ public abstract class User {
 
     public User() {
     }
+
+    public User(String pseudo, String firstname, String lastname, String email, String password) {
+        this.pseudo = pseudo;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.password = password;
+    }
+    
     
     public User(int id){
         this.id = id;

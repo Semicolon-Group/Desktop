@@ -5,7 +5,10 @@
  */
 package models;
 
+import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.Date;
+import services.MemberService;
 
 
 /**
@@ -18,12 +21,21 @@ public class Feedback {
     private String content;
     private boolean state;
     private Timestamp date;
-
+    
     public Feedback() {
     }
     
     public Feedback(int id){
         this.id = id;
+    }
+
+    public Feedback(String content) {
+        this.content = content;
+    }
+
+    public Feedback(String content, boolean state) {
+        this.content = content;
+        this.state = state;
     }
 
     public Feedback(int id, int senderId, String content, boolean state, Timestamp date) {
@@ -49,6 +61,17 @@ public class Feedback {
 	this.id = id;
     }
 
+    public String getSenderName() throws SQLException{
+        return MemberService.getInstance().get(new Member(senderId)).getFirstname() +" "+ MemberService.getInstance().get(new Member(senderId)).getLastname();
+    }
+    public boolean getGender() throws SQLException {
+        return MemberService.getInstance().get(new Member(senderId)).isGender();    
+    }
+    public java.sql.Date getBirthDate () throws SQLException{
+        return MemberService.getInstance().get(new Member(senderId)).getBirthDate();
+    }
+ 
+    
     public int getSenderId() {
 	return senderId;
     }
@@ -68,7 +91,11 @@ public class Feedback {
     public boolean isState() {
 	return state;
     }
-
+    
+    public String getStateName(){
+        return state ? "Consulted" : "Non-Consulted";
+    }
+    
     public void setState(boolean state) {
 	this.state = state;
     }

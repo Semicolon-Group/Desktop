@@ -53,6 +53,14 @@ public class Photo {
         this.type = type;
     }
 
+        public Photo(int id, int userId, String url) {
+	this.id = id;
+	this.userId = userId;
+	this.url = url;
+	
+    }
+    
+    
     public int getId() {
 	return id;
     }

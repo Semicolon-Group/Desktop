@@ -5,8 +5,14 @@
  */
 package models;
 
+import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.HashSet;
 import models.Enumerations.NotificationType;
+import services.AnswerService;
+import services.MemberService;
+import services.NotificationService;
+import services.PhotoService;
 
 /**
  *
@@ -56,6 +62,10 @@ public class Notification {
 	this.seen = seen;
     }
 
+    public Notification(String content) {
+        this.content = content;
+    }
+
     public boolean isSeen() {
 	return seen;
     }
@@ -99,6 +109,27 @@ public class Notification {
     public void setSenderId(int senderId) {
 	this.senderId = senderId;
     }
+    
+    public String getSenderFName() throws SQLException{
+        return MemberService.getInstance().get(new Member(senderId)).getFirstname();
+    }
+    public String getSenderLName() throws SQLException{
+        return MemberService.getInstance().get(new Member(senderId)).getLastname();
+    }
+    
+    public String getReceiverName() throws SQLException{
+        return MemberService.getInstance().get(new Member(receiverId)).getLastname();
+    }
+    
+    public String getUrlPhoto() throws SQLException{
+        return  PhotoService.getInstance().get(new Photo(photoId)).getUrl();
+    }
+    
+//     public HashSet<Choice> getAnswer() throws SQLException{
+//        return  AnswerService.getInstance().get(new Answer()).getSelectedChoices();
+//    }
+    
+    
 
     public int getReceiverId() {
 	return receiverId;
