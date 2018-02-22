@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 22, 2018 at 09:38 AM
+-- Generation Time: Feb 22, 2018 at 09:45 AM
 -- Server version: 5.7.14
 -- PHP Version: 7.0.10
 
@@ -161,10 +161,7 @@ CREATE TABLE `conversation` (
 --
 
 INSERT INTO `conversation` (`id`, `person1_id`, `person2_id`, `label`, `seen`, `seen_date`) VALUES
-(1, 2, 3, 'Conversation', 0, '2018-02-01 00:00:00'),
-(2, 2, 3, 'New conversation', 0, '2018-02-22 10:15:52'),
-(3, 2, 3, 'New conversation', 0, '2018-02-22 10:16:01'),
-(4, 2, 3, 'New conversation', 0, '2018-02-22 10:16:07');
+(1, 2, 3, 'Conversation', 0, '2018-02-01 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -201,8 +198,8 @@ CREATE TABLE `message` (
 --
 
 INSERT INTO `message` (`id`, `content`, `seen`, `seen_date`, `date`, `sender_id`, `receiver_id`) VALUES
-(1, 'Hii ', 1, '2018-02-22 10:15:43', '2018-02-06 00:00:00', 2, 3),
-(2, 'Hello', 1, '2018-02-22 10:15:43', '2018-02-01 00:00:00', 3, 2);
+(1, 'Hii ', 1, '2018-02-22 10:43:24', '2018-02-06 00:00:00', 2, 3),
+(2, 'Hello', 1, '2018-02-22 10:43:24', '2018-02-01 00:00:00', 3, 2);
 
 -- --------------------------------------------------------
 
@@ -442,8 +439,16 @@ CREATE TABLE `user_signal` (
   `date` datetime DEFAULT NULL,
   `state` tinyint(1) DEFAULT NULL,
   `sender_id` int(11) DEFAULT NULL,
-  `receiver_id` int(11) DEFAULT NULL
+  `receiver_id` int(11) DEFAULT NULL,
+  `content` text
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `user_signal`
+--
+
+INSERT INTO `user_signal` (`id`, `reason`, `date`, `state`, `sender_id`, `receiver_id`, `content`) VALUES
+(1, 1, '2018-02-22 10:42:37', 0, 1, 2, NULL);
 
 --
 -- Indexes for dumped tables
@@ -650,7 +655,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `user_signal`
 --
 ALTER TABLE `user_signal`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- Constraints for dumped tables
 --
@@ -712,8 +717,6 @@ ALTER TABLE `message`
 -- Constraints for table `notification`
 --
 ALTER TABLE `notification`
-  ADD CONSTRAINT `answer_notification` FOREIGN KEY (`answer_id`) REFERENCES `answer` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `photo_notification` FOREIGN KEY (`photo_id`) REFERENCES `photo` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `receiver_notification` FOREIGN KEY (`receiver_id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `sender_notification` FOREIGN KEY (`sender_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
 
