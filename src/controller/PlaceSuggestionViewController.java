@@ -5,13 +5,20 @@
  */
 package controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import models.Address;
 import models.PlaceSuggestion;
 import util.GooglePlacesAPI;
 
@@ -38,6 +45,8 @@ public class PlaceSuggestionViewController implements Initializable {
     private PlaceSuggestion suggestion;
     @FXML
     private ImageView placeImageView;
+    private AnchorPane parent;
+    private Address origin;
 
     /**
      * Initializes the controller class.
@@ -47,8 +56,10 @@ public class PlaceSuggestionViewController implements Initializable {
         // TODO
     }
     
-    public void setSuggestion(PlaceSuggestion suggestion){
+    public void setParams(PlaceSuggestion suggestion, Address origin, AnchorPane parent){
         this.suggestion = suggestion;
+        this.origin = origin;
+        this.parent = parent;
         populateFields();
     }
     
@@ -64,6 +75,20 @@ public class PlaceSuggestionViewController implements Initializable {
             Image image = GooglePlacesAPI.getPhoto(suggestion.getPhotoRef(), 485);
             if(image != null)
             placeImageView.setImage(image);
+        }
+    }
+
+    @FXML
+    private void showMap(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MapsView.fxml"));
+            AnchorPane newPane = loader.load();
+            parent.getChildren().add(newPane);
+            ((MapsViewController)loader.getController()).setParams(
+                    origin.getLatitude(), origin.getLongitude(),
+                    suggestion.getLat(), suggestion.getLng(), parent);
+        } catch (IOException ex) {
+            Logger.getLogger(PlaceSuggestionViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

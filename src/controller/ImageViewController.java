@@ -47,12 +47,14 @@ public class ImageViewController implements Initializable {
     public void setImage(Image image){
         this.image = image;
         imageContainer.setImage(image);
+        GlobalViewController.getInstance().lockScrollToTop();
     }
 
     @FXML
     private void dismiss(MouseEvent event) {
         if(event.getTarget() instanceof VBox){
             parentAnchorPane.getChildren().remove(parentAnchorPane.getChildren().size()-1);
+            GlobalViewController.getInstance().releaseScroll();
         }
     }
     

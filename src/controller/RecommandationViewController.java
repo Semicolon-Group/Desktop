@@ -249,7 +249,7 @@ public class RecommandationViewController implements Initializable {
             for (PlaceSuggestion suggestion : displayedParks) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/PlaceSuggestionView.fxml"));
                 AnchorPane pane = loader.load();
-                ((PlaceSuggestionViewController) loader.getController()).setSuggestion(suggestion);
+                ((PlaceSuggestionViewController) loader.getController()).setParams(suggestion, address, mainPane);
                 parkVBox.getChildren().add(pane);
             }
             parkVBox.setPrefHeight(displayedParks.size() * 356);
@@ -291,7 +291,7 @@ public class RecommandationViewController implements Initializable {
             for (PlaceSuggestion suggestion : displayedCafees) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/PlaceSuggestionView.fxml"));
                 AnchorPane pane = loader.load();
-                ((PlaceSuggestionViewController) loader.getController()).setSuggestion(suggestion);
+                ((PlaceSuggestionViewController) loader.getController()).setParams(suggestion, address, mainPane);
                 cafeeVBox.getChildren().add(pane);
             }
             cafeeVBox.setPrefHeight(displayedCafees.size() * 356);
@@ -333,7 +333,7 @@ public class RecommandationViewController implements Initializable {
             for (PlaceSuggestion suggestion : displayedRests) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/PlaceSuggestionView.fxml"));
                 AnchorPane pane = loader.load();
-                ((PlaceSuggestionViewController) loader.getController()).setSuggestion(suggestion);
+                ((PlaceSuggestionViewController) loader.getController()).setParams(suggestion, address, mainPane);
                 restaurantVBox.getChildren().add(pane);
             }
             restaurantVBox.setPrefHeight(displayedRests.size() * 356);

@@ -298,4 +298,13 @@ public class GlobalViewController implements Initializable {
     private void onMessageIconClick(MouseEvent event) {
         setContent("/view/InstantMessagingView.fxml", content);
     }
+    
+    public void lockScrollToTop(){
+        scroll.setVvalue(0);
+        scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+    }
+    
+    public void releaseScroll(){
+        scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+    }
 }

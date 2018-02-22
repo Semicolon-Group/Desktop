@@ -9,8 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="326.0" prefWidth="1714.0" styleClass="card_pane" stylesheets="@style/MainStyleSheet.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9.0.1" fx:controller="controller.PlaceSuggestionViewController">
+<AnchorPane id="AnchorPane" onMouseClicked="#showMap" prefHeight="326.0" prefWidth="1714.0" styleClass="card_pane" stylesheets="@style/MainStyleSheet.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PlaceSuggestionViewController">
    <children>
       <HBox alignment="CENTER_LEFT" prefHeight="212.0" prefWidth="776.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
