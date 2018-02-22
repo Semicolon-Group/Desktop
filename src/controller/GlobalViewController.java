@@ -296,6 +296,6 @@ public class GlobalViewController implements Initializable {
 
     @FXML
     private void onMessageIconClick(MouseEvent event) {
-//        setContent("/view/InstantMessagingView.fxml", content);
+        setContent("/view/InstantMessagingView.fxml", content);
     }
 }
