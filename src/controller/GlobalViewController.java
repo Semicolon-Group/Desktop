@@ -27,7 +27,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import models.Address;
 import models.Member;
+import services.AddressService;
 import services.MemberService;
 
 /**
@@ -250,12 +252,19 @@ public class GlobalViewController implements Initializable {
 
     @FXML
     private void showRecommandationContent(ActionEvent event) {
-        setContent("/view/RecommandationView.fxml", content);
-        homeBox.setId("");
-        matchBox.setId("");
-        quickSearchBox.setId("");
-        blindDateBox.setId("");
-        recommandationBox.setId("selected");
+        try {
+            FXMLLoader loader = setContent("/view/RecommandationView.fxml", content);
+            ((RecommandationViewController) loader.getController()).setAddress(
+                    AddressService.getInstance().get(new Address(MySoulMate.MEMBER_ID))
+            );
+            homeBox.setId("");
+            matchBox.setId("");
+            quickSearchBox.setId("");
+            blindDateBox.setId("");
+            recommandationBox.setId("selected");
+        } catch (SQLException ex) {
+            Logger.getLogger(GlobalViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public void clearMenuSelection(){
@@ -297,5 +306,14 @@ public class GlobalViewController implements Initializable {
     @FXML
     private void onMessageIconClick(MouseEvent event) {
         setContent("/view/InstantMessagingView.fxml", content);
+    }
+    
+    public void lockScrollToTop(){
+        scroll.setVvalue(0);
+        scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+    }
+    
+    public void releaseScroll(){
+        scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
     }
 }

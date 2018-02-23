@@ -46,6 +46,7 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import models.Address;
 import models.Answer;
 import models.Block;
 import models.Enumerations;
@@ -54,6 +55,7 @@ import models.Like;
 import models.Member;
 import models.Photo;
 import models.Signal;
+import services.AddressService;
 import services.AnswerService;
 import services.BlockService;
 import services.LikeService;
@@ -132,6 +134,8 @@ public class OthersProfileViewController implements Initializable {
     private VBox answersVBox;
     @FXML
     private VBox likesVBox;
+    @FXML
+    private Button meetButton;
 
     /**
      * Initializes the controller class.
@@ -169,7 +173,6 @@ public class OthersProfileViewController implements Initializable {
             for(Answer answer: answers){
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AnswerView.fxml"));
                 AnchorPane pane = loader.load();
-                ((AnswerViewController)loader.getController()).setEditable(false);
                 ((AnswerViewController)loader.getController()).setAnswer(answer);
                 answersVBox.getChildren().add(pane);
             }
@@ -185,10 +188,12 @@ public class OthersProfileViewController implements Initializable {
             if(LikeService.getInstance().get(new Like(MySoulMate.MEMBER_ID, userId, null))!=null){
                 likeButton.setVisible(false);
                 dislikeButton.setVisible(true);
+                meetButton.setVisible(true);
                 messageButton.setVisible(true);
             }else{
                 likeButton.setVisible(true);
                 dislikeButton.setVisible(false);
+                meetButton.setVisible(false);
                 messageButton.setVisible(false);
             }
         } catch (SQLException ex) {
@@ -389,5 +394,37 @@ public class OthersProfileViewController implements Initializable {
                 util.Logger.writeLog(ex, OthersProfileViewController.class.getName(), null);
             }
         });
+    }
+
+    private double profileHeight;
+    
+    @FXML
+    private void showSug(ActionEvent event) {
+        try {
+            FXMLLoader loader = GlobalViewController.getInstance().setMainContent("/view/RecommandationView.fxml");
+            Address selfAddress = AddressService.getInstance().get(new Address(MySoulMate.MEMBER_ID));
+            Address othersAddress = AddressService.getInstance().get(new Address(userId));
+            Address centerAddress = new Address(
+                    (selfAddress.getLongitude()+othersAddress.getLongitude())/2, 
+                    (selfAddress.getLatitude()+othersAddress.getLatitude())/2, 
+                    "", "");
+            ((RecommandationViewController)loader.getController()).setAddress(centerAddress, userId);
+//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/RecommandationView.fxml"));
+//            Address selfAddress = AddressService.getInstance().get(new Address(MySoulMate.MEMBER_ID));
+//            Address othersAddress = AddressService.getInstance().get(new Address(userId));
+//            Address centerAddress = new Address(
+//                    (selfAddress.getLongitude()+othersAddress.getLongitude())/2, 
+//                    (selfAddress.getLatitude()+othersAddress.getLatitude())/2, 
+//                    "", "");
+//            Pane pane = loader.load();
+//            pane.setStyle("-fx-background-color: white;");
+//            ((RecommandationViewController)loader.getController()).setAddress(centerAddress);
+//            pane.prefWidthProperty().bind(sugPane.widthProperty());
+//            mainSugPane.setVisible(true);
+//            sugPane.getChildren().clear();
+//            sugPane.getChildren().add(pane);
+        }catch (SQLException ex) {
+            Logger.getLogger(OthersProfileViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

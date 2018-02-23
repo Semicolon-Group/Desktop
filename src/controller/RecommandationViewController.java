@@ -52,15 +52,6 @@ public class RecommandationViewController implements Initializable {
     @FXML
     private VBox parkVBox;
 
-    private List<PlaceSuggestion> restaurants;
-    private List<PlaceSuggestion> parks;
-    private List<PlaceSuggestion> cafees;
-    
-    private List<PlaceSuggestion> displayedRests;
-    private List<PlaceSuggestion> displayedParks;
-    private List<PlaceSuggestion> displayedCafees;
-    
-    private Address address;
     @FXML
     private TabPane mainTabPane;
     @FXML
@@ -105,6 +96,21 @@ public class RecommandationViewController implements Initializable {
     private VBox parcLoading;
     @FXML
     private ProgressIndicator cafeIndicator;
+    
+    
+    private List<PlaceSuggestion> restaurants;
+    private List<PlaceSuggestion> parks;
+    private List<PlaceSuggestion> cafees;
+    
+    private List<PlaceSuggestion> displayedRests;
+    private List<PlaceSuggestion> displayedParks;
+    private List<PlaceSuggestion> displayedCafees;
+    
+    private Address address;
+    @FXML
+    private AnchorPane closePane;
+    
+    private int userID;
 
     /**
      * Initializes the controller class.
@@ -142,7 +148,17 @@ public class RecommandationViewController implements Initializable {
                 applyParkFilter();
             }
         });
-        
+    }
+    
+    public void setAddress(Address address){
+        this.address = address;
+        populate();
+    }
+    
+    public void setAddress(Address address, int userID){
+        this.address = address;
+        this.userID = userID;
+        closePane.setVisible(true);
         populate();
     }
     
@@ -170,12 +186,7 @@ public class RecommandationViewController implements Initializable {
 
     private void populate() {
         mainPane.prefHeightProperty().bind(mainTabPane.prefWidthProperty());
-        try {
-            address = AddressService.getInstance().get(new Address(MySoulMate.MEMBER_ID));
-            populateRestaurants();
-        } catch (SQLException ex) {
-            util.Logger.writeLog(ex, RecommandationViewController.class.getName(), null);
-        }
+        populateRestaurants();
     }
 
     @FXML
@@ -249,7 +260,7 @@ public class RecommandationViewController implements Initializable {
             for (PlaceSuggestion suggestion : displayedParks) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/PlaceSuggestionView.fxml"));
                 AnchorPane pane = loader.load();
-                ((PlaceSuggestionViewController) loader.getController()).setSuggestion(suggestion);
+                ((PlaceSuggestionViewController) loader.getController()).setParams(suggestion, mainPane);
                 parkVBox.getChildren().add(pane);
             }
             parkVBox.setPrefHeight(displayedParks.size() * 356);
@@ -291,7 +302,7 @@ public class RecommandationViewController implements Initializable {
             for (PlaceSuggestion suggestion : displayedCafees) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/PlaceSuggestionView.fxml"));
                 AnchorPane pane = loader.load();
-                ((PlaceSuggestionViewController) loader.getController()).setSuggestion(suggestion);
+                ((PlaceSuggestionViewController) loader.getController()).setParams(suggestion, mainPane);
                 cafeeVBox.getChildren().add(pane);
             }
             cafeeVBox.setPrefHeight(displayedCafees.size() * 356);
@@ -333,7 +344,7 @@ public class RecommandationViewController implements Initializable {
             for (PlaceSuggestion suggestion : displayedRests) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/PlaceSuggestionView.fxml"));
                 AnchorPane pane = loader.load();
-                ((PlaceSuggestionViewController) loader.getController()).setSuggestion(suggestion);
+                ((PlaceSuggestionViewController) loader.getController()).setParams(suggestion, mainPane);
                 restaurantVBox.getChildren().add(pane);
             }
             restaurantVBox.setPrefHeight(displayedRests.size() * 356);
@@ -462,5 +473,11 @@ public class RecommandationViewController implements Initializable {
     @FXML
     private void applyParkSearch(KeyEvent event) {
         applyParkFilter();
+    }
+
+    @FXML
+    private void dismiss(MouseEvent event) {
+        FXMLLoader loader = GlobalViewController.getInstance().setMainContent("/view/OthersProfileView.fxml");
+        ((OthersProfileViewController)loader.getController()).setUserId(userID);
     }
 }
