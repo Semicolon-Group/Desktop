@@ -173,7 +173,6 @@ public class OthersProfileViewController implements Initializable {
             for(Answer answer: answers){
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AnswerView.fxml"));
                 AnchorPane pane = loader.load();
-                ((AnswerViewController)loader.getController()).setEditable(false);
                 ((AnswerViewController)loader.getController()).setAnswer(answer);
                 answersVBox.getChildren().add(pane);
             }
