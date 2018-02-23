@@ -186,7 +186,7 @@ public class EditProfileViewController implements Initializable {
             controller.updateMemberInfo();
             dialog.close();
         } catch (SQLException ex) {
-            util.Logger.writeLog(ex, EditProfileViewController.class.getName(), "Connection à la base de donnée impossible");
+            util.Logger.writeLog(ex, EditProfileViewController.class.getName(), "Connexion to database failed");
         }
     }
     

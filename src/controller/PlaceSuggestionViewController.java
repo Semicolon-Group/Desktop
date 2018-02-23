@@ -74,7 +74,7 @@ public class PlaceSuggestionViewController implements Initializable {
         addressLabel.setText(suggestion.getAddress());
         durationLabel.setText(suggestion.getDuration());
         distanceLabel.setText(suggestion.getDistance());
-        openCloseLabel.setText(suggestion.isOpen()?"Ouvert":"Fermée");
+        openCloseLabel.setText(suggestion.isOpen()?"Open":"Closed");
         openCloseLabel.setStyle("-fx-text-fill: "+(suggestion.isOpen()?"#079d23;":"#e14b3b;"));
         ratingLabel.setText(String.valueOf(suggestion.getRating()));
         if(suggestion.getPhotoRef() != null && !suggestion.getPhotoRef().isEmpty()){

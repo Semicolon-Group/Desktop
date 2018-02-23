@@ -152,11 +152,11 @@ public class AnswerAddViewController implements Initializable {
         try {
             RadioButton radio = (RadioButton) answerGroup.getSelectedToggle();
             if(radio == null){
-                Alert alert = new Alert(Alert.AlertType.ERROR, "Vous devez choisir une réponse!", ButtonType.OK);
+                Alert alert = new Alert(Alert.AlertType.ERROR, "You have to select an answer!", ButtonType.OK);
                 alert.show();
                 return;
             }else if(selectedBoxs.size() == 0){
-                Alert alert = new Alert(Alert.AlertType.ERROR, "Vous devez choisir les réponses que vous acceptez!", ButtonType.OK);
+                Alert alert = new Alert(Alert.AlertType.ERROR, "You have to selected one or more accepted answers!", ButtonType.OK);
                 alert.show();
                 return;
             }

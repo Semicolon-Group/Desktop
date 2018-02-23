@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="775.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EditProfileViewController">
+<AnchorPane id="AnchorPane" prefHeight="775.0" prefWidth="1200.0" stylesheets="@style/FomStyleSheet.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EditProfileViewController">
    <children>
       <AnchorPane layoutX="10.0" layoutY="10.0" minHeight="0.0" minWidth="0.0" prefHeight="682.0" prefWidth="1200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -26,7 +26,7 @@
                            <children>
                               <VBox alignment="CENTER_LEFT" prefHeight="93.0" prefWidth="302.0">
                                  <children>
-                                    <Label text="Prénom:">
+                                    <Label text="Firstname:">
                                        <font>
                                           <Font name="System Bold" size="24.0" />
                                        </font>
@@ -44,7 +44,7 @@
                            <children>
                               <VBox alignment="CENTER_LEFT" prefHeight="93.0" prefWidth="302.0">
                                  <children>
-                                    <Label text="Nom:">
+                                    <Label text="Lastname:">
                                        <font>
                                           <Font name="System Bold" size="24.0" />
                                        </font>
@@ -62,7 +62,7 @@
                            <children>
                               <VBox alignment="CENTER_LEFT" prefHeight="93.0" prefWidth="294.0">
                                  <children>
-                                    <Label text="Sexe:">
+                                    <Label text="Gender:">
                                        <font>
                                           <Font name="System Bold" size="24.0" />
                                        </font>
@@ -73,12 +73,12 @@
                                  <children>
                                     <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                                        <children>
-                                          <RadioButton fx:id="maleRadio" mnemonicParsing="false" text="Homme">
+                                          <RadioButton fx:id="maleRadio" mnemonicParsing="false" text="Male">
                                              <toggleGroup>
                                                 <ToggleGroup fx:id="gender" />
                                              </toggleGroup>
                                           </RadioButton>
-                                          <RadioButton fx:id="femaleRadio" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Femme" toggleGroup="$gender" />
+                                          <RadioButton fx:id="femaleRadio" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Female" toggleGroup="$gender" />
                                        </children>
                                     </HBox>
                                  </children>
@@ -89,7 +89,7 @@
                            <children>
                               <VBox alignment="CENTER_LEFT" prefHeight="93.0" prefWidth="299.0">
                                  <children>
-                                    <Label prefHeight="36.0" prefWidth="235.0" text="Date de naissance:">
+                                    <Label prefHeight="36.0" prefWidth="235.0" text="Birthdate:">
                                        <font>
                                           <Font name="System Bold" size="24.0" />
                                        </font>
@@ -107,7 +107,7 @@
                            <children>
                               <VBox alignment="CENTER_LEFT" prefHeight="93.0" prefWidth="302.0">
                                  <children>
-                                    <Label text="Taille:">
+                                    <Label text="Height">
                                        <font>
                                           <Font name="System Bold" size="24.0" />
                                        </font>
@@ -125,7 +125,7 @@
                            <children>
                               <VBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="217.0">
                                  <children>
-                                    <Label text="Adresse:">
+                                    <Label text="Address:">
                                        <font>
                                           <Font name="System Bold" size="24.0" />
                                        </font>
@@ -156,7 +156,7 @@
                            <children>
                               <VBox alignment="CENTER_LEFT" prefHeight="93.0" prefWidth="305.0">
                                  <children>
-                                    <Label text="Type de corps:">
+                                    <Label text="Body Type:">
                                        <font>
                                           <Font name="System Bold" size="24.0" />
                                        </font>
@@ -174,7 +174,7 @@
                            <children>
                               <VBox alignment="CENTER_LEFT" prefHeight="93.0" prefWidth="310.0">
                                  <children>
-                                    <Label text="Fumeur:">
+                                    <Label text="Smoker:">
                                        <font>
                                           <Font name="System Bold" size="24.0" />
                                        </font>
@@ -185,12 +185,12 @@
                                  <children>
                                     <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
                                        <children>
-                                          <RadioButton fx:id="smokerRadio" mnemonicParsing="false" text="Oui">
+                                          <RadioButton fx:id="smokerRadio" mnemonicParsing="false" text="Yes">
                                              <toggleGroup>
                                                 <ToggleGroup fx:id="smoker" />
                                              </toggleGroup>
                                           </RadioButton>
-                                          <RadioButton fx:id="noneSmokerRadio" mnemonicParsing="false" text="Non" toggleGroup="$smoker" />
+                                          <RadioButton fx:id="noneSmokerRadio" mnemonicParsing="false" text="No" toggleGroup="$smoker" />
                                        </children>
                                     </HBox>
                                  </children>
@@ -201,7 +201,7 @@
                            <children>
                               <VBox alignment="CENTER_LEFT" prefHeight="93.0" prefWidth="312.0">
                                  <children>
-                                    <Label fx:id="drinkerLabel" text="Buveur:">
+                                    <Label fx:id="drinkerLabel" text="Drinker:">
                                        <font>
                                           <Font name="System Bold" size="24.0" />
                                        </font>
@@ -212,12 +212,12 @@
                                  <children>
                                     <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                                        <children>
-                                          <RadioButton fx:id="drinkerRadio" mnemonicParsing="false" text="Oui">
+                                          <RadioButton fx:id="drinkerRadio" mnemonicParsing="false" text="Yes">
                                              <toggleGroup>
                                                 <ToggleGroup fx:id="drinker" />
                                              </toggleGroup>
                                           </RadioButton>
-                                          <RadioButton fx:id="noneDrinkerRadio" mnemonicParsing="false" text="Non" toggleGroup="$drinker" />
+                                          <RadioButton fx:id="noneDrinkerRadio" mnemonicParsing="false" text="No" toggleGroup="$drinker" />
                                        </children>
                                     </HBox>
                                  </children>
@@ -264,7 +264,7 @@
                            <children>
                               <VBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="262.0">
                                  <children>
-                                    <Label prefHeight="38.0" prefWidth="284.0" text="Situation:">
+                                    <Label prefHeight="38.0" prefWidth="284.0" text="Marital Status:">
                                        <font>
                                           <Font name="System Bold" size="24.0" />
                                        </font>
@@ -282,7 +282,7 @@
                            <children>
                               <VBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="276.0">
                                  <children>
-                                    <Label prefHeight="36.0" prefWidth="235.0" text="Nombre d'enfants:">
+                                    <Label prefHeight="36.0" prefWidth="235.0" text="Number of children:">
                                        <font>
                                           <Font name="System Bold" size="24.0" />
                                        </font>
@@ -307,7 +307,7 @@
       </AnchorPane>
       <AnchorPane layoutX="-9.0" layoutY="682.0" prefHeight="93.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="682.0">
          <children>
-            <Button layoutX="1044.0" layoutY="15.0" mnemonicParsing="false" onAction="#update" text="Confirmer">
+            <Button layoutX="1006.0" layoutY="15.0" mnemonicParsing="false" onAction="#update" prefHeight="51.0" prefWidth="148.0" styleClass="regular_button" text="Update">
                <font>
                   <Font size="24.0" />
                </font>
