@@ -7,6 +7,7 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,6 +21,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import models.Address;
 import models.PlaceSuggestion;
+import services.AddressService;
 import util.GooglePlacesAPI;
 
 /**
@@ -56,11 +58,15 @@ public class PlaceSuggestionViewController implements Initializable {
         // TODO
     }
     
-    public void setParams(PlaceSuggestion suggestion, Address origin, AnchorPane parent){
-        this.suggestion = suggestion;
-        this.origin = origin;
-        this.parent = parent;
-        populateFields();
+    public void setParams(PlaceSuggestion suggestion, AnchorPane parent){
+        try {
+            this.suggestion = suggestion;
+            this.origin = AddressService.getInstance().get(new Address(MySoulMate.MEMBER_ID));
+            this.parent = parent;
+            populateFields();
+        } catch (SQLException ex) {
+            Logger.getLogger(PlaceSuggestionViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     private void populateFields(){
