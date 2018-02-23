@@ -16,6 +16,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,7 +33,9 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
@@ -202,7 +205,7 @@ public class SelfProfileViewController implements Initializable {
                 HBox hBox = new HBox();
                 hBox.setSpacing(20);
                 hBox.setAlignment(Pos.CENTER);
-                Button button = new Button("Supprimer");
+                Button button = new Button("Delete");
                 button.setOnAction(e-> supprimerPhoto(e));
                 button.getStyleClass().add("regular_button");
                 button.setId(photo.getId()+"");
@@ -235,8 +238,12 @@ public class SelfProfileViewController implements Initializable {
     
     private void supprimerPhoto(ActionEvent event){
         try {
-            PhotoService.getInstance().delete(new Photo(Integer.parseInt(((Button)event.getTarget()).getId())));
-            populatePhotosPane();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to delete this photo?", ButtonType.YES, ButtonType.CANCEL);
+            Optional<ButtonType> result = alert.showAndWait();
+            if(result.get() == ButtonType.YES){
+                PhotoService.getInstance().delete(new Photo(Integer.parseInt(((Button)event.getTarget()).getId())));
+                populatePhotosPane();
+            }
         } catch (SQLException ex) {
             util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), null);
         }
@@ -252,12 +259,12 @@ public class SelfProfileViewController implements Initializable {
             String age = ""+((new Date()).getYear()-member.getBirthDate().getYear());
             ageLabel.setText(age);
             addressLabel.setText(member.getAddress().getCity()+", "+member.getAddress().getCountry());
-            genderLabel.setText(member.isGender()?"Homme":"Femme");
+            genderLabel.setText(member.isGender()?"Male":"Female");
             bdLabel.setText(new SimpleDateFormat("dd MMMM yyyy", Locale.FRANCE).format(member.getBirthDate()));
             heightLabel.setText(member.getHeight()+"");
             bodyTypeLabel.setText(member.getBodyType().name().substring(0, 1) + member.getBodyType().name().substring(1).toLowerCase());
-            smokerLabel.setText(member.isSmoker()?"Oui":"Non");
-            drinkerLabel.setText(member.isDrinker()?"Oui":"Non");
+            smokerLabel.setText(member.isSmoker()?"Yes":"No");
+            drinkerLabel.setText(member.isDrinker()?"Yes":"No");
             religionLabel.setText(member.getReligion().name().substring(0, 1) + member.getReligion().name().substring(1).toLowerCase());
             childNumLabel.setText(member.getChildrenNumber()+"");
             aboutText.setText(member.getAbout());
@@ -266,7 +273,7 @@ public class SelfProfileViewController implements Initializable {
             
             makeMemberLikePane();
         } catch (SQLException ex) {
-            util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), "Probleme de connéction à la base de donnée");
+            util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), "Connexion de database failed");
         }catch (Exception ex){
             util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), null);
         }
@@ -329,7 +336,7 @@ public class SelfProfileViewController implements Initializable {
     @FXML
     private void showFileChooser(ActionEvent event) {
         FileChooser chooser = new FileChooser();
-        chooser.setTitle("Choisir une photo");
+        chooser.setTitle("Select a photo");
         File photo = chooser.showOpenDialog(MySoulMate.mainStage);
         System.out.println(photo.getAbsolutePath());
 //        FTPClient con = null;

@@ -33,7 +33,7 @@
                <children>
                   <HBox alignment="CENTER_LEFT" layoutX="40.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
                      <children>
-                        <Label text="Importance de cette questions:">
+                        <Label text="Question importance">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -50,7 +50,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
                      <children>
-                        <Label text="Votre réponse:">
+                        <Label text="Answer:">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -70,7 +70,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" layoutX="40.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
                      <children>
-                        <Label text="Vous acceptez:">
+                        <Label text="Accepted answers">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -92,7 +92,7 @@
             </VBox>
             <HBox alignment="CENTER_RIGHT" prefHeight="42.0" prefWidth="712.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#addAnswer" prefHeight="39.0" prefWidth="91.0" styleClass="regular_button" text="Confirmer" />
+                  <Button mnemonicParsing="false" onAction="#addAnswer" prefHeight="39.0" prefWidth="91.0" styleClass="regular_button" text="Add" />
                </children>
                <VBox.margin>
                   <Insets right="20.0" />

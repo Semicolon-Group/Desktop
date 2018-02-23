@@ -36,7 +36,7 @@
                                              <children>
                                                 <VBox alignment="CENTER_LEFT" prefHeight="95.0" prefWidth="243.0">
                                                    <children>
-                                                      <Label text="Sexe:">
+                                                      <Label text="Gender:">
                                                          <font>
                                                             <Font name="System Bold" size="24.0" />
                                                          </font>
@@ -58,7 +58,7 @@
                                              <children>
                                                 <VBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="338.0">
                                                    <children>
-                                                      <Label prefHeight="36.0" prefWidth="235.0" text="Date de naissance:">
+                                                      <Label prefHeight="36.0" prefWidth="235.0" text="Birthdate:">
                                                          <font>
                                                             <Font name="System Bold" size="24.0" />
                                                          </font>
@@ -80,7 +80,7 @@
                                              <children>
                                                 <VBox alignment="CENTER_LEFT" prefHeight="95.0" prefWidth="243.0">
                                                    <children>
-                                                      <Label text="Taille:">
+                                                      <Label text="Height:">
                                                          <font>
                                                             <Font name="System Bold" size="24.0" />
                                                          </font>
@@ -102,7 +102,7 @@
                                              <children>
                                                 <VBox alignment="CENTER_LEFT" prefHeight="95.0" prefWidth="243.0">
                                                    <children>
-                                                      <Label text="Type de corps:">
+                                                      <Label text="Body type:">
                                                          <font>
                                                             <Font name="System Bold" size="24.0" />
                                                          </font>
@@ -124,7 +124,7 @@
                                              <children>
                                                 <VBox alignment="CENTER_LEFT" prefHeight="95.0" prefWidth="243.0">
                                                    <children>
-                                                      <Label text="Fumeur:">
+                                                      <Label text="Smoker:">
                                                          <font>
                                                             <Font name="System Bold" size="24.0" />
                                                          </font>
@@ -146,7 +146,7 @@
                                              <children>
                                                 <VBox alignment="CENTER_LEFT" prefHeight="95.0" prefWidth="243.0">
                                                    <children>
-                                                      <Label fx:id="drinkerLabel" text="Buveur:">
+                                                      <Label fx:id="drinkerLabel" text="Drinker:">
                                                          <font>
                                                             <Font name="System Bold" size="24.0" />
                                                          </font>
@@ -198,7 +198,7 @@
                                              <children>
                                                 <VBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="268.0">
                                                    <children>
-                                                      <Label prefHeight="37.0" prefWidth="197.0" text="Situation:">
+                                                      <Label prefHeight="37.0" prefWidth="197.0" text="Marital status:">
                                                          <font>
                                                             <Font name="System Bold" size="24.0" />
                                                          </font>
@@ -220,7 +220,7 @@
                                              <children>
                                                 <VBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="338.0">
                                                    <children>
-                                                      <Label prefHeight="36.0" prefWidth="235.0" text="Nombre d'enfants:">
+                                                      <Label prefHeight="36.0" prefWidth="235.0" text="Number of children">
                                                          <font>
                                                             <Font name="System Bold" size="24.0" />
                                                          </font>
@@ -242,7 +242,7 @@
                                              <children>
                                                 <VBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="268.0">
                                                    <children>
-                                                      <Label prefHeight="37.0" prefWidth="197.0" text="Membre depuis:">
+                                                      <Label prefHeight="37.0" prefWidth="197.0" text="Member since:">
                                                          <font>
                                                             <Font name="System Bold" size="24.0" />
                                                          </font>
@@ -288,7 +288,7 @@
                         </AnchorPane>
                      </content>
                   </Tab>
-                  <Tab text="Réponses">
+                  <Tab text="Answers">
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
@@ -318,7 +318,7 @@
                      <children>
                         <AnchorPane prefHeight="211.0" prefWidth="1200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <Label styleClass="paragraph_title" text="A propos de moi" AnchorPane.leftAnchor="30.0">
+                              <Label styleClass="paragraph_title" text="About" AnchorPane.leftAnchor="30.0">
                                  <font>
                                     <Font name="System Bold" size="64.0" />
                                  </font>
@@ -383,9 +383,9 @@
                <children>
                   <HBox layoutY="-36.0" prefHeight="166.0" prefWidth="1420.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-36.0">
                      <children>
-                        <AnchorPane prefHeight="110.0" prefWidth="733.0">
+                        <AnchorPane prefHeight="166.0" prefWidth="680.0">
                            <children>
-                              <HBox layoutX="40.0" layoutY="63.0" prefHeight="10.0" prefWidth="200.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="63.0">
+                              <HBox layoutX="40.0" layoutY="63.0" prefHeight="58.0" prefWidth="642.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="63.0">
                                  <children>
                                     <Label fx:id="nameLabel" text="Lena Adams" textFill="WHITE">
                                        <font>
@@ -426,50 +426,52 @@
                               </HBox>
                            </children>
                         </AnchorPane>
-                        <AnchorPane prefHeight="210.0" prefWidth="684.0">
+                        <AnchorPane prefHeight="156.0" prefWidth="698.0">
                            <children>
-                              <VBox alignment="CENTER" layoutY="-35.0" prefHeight="166.0" prefWidth="672.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                              <VBox alignment="CENTER" layoutY="-35.0" prefHeight="155.0" prefWidth="738.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="-52.0">
                                  <children>
                                     <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
-                                       <children>
-                                          <Button fx:id="meetButton" mnemonicParsing="false" onAction="#showSug" prefHeight="71.0" prefWidth="259.0" styleClass="regular_button" text="Se Rencontrer">
-                                             <font>
-                                                <Font name="System Bold" size="30.0" />
-                                             </font>
-                                          </Button>
-                                       </children>
                                        <VBox.margin>
                                           <Insets right="30.0" />
                                        </VBox.margin>
                                     </HBox>
-                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="566.0" spacing="50.0">
+                                    <HBox alignment="CENTER" prefHeight="71.0" prefWidth="676.0" spacing="30.0">
                                        <children>
-                                          <Button fx:id="messageButton" mnemonicParsing="false" onAction="#startChat" prefHeight="71.0" prefWidth="188.0" styleClass="regular_button" text="Message">
-                                             <font>
-                                                <Font name="System Bold" size="30.0" />
-                                             </font>
-                                          </Button>
-                                          <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                                          <HBox alignment="CENTER" prefHeight="83.0" prefWidth="567.0" spacing="20.0">
                                              <children>
-                                                <AnchorPane prefHeight="44.0">
+                                                <Button fx:id="meetButton" mnemonicParsing="false" onAction="#showSug" prefHeight="71.0" prefWidth="180.0" styleClass="regular_button" text="Meet">
+                                                   <font>
+                                                      <Font name="System Bold" size="30.0" />
+                                                   </font>
+                                                </Button>
+                                                <Button fx:id="messageButton" mnemonicParsing="false" onAction="#startChat" prefHeight="71.0" prefWidth="170.0" styleClass="regular_button" text="Message">
+                                                   <font>
+                                                      <Font name="System Bold" size="30.0" />
+                                                   </font>
+                                                </Button>
+                                                <VBox alignment="CENTER" prefHeight="83.0" prefWidth="180.0">
                                                    <children>
-                                                      <Button fx:id="dislikeButton" layoutX="18.0" layoutY="14.0" mnemonicParsing="false" onAction="#doUnlike" prefHeight="71.0" prefWidth="214.0" styleClass="regular_button" text="Dislike" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="4.0">
-                                                         <font>
-                                                            <Font name="System Bold" size="30.0" />
-                                                         </font>
-                                                      </Button>
-                                                      <Button fx:id="likeButton" layoutY="4.0" mnemonicParsing="false" onAction="#doLike" prefHeight="71.0" prefWidth="214.0" styleClass="regular_button" text="Like" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="4.0">
-                                                         <font>
-                                                            <Font name="System Bold" size="30.0" />
-                                                         </font>
-                                                      </Button>
+                                                      <AnchorPane prefHeight="75.0" prefWidth="186.0">
+                                                         <children>
+                                                            <Button fx:id="dislikeButton" layoutX="18.0" layoutY="14.0" mnemonicParsing="false" onAction="#doUnlike" prefHeight="71.0" prefWidth="180.0" styleClass="regular_button" text="Dislike" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                               <font>
+                                                                  <Font name="System Bold" size="30.0" />
+                                                               </font>
+                                                            </Button>
+                                                            <Button fx:id="likeButton" layoutX="34.0" layoutY="4.0" mnemonicParsing="false" onAction="#doLike" prefHeight="71.0" prefWidth="180.0" styleClass="regular_button" text="Like" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                               <font>
+                                                                  <Font name="System Bold" size="30.0" />
+                                                               </font>
+                                                            </Button>
+                                                         </children>
+                                                      </AnchorPane>
                                                    </children>
-                                                </AnchorPane>
+                                                </VBox>
                                              </children>
-                                          </VBox>
+                                          </HBox>
                                           <AnchorPane prefHeight="100.0" prefWidth="65.0">
                                              <children>
-                                                <ImageView fitHeight="58.0" fitWidth="59.0" layoutX="4.0" layoutY="21.0" onMouseClicked="#showMenu" pickOnBounds="true" preserveRatio="true">
+                                                <ImageView fitHeight="58.0" fitWidth="59.0" layoutX="4.0" layoutY="11.0" onMouseClicked="#showMenu" pickOnBounds="true" preserveRatio="true">
                                                    <image>
                                                       <Image url="@assets/icons/menu.png" />
                                                    </image>
@@ -492,13 +494,13 @@
                   </HBox>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="sideMenu" layoutX="1781.0" layoutY="457.0" prefHeight="0.0" prefWidth="0.0" styleClass="side_menu" visible="false" AnchorPane.rightAnchor="97.0">
+            <AnchorPane fx:id="sideMenu" layoutX="1818.0" layoutY="480.0" prefHeight="0.0" prefWidth="0.0" styleClass="side_menu" visible="false" AnchorPane.rightAnchor="86.0">
                <children>
                   <VBox prefHeight="130.0" prefWidth="202.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <HBox fx:id="blockBox" alignment="CENTER" onMouseClicked="#showBlockAlert" prefHeight="100.0" prefWidth="200.0" styleClass="side_menu_item">
                            <children>
-                              <Label text="Bloquer" HBox.hgrow="ALWAYS">
+                              <Label text="Block" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
@@ -507,7 +509,7 @@
                         </HBox>
                         <HBox fx:id="signalBox" alignment="CENTER" layoutX="10.0" layoutY="10.0" onMouseClicked="#showSignalAlert" prefHeight="100.0" prefWidth="200.0" styleClass="side_menu_item">
                            <children>
-                              <Label text="Signaler" HBox.hgrow="ALWAYS">
+                              <Label text="Report" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font size="24.0" />
                                  </font>

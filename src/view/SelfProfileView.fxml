@@ -115,7 +115,7 @@
                            <children>
                               <VBox alignment="CENTER" prefHeight="119.0" prefWidth="376.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <Button mnemonicParsing="false" onAction="#toEditView" prefHeight="70.0" prefWidth="250.0" styleClass="regular_button" text="Editer">
+                                    <Button mnemonicParsing="false" onAction="#toEditView" prefHeight="70.0" prefWidth="250.0" styleClass="regular_button" text="Edit">
                                        <font>
                                           <Font name="System Bold" size="30.0" />
                                        </font>
@@ -150,7 +150,7 @@
                                              <children>
                                                 <VBox alignment="CENTER_LEFT" prefHeight="95.0" prefWidth="243.0">
                                                    <children>
-                                                      <Label text="Sexe:">
+                                                      <Label text="Gender:">
                                                          <font>
                                                             <Font name="System Bold" size="24.0" />
                                                          </font>
@@ -172,7 +172,7 @@
                                              <children>
                                                 <VBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="338.0">
                                                    <children>
-                                                      <Label prefHeight="36.0" prefWidth="235.0" text="Date de naissance:">
+                                                      <Label prefHeight="36.0" prefWidth="235.0" text="Birthdate:">
                                                          <font>
                                                             <Font name="System Bold" size="24.0" />
                                                          </font>
@@ -194,7 +194,7 @@
                                              <children>
                                                 <VBox alignment="CENTER_LEFT" prefHeight="95.0" prefWidth="243.0">
                                                    <children>
-                                                      <Label text="Taille:">
+                                                      <Label text="Height:">
                                                          <font>
                                                             <Font name="System Bold" size="24.0" />
                                                          </font>
@@ -216,7 +216,7 @@
                                              <children>
                                                 <VBox alignment="CENTER_LEFT" prefHeight="95.0" prefWidth="243.0">
                                                    <children>
-                                                      <Label text="Type de corps:">
+                                                      <Label text="Body type:">
                                                          <font>
                                                             <Font name="System Bold" size="24.0" />
                                                          </font>
@@ -238,7 +238,7 @@
                                              <children>
                                                 <VBox alignment="CENTER_LEFT" prefHeight="95.0" prefWidth="243.0">
                                                    <children>
-                                                      <Label text="Fumeur:">
+                                                      <Label text="Smoker:">
                                                          <font>
                                                             <Font name="System Bold" size="24.0" />
                                                          </font>
@@ -260,7 +260,7 @@
                                              <children>
                                                 <VBox alignment="CENTER_LEFT" prefHeight="95.0" prefWidth="243.0">
                                                    <children>
-                                                      <Label fx:id="drinkerLabel" text="Buveur:">
+                                                      <Label fx:id="drinkerLabel" text="Drinker:">
                                                          <font>
                                                             <Font name="System Bold" size="24.0" />
                                                          </font>
@@ -312,7 +312,7 @@
                                              <children>
                                                 <VBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="268.0">
                                                    <children>
-                                                      <Label prefHeight="37.0" prefWidth="197.0" text="Situation:">
+                                                      <Label prefHeight="37.0" prefWidth="197.0" text="Marital status:">
                                                          <font>
                                                             <Font name="System Bold" size="24.0" />
                                                          </font>
@@ -334,7 +334,7 @@
                                              <children>
                                                 <VBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="338.0">
                                                    <children>
-                                                      <Label prefHeight="36.0" prefWidth="235.0" text="Nombre d'enfants:">
+                                                      <Label prefHeight="36.0" prefWidth="235.0" text="Number of children:">
                                                          <font>
                                                             <Font name="System Bold" size="24.0" />
                                                          </font>
@@ -356,7 +356,7 @@
                                              <children>
                                                 <VBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="268.0">
                                                    <children>
-                                                      <Label prefHeight="37.0" prefWidth="197.0" text="Membre depuis:">
+                                                      <Label prefHeight="37.0" prefWidth="197.0" text="Member sinc:">
                                                          <font>
                                                             <Font name="System Bold" size="24.0" />
                                                          </font>
@@ -385,7 +385,7 @@
                         </AnchorPane>
                   </content>
                 </Tab>
-                  <Tab text="Mes Likes">
+                  <Tab text="Likes">
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
@@ -402,7 +402,7 @@
                         </AnchorPane>
                      </content>
                   </Tab>
-                  <Tab text="Mes Réponses">
+                  <Tab text="Answers">
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
@@ -440,7 +440,7 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </ImageView>
-                              <Label styleClass="paragraph_title" text="A propos de moi" AnchorPane.leftAnchor="30.0">
+                              <Label styleClass="paragraph_title" text="About" AnchorPane.leftAnchor="30.0">
                                  <font>
                                     <Font name="System Bold" size="64.0" />
                                  </font>
