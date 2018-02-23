@@ -66,7 +66,7 @@ public class Enumerations {
     public enum Proximity{
 	PROCHE,
 	DISTANT,
-	BOTH
+	PARTOUT
     }
     public enum LockedType{
 	ENABLED,

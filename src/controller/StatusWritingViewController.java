@@ -77,5 +77,10 @@ public class StatusWritingViewController implements Initializable {
             Logger.getLogger(StatusWritingViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    @FXML
+    private void onPhotoClick(MouseEvent event) {
+        GlobalViewController.getInstance().setMainContent("/view/SelfProfileView.fxml");
+    }
     
 }
