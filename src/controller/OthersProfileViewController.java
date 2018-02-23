@@ -85,8 +85,6 @@ public class OthersProfileViewController implements Initializable {
     @FXML
     private Label addressLabel;
     @FXML
-    private Label matchPercentageLabel;
-    @FXML
     private Label genderLabel;
     @FXML
     private Label bdLabel;
