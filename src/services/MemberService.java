@@ -15,9 +15,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import models.Address;
 import models.Enumerations;
 import models.Enumerations.LastLogin;
@@ -231,8 +234,8 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
         return mmbrs;
     }
 
-    public List<Member> getFiltered(Filter F) throws SQLException {
-        String req = "SELECT * FROM user WHERE ";
+    public Map<Member,Map.Entry<Double,Integer>> getFiltered(Filter F) throws SQLException {
+        String req = "SELECT *,TIMESTAMPDIFF(day,last_login,Sysdate()) as login FROM user WHERE ";
         
         req += "(TIMESTAMPDIFF(year,birth_date,Sysdate()) BETWEEN " + F.getAgeMin() + " AND " + F.getAgeMax() + ") ";
         
@@ -288,19 +291,19 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
         }
 
         ResultSet rs = CONNECTION.createStatement().executeQuery(req);
-        List<Member> mmbrs = new ArrayList<>();
-        while (rs.next()) {
-
+        Map<Member,Map.Entry<Double,Integer>> mmbrs = new HashMap<>();
+        while (rs.next()) {            
             Member mbr = new Member();
-
             mbr.setId(rs.getInt("id"));
             mbr.setAddress(AddressService.getInstance().get(new Address(mbr.getId())));
+            
+            Double distance = getDistance(online.getAddress(), mbr.getAddress());
             if(F.getDistance() != -1){
-                double distance = getDistance(online.getAddress(), mbr.getAddress());
                 if(distance > F.getDistance()){
                     continue;
                 }
             }
+            Integer login = rs.getInt("login");
             
             mbr.setPseudo(rs.getString("pseudo"));
             mbr.setFirstname(rs.getString("firstname"));
@@ -328,7 +331,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
             mbr.setConnected(rs.getBoolean("connected"));
             mbr.setCreatedAt(rs.getTimestamp("created_at"));
 
-            mmbrs.add(mbr);
+            mmbrs.put(mbr,new AbstractMap.SimpleEntry(distance,login));
         }
         return mmbrs;
     }

@@ -28,9 +28,25 @@ and open the template in the editor.
 }
 
 .yesBoxSelected{
-    -fx-background-color:  green;
+    -fx-background-color:  #4ba3c3;
 }
 
 .noBoxSelected{
-    -fx-background-color:  green;
+    -fx-background-color:  #e14b3b;
+}
+
+.searchButton{
+    -fx-background-color:  #175676;
+}
+
+.searchButton:pressed{
+    -fx-background-color:  #4ba3c3;
+}
+
+.cancelButton{
+     -fx-background-color:  white;
+}
+
+.cancelButton:pressed{
+     -fx-background-color:  #e14b3b;
 }

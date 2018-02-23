@@ -19,14 +19,14 @@ public class MatchCard {
     private String city;
     private int match;
     private int enemy;
-    private Timestamp lastLogin;
+    private int lastLogin;
     private boolean online;
-    private float distance;
+    private double distance;
 
     public MatchCard() {
     }
 
-    public MatchCard(int memberId, String pseudo, String photoUrl, int age, String city, int match, int enemy, Timestamp lastLogin, boolean online, float distance) {
+    public MatchCard(int memberId, String pseudo, String photoUrl, int age, String city, int match, int enemy, int lastLogin, boolean online, float distance) {
         this.memberId = memberId;
         this.pseudo = pseudo;
         this.photoUrl = photoUrl;
@@ -105,11 +105,11 @@ public class MatchCard {
         this.enemy = enemy;
     }
 
-    public Timestamp getLastLogin() {
+    public int getLastLogin() {
         return lastLogin;
     }
 
-    public void setLastLogin(Timestamp lastLogin) {
+    public void setLastLogin(int lastLogin) {
         this.lastLogin = lastLogin;
     }
 
@@ -121,11 +121,11 @@ public class MatchCard {
         this.online = online;
     }
 
-    public float getDistance() {
+    public double getDistance() {
         return distance;
     }
 
-    public void setDistance(float distance) {
+    public void setDistance(double distance) {
         this.distance = distance;
     }
 

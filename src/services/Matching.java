@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import models.Answer;
 import models.Choice;
 import models.Enumerations;
@@ -95,14 +96,16 @@ public class Matching {
     }
     
     public List<MatchCard> getMatches(Member M, Filter F) throws SQLException{
-        List<Member> list = MemberService.getInstance().getFiltered(F);
+        Map<Member,Map.Entry<Double,Integer>> map = MemberService.getInstance().getFiltered(F);
+        Set<Member> list = map.keySet();
         List<MatchCard> cards = new ArrayList();
         for(Member m : list){
             MatchCard card = new MatchCard();
             card.setMemberId(m.getId());
             card.setAge(m.getAge());
             card.setCity(m.getAddress().getCity());
-            card.setLastLogin(m.getLastLogin());
+            card.setLastLogin(map.get(m).getValue());
+            card.setDistance(map.get(m).getKey());
             card.setPseudo(m.getPseudo());
             card.setPhotoUrl(MySoulMate.UPLOAD_URL + PhotoService.getInstance().get(new Photo(0, m.getId(), null, null, PhotoType.PROFILE)).getUrl());
             
