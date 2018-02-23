@@ -180,12 +180,10 @@ public class SelfProfileViewController implements Initializable {
             final Stage dialog = new Stage();
             dialog.initModality(Modality.APPLICATION_MODAL);
             dialog.initOwner(MySoulMate.mainStage);
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AddAnswerView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AnswerAddView.fxml"));
             Pane content = loader.load();
-            ((AddAnswerViewController)loader.getController()).setAnswers(answers);
-            ((AddAnswerViewController)loader.getController()).setDialog(dialog);
-            ((AddAnswerViewController)loader.getController()).setSelfProfileViewController(this);
-            Scene dialogScene = new Scene(content, 690, 508);
+            ((AnswerAddViewController)loader.getController()).setParams(MySoulMate.MEMBER_ID, this);
+            Scene dialogScene = new Scene(content, 752, 400);
             dialog.setScene(dialogScene);
             dialog.show();
         } catch (IOException ex) {
