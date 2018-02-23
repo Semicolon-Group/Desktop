@@ -62,6 +62,7 @@ public class AnswerAddViewController implements Initializable {
     private Question question;
     private ToggleGroup answerGroup;
     private SelfProfileViewController controller;
+    
     @FXML
     private VBox noMore;
 
@@ -70,7 +71,7 @@ public class AnswerAddViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        question = null;
     }
     
     public void setParams(int userId, SelfProfileViewController controller){
@@ -79,13 +80,22 @@ public class AnswerAddViewController implements Initializable {
         populate();
     }
     
+    public void setParams(int userId, Question question){
+        this.userId = userId;
+        this.question = question;
+        populate();
+    }
+    
     private void populate(){
         try {
-            question = getRandomQuestion();
             if(question == null){
-                noMore.setVisible(true);
-                return;
+                question = getRandomQuestion();
+                if(question == null){
+                    noMore.setVisible(true);
+                    return;
+                }
             }
+            importanceCombo.getItems().clear();
             importanceCombo.getItems().addAll(Enumerations.Importance.values());
             importanceCombo.getSelectionModel().select(0);
             topicLabel.setText(question.getTopic().name());
@@ -156,7 +166,8 @@ public class AnswerAddViewController implements Initializable {
                 answer.getAcceptedChoices().add(ChoiceService.getInstance().get(new Choice(Integer.parseInt(cb.getId()))));
             }
             AnswerService.getInstance().create(answer);
-            controller.makeAnswersPane();
+            if(controller != null) controller.makeAnswersPane();
+            question = null;
             populate();
         } catch (SQLException ex) {
             Logger.getLogger(AnswerAddViewController.class.getName()).log(Level.SEVERE, null, ex);
