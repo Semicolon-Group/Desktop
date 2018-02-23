@@ -1,0 +1,50 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Feb 23, 2018, 5:41:52 PM
+    Author     : Seif
+*/
+
+.check-box .box {
+
+-fx-background-color: white;
+-fx-border-color:grey;
+-fx-border-radius:1px; 
+
+}
+
+.check-box:selected .mark {
+
+-fx-background-color: white;
+
+}
+
+.check-box:selected .box {
+
+-fx-background-color:  #4ba3c3;
+}
+
+.radio{
+    -fx-background-color: white;
+    -fx-border-color:grey;
+    -fx-border-radius: 50%; 
+}
+
+.regular_button{
+    -fx-text-fill: white;
+    -fx-background-color: #e74c3c;
+    -fx-background-radius: 30;
+    -fx-border-radius: 30;
+    -fx-cursor: hand;
+}
+
+.regular_button:hover{
+    -fx-text-fill: #e74c3c;
+    -fx-background-color: transparent;
+    -fx-border-width: 1;
+    -fx-border-color: #e74c3c;
+}
+

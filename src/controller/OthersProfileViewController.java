@@ -85,8 +85,6 @@ public class OthersProfileViewController implements Initializable {
     @FXML
     private Label addressLabel;
     @FXML
-    private Label matchPercentageLabel;
-    @FXML
     private Label genderLabel;
     @FXML
     private Label bdLabel;
@@ -170,10 +168,10 @@ public class OthersProfileViewController implements Initializable {
         try {
             answersVBox.getChildren().clear();
             List<Answer> answers = AnswerService.getInstance().getAll(new Answer(0, null, null, userId));
-            for(Answer answer: answers){
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AnswerView.fxml"));
+            for(Answer answer : answers){
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/OthersAnswerView.fxml"));
                 AnchorPane pane = loader.load();
-                ((AnswerViewController)loader.getController()).setAnswer(answer);
+                ((OthersAnswerViewController)loader.getController()).setAnswer(answer);
                 answersVBox.getChildren().add(pane);
             }
         } catch (SQLException ex) {

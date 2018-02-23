@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefWidth="752.0" style="-fx-background-color: white;" stylesheets="@style/FomStyleSheet.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AnswerAddViewController">
+   <children>
+      <VBox alignment="CENTER" prefWidth="752.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
+         <children>
+            <VBox alignment="CENTER" prefHeight="132.0" prefWidth="752.0" spacing="20.0">
+               <children>
+                  <Label fx:id="topicLabel" text="Culture">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="questionLabel" text="Exemple question de topic random?">
+                     <font>
+                        <Font name="System Bold" size="30.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox prefHeight="159.0" prefWidth="752.0" spacing="5.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" layoutX="40.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+                     <children>
+                        <Label text="Importance de cette questions:">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <HBox fx:id="answerChoicesBox1" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="30.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <ComboBox fx:id="importanceCombo" prefHeight="30.0" prefWidth="278.0" />
+                           </children>
+                        </HBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="30.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+                     <children>
+                        <Label text="Votre réponse:">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <HBox fx:id="answerChoicesBox" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="30.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <RadioButton mnemonicParsing="false" text="Choix 1" />
+                              <RadioButton layoutX="10.0" layoutY="50.0" mnemonicParsing="false" text="Choix 1" />
+                              <RadioButton layoutX="91.0" layoutY="50.0" mnemonicParsing="false" text="Choix 1" />
+                              <RadioButton layoutX="150.0" layoutY="50.0" mnemonicParsing="false" text="Choix 1" />
+                           </children>
+                        </HBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="30.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" layoutX="40.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+                     <children>
+                        <Label text="Vous acceptez:">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <HBox fx:id="acceptedChoiceBox" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="30.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <CheckBox mnemonicParsing="false" text="CheckBox" />
+                              <CheckBox layoutX="10.0" layoutY="50.0" mnemonicParsing="false" text="CheckBox" />
+                              <CheckBox layoutX="125.0" layoutY="50.0" mnemonicParsing="false" text="CheckBox" />
+                              <CheckBox layoutX="240.0" layoutY="50.0" mnemonicParsing="false" text="CheckBox" />
+                           </children>
+                        </HBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="30.0" />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+            </VBox>
+            <HBox alignment="CENTER_RIGHT" prefHeight="42.0" prefWidth="712.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#addAnswer" prefHeight="39.0" prefWidth="91.0" styleClass="regular_button" text="Confirmer" />
+               </children>
+               <VBox.margin>
+                  <Insets right="20.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox fx:id="noMore" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label text="No more questions available">
+               <font>
+                  <Font name="System Bold" size="36.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

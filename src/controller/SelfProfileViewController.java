@@ -53,12 +53,14 @@ import models.Answer;
 import models.Enumerations;
 import models.Enumerations.PhotoType;
 import models.Like;
+import models.MatchCard;
 import models.Member;
 import models.Photo;
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import services.AnswerService;
 import services.LikeService;
+import services.Matching;
 import services.MemberService;
 import services.PhotoService;
 
@@ -180,12 +182,10 @@ public class SelfProfileViewController implements Initializable {
             final Stage dialog = new Stage();
             dialog.initModality(Modality.APPLICATION_MODAL);
             dialog.initOwner(MySoulMate.mainStage);
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AddAnswerView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AnswerAddView.fxml"));
             Pane content = loader.load();
-            ((AddAnswerViewController)loader.getController()).setAnswers(answers);
-            ((AddAnswerViewController)loader.getController()).setDialog(dialog);
-            ((AddAnswerViewController)loader.getController()).setSelfProfileViewController(this);
-            Scene dialogScene = new Scene(content, 690, 508);
+            ((AnswerAddViewController)loader.getController()).setParams(MySoulMate.MEMBER_ID, this);
+            Scene dialogScene = new Scene(content, 752, 400);
             dialog.setScene(dialogScene);
             dialog.show();
         } catch (IOException ex) {
@@ -244,6 +244,8 @@ public class SelfProfileViewController implements Initializable {
     
     private void populateFields(){
         try {
+            List<MatchCard> cards = Matching.getInstance().getMatches(new Member(MySoulMate.MEMBER_ID));
+            matchPercentageLabel.setText((cards!=null && cards.size()!=0)?cards.get(cards.size()-1).getMatch()+"%":"0%");
             MemberService memberService = MemberService.getInstance();
             Member member = memberService.get(new Member(MySoulMate.MEMBER_ID));
             nameLabel.setText(member.getFirstname()+" "+member.getLastname());
@@ -302,7 +304,6 @@ public class SelfProfileViewController implements Initializable {
             }else{
                 photoPath = MySoulMate.UPLOAD_URL+photo.getUrl();
             }
-            System.out.println(photoPath);
             profileImage.setImage(new Image(photoPath));
         } catch (SQLException ex) {
             util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), null);
