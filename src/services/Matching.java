@@ -5,6 +5,7 @@
  */
 package services;
 
+import controller.MySoulMate;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -93,8 +94,8 @@ public class Matching {
         return ((int) (count == 0 ? 0 : Math.ceil((sum / count) * 100))); //we should show at least 1.
     }
     
-    public List<MatchCard> getMatches(Member M) throws SQLException{
-        List<Member> list = MemberService.getInstance().getFiltered(new Filter());
+    public List<MatchCard> getMatches(Member M, Filter F) throws SQLException{
+        List<Member> list = MemberService.getInstance().getFiltered(F);
         List<MatchCard> cards = new ArrayList();
         for(Member m : list){
             MatchCard card = new MatchCard();
@@ -103,7 +104,7 @@ public class Matching {
             card.setCity(m.getAddress().getCity());
             card.setLastLogin(m.getLastLogin());
             card.setPseudo(m.getPseudo());
-            card.setPhotoUrl(PhotoService.getInstance().get(new Photo(0, m.getId(), null, null, PhotoType.PROFILE)).getUrl());
+            card.setPhotoUrl(MySoulMate.UPLOAD_URL + PhotoService.getInstance().get(new Photo(0, m.getId(), null, null, PhotoType.PROFILE)).getUrl());
             
             List<Answer> A = AnswerService.getInstance().getAll(new Answer(0, null, null, M.getId()));
             List<Answer> B = AnswerService.getInstance().getAll(new Answer(0, null, null, m.getId()));

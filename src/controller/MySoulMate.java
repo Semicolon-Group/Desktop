@@ -26,7 +26,7 @@ import javafx.stage.StageStyle;
 public class MySoulMate extends Application {
     
     public static int MEMBER_ID=2;
-    public static final String UPLOAD_URL = "http://localhost:8080/mysoulmateuploads/";
+    public static final String UPLOAD_URL = "http://localhost/mysoulmateuploads/";
     public static Stage mainStage;
     private static MySoulMate instance;
     

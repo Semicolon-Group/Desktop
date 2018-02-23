@@ -20,7 +20,9 @@ import java.util.Date;
 import java.util.List;
 import models.Address;
 import models.Enumerations;
+import models.Enumerations.LastLogin;
 import models.Member;
+import static util.GoogleDistanceMatrixAPI.getDistance;
 
 /**
  *
@@ -230,9 +232,26 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
     }
 
     public List<Member> getFiltered(Filter F) throws SQLException {
-        String req = "select * from user WHERE ";
+        String req = "SELECT * FROM user WHERE ";
+        
+        req += "(TIMESTAMPDIFF(year,birth_date,Sysdate()) BETWEEN " + F.getAgeMin() + " AND " + F.getAgeMax() + ") ";
+        
+        switch (F.getLastLogin()) {
+            case UN_JOUR:
+                req += "AND (TIMESTAMPDIFF(day,last_login,Sysdate()) = 0) ";
+                break;
+            case SEMAINE:
+                req += "AND (TIMESTAMPDIFF(week,last_login,Sysdate()) = 0) ";
+                break;
+            case MOIS:
+                req += "AND (TIMESTAMPDIFF(month,last_login,Sysdate()) = 0) ";
+                break;
+            default:
+                req += "AND (TIMESTAMPDIFF(year,last_login,Sysdate()) = 0) ";
+                break;
+        }
 
-        req += "(height >=" + F.getHeightMin() + " and height <= " + F.getHeightMax() + ") ";
+        req += "AND ((height * 100 >= " + F.getHeightMin() + ") and (height * 100 <= " + F.getHeightMax() + ")) ";
 
         if (!F.getBodyType().isEmpty()) {
             req += "and (body_type in (";
@@ -268,18 +287,21 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
             req += "and (drinker = " + F.getDrinks() + ") ";
         }
 
-        req += " and `last_login` >= ?";
-
-        PreparedStatement pst = CONNECTION.prepareStatement(req);
-        pst.setTimestamp(1, F.getLastLogin());
-
-        ResultSet rs = pst.executeQuery();
+        ResultSet rs = CONNECTION.createStatement().executeQuery(req);
         List<Member> mmbrs = new ArrayList<>();
         while (rs.next()) {
 
             Member mbr = new Member();
 
             mbr.setId(rs.getInt("id"));
+            mbr.setAddress(AddressService.getInstance().get(new Address(mbr.getId())));
+            if(F.getDistance() != -1){
+                double distance = getDistance(online.getAddress(), mbr.getAddress());
+                if(distance > F.getDistance()){
+                    continue;
+                }
+            }
+            
             mbr.setPseudo(rs.getString("pseudo"));
             mbr.setFirstname(rs.getString("firstname"));
             mbr.setLastname(rs.getString("lastname"));
@@ -305,7 +327,6 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
             mbr.setMaritalStatus(Enumerations.MaritalStatus.values()[rs.getInt("civil_status")]);
             mbr.setConnected(rs.getBoolean("connected"));
             mbr.setCreatedAt(rs.getTimestamp("created_at"));
-            mbr.setAddress(AddressService.getInstance().get(new Address(mbr.getId())));
 
             mmbrs.add(mbr);
         }
