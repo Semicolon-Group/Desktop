@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 22, 2018 at 09:45 AM
--- Server version: 5.7.14
--- PHP Version: 7.0.10
+-- Generation Time: Feb 24, 2018 at 10:49 PM
+-- Server version: 10.1.30-MariaDB
+-- PHP Version: 7.2.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -144,6 +144,34 @@ INSERT INTO `choice` (`id`, `question_id`, `choice`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `comment`
+--
+
+CREATE TABLE `comment` (
+  `id` int(11) NOT NULL,
+  `sender_id` int(11) NOT NULL,
+  `receiver_id` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL,
+  `photo_id` int(11) NOT NULL,
+  `content` text NOT NULL,
+  `date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `comment`
+--
+
+INSERT INTO `comment` (`id`, `sender_id`, `receiver_id`, `post_id`, `photo_id`, `content`, `date`) VALUES
+(1, 1, 3, 1, 0, 'nice post!', '2018-02-24 00:00:00'),
+(2, 3, 1, 1, 0, 'thanks !', '2018-02-24 00:00:01'),
+(17, 1, 3, 10, 0, 'nice one :*', '2018-02-24 21:29:23'),
+(18, 3, 1, 10, 0, '@John thank baby :kisses:', '2018-02-24 21:29:45'),
+(20, 3, 1, 11, 0, 'yo baby :* :*', '2018-02-24 22:30:51'),
+(21, 3, 1, 10, 0, '@John gotcha :D', '2018-02-24 22:31:31');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `conversation`
 --
 
@@ -155,6 +183,14 @@ CREATE TABLE `conversation` (
   `seen` tinyint(1) DEFAULT NULL,
   `seen_date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `conversation`
+--
+
+INSERT INTO `conversation` (`id`, `person1_id`, `person2_id`, `label`, `seen`, `seen_date`) VALUES
+(1, 1, 3, 'Sara', 0, '2018-02-15 00:00:00'),
+(2, 1, 3, 'New conversation', 0, '2018-02-21 14:15:27');
 
 --
 -- Dumping data for table `conversation`
@@ -299,10 +335,12 @@ CREATE TABLE `post_reaction` (
 --
 
 INSERT INTO `post_reaction` (`id`, `user_id`, `post_id`, `photo_id`, `answer_id`, `reaction`) VALUES
-(21, 1, 2, 0, 0, 4),
-(23, 1, 1, 0, 0, 4),
-(24, 1, 0, 7, 0, 3),
-(25, 1, 0, 8, 0, 4);
+(21, 1, 2, 0, 0, 3),
+(23, 1, 1, 0, 0, 2),
+(24, 1, 0, 7, 0, 4),
+(25, 1, 0, 8, 0, 2),
+(26, 1, 10, 0, 0, 4),
+(27, 3, 11, 0, 0, 4);
 
 -- --------------------------------------------------------
 
@@ -490,6 +528,16 @@ ALTER TABLE `choice`
   ADD KEY `question_choice` (`question_id`);
 
 --
+-- Indexes for table `comment`
+--
+ALTER TABLE `comment`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `sender_id` (`sender_id`),
+  ADD KEY `receiver_id` (`receiver_id`),
+  ADD KEY `post_id` (`post_id`),
+  ADD KEY `photo_id` (`photo_id`);
+
+--
 -- Indexes for table `conversation`
 --
 ALTER TABLE `conversation`
@@ -607,6 +655,12 @@ ALTER TABLE `answer`
 ALTER TABLE `choice`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
+-- AUTO_INCREMENT for table `comment`
+--
+ALTER TABLE `comment`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
+--
 -- AUTO_INCREMENT for table `conversation`
 --
 ALTER TABLE `conversation`
@@ -692,6 +746,13 @@ ALTER TABLE `answer_choice`
 --
 ALTER TABLE `choice`
   ADD CONSTRAINT `question_choice` FOREIGN KEY (`question_id`) REFERENCES `question` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `comment`
+--
+ALTER TABLE `comment`
+  ADD CONSTRAINT `fk_receiver` FOREIGN KEY (`receiver_id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_sender` FOREIGN KEY (`sender_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `conversation`
