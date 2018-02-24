@@ -386,11 +386,11 @@ public class SelfProfileViewController implements Initializable {
             dialog.initOwner(MySoulMate.mainStage);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/EditProfileView.fxml"));
             Pane content = loader.load();
+            Scene dialogScene = new Scene(content, 1200, 850);
+            dialog.setScene(dialogScene);
             ((EditProfileViewController)loader.getController()).setMember(MemberService.getInstance().get(new Member(MySoulMate.MEMBER_ID)));
             ((EditProfileViewController)loader.getController()).setController(this);
             ((EditProfileViewController)loader.getController()).setDialog(dialog);
-            Scene dialogScene = new Scene(content, 1200, 775);
-            dialog.setScene(dialogScene);
             dialog.show();
         } catch (IOException ex) {
             util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), null);

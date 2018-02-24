@@ -18,10 +18,14 @@
                         <String fx:value="accountClickable" />
                      </styleClass>
                      <children>
-                        <Button mnemonicParsing="false" onAction="#showProfile" prefHeight="58.0" prefWidth="429.0" styleClass="menu_item" text="Profile" VBox.vgrow="ALWAYS">
+                        <Button mnemonicParsing="false" onAction="#showProfile" prefHeight="58.0" prefWidth="429.0" text="Profile" VBox.vgrow="ALWAYS">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
+                           <styleClass>
+                              <String fx:value="menu_item" />
+                              <String fx:value="first" />
+                           </styleClass>
                         </Button>
                      </children>
                   </VBox>
