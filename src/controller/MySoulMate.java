@@ -5,9 +5,12 @@
  */
 package controller;
 
+import java.awt.Dimension;
 import java.io.IOException;
 import java.util.Date;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +18,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -29,6 +33,7 @@ public class MySoulMate extends Application {
     public static final String UPLOAD_URL = "http://localhost/mysoulmateuploads/";
     public static Stage mainStage;
     private static MySoulMate instance;
+    private double loginWidth, loginHeight;
     
     public static MySoulMate getInstance(){
         return instance;
@@ -39,12 +44,14 @@ public class MySoulMate extends Application {
 
         instance=this;
         mainStage = primaryStage;
-        Parent globalPane = FXMLLoader.load(getClass().getResource("/view/Authentification.fxml"));
+        AnchorPane globalPane = FXMLLoader.load(getClass().getResource("/view/Authentification.fxml"));
         Scene scene = new Scene(globalPane);
-            mainStage.setResizable(false);
+        mainStage.setResizable(false);
         mainStage.setScene(scene);
         mainStage.initStyle(StageStyle.UNDECORATED);
         mainStage.show();
+        loginWidth = globalPane.getWidth();
+        loginHeight = globalPane.getHeight();
     }
     
     public void ChangeToHomeScene(){
@@ -80,8 +87,21 @@ public class MySoulMate extends Application {
         });
     }
     
-    public static void logOut(){
-        
+    public void logOut(){
+        try {
+            MEMBER_ID = 0;
+            AnchorPane globalPane = FXMLLoader.load(getClass().getResource("/view/Authentification.fxml"));
+            Scene scene = new Scene(globalPane);
+            
+            javafx.geometry.Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
+            mainStage.setX(bounds.getMinX() + ((bounds.getWidth()/2) - (loginWidth/2)));
+            mainStage.setY(bounds.getMinY() + ((bounds.getHeight()/2) - (loginHeight/2)));
+            mainStage.setWidth(loginWidth);
+            mainStage.setHeight(loginHeight);
+            mainStage.setScene(scene);
+        } catch (IOException ex) {
+            Logger.getLogger(MySoulMate.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }
