@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
 import services.MemberService;
+import services.PhotoService;
 
 
 /**
@@ -69,6 +70,9 @@ public class Feedback {
     }
     public java.sql.Date getBirthDate () throws SQLException{
         return MemberService.getInstance().get(new Member(senderId)).getBirthDate();
+    }
+       public String getUrlPhoto() throws SQLException{
+        return  PhotoService.getInstance().get(new Photo(senderId,Enumerations.PhotoType.PROFILE)).getUrl();
     }
  
     

@@ -6,6 +6,7 @@
 package controller;
 
 import static controller.MainAchref.container4;
+import static controller.MySoulMate.UPLOAD_URL;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
@@ -16,6 +17,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import models.Enumerations;
 import models.Signal;
 
@@ -46,6 +49,10 @@ public class AjouterSignalViewController implements Initializable {
     private ToggleGroup reasons;
     @FXML
     private Button cancelButton;
+    @FXML
+    private ImageView signalPhoto;
+    
+    public static Signal sign;
 
     /**
      * Initializes the controller class.
@@ -68,6 +75,8 @@ public class AjouterSignalViewController implements Initializable {
         }else{
             signal.setReason(Enumerations.SignalReason.Autre);
         }
+//         Image img1 = new Image(UPLOAD_URL + sign.getUrlPhoto());
+//            signalPhoto.setImage(img1);
     }    
     
     @FXML
