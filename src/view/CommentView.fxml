@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="435.0" spacing="3.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CommentViewController">
+   <children>
+      <Label fx:id="pseudo" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#onPseudoClick" prefHeight="17.0" prefWidth="65.0" text="Ashley">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Label>
+      <TextArea fx:id="content" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="340.0" style="-fx-background-radius: 5 5 5 5;" stylesheets="@style/textAreaStyle.css" text="Hey, nice outfit! i Like it alot :D" wrapText="true" />
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="16.0" prefWidth="16.0">
+         <children>
+            <ImageView fx:id="delete" fitHeight="16.0" fitWidth="16.0" onMouseClicked="#onDeleteClick" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@assets/icons/delete.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="reply" fitHeight="16.0" fitWidth="16.0" onMouseClicked="#onReplyClick" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@assets/icons/reply.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+         </children>
+         <HBox.margin>
+            <Insets left="4.0" />
+         </HBox.margin>
+      </AnchorPane>
+   </children>
+</HBox>

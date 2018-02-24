@@ -192,6 +192,7 @@ public class GlobalViewController implements Initializable {
     
     private FXMLLoader setContent(String path, Pane container){
         try {
+            scroll.setVvalue(0);
             FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
             Pane newLoadedPane =  loader.load();
             VBox.setVgrow(scroll, Priority.ALWAYS);

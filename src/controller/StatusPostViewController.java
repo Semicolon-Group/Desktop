@@ -6,6 +6,7 @@
 package controller;
 
 import static controller.GlobalViewController.online;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -64,6 +65,8 @@ public class StatusPostViewController implements Initializable {
     private int postId;
     private ImageView selectedReaction;
     private Reaction r;
+    @FXML
+    private VBox container;
 
     /**
      * Initializes the controller class.
@@ -104,7 +107,14 @@ public class StatusPostViewController implements Initializable {
                 default:
                     break;
             }
-        } catch (SQLException ex) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/CommentBoxView.fxml"));
+            Parent p = loader.load();
+            CommentBoxViewController c = (CommentBoxViewController)loader.getController();
+            c.setPostId(postId);
+            c.setOwnerId(StatusPostService.getInstance().get(new StatusPost(postId)).getOwnerId());
+            c.fill();
+            container.getChildren().add(p);
+        } catch (SQLException | IOException ex) {
             Logger.getLogger(StatusPostViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
