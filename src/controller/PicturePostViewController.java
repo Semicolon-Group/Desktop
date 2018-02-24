@@ -6,6 +6,7 @@
 package controller;
 
 import static controller.GlobalViewController.online;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -15,6 +16,7 @@ import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.effect.Effect;
 import javafx.scene.image.Image;
@@ -59,13 +61,15 @@ public class PicturePostViewController implements Initializable {
     private int photoId;
     private ImageView selectedReaction;
     private Reaction r;
+    @FXML
+    private VBox container;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
     }    
 
     public void fill(Image photo, String name, String time, String picture, int photoId) {
@@ -96,8 +100,17 @@ public class PicturePostViewController implements Initializable {
                 default:
                     break;
             }
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/CommentBoxView.fxml"));
+            Parent p = loader.load();
+            CommentBoxViewController c = (CommentBoxViewController)loader.getController();
+            c.setPhotoId(photoId);
+            c.setOwnerId(PhotoService.getInstance().get(new Photo(photoId,0,null)).getUserId());
+            c.fill();
+            container.getChildren().add(p);
         } catch (SQLException ex) {
             Logger.getLogger(StatusPostViewController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(PicturePostViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
