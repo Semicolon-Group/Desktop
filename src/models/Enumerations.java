@@ -89,10 +89,11 @@ public class Enumerations {
     }
     public enum Topic{
 	RELIGION,
-	SEX,
+	Relation,
 	CULTURE,
 	SPORT,
-	GENERAL
+	GENERAL,
+        Mandatory,
     }
     public enum PhotoType{
         REGULAR,

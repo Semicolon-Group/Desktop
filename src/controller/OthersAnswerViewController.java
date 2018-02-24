@@ -88,18 +88,19 @@ public class OthersAnswerViewController implements Initializable {
     
     private void showAddDialog(){
         try {
+            final Stage dialog = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AnswerAddView.fxml"));
             AnchorPane pane = loader.load();
             Question q = QuestionService.getInstance().get(new Question(answer.getQuestionId()));
-            ((AnswerAddViewController) loader.getController()).setParams(
-                    MySoulMate.MEMBER_ID,
-                    q
-                );
-            final Stage dialog = new Stage();
             dialog.initModality(Modality.APPLICATION_MODAL);
             dialog.initOwner(MySoulMate.mainStage);
             Scene dialogScene = new Scene(pane, 752, 400);
             dialog.setScene(dialogScene);
+            ((AnswerAddViewController) loader.getController()).setParams(
+                    MySoulMate.MEMBER_ID,
+                    q,
+                    dialog
+                );
             dialog.show();
         } catch (IOException ex) {
             Logger.getLogger(OthersAnswerViewController.class.getName()).log(Level.SEVERE, null, ex);
