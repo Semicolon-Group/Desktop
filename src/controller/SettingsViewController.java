@@ -116,8 +116,8 @@ public class SettingsViewController implements Initializable {
                         MemberService.getInstance().updatelock(member.getId(), (short)2);
                         Alert alert1 = new Alert(Alert.AlertType.CONFIRMATION, "Your account has been deactivated.", ButtonType.OK);
                         Optional<ButtonType> r = alert1.showAndWait();
-                        dialog.close();
-                        MySoulMate.logOut();
+                        this.dialog.close();
+                        MySoulMate.getInstance().logOut();
                     } catch (SQLException ex) {
                         Logger.getLogger(SettingsViewController.class.getName()).log(Level.SEVERE, null, ex);
                     }
