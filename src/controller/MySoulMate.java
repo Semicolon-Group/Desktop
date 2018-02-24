@@ -71,9 +71,6 @@ public class MySoulMate extends Application {
      */
     public static void main(String[] args){
         launch(args);
-
- 
- 
     }
     
     public static void showAlert(Alert.AlertType alertType, String content, ButtonType... buttonType){
@@ -81,6 +78,10 @@ public class MySoulMate extends Application {
             Alert alert = new Alert(alertType, content, buttonType);
             alert.show();
         });
+    }
+    
+    public static void logOut(){
+        
     }
     
 }
