@@ -188,9 +188,9 @@ public class SelfProfileViewController implements Initializable {
             dialog.initOwner(MySoulMate.mainStage);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AnswerAddView.fxml"));
             Pane content = loader.load();
-            ((AnswerAddViewController)loader.getController()).setParams(MySoulMate.MEMBER_ID, this);
             Scene dialogScene = new Scene(content, 752, 400);
             dialog.setScene(dialogScene);
+            ((AnswerAddViewController)loader.getController()).setParams(MySoulMate.MEMBER_ID, this, dialog);
             dialog.show();
         } catch (IOException ex) {
             Logger.getLogger(SelfProfileViewController.class.getName()).log(Level.SEVERE, null, ex);
