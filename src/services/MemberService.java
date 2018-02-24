@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 import models.Address;
 import models.Enumerations;
+import models.Enumerations.Role;
 import models.Enumerations.LastLogin;
 import models.Member;
 import static util.GoogleDistanceMatrixAPI.getDistance;
@@ -78,7 +79,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
         preparedStatement.setShort(19, obj.getLocked());
         preparedStatement.setString(20, obj.getIp());
         preparedStatement.setInt(21, obj.getPort());
-//	preparedStatement.setInt(22, Role.MEMBER.ordinal());
+	preparedStatement.setInt(22, Role.MEMBER.ordinal());
         preparedStatement.setTimestamp(23, new Timestamp(new Date().getTime()));
         preparedStatement.setTimestamp(24, new Timestamp(new Date().getTime()));
         preparedStatement.setString(25, obj.getAbout());
@@ -89,12 +90,15 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
         String req = "SELECT MAX(id) max from user";
         ResultSet rs = CONNECTION.createStatement().executeQuery(req);
         rs.next();
-
-        obj.getAddress().setUserId(rs.getInt("max"));
+        
+        obj.setId(rs.getInt("max"));
+        obj.getAddress().setUserId(obj.getId());
         AddressService.getInstance().create(obj.getAddress());
-
+        insertPreferedRelations(obj);
+        insertPreferedStatus(obj);
+        
+        obj = get(obj);
         return obj;
-
     }
 
     //methode update pour modifichier l'attribut locked , bannir un membre
@@ -143,6 +147,19 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
         prepare.setInt(26, obj.getId());
         prepare.executeUpdate();
         AddressService.getInstance().update(obj.getAddress());
+        deletePreferedRelations(obj.getId());
+        insertPreferedRelations(obj);
+        deletePreferedStatus(obj.getId());
+        insertPreferedStatus(obj);
+    }
+    
+    private Member getPreferedStatus(Member member) throws SQLException{
+        String query = "SELECT * FROM prefered_status where user_id = "+member.getId();
+        ResultSet rs = CONNECTION.createStatement().executeQuery(query);
+        while(rs.next()){
+            member.getPreferedStatuses().add(Enumerations.MaritalStatus.values()[rs.getInt("status")]);
+        }
+        return member;
     }
 
     @Override
@@ -187,6 +204,8 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
             obj.setConnected(rs.getBoolean("connected"));
             obj.setCreatedAt(rs.getTimestamp("created_at"));
             obj.setAddress(AddressService.getInstance().get(new Address(obj.getId())));
+            obj = getPreferedRelations(obj);
+            obj = getPreferedStatus(obj);
             return obj;
         }
         return null;
@@ -228,7 +247,9 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
             mbr.setConnected(rs.getBoolean("connected"));
             mbr.setCreatedAt(rs.getTimestamp("created_at"));
             mbr.setAddress(AddressService.getInstance().get(new Address(mbr.getId())));
-
+            mbr = getPreferedRelations(mbr);
+            mbr = getPreferedStatus(mbr);
+            
             mmbrs.add(mbr);
         }
         return mmbrs;
@@ -330,9 +351,56 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
             mbr.setMaritalStatus(Enumerations.MaritalStatus.values()[rs.getInt("civil_status")]);
             mbr.setConnected(rs.getBoolean("connected"));
             mbr.setCreatedAt(rs.getTimestamp("created_at"));
-
+            mbr = getPreferedRelations(mbr);
+            mbr = getPreferedStatus(mbr);
+            
             mmbrs.put(mbr,new AbstractMap.SimpleEntry(distance,login));
         }
         return mmbrs;
+    }
+    
+    
+    
+    //Prefered relations CRUD
+    private void deletePreferedRelations(int userId) throws SQLException{
+        String query = "delete from prefered_relation where user_id = "+userId;
+        CONNECTION.createStatement().executeUpdate(query);
+    }
+    
+    private void insertPreferedRelations(Member member) throws SQLException{
+        String query ="";
+        for(Enumerations.RelationType type : member.getPreferedRelations()){
+            query = "insert into prefered_relation values(?,?)";
+            PreparedStatement prepare = CONNECTION.prepareStatement(query);
+            prepare.setInt(1, member.getId());
+            prepare.setInt(2, type.ordinal());
+            prepare.executeUpdate();
+        }
+    }
+    
+    private Member getPreferedRelations(Member member) throws SQLException{
+        String query = "SELECT * FROM prefered_relation where user_id = "+member.getId();
+        ResultSet rs = CONNECTION.createStatement().executeQuery(query);
+        while(rs.next()){
+            member.getPreferedRelations().add(Enumerations.RelationType.values()[rs.getInt("relation")]);
+        }
+        return member;
+    }
+    
+    //Prefered Statuses CRUD
+    private void deletePreferedStatus(int userId) throws SQLException{
+        String query = "delete from prefered_status where user_id = "+userId;
+        CONNECTION.createStatement().executeUpdate(query);
+    }
+    
+    private void insertPreferedStatus(Member member) throws SQLException{
+        String query ="";
+        for(Enumerations.MaritalStatus status : member.getPreferedStatuses()){
+            query = "insert into prefered_status values(?,?)";
+            PreparedStatement prepare = CONNECTION.prepareStatement(query);
+            prepare.setInt(1, member.getId());
+            prepare.setInt(2, status.ordinal());
+            prepare.executeUpdate();
+        }
     }
 }

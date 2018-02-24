@@ -8,6 +8,7 @@ package controller;
 import static com.sun.webkit.graphics.WCImage.getImage;
 import static controller.GetFeedViewController.f1;
 import static controller.MainAchref.container;
+import static controller.MySoulMate.UPLOAD_URL;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -23,6 +24,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import models.Enumerations;
 import models.Feedback;
 import models.Member;
 import models.Photo;
@@ -49,20 +51,17 @@ public class GetFeedbackDetailsViewController implements Initializable {
     
     
     FeedbackService feed1 ;
-    @FXML
-    private ImageView photo;
     /**
      * Initializes the controller class.
      */
     
-     static PhotoService phserv = PhotoService.getInstance();
-       
-     Photo ph;
     @FXML
     private Label date;
     private Label Content;
     @FXML
     private Label content;
+    @FXML
+    private ImageView profileph;
   
         
     public String getContent(){
@@ -74,30 +73,31 @@ public class GetFeedbackDetailsViewController implements Initializable {
      int sender;
      @Override
      public void initialize(URL url, ResourceBundle rb) {
+        
         try {
             feed1 = FeedbackService.getInstance();
             feed1.update(f1);
-            List<Photo> photos = PhotoService.getInstance().getAll(new Photo(0, f1.getSenderId(), null));
-            if(photos != null && photos.size() != 0){
-                Photo p = photos.get(0);
-                photo.setImage(new Image(p.getUrl()));
+            Photo photoObj = PhotoService.getInstance().get(new Photo(0, f1.getSenderId(), null , null, Enumerations.PhotoType.PROFILE));
+            String photoPath="";
+            if (photoObj==null){
+                photoPath="/view/assets/icons/member.jpg";}
+            else{
+                photoPath =MySoulMate.UPLOAD_URL+photoObj.getUrl();
             }
+            profileph.setImage(new Image(photoPath));
             
-    //          sender=f1.getSenderId();  
-    //          ph=phserv.getuserphoto(sender);
-    //          Image image = new Image(getClass().getResourceAsStream(ph.getUrl()));
-    //          photo.setImage(image);
-    //          content(String.valueOf(rb)f1.getContent()));
-    
-             content.setText(String.valueOf(f1.getContent()));
-             name.setText(String.valueOf(f1.getSenderName()));
-             gender.setText(String.valueOf(f1.getGender()? "Male" : "Female" ));
-             date.setText(String.valueOf(f1.getBirthDate()));
+            content.setText(String.valueOf(f1.getContent()));
+            name.setText(String.valueOf(f1.getSenderName()));
+            gender.setText(String.valueOf(f1.getGender()? "Male" : "Female" ));
+            date.setText(String.valueOf(f1.getBirthDate()));
+//            Image img1 = new Image(UPLOAD_URL + feed.getUrlPhoto());
+//            profileph.setImage(img1);
             // name.setText();
             // TODO
         } catch (SQLException ex) {
             Logger.getLogger(GetFeedbackDetailsViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
+     
     }
 
     @FXML

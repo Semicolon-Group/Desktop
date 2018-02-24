@@ -50,7 +50,7 @@ public class AjouterSignalDetailsViewController implements Initializable {
     private void envoyerSignal(ActionEvent event) throws SQLException {
         signal.setContent(content.getText());
         SignalService.getInstance().create(signal);
-    
+        
     }
 
     @FXML

@@ -18,6 +18,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import models.Enumerations;
+import models.Photo;
+import services.PhotoService;
 import services.SignalService;
 
 /**
@@ -28,7 +33,7 @@ import services.SignalService;
 public class GetSignalDetailsViewController implements Initializable {
 
     @FXML
-    private TextArea content;
+    private Label content;
     SignalService s2 ;
     @FXML
     private Button button;
@@ -36,6 +41,18 @@ public class GetSignalDetailsViewController implements Initializable {
     private Label receiver;
     @FXML
     private Label sender;
+    @FXML
+    private ImageView imageSender;
+    @FXML
+    private ImageView imageReceiver;
+    @FXML
+    private Label genderSender;
+    @FXML
+    private Label dateSender;
+    @FXML
+    private Label genderReceiver;
+    @FXML
+    private Label dateReceiver;
 
     /**
      * Initializes the controller class.
@@ -59,7 +76,31 @@ public class GetSignalDetailsViewController implements Initializable {
             content.setText(String.valueOf(s1.getContent()));
             sender.setText(String.valueOf(s1.getSenderName()));
             receiver.setText(String.valueOf(s1.getReceiverName()));
+            genderSender.setText(String.valueOf(s1.getGenderSender()? "Male" : "Female" ));
+            dateSender.setText(String.valueOf(s1.getBirthDateSender()));
+            genderReceiver.setText(String.valueOf(s1.getGenderReceiver()? "Male" : "Female" ));
+            dateReceiver.setText(String.valueOf(s1.getBirthDateReceiver()));
+            Photo photoObj = PhotoService.getInstance().get(new Photo(0, s1.getSenderId(), null , null, Enumerations.PhotoType.PROFILE));
+            String photoPath="";
+            if (photoObj==null){
+                photoPath="/view/assets/icons/member.jpg";}
+            else{
+                photoPath =MySoulMate.UPLOAD_URL+photoObj.getUrl();
+            }
+            imageSender.setImage(new Image(photoPath));
+           
+            Photo photoObj2 = PhotoService.getInstance().get(new Photo(0, s1.getReceiverId(), null , null, Enumerations.PhotoType.PROFILE));
+            if (photoObj2==null){
+                photoPath="/view/assets/icons/member.jpg";}
+            else{
+                photoPath =MySoulMate.UPLOAD_URL+photoObj.getUrl();
+            }
+            imageReceiver.setImage(new Image(photoPath));
+            
             s2.update(s1);
+            
+            
+            
             
         } catch (SQLException ex) {
             Logger.getLogger(GetSignalDetailsViewController.class.getName()).log(Level.SEVERE, null, ex);
