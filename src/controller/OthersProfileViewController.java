@@ -393,8 +393,6 @@ public class OthersProfileViewController implements Initializable {
             }
         });
     }
-
-    private double profileHeight;
     
     @FXML
     private void showSug(ActionEvent event) {
@@ -407,20 +405,6 @@ public class OthersProfileViewController implements Initializable {
                     (selfAddress.getLatitude()+othersAddress.getLatitude())/2, 
                     "", "");
             ((RecommandationViewController)loader.getController()).setAddress(centerAddress, userId);
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/RecommandationView.fxml"));
-//            Address selfAddress = AddressService.getInstance().get(new Address(MySoulMate.MEMBER_ID));
-//            Address othersAddress = AddressService.getInstance().get(new Address(userId));
-//            Address centerAddress = new Address(
-//                    (selfAddress.getLongitude()+othersAddress.getLongitude())/2, 
-//                    (selfAddress.getLatitude()+othersAddress.getLatitude())/2, 
-//                    "", "");
-//            Pane pane = loader.load();
-//            pane.setStyle("-fx-background-color: white;");
-//            ((RecommandationViewController)loader.getController()).setAddress(centerAddress);
-//            pane.prefWidthProperty().bind(sugPane.widthProperty());
-//            mainSugPane.setVisible(true);
-//            sugPane.getChildren().clear();
-//            sugPane.getChildren().add(pane);
         }catch (SQLException ex) {
             Logger.getLogger(OthersProfileViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
