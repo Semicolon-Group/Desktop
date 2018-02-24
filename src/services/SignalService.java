@@ -45,8 +45,8 @@ public class SignalService extends Service implements Create<Signal>,Update<Sign
         preparedStatement.setInt(1, obj.getReason().ordinal());
         preparedStatement.setTimestamp(2, new Timestamp(new Date().getTime()));
         preparedStatement.setBoolean(3, false);
-        preparedStatement.setInt(4, 1);
-        preparedStatement.setInt(5, 2);
+        preparedStatement.setInt(4, 3);
+        preparedStatement.setInt(5, 1);
         preparedStatement.setString(6, obj.getContent());
         preparedStatement.executeUpdate();
         return obj;

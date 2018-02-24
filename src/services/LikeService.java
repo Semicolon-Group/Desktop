@@ -67,7 +67,7 @@ public class LikeService extends Service implements Create<Like>,Delete<Like>,Re
          String query = "select * from user_like where sender_id = " + obj.getSenderId() + " and receiver_id = "
                 + obj.getReceiverId();
         ResultSet rs = CONNECTION.createStatement().executeQuery(query);
-        rs.next();
+        if(!rs.next()) return null;
         obj.setSenderId(rs.getInt("sender_id"));
         obj.setReceiverId(rs.getInt("receiver_id"));
         obj.setDate(rs.getTimestamp("date"));

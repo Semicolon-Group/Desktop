@@ -13,10 +13,13 @@
    <children>
       <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="436.0" style="-fx-background-color: white;">
          <children>
-            <ImageView fx:id="photo" fitHeight="100.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="photo" fitHeight="100.0" onMouseClicked="#onPhotoClick" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@assets/img/mens-hairstyles-18.jpg" />
-               </image></ImageView>
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></ImageView>
             <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="100.0" prefWidth="190.0">
                <children>
                   <Label fx:id="name" onMouseClicked="#onPseudoClick" text="John Cena" textFill="#29487d">

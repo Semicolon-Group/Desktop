@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="399.0" prefWidth="279.0" styleClass="accountClickable" stylesheets="@style/MenuStyleSheet.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AccountMenuViewController">
+<AnchorPane id="AnchorPane" prefHeight="399.0" prefWidth="279.0" styleClass="accountClickable" stylesheets="@style/MenuStyleSheet.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AccountMenuViewController">
    <children>
       <VBox prefWidth="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -18,7 +18,45 @@
                         <String fx:value="accountClickable" />
                      </styleClass>
                      <children>
-                        <Button mnemonicParsing="false" onAction="#showProfile" prefHeight="58.0" prefWidth="429.0" styleClass="menu_item" text="Profil" VBox.vgrow="ALWAYS">
+                        <Button mnemonicParsing="false" onAction="#showProfile" prefHeight="58.0" prefWidth="429.0" text="Profile" VBox.vgrow="ALWAYS">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                           <styleClass>
+                              <String fx:value="menu_item" />
+                              <String fx:value="first" />
+                           </styleClass>
+                        </Button>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+            <VBox layoutX="10.0" layoutY="10.0" prefHeight="58.0" prefWidth="279.0" styleClass="accountClickable">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="200.0">
+                     <styleClass>
+                        <String fx:value="menu_item_box" />
+                        <String fx:value="accountClickable" />
+                     </styleClass>
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#showSettingsDialog" prefHeight="58.0" prefWidth="429.0" styleClass="menu_item" text="Settings" VBox.vgrow="ALWAYS">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+            <VBox layoutX="10.0" layoutY="68.0" prefHeight="58.0" prefWidth="279.0" styleClass="accountClickable">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="200.0">
+                     <styleClass>
+                        <String fx:value="menu_item_box" />
+                        <String fx:value="accountClickable" />
+                     </styleClass>
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#logout" prefHeight="58.0" prefWidth="429.0" styleClass="menu_item" text="Logout" VBox.vgrow="ALWAYS">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>

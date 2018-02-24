@@ -51,28 +51,12 @@ public class AnswerViewController implements Initializable {
     @FXML
     private AnchorPane mainAnchorPane;
     
-    private SelfProfileViewController controller;
-    
-    private boolean editable;
-    @FXML
-    private ImageView editIcon;
-    @FXML
-    private ImageView deleteIcon;
-
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }
-    
-    public void setEditable(boolean editable){
-        this.editable = editable;
-    }
-
-    public void setController(SelfProfileViewController controller) {
-        this.controller = controller;
     }
 
     public void setAnswer(Answer answer){
@@ -82,8 +66,6 @@ public class AnswerViewController implements Initializable {
     
     private void poulateFields(){
         try {
-            editIcon.setVisible(editable);
-            deleteIcon.setVisible(editable);
             Question question = QuestionService.getInstance().get(new Question(answer.getQuestionId()));
             questionLabel.setText(question.getQuestion());
             String selectedChoices ="";
@@ -102,45 +84,4 @@ public class AnswerViewController implements Initializable {
             util.Logger.writeLog(ex, AnswerViewController.class.getName(), null);
         }
     }
-
-    @FXML
-    private void showEditDialog(MouseEvent event) {
-        try {
-            final Stage dialog = new Stage();
-            dialog.initModality(Modality.APPLICATION_MODAL);
-            dialog.initOwner(MySoulMate.mainStage);
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AddAnswerView.fxml"));
-            Pane content = loader.load();
-            ((AddAnswerViewController)loader.getController()).setAnswer(answer);
-            ((AddAnswerViewController)loader.getController()).setDialog(dialog);
-            ((AddAnswerViewController)loader.getController()).setSelfProfileViewController(controller);
-            Scene dialogScene = new Scene(content, 690, 508);
-            dialog.setScene(dialogScene);
-            dialog.show();
-        } catch (IOException ex) {
-            Logger.getLogger(SelfProfileViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    @FXML
-    private void confirmDelete(MouseEvent event) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Etes-vous sûr de vouloire supprimer cette réponse?",
-                ButtonType.YES, ButtonType.CANCEL);
-        alert.setTitle("Confirmation");
-        alert.showAndWait().ifPresent(response -> {
-            if(response == ButtonType.YES){
-                deleteAnswer();
-            }
-        });
-    }
-    
-    private void deleteAnswer(){
-        try {
-            AnswerService.getInstance().delete(answer);
-            controller.makeAnswersPane();
-        } catch (SQLException ex) {
-            util.Logger.writeLog(ex, AnswerViewController.class.getName(), null);
-        }
-    }
-    
 }

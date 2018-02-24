@@ -170,7 +170,8 @@ public class AuthentificationController implements Initializable {
                 try {
                     m = memberService.get(m);
                     if (m != null) {
-                        button.getScene().setRoot(FXMLLoader.load(getClass().getResource("/view/GlobalView.fxml")));
+                        MySoulMate.getInstance().ChangeToHomeScene();
+//                        button.getScene().setRoot(FXMLLoader.load(getClass().getResource("/view/GlobalView.fxml")));
                     } else {
                         Alert alert = new Alert(AlertType.ERROR);
                         alert.setTitle("Not registred");

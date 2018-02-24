@@ -15,12 +15,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import models.Address;
 import models.Enumerations;
+import models.Enumerations.Role;
+import models.Enumerations.LastLogin;
 import models.Member;
+import static util.GoogleDistanceMatrixAPI.getDistance;
 
 /**
  *
@@ -73,7 +79,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
         preparedStatement.setShort(19, obj.getLocked());
         preparedStatement.setString(20, obj.getIp());
         preparedStatement.setInt(21, obj.getPort());
-//	preparedStatement.setInt(22, Role.MEMBER.ordinal());
+	preparedStatement.setInt(22, Role.MEMBER.ordinal());
         preparedStatement.setTimestamp(23, new Timestamp(new Date().getTime()));
         preparedStatement.setTimestamp(24, new Timestamp(new Date().getTime()));
         preparedStatement.setString(25, obj.getAbout());
@@ -84,12 +90,15 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
         String req = "SELECT MAX(id) max from user";
         ResultSet rs = CONNECTION.createStatement().executeQuery(req);
         rs.next();
-
-        obj.getAddress().setUserId(rs.getInt("max"));
+        
+        obj.setId(rs.getInt("max"));
+        obj.getAddress().setUserId(obj.getId());
         AddressService.getInstance().create(obj.getAddress());
-
+        insertPreferedRelations(obj);
+        insertPreferedStatus(obj);
+        
+        obj = get(obj);
         return obj;
-
     }
 
     //methode update pour modifichier l'attribut locked , bannir un membre
@@ -138,6 +147,19 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
         prepare.setInt(26, obj.getId());
         prepare.executeUpdate();
         AddressService.getInstance().update(obj.getAddress());
+        deletePreferedRelations(obj.getId());
+        insertPreferedRelations(obj);
+        deletePreferedStatus(obj.getId());
+        insertPreferedStatus(obj);
+    }
+    
+    private Member getPreferedStatus(Member member) throws SQLException{
+        String query = "SELECT * FROM prefered_status where user_id = "+member.getId();
+        ResultSet rs = CONNECTION.createStatement().executeQuery(query);
+        while(rs.next()){
+            member.getPreferedStatuses().add(Enumerations.MaritalStatus.values()[rs.getInt("status")]);
+        }
+        return member;
     }
 
     @Override
@@ -182,6 +204,8 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
             obj.setConnected(rs.getBoolean("connected"));
             obj.setCreatedAt(rs.getTimestamp("created_at"));
             obj.setAddress(AddressService.getInstance().get(new Address(obj.getId())));
+            obj = getPreferedRelations(obj);
+            obj = getPreferedStatus(obj);
             return obj;
         }
         return null;
@@ -223,16 +247,35 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
             mbr.setConnected(rs.getBoolean("connected"));
             mbr.setCreatedAt(rs.getTimestamp("created_at"));
             mbr.setAddress(AddressService.getInstance().get(new Address(mbr.getId())));
-
+            mbr = getPreferedRelations(mbr);
+            mbr = getPreferedStatus(mbr);
+            
             mmbrs.add(mbr);
         }
         return mmbrs;
     }
 
-    public List<Member> getFiltered(Filter F) throws SQLException {
-        String req = "select * from user WHERE ";
+    public Map<Member,Map.Entry<Double,Integer>> getFiltered(Filter F) throws SQLException {
+        String req = "SELECT *,TIMESTAMPDIFF(day,last_login,Sysdate()) as login FROM user WHERE ";
+        
+        req += "(TIMESTAMPDIFF(year,birth_date,Sysdate()) BETWEEN " + F.getAgeMin() + " AND " + F.getAgeMax() + ") ";
+        
+        switch (F.getLastLogin()) {
+            case UN_JOUR:
+                req += "AND (TIMESTAMPDIFF(day,last_login,Sysdate()) = 0) ";
+                break;
+            case SEMAINE:
+                req += "AND (TIMESTAMPDIFF(week,last_login,Sysdate()) = 0) ";
+                break;
+            case MOIS:
+                req += "AND (TIMESTAMPDIFF(month,last_login,Sysdate()) = 0) ";
+                break;
+            default:
+                req += "AND (TIMESTAMPDIFF(year,last_login,Sysdate()) = 0) ";
+                break;
+        }
 
-        req += "(height >=" + F.getHeightMin() + " and height <= " + F.getHeightMax() + ") ";
+        req += "AND ((height * 100 >= " + F.getHeightMin() + ") and (height * 100 <= " + F.getHeightMax() + ")) ";
 
         if (!F.getBodyType().isEmpty()) {
             req += "and (body_type in (";
@@ -268,18 +311,21 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
             req += "and (drinker = " + F.getDrinks() + ") ";
         }
 
-        req += " and `last_login` >= ?";
-
-        PreparedStatement pst = CONNECTION.prepareStatement(req);
-        pst.setTimestamp(1, F.getLastLogin());
-
-        ResultSet rs = pst.executeQuery();
-        List<Member> mmbrs = new ArrayList<>();
-        while (rs.next()) {
-
+        ResultSet rs = CONNECTION.createStatement().executeQuery(req);
+        Map<Member,Map.Entry<Double,Integer>> mmbrs = new HashMap<>();
+        while (rs.next()) {            
             Member mbr = new Member();
-
             mbr.setId(rs.getInt("id"));
+            mbr.setAddress(AddressService.getInstance().get(new Address(mbr.getId())));
+            
+            Double distance = getDistance(online.getAddress(), mbr.getAddress());
+            if(F.getDistance() != -1){
+                if(distance > F.getDistance()){
+                    continue;
+                }
+            }
+            Integer login = rs.getInt("login");
+            
             mbr.setPseudo(rs.getString("pseudo"));
             mbr.setFirstname(rs.getString("firstname"));
             mbr.setLastname(rs.getString("lastname"));
@@ -305,10 +351,56 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
             mbr.setMaritalStatus(Enumerations.MaritalStatus.values()[rs.getInt("civil_status")]);
             mbr.setConnected(rs.getBoolean("connected"));
             mbr.setCreatedAt(rs.getTimestamp("created_at"));
-            mbr.setAddress(AddressService.getInstance().get(new Address(mbr.getId())));
-
-            mmbrs.add(mbr);
+            mbr = getPreferedRelations(mbr);
+            mbr = getPreferedStatus(mbr);
+            
+            mmbrs.put(mbr,new AbstractMap.SimpleEntry(distance,login));
         }
         return mmbrs;
+    }
+    
+    
+    
+    //Prefered relations CRUD
+    private void deletePreferedRelations(int userId) throws SQLException{
+        String query = "delete from prefered_relation where user_id = "+userId;
+        CONNECTION.createStatement().executeUpdate(query);
+    }
+    
+    private void insertPreferedRelations(Member member) throws SQLException{
+        String query ="";
+        for(Enumerations.RelationType type : member.getPreferedRelations()){
+            query = "insert into prefered_relation values(?,?)";
+            PreparedStatement prepare = CONNECTION.prepareStatement(query);
+            prepare.setInt(1, member.getId());
+            prepare.setInt(2, type.ordinal());
+            prepare.executeUpdate();
+        }
+    }
+    
+    private Member getPreferedRelations(Member member) throws SQLException{
+        String query = "SELECT * FROM prefered_relation where user_id = "+member.getId();
+        ResultSet rs = CONNECTION.createStatement().executeQuery(query);
+        while(rs.next()){
+            member.getPreferedRelations().add(Enumerations.RelationType.values()[rs.getInt("relation")]);
+        }
+        return member;
+    }
+    
+    //Prefered Statuses CRUD
+    private void deletePreferedStatus(int userId) throws SQLException{
+        String query = "delete from prefered_status where user_id = "+userId;
+        CONNECTION.createStatement().executeUpdate(query);
+    }
+    
+    private void insertPreferedStatus(Member member) throws SQLException{
+        String query ="";
+        for(Enumerations.MaritalStatus status : member.getPreferedStatuses()){
+            query = "insert into prefered_status values(?,?)";
+            PreparedStatement prepare = CONNECTION.prepareStatement(query);
+            prepare.setInt(1, member.getId());
+            prepare.setInt(2, status.ordinal());
+            prepare.executeUpdate();
+        }
     }
 }

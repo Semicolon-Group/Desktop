@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -13,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="mainAnchorPane" prefHeight="172.0" prefWidth="862.0" styleClass="card_pane" stylesheets="@style/MainStyleSheet.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AnswerViewController">
+<AnchorPane id="AnchorPane" fx:id="mainAnchorPane" prefHeight="172.0" prefWidth="862.0" styleClass="card_pane" stylesheets="@style/MainStyleSheet.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AnswerViewController">
    <children>
       <AnchorPane prefHeight="91.0" prefWidth="862.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
@@ -38,7 +35,7 @@
                                              <children>
                                                 <HBox alignment="CENTER_LEFT" prefHeight="27.0" prefWidth="0.0" spacing="10.0" HBox.hgrow="ALWAYS">
                                                    <children>
-                                                      <Label text="Sujet:">
+                                                      <Label text="Topic:">
                                                          <font>
                                                             <Font name="System Bold" size="14.0" />
                                                          </font>
@@ -78,29 +75,6 @@
                                     </VBox>
                                  </children>
                               </HBox>
-                              <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1">
-                                 <children>
-                                    <ImageView fx:id="editIcon" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#showEditDialog" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@assets/icons/edit.png" />
-                                       </image>
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                    </ImageView>
-                                    <ImageView fx:id="deleteIcon" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#confirmDelete" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@assets/icons/close.png" />
-                                       </image>
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                    </ImageView>
-                                 </children>
-                                 <GridPane.margin>
-                                    <Insets right="20.0" top="10.0" />
-                                 </GridPane.margin>
-                              </HBox>
                            </children>
                         </GridPane>
                      </children>
@@ -110,7 +84,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="802.0" spacing="20.0">
                      <children>
-                        <Label text="Réponses:">
+                        <Label text="Answer:">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -127,7 +101,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" layoutX="70.0" layoutY="74.0" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                      <children>
-                        <Label text="Réponses acceptées:">
+                        <Label text="Accepted answers:">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
