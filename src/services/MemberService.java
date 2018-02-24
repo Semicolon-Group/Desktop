@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 import models.Address;
 import models.Enumerations;
+import models.Enumerations.Role;
 import models.Enumerations.LastLogin;
 import models.Member;
 import static util.GoogleDistanceMatrixAPI.getDistance;
@@ -78,7 +79,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
         preparedStatement.setShort(19, obj.getLocked());
         preparedStatement.setString(20, obj.getIp());
         preparedStatement.setInt(21, obj.getPort());
-//	preparedStatement.setInt(22, Role.MEMBER.ordinal());
+	preparedStatement.setInt(22, Role.MEMBER.ordinal());
         preparedStatement.setTimestamp(23, new Timestamp(new Date().getTime()));
         preparedStatement.setTimestamp(24, new Timestamp(new Date().getTime()));
         preparedStatement.setString(25, obj.getAbout());
