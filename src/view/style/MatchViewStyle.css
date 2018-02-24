@@ -1,0 +1,52 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 19 févr. 2018, 21:15:14
+    Author     : Elyes
+*/
+
+.check-box .box {
+
+-fx-background-color: white;
+-fx-border-color:grey;
+-fx-border-radius:1px; 
+
+}
+
+.check-box:selected .mark {
+
+-fx-background-color: white;
+
+}
+
+.check-box:selected .box {
+
+-fx-background-color:  #4ba3c3;
+}
+
+.yesBoxSelected{
+    -fx-background-color:  #4ba3c3;
+}
+
+.noBoxSelected{
+    -fx-background-color:  #e14b3b;
+}
+
+.searchButton{
+    -fx-background-color:  #175676;
+}
+
+.searchButton:pressed{
+    -fx-background-color:  #4ba3c3;
+}
+
+.cancelButton{
+     -fx-background-color:  white;
+}
+
+.cancelButton:pressed{
+     -fx-background-color:  #e14b3b;
+}

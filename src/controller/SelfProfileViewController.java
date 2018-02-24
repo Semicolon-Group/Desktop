@@ -50,6 +50,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import models.Answer;
+import models.Enumerations;
+import models.Enumerations.PhotoType;
 import models.Like;
 import models.Member;
 import models.Photo;
@@ -196,7 +198,7 @@ public class SelfProfileViewController implements Initializable {
     private void populatePhotosPane(){
         photosVBox.getChildren().clear();
         try {
-            List<Photo> photos = PhotoService.getInstance().getAll(new Photo(0, MySoulMate.MEMBER_ID, null, null));
+            List<Photo> photos = PhotoService.getInstance().getAll(new Photo(MySoulMate.MEMBER_ID));
             
             for(Photo photo:photos){
                 HBox hBox = new HBox();
@@ -295,13 +297,14 @@ public class SelfProfileViewController implements Initializable {
             profileImage.setClip(imageClip);
             Circle contenairClip = new Circle(profileImgPane.getLayoutX()+(profileImgPane.getPrefWidth()/2), profileImgPane.getLayoutY()+(profileImgPane.getPrefHeight()/2), 145);
             profileImgPane.setClip(contenairClip);
-            List<Photo> photos = PhotoService.getInstance().getAll(new Photo(0, MySoulMate.MEMBER_ID, null, null));
+            Photo photo = PhotoService.getInstance().get(new Photo(0, MySoulMate.MEMBER_ID, null, null, PhotoType.PROFILE));
             String photoPath ="";
-            if(photos.isEmpty()){
+            if(photo == null){
                 photoPath = "/view/assets/icons/member.jpg";
             }else{
-                photoPath = MySoulMate.UPLOAD_URL+photos.get(0).getUrl();
+                photoPath = MySoulMate.UPLOAD_URL+photo.getUrl();
             }
+            System.out.println(photoPath);
             profileImage.setImage(new Image(photoPath));
         } catch (SQLException ex) {
             util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), null);
@@ -311,12 +314,12 @@ public class SelfProfileViewController implements Initializable {
     private void makeCoverPicture(){
         try {
             coverImage.fitWidthProperty().bind(coverContainer.widthProperty());
-            List<Photo> photos = PhotoService.getInstance().getAll(new Photo(0, MySoulMate.MEMBER_ID, null, null));
+            Photo photo = PhotoService.getInstance().get(new Photo(0, MySoulMate.MEMBER_ID, null, null, PhotoType.COVER));
             String photoPath ="";
-            if(photos.size()<=1){
+            if(photo == null){
                 photoPath = "/view/assets/img/banner.jpg";
             }else{
-                photoPath = MySoulMate.UPLOAD_URL+photos.get(1).getUrl();
+                photoPath = MySoulMate.UPLOAD_URL+photo.getUrl();
             }
             coverImage.setImage(new Image(photoPath));
         } catch (SQLException ex) {

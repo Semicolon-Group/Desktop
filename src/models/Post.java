@@ -8,6 +8,7 @@ package models;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
@@ -67,6 +68,41 @@ public abstract class Post {
 
     public List<Reaction> getReactions() {
         return reactions;
+    }
+
+    @Override
+    public String toString() {
+        return "Post{" + "id=" + id + ", ownerId=" + ownerId + ", date=" + date + ", reactions=" + reactions + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 97 * hash + this.id;
+        hash = 97 * hash + this.ownerId;
+        hash = 97 * hash + Objects.hashCode(this.date);
+        hash = 97 * hash + Objects.hashCode(this.reactions);
+        return hash;
+    }
+
+    
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Post other = (Post) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        return true;
     }
     
 }

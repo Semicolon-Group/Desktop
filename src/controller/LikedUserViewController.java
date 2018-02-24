@@ -20,6 +20,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import models.Enumerations;
+import models.Enumerations.PhotoType;
 import models.Like;
 import models.Member;
 import models.Photo;
@@ -65,13 +67,13 @@ public class LikedUserViewController implements Initializable {
     private void populate(){
         try {
             member = MemberService.getInstance().get(new Member(like.getReceiverId()));
-            List<Photo> photos = PhotoService.getInstance().getAll(new Photo(0, member.getId(), null, null));
+            Photo photo = PhotoService.getInstance().get(new Photo(0, member.getId(), null, null, PhotoType.PROFILE));
             
             String photoPath="";
-            if(photos.isEmpty()){
+            if(photo == null){
                 photoPath = "/view/assets/icons/member.jpg";
             }else{
-                photoPath = MySoulMate.UPLOAD_URL+photos.get(0).getUrl();
+                photoPath = MySoulMate.UPLOAD_URL+photo.getUrl();
             }
             memberImage.setImage(new Image(photoPath));
             memberName.setText(member.getFirstname()+" "+member.getLastname());

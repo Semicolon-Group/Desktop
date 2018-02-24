@@ -64,16 +64,14 @@ public class LikeService extends Service implements Create<Like>,Delete<Like>,Re
 
     @Override
     public Like get(Like obj) throws SQLException {
-        String query = "select * from user_like where sender_id = " + obj.getSenderId() + " and receiver_id = "
+         String query = "select * from user_like where sender_id = " + obj.getSenderId() + " and receiver_id = "
                 + obj.getReceiverId();
         ResultSet rs = CONNECTION.createStatement().executeQuery(query);
-        if(rs.next()){
-            obj.setSenderId(rs.getInt("sender_id"));
-            obj.setReceiverId(rs.getInt("receiver_id"));
-            obj.setDate(rs.getTimestamp("date"));
-            return obj;
-        }
-        return null;
+        rs.next();
+        obj.setSenderId(rs.getInt("sender_id"));
+        obj.setReceiverId(rs.getInt("receiver_id"));
+        obj.setDate(rs.getTimestamp("date"));
+        return obj;
     }
 
     @Override
@@ -89,7 +87,7 @@ public class LikeService extends Service implements Create<Like>,Delete<Like>,Re
         ResultSet rs = CONNECTION.createStatement().executeQuery(query);
         List<Like> likes = new ArrayList<>();
         while (rs.next()) {
-            likes.add(new Like(rs.getInt("receiver_id"), rs.getInt("receiver_id"), rs.getTimestamp("date")));
+            likes.add(new Like(rs.getInt("sender_id"), rs.getInt("receiver_id"), rs.getTimestamp("date")));
         }
         return likes;
     }

@@ -7,7 +7,10 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -24,6 +27,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import models.Member;
+import services.MemberService;
 
 /**
  * FXML Controller class
@@ -81,6 +86,8 @@ public class GlobalViewController implements Initializable {
     @FXML
     private ImageView accountIcon;
     
+    public static Member online;
+    
     private static GlobalViewController instance;
     
     public static GlobalViewController getInstance(){
@@ -116,12 +123,19 @@ public class GlobalViewController implements Initializable {
             }
         }
     };
+    @FXML
+    private AnchorPane supportPane;
     
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        try {
+            online = MemberService.getInstance().get(new Member(MySoulMate.MEMBER_ID));
+        } catch (SQLException ex) {
+            Logger.getLogger(GlobalViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         instance = this;
         mainAnchor.addEventFilter(MouseEvent.MOUSE_CLICKED, notificationPaneHandler);
         scroll.vvalueProperty().addListener( (observable, oldValue, newValue) -> {
@@ -131,10 +145,12 @@ public class GlobalViewController implements Initializable {
         notificationPane.visibleProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue){
                 notificationPane.setPrefHeight(600);
+                setContent("/view/NotificationPaneView.fxml", notificationContent);
                 notificationIcon.getStyleClass().remove(notificationIcon.getStyleClass().size()-1);
                 activeIcon(notificationIcon, "notification");
                 return;
             }
+            notificationContent.getChildren().clear();
             notificationPane.setPrefHeight(0);
             notificationIcon.getStyleClass().add("hoverable");
             releaseIcon(notificationIcon, "notification");
@@ -176,6 +192,7 @@ public class GlobalViewController implements Initializable {
     
     private FXMLLoader setContent(String path, Pane container){
         try {
+            scroll.setVvalue(0);
             FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
             Pane newLoadedPane =  loader.load();
             VBox.setVgrow(scroll, Priority.ALWAYS);
@@ -206,6 +223,7 @@ public class GlobalViewController implements Initializable {
 
     @FXML
     private void showMatchContent(ActionEvent event) {
+        setContent("/view/MatchView.fxml", content);
         homeBox.setId("");
         matchBox.setId("selected");
         quickSearchBox.setId("");
@@ -275,5 +293,10 @@ public class GlobalViewController implements Initializable {
     private void releaseIcon(ImageView imageView, String imageName){
         String url = getClass().getResource("/view/assets/icons/natural/"+imageName+".png").toExternalForm();
         imageView.setImage(new Image(url));
+    }
+
+    @FXML
+    private void onMessageIconClick(MouseEvent event) {
+//        setContent("/view/InstantMessagingView.fxml", content);
     }
 }

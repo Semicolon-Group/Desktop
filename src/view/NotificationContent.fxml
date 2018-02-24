@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="NotificationElement" prefHeight="91.0" prefWidth="279.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NotificationContentController">
+   <children>
+      <HBox fx:id="Img_element" prefHeight="110.0" prefWidth="103.0">
+         <children>
+            <ImageView fx:id="Img" fitHeight="101.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </HBox>
+      <VBox fx:id="nameSender_element" layoutX="107.0" layoutY="-1.0" prefHeight="34.0" prefWidth="252.0">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="FnameSender" prefHeight="34.0" prefWidth="83.0" textFill="#3b2fc3">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="LnameSender" prefHeight="34.0" prefWidth="195.0" textFill="#3b2fc3">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox fx:id="Action_element" layoutX="108.0" layoutY="33.0" prefHeight="34.0" prefWidth="252.0">
+         <children>
+            <Label fx:id="Action" prefHeight="40.0" prefWidth="253.0">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font></Label>
+         </children>
+      </VBox>
+      <HBox fx:id="Icon_element" layoutX="111.0" layoutY="73.0" prefHeight="25.0" prefWidth="39.0">
+         <children>
+            <ImageView fx:id="Icon" fitHeight="29.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </HBox>
+      <HBox fx:id="n_date_element" layoutX="166.0" layoutY="76.0" prefHeight="29.0" prefWidth="30.0">
+         <children>
+            <Label fx:id="n_date" prefHeight="40.0" prefWidth="29.0">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

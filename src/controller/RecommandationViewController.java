@@ -25,6 +25,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
@@ -49,8 +50,6 @@ public class RecommandationViewController implements Initializable {
     @FXML
     private VBox restaurantVBox;
     @FXML
-    private VBox cafeVBox;
-    @FXML
     private VBox parkVBox;
 
     private List<PlaceSuggestion> restaurants;
@@ -65,8 +64,6 @@ public class RecommandationViewController implements Initializable {
     @FXML
     private TabPane mainTabPane;
     @FXML
-    private Label rangeLabel;
-    @FXML
     private Slider restaurantRangeSlider;
 
     private List<String> sortTypes = new ArrayList<>();
@@ -76,6 +73,38 @@ public class RecommandationViewController implements Initializable {
     private TextField restSearchField;
     @FXML
     private CheckBox restOpenCheck;
+    @FXML
+    private Label cafeRangeLabel;
+    @FXML
+    private Slider cafeRangeSlider;
+    @FXML
+    private ComboBox<String> cafeSortComboBox;
+    @FXML
+    private TextField cafeSearchField;
+    @FXML
+    private CheckBox cafeeOpenCheck;
+    @FXML
+    private VBox cafeeVBox;
+    @FXML
+    private Label parkRangeLabel;
+    @FXML
+    private Slider parkRangeSlider;
+    @FXML
+    private ComboBox<String> parkSortComboBox;
+    @FXML
+    private TextField parkSearchField;
+    @FXML
+    private CheckBox parkOpenCheck;
+    @FXML
+    private Label restRangeLabel;
+    @FXML
+    private VBox restLoading;
+    @FXML
+    private VBox cafeLoading;
+    @FXML
+    private VBox parcLoading;
+    @FXML
+    private ProgressIndicator cafeIndicator;
 
     /**
      * Initializes the controller class.
@@ -92,23 +121,28 @@ public class RecommandationViewController implements Initializable {
         restSortComboBox.valueProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                switch(newValue){
-                    case "La plus notée":
-                        displayedRests.sort((r1, r2) -> Double.compare(r2.getRating(), r1.getRating()));
-                        break;
-                    case "La moins notée":
-                        displayedRests.sort((r1, r2) -> Double.compare(r1.getRating(), r2.getRating()));
-                        break;
-                    case "La plus proche":
-                        displayedRests.sort((r1, r2) -> Double.compare(distanceStringToInt(r2.getDistance()), distanceStringToInt(r1.getDistance())));
-                        break;
-                    case "La moins proches":
-                        displayedRests.sort((r1, r2) -> Double.compare(distanceStringToInt(r1.getDistance()), distanceStringToInt(r2.getDistance())));
-                        break;
-                }
-                changeRestarantsView();
+                applyRestaurantFilter();
             }
         });
+        
+        cafeSortComboBox.getItems().addAll(sortTypes);
+        cafeSortComboBox.getSelectionModel().select(0);
+        cafeSortComboBox.valueProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                applyCafeeFilter();
+            }
+        });
+        
+        parkSortComboBox.getItems().addAll(sortTypes);
+        parkSortComboBox.getSelectionModel().select(0);
+        parkSortComboBox.valueProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                applyParkFilter();
+            }
+        });
+        
         populate();
     }
     
@@ -118,9 +152,20 @@ public class RecommandationViewController implements Initializable {
     }
 
     @FXML
-    private void updateRangeLabel(MouseEvent event) {
-        rangeLabel.setText("(" + String.valueOf(restaurantRangeSlider.getValue()) + " Km)");
+    private void updateRestRange(MouseEvent event) {
+        restRangeLabel.setText("(" + String.valueOf(restaurantRangeSlider.getValue()) + " Km)");
         populateRestaurants();
+    }
+    @FXML
+    private void updateCafeRange(MouseEvent event) {
+        cafeRangeLabel.setText("(" + String.valueOf(cafeRangeSlider.getValue()) + " Km)");
+        populateCafees();
+    }
+
+    @FXML
+    private void updateParkRange(MouseEvent event) {
+        parkRangeLabel.setText("(" + String.valueOf(parkRangeSlider.getValue()) + " Km)");
+        populateParks();
     }
 
     private void populate() {
@@ -135,14 +180,28 @@ public class RecommandationViewController implements Initializable {
 
     @FXML
     private void setCafeePane(Event event) {
-//        if (address == null || restaurantVBox == null || mainTabPane == null) {
-//            return;
-//        }
-//        if (cafees == null && address != null) {
-//            populateCafees();
-//        }
-//        cafeVBox.setPrefHeight(cafees.size() * 356);
-//        mainTabPane.setPrefHeight(cafeVBox.getPrefHeight() + 60);
+        if (address == null || restaurantVBox == null || mainTabPane == null) {
+            return;
+        }
+        if (cafees == null) {
+            populateCafees();
+        }else{
+            cafeeVBox.setPrefHeight(displayedCafees.size() * 356);
+            mainTabPane.setPrefHeight(cafeeVBox.getPrefHeight() + 260);
+        }
+    }
+    
+    @FXML
+    private void setParkPane(Event event) {
+        if (address == null || parkVBox == null || mainTabPane == null) {
+            return;
+        }
+        if (parks == null) {
+            populateParks();
+        }else{
+            parkVBox.setPrefHeight(displayedParks.size() * 356);
+            mainTabPane.setPrefHeight(parkVBox.getPrefHeight() + 260);
+        }
     }
 
     @FXML
@@ -152,19 +211,91 @@ public class RecommandationViewController implements Initializable {
         }
         if (restaurants == null) {
             populateRestaurants();
+        }else{
+            restaurantVBox.setPrefHeight(displayedRests.size() * 356);
+            mainTabPane.setPrefHeight(restaurantVBox.getPrefHeight() + 260);
+        }
+    }
+    
+    private void populateParks(){
+        int range = (int) (parkRangeSlider.getValue() * 1000);
+        Task<Void> task = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                parks = GooglePlacesAPI.getNearByPlaces(address, GooglePlacesAPI.TYPE.PARK, range);
+                parks.sort((c1, c2) -> Double.compare(c2.getRating(), c1.getRating()));
+                displayedParks = parks;
+                return null;
+            }
+        };
+        task.stateProperty().addListener(new ChangeListener<Worker.State>() {
+            @Override
+            public void changed(ObservableValue<? extends Worker.State> observable, Worker.State oldValue, Worker.State newValue) {
+                if (newValue == Worker.State.SUCCEEDED) {
+                    parkVBox.setVisible(true);
+                    parcLoading.setVisible(false);
+                    applyParkFilter();
+                }
+            }
+        });
+        parkVBox.setVisible(false);
+        parcLoading.setVisible(true);
+        new Thread(task).start();
+    }
+    
+    private void changeParksView(){
+        parkVBox.getChildren().clear();
+        try {
+            for (PlaceSuggestion suggestion : displayedParks) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/PlaceSuggestionView.fxml"));
+                AnchorPane pane = loader.load();
+                ((PlaceSuggestionViewController) loader.getController()).setSuggestion(suggestion);
+                parkVBox.getChildren().add(pane);
+            }
+            parkVBox.setPrefHeight(displayedParks.size() * 356);
+            mainTabPane.setPrefHeight(parkVBox.getPrefHeight() + 260);
+        } catch (IOException ex) {
+            util.Logger.writeLog(ex, RecommandationViewController.class.getName(), null);
         }
     }
 
     private void populateCafees() {
-        cafeVBox.getChildren().clear();
+        int range = (int) (cafeRangeSlider.getValue() * 1000);
+        Task<Void> task = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                cafees = GooglePlacesAPI.getNearByPlaces(address, GooglePlacesAPI.TYPE.CAFE, range);
+                cafees.sort((c1, c2) -> Double.compare(c2.getRating(), c1.getRating()));
+                displayedCafees = cafees;
+                return null;
+            }
+        };
+        task.stateProperty().addListener(new ChangeListener<Worker.State>() {
+            @Override
+            public void changed(ObservableValue<? extends Worker.State> observable, Worker.State oldValue, Worker.State newValue) {
+                if (newValue == Worker.State.SUCCEEDED) {
+                    cafeeVBox.setVisible(true);
+                    cafeLoading.setVisible(false);
+                    applyCafeeFilter();
+                }
+            }
+        });
+        cafeeVBox.setVisible(false);
+        cafeLoading.setVisible(true);
+        new Thread(task).start();
+    }
+    
+    private void changeCafeesView(){
+        cafeeVBox.getChildren().clear();
         try {
-            cafees = GooglePlacesAPI.getNearByPlaces(address, GooglePlacesAPI.TYPE.CAFE, 1000);
-            for (PlaceSuggestion suggestion : cafees) {
+            for (PlaceSuggestion suggestion : displayedCafees) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/PlaceSuggestionView.fxml"));
                 AnchorPane pane = loader.load();
                 ((PlaceSuggestionViewController) loader.getController()).setSuggestion(suggestion);
-                cafeVBox.getChildren().add(pane);
+                cafeeVBox.getChildren().add(pane);
             }
+            cafeeVBox.setPrefHeight(displayedCafees.size() * 356);
+            mainTabPane.setPrefHeight(cafeeVBox.getPrefHeight() + 260);
         } catch (IOException ex) {
             util.Logger.writeLog(ex, RecommandationViewController.class.getName(), null);
         }
@@ -185,10 +316,14 @@ public class RecommandationViewController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends Worker.State> observable, Worker.State oldValue, Worker.State newValue) {
                 if (newValue == Worker.State.SUCCEEDED) {
-                    changeRestarantsView();
+                    restaurantVBox.setVisible(true);
+                    restLoading.setVisible(false);
+                    applyRestaurantFilter();
                 }
             }
         });
+        restaurantVBox.setVisible(false);
+        restLoading.setVisible(true);
         new Thread(task).start();
     }
 
@@ -210,15 +345,122 @@ public class RecommandationViewController implements Initializable {
 
     @FXML
     private void applyResaurantSearch(KeyEvent event) {
-        displayedRests = restaurants.stream().filter(r -> r.getName().toLowerCase().startsWith(restSearchField.getText().toLowerCase()))
-                .collect(Collectors.toList());
-        changeRestarantsView();
+        applyRestaurantFilter();
     }
 
     @FXML
     private void restOpenActivated(ActionEvent event) {
-        if(restOpenCheck.isSelected())
+        applyRestaurantFilter();
+    }
+    
+    private void applyRestaurantFilter(){
+        if(restSearchField.getText().isEmpty())
+            displayedRests = restaurants;
+        else{
+            displayedRests = restaurants.stream()
+                    .filter(r -> r.getName().toLowerCase().startsWith(restSearchField.getText().toLowerCase()))
+                    .collect(Collectors.toList());
+        }
+        
+        if(restOpenCheck.isSelected()){
             displayedRests = displayedRests.stream().filter(r -> r.isOpen()).collect(Collectors.toList());
+        }
+        
+        switch (restSortComboBox.getValue()){
+            case "La plus notée":
+                displayedRests.sort((r1, r2) -> Double.compare(r2.getRating(), r1.getRating()));
+                break;
+            case "La moins notée":
+                displayedRests.sort((r1, r2) -> Double.compare(r1.getRating(), r2.getRating()));
+                break;
+            case "La plus proche":
+                displayedRests.sort((r1, r2) -> Double.compare(distanceStringToInt(r1.getDistance()), distanceStringToInt(r2.getDistance())));
+                break;
+            case "La moins proches":
+                displayedRests.sort((r1, r2) -> Double.compare(distanceStringToInt(r2.getDistance()), distanceStringToInt(r1.getDistance())));
+                break;
+        }
+        
         changeRestarantsView();
+    }
+    
+    private void applyCafeeFilter(){
+        if(cafeSearchField.getText().isEmpty())
+            displayedCafees = cafees;
+        else{
+            displayedCafees = cafees.stream()
+                    .filter(r -> r.getName().toLowerCase().startsWith(cafeSearchField.getText().toLowerCase()))
+                    .collect(Collectors.toList());
+        }
+        
+        if(cafeeOpenCheck.isSelected()){
+            displayedCafees = displayedCafees.stream().filter(r -> r.isOpen()).collect(Collectors.toList());
+        }
+        
+        switch (cafeSortComboBox.getValue()){
+            case "La plus notée":
+                displayedCafees.sort((r1, r2) -> Double.compare(r2.getRating(), r1.getRating()));
+                break;
+            case "La moins notée":
+                displayedCafees.sort((r1, r2) -> Double.compare(r1.getRating(), r2.getRating()));
+                break;
+            case "La plus proche":
+                displayedCafees.sort((r1, r2) -> Double.compare(distanceStringToInt(r1.getDistance()), distanceStringToInt(r2.getDistance())));
+                break;
+            case "La moins proches":
+                displayedCafees.sort((r1, r2) -> Double.compare(distanceStringToInt(r2.getDistance()), distanceStringToInt(r1.getDistance())));
+                break;
+        }
+        changeCafeesView();
+    }
+    
+    private void applyParkFilter(){
+        if(parkSearchField.getText().isEmpty())
+            displayedParks = parks;
+        else{
+            displayedParks = parks.stream()
+                    .filter(r -> r.getName().toLowerCase().startsWith(parkSearchField.getText().toLowerCase()))
+                    .collect(Collectors.toList());
+        }
+        
+        if(parkOpenCheck.isSelected()){
+            displayedParks = displayedParks.stream().filter(r -> r.isOpen()).collect(Collectors.toList());
+        }
+        
+        switch (parkSortComboBox.getValue()){
+            case "La plus notée":
+                displayedParks.sort((r1, r2) -> Double.compare(r2.getRating(), r1.getRating()));
+                break;
+            case "La moins notée":
+                displayedParks.sort((r1, r2) -> Double.compare(r1.getRating(), r2.getRating()));
+                break;
+            case "La plus proche":
+                displayedParks.sort((r1, r2) -> Double.compare(distanceStringToInt(r1.getDistance()), distanceStringToInt(r2.getDistance())));
+                break;
+            case "La moins proches":
+                displayedParks.sort((r1, r2) -> Double.compare(distanceStringToInt(r2.getDistance()), distanceStringToInt(r1.getDistance())));
+                break;
+        }
+        changeParksView();
+    }
+
+    @FXML
+    private void applyCafeeSearch(KeyEvent event) {
+        applyCafeeFilter();
+    }
+
+    @FXML
+    private void cafeOpenActivated(ActionEvent event) {
+        applyCafeeFilter();
+    }
+
+    @FXML
+    private void parcOpenActivated(ActionEvent event) {
+        applyParkFilter();
+    }
+
+    @FXML
+    private void applyParkSearch(KeyEvent event) {
+        applyParkFilter();
     }
 }

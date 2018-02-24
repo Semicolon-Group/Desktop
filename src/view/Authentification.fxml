@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane cache="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: #fff; -fx-border-color: #e74c3c; -fx-border-width: 5; -fx-border-radius: 10 10 10 10; -fx-background-radius: 30 30 30 30;" stylesheets="@../view/style/fazet.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AuthentificationController">
+   <children>
+      <ImageView fitHeight="1100.0" fitWidth="1400.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../view/assets/slider-2.jpg" />
+         </image>
+      </ImageView>
+      <ImageView id="close" fx:id="close_btn" accessibleRole="BUTTON" fitHeight="32.0" fitWidth="30.0" layoutX="756.0" layoutY="14.0" onMouseClicked="#goClose" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+         <image>
+            <Image url="@../view/assets/cls_1.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor>
+      </ImageView>
+      <VBox alignment="CENTER" layoutX="142.0" layoutY="72.0" prefHeight="506.0" prefWidth="855.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="75.0">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="87.0" prefWidth="861.0" style="-fx-alignment: center; -fx-font-size: 30; -fx-font-family: Ubuntu; -fx-font-weight: bold;" text="User Login" textFill="#1a0101" />
+               </children>
+            </HBox>
+            <HBox prefHeight="161.0" prefWidth="855.0">
+               <children>
+                  <VBox prefHeight="100.0" prefWidth="857.0">
+                     <children>
+                        <JFXTextField fx:id="username" alignment="CENTER" focusColor="#e74c3c" maxWidth="860.0" minWidth="676.0" prefHeight="82.0" prefWidth="857.0" promptText="Pseudo">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </JFXTextField>
+                        <JFXPasswordField fx:id="pw" focusColor="#e74c3c" maxWidth="857.0" minWidth="676.0" prefHeight="80.0" prefWidth="857.0" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="recover" accessibleRole="BUTTON" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="8.0" onMouseClicked="#goRecover1" prefHeight="61.0" prefWidth="855.0" text="Forgot Password ? Click Here ." textFill="#1a0101">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="82.0" prefWidth="620.0">
+               <children>
+                  <Button id="button" fx:id="button" defaultButton="true" mnemonicParsing="false" onAction="#goAuthentification" prefHeight="54.0" prefWidth="236.0" style="-fx-font-family: Ubuntu; -fx-border-width: 5; -fx-font-size: 16; -fx-font-weight: bold; -fx-border-radius: 30 30 30 30; -fx-background-radius: 30 30 30 30;" text="Login" textAlignment="CENTER">
+                     <HBox.margin>
+                        <Insets left="30.0" />
+                     </HBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <ImageView fx:id="fb_btn" fitHeight="59.0" fitWidth="47.0" onMouseClicked="#goFb" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../view/assets/az.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <HBox.margin>
+                        <Insets left="30.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <ImageView fitHeight="59.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../view/assets/Webp.net-resizeimage.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <HBox.margin>
+                        <Insets left="30.0" />
+                     </HBox.margin>
+                  </ImageView>
+               </children>
+               <VBox.margin>
+                  <Insets left="190.0" right="100.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox prefHeight="89.0" prefWidth="855.0">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="55.0" prefWidth="855.0" text="Not yet a member ? Register Here ." textFill="#1a0101">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
