@@ -63,8 +63,9 @@ public class AccountMenuViewController implements Initializable {
             AnchorPane pane = loader.load();
             dialog.initModality(Modality.APPLICATION_MODAL);
             dialog.initOwner(MySoulMate.mainStage);
-            Scene dialogScene = new Scene(pane, 752, 400);
+            Scene dialogScene = new Scene(pane, 710, 350);
             dialog.setScene(dialogScene);
+            ((SettingsViewController)loader.getController()).setDialog(dialog);
             dialog.show();
         } catch (IOException ex) {
             Logger.getLogger(AccountMenuViewController.class.getName()).log(Level.SEVERE, null, ex);
