@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import models.Enumerations.SignalReason;
 import services.MemberService;
+import services.PhotoService;
 
 /**
  *
@@ -117,6 +118,24 @@ public class Signal {
     }
     public String getStateName(){
         return state ? "Consulted" : "Non-Consulted";
+    }
+    public boolean getGenderSender() throws SQLException {
+        return MemberService.getInstance().get(new Member(senderId)).isGender();    
+    }
+    public boolean getGenderReceiver() throws SQLException {
+        return MemberService.getInstance().get(new Member(receiverId)).isGender();    
+    }
+    public java.sql.Date getBirthDateSender () throws SQLException{
+        return MemberService.getInstance().get(new Member(senderId)).getBirthDate();
+    }
+     public java.sql.Date getBirthDateReceiver () throws SQLException{
+        return MemberService.getInstance().get(new Member(receiverId)).getBirthDate();
+    }
+       public String getUrlPhotoSender() throws SQLException{
+        return  PhotoService.getInstance().get(new Photo(senderId,Enumerations.PhotoType.PROFILE)).getUrl();
+    }
+     public String getUrlPhotoReceiver() throws SQLException{
+        return  PhotoService.getInstance().get(new Photo(receiverId,Enumerations.PhotoType.PROFILE)).getUrl();
     }
     
     @Override

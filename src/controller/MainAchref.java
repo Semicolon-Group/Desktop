@@ -9,6 +9,7 @@ package controller;
  * @author asus
  */
 import java.io.IOException;
+import java.sql.SQLException;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -21,6 +22,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import models.Member;
+import services.MemberService;
 
 /**
  *
@@ -33,7 +36,7 @@ public class MainAchref extends Application {
     public static InscriptionContainerViewController container3;
     public static AjouterSignalContainerViewController container4;
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws SQLException {
 //////
 //        try {
 //            Parent root = FXMLLoader.
@@ -46,19 +49,19 @@ public class MainAchref extends Application {
 //        } catch (IOException ex) {
 //            System.out.println(ex.getMessage());
 //        }
-
-    try {
-            FXMLLoader loader = new FXMLLoader();
-            Parent root = loader.
-                    load(getClass().getResource("/view/FeedbackContainerView.fxml").openStream());
-            container = loader.getController();
-            Scene scene = new Scene(root);
-            primaryStage.setScene(scene);
-            primaryStage.show();
-
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-        }
+//
+//    try {
+//            FXMLLoader loader = new FXMLLoader();
+//            Parent root = loader.
+//                    load(getClass().getResource("/view/FeedbackContainerView.fxml").openStream());
+//            container = loader.getController();
+//            Scene scene = new Scene(root);
+//            primaryStage.setScene(scene);
+//            primaryStage.show();
+//
+//        } catch (IOException ex) {
+//            System.out.println(ex.getMessage());
+//        }
 //                try {
 //            Parent root = FXMLLoader.
 //                    load(getClass().getResource("/view/GetSignalView.fxml"));
@@ -82,18 +85,19 @@ public class MainAchref extends Application {
 //        } catch (IOException ex) {
 //            System.out.println(ex.getMessage());
 //        }
-//     try {
-//            FXMLLoader loader = new FXMLLoader();
-//            Parent root = loader.
-//                    load(getClass().getResource("/view/InscriptionContainerView.fxml").openStream());
-//            container3 = loader.getController();
-//            Scene scene = new Scene(root);
-//            primaryStage.setScene(scene);
-//            primaryStage.show();
-//
-//        } catch (IOException ex) {
-//            System.out.println(ex.getMessage());
-//        }
+//        System.out.println(MemberService.getInstance().get(new Member(1)));
+     try {
+            FXMLLoader loader = new FXMLLoader();
+            Parent root = loader.
+                    load(getClass().getResource("/view/InscriptionContainerView.fxml").openStream());
+            container3 = loader.getController();
+            Scene scene = new Scene(root);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
 ////   
 //
 //     try {

@@ -58,6 +58,65 @@ public class Member extends User{
         preferedRelations = new ArrayList<>();
         preferedStatuses = new ArrayList<>();
     }
+
+    public Member(Date birthDate, boolean gender, float height, BodyType bodyType, int childrenNumber, Enumerations.Religion religion, Importance religionImportance, boolean smoker, boolean drinker, int minAge, int maxAge, Proximity proximity, Address address, List<RelationType> preferedRelations, String about, String pseudo, String firstname, String lastname, String email, String password) {
+        super(pseudo, firstname, lastname, email, password);
+        this.birthDate = birthDate;
+        this.gender = gender;
+        this.height = height;
+        this.bodyType = bodyType;
+        this.childrenNumber = childrenNumber;
+        this.religion = religion;
+        this.religionImportance = religionImportance;
+        this.smoker = smoker;
+        this.drinker = drinker;
+        this.minAge = minAge;
+        this.maxAge = maxAge;
+        this.proximity = proximity;
+        this.address = address;
+        this.preferedRelations = preferedRelations;
+        this.about = about;
+    }
+
+    public Member(Date birthDate, boolean gender, float height, BodyType bodyType, int childrenNumber, Enumerations.Religion religion, Importance religionImportance, boolean smoker, boolean drinker, int minAge, int maxAge, Proximity proximity, Address address, List<RelationType> preferedRelations, String pseudo, String firstname, String lastname, String email, String password) {
+        super(pseudo, firstname, lastname, email, password);
+        this.birthDate = birthDate;
+        this.gender = gender;
+        this.height = height;
+        this.bodyType = bodyType;
+        this.childrenNumber = childrenNumber;
+        this.religion = religion;
+        this.religionImportance = religionImportance;
+        this.smoker = smoker;
+        this.drinker = drinker;
+        this.minAge = minAge;
+        this.maxAge = maxAge;
+        this.proximity = proximity;
+        this.address = address;
+        this.preferedRelations = preferedRelations;
+    }
+    
+
+    public Member(Date birthDate, boolean gender, float height, BodyType bodyType, int childrenNumber, Enumerations.Religion religion, Importance religionImportance, boolean smoker, boolean drinker, int minAge, int maxAge, Proximity proximity, Address address, List<RelationType> preferedRelations, List<MaritalStatus> preferedStatuses, String about, String pseudo, String firstname, String lastname, String email, String password) {
+        super(pseudo, firstname, lastname, email, password);
+        this.birthDate = birthDate;
+        this.gender = gender;
+        this.height = height;
+        this.bodyType = bodyType;
+        this.childrenNumber = childrenNumber;
+        this.religion = religion;
+        this.religionImportance = religionImportance;
+        this.smoker = smoker;
+        this.drinker = drinker;
+        this.minAge = minAge;
+        this.maxAge = maxAge;
+        this.proximity = proximity;
+        this.address = address;
+        this.preferedRelations = preferedRelations;
+        this.preferedStatuses = preferedStatuses;
+        this.about = about;
+    }
+    
   
     public Member(int id, Date birthDate, boolean gender, float height, BodyType bodyType, int childrenNumber, Enumerations.Religion religion, 
             Importance religionImportance, boolean smoker, boolean drinker, int minAge, int maxAge, 
