@@ -56,7 +56,13 @@ public class PhotoService extends Service implements Create<Photo>,Read<Photo>,D
     * Always returns the profile photo for a user.
     */
     public Photo get(Photo obj) throws SQLException {
-	String req = "SELECT * FROM `photo` WHERE user_id = " + obj.getUserId() + " and `type` = " + obj.getType().ordinal();
+	String req = "SELECT * FROM `photo` WHERE ";
+        if(obj.getId() != 0)
+            req+= "`id` = " + obj.getId();
+        else if(obj.getUserId() != 0)
+            req+= "`user_id` = " + obj.getUserId();
+        if(obj.getType() != null)
+            req+= " and `type` = " + obj.getType().ordinal();
 	ResultSet rs = CONNECTION.createStatement().executeQuery(req);
 	if(rs.next()){
             return new Photo(rs.getInt("id"), rs.getInt("user_id"), rs.getString("url"), rs.getTimestamp("date"),

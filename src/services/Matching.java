@@ -5,11 +5,13 @@
  */
 package services;
 
+import controller.MySoulMate;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import models.Answer;
 import models.Choice;
 import models.Enumerations;
@@ -93,18 +95,19 @@ public class Matching {
         return ((int) (count == 0 ? 0 : Math.ceil((sum / count) * 100))); //we should show at least 1.
     }
     
-    public List<MatchCard> getMatches(Member M) throws SQLException{
-        List<Member> list = MemberService.getInstance().getAll(null);
-        list.removeIf(m -> m.isGender() == M.isGender());
+    public List<MatchCard> getMatches(Member M, Filter F) throws SQLException{
+        Map<Member,Map.Entry<Double,Integer>> map = MemberService.getInstance().getFiltered(F);
+        Set<Member> list = map.keySet();
         List<MatchCard> cards = new ArrayList();
         for(Member m : list){
             MatchCard card = new MatchCard();
             card.setMemberId(m.getId());
             card.setAge(m.getAge());
             card.setCity(m.getAddress().getCity());
-            card.setLastLogin(m.getLastLogin());
+            card.setLastLogin(map.get(m).getValue());
+            card.setDistance(map.get(m).getKey());
             card.setPseudo(m.getPseudo());
-            card.setPhotoUrl(PhotoService.getInstance().get(new Photo(0, m.getId(), null, null, PhotoType.PROFILE)).getUrl());
+            card.setPhotoUrl(MySoulMate.UPLOAD_URL + PhotoService.getInstance().get(new Photo(0, m.getId(), null, null, PhotoType.PROFILE)).getUrl());
             
             List<Answer> A = AnswerService.getInstance().getAll(new Answer(0, null, null, M.getId()));
             List<Answer> B = AnswerService.getInstance().getAll(new Answer(0, null, null, m.getId()));

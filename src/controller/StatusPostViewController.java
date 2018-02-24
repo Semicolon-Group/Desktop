@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
@@ -27,6 +28,7 @@ import models.Enumerations;
 import models.Enumerations.ReactionType;
 import models.Reaction;
 import models.StatusPost;
+import services.MemberService;
 import services.ReactionService;
 import services.StatusPostService;
 
@@ -56,11 +58,10 @@ public class StatusPostViewController implements Initializable {
     private ImageView scowl;
     @FXML
     private VBox statusPost;
-    
-    private int postId;
     @FXML
     private HBox reactions;
     
+    private int postId;
     private ImageView selectedReaction;
     private Reaction r;
 
@@ -203,6 +204,24 @@ public class StatusPostViewController implements Initializable {
 
     @FXML
     private void onPseudoClick(MouseEvent event) {
+        try {
+            FXMLLoader loader = GlobalViewController.getInstance().setMainContent("/view/OthersProfileView.fxml");
+            ((OthersProfileViewController)loader.getController()).setUserId(StatusPostService.getInstance()
+                    .get(new StatusPost(postId)).getOwnerId());
+        } catch (SQLException ex) {
+            Logger.getLogger(StatusPostViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void onPhotoClick(MouseEvent event) {
+        try {
+            FXMLLoader loader = GlobalViewController.getInstance().setMainContent("/view/OthersProfileView.fxml");
+            ((OthersProfileViewController)loader.getController()).setUserId(StatusPostService.getInstance()
+                    .get(new StatusPost(postId)).getOwnerId());
+        } catch (SQLException ex) {
+            Logger.getLogger(StatusPostViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }

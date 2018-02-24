@@ -12,7 +12,7 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="375.0" prefWidth="280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MatchCardViewController">
    <children>
-      <ImageView fx:id="photo" fitHeight="215.0" fitWidth="280.0" pickOnBounds="true">
+      <ImageView fx:id="photo" fitHeight="215.0" fitWidth="280.0" onMouseClicked="#onPhotoClick" pickOnBounds="true">
          <image>
             <Image url="@assets/img/girl1.jpg" />
          </image>
@@ -25,7 +25,7 @@
                <children>
                   <HBox alignment="BOTTOM_CENTER" prefHeight="54.0" prefWidth="262.0">
                      <children>
-                        <Label fx:id="pseudo" text="Ashley Connor">
+                        <Label fx:id="pseudo" onMouseClicked="#onPseudoClick" text="Ashley Connor">
                            <font>
                               <Font size="25.0" />
                            </font>

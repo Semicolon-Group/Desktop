@@ -87,11 +87,14 @@ and open the template in the editor.
 }
 
 .card_pane{
-    -fx-cursor: hand;
     -fx-background-color: white;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 0, 0);
 }
 
-.card_pane:hover{
+.hoverable{
+    -fx-cursor: hand;
+}
+
+.hoverable:hover{
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,1), 10, 0, 0, 0);
 }

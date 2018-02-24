@@ -38,7 +38,7 @@ public class GooglePlacesAPI {
     }
     
     private static final String URLString = "https://maps.googleapis.com/maps/api/place/#&key=";
-    private static final String KEY = "AIzaSyBvQa5SklGJM3mGKNaTNIYth_Ky1H3Yznw";
+    private static final String KEY = "AIzaSyAsnCz2NQYg03HRAqsT3ip_6pw3IP4JjvA";
     
     public static List<Address> autoCompleteAddress(String input){
         input = input.replace(" ", "+");

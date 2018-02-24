@@ -95,7 +95,7 @@ public class RecoveryViewController implements Initializable {
 //                SendMail sm = new SendMail(m.getEmail(), "Email recovery", "Bonjour " + m.getFirstname() + " , Votre token de"
 //                        + " récupération est " + token);
                 String[] attachFiles = new String[1];
-                attachFiles[0] = "D:\\HeadQuarters\\Esprit\\3ème Année\\PI-DEV\\javafx\\MySoulMate\\First.jpg";
+                attachFiles[0] = "E:\\New folder\\Esprit Cours\\Sem2\\PI\\MySoulmate\\Workspace\\new\\Desktop\\First.jpg";
                 sendEmailWithAttachments("smtp.gmail.com", "465", "testmailesprit69@gmail.com", "testmailesprit69@",
                         m.getEmail(), "Recovery mail", "Ce mail contient un token pour récuperer votre mot de passe , ainsi que la photo de la personne qui a essayé de le récuperer ."+
                                 " \n My Soul Mate ."+"  \n "

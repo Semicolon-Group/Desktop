@@ -96,7 +96,7 @@ public class InstantMessagingViewController implements Initializable {
      */
     int i = 0;
 
-    boolean isServer = false;
+    boolean isServer = true;
     Label ntapi = new Label();
 
     NetworkConnection connection = isServer ? createServer() : createClient();
@@ -144,7 +144,7 @@ public class InstantMessagingViewController implements Initializable {
                 recu = new VBox();
                 wrap = new HBox();
 
-//
+                if(data == null) return;
                 if ((data.toString()).equals(t)) {
                     typing.setText("Is typing");
                     typing.getStyleClass().add("typing");
@@ -176,7 +176,7 @@ public class InstantMessagingViewController implements Initializable {
                 recu = new VBox();
                 wrap = new HBox();
 
-//
+                if(data == null) return;
                 if ((data.toString()).equals(t)) {
                     typing.setText("Is typing");
                     typing.getStyleClass().add("typing");
@@ -203,12 +203,12 @@ public class InstantMessagingViewController implements Initializable {
     public Parent getHisotrique() throws SQLException {
 
         msg = new Message();
-        msg.setSenderId(1);
+        msg.setSenderId(2);
         msg.setReceiverId(3);
 
         List<Message> messages = MessageService.getInstance().getAll(msg);
         messages.forEach(e -> {
-            if (e.getSenderId() == 1 && e.getReceiverId() == 3) {
+            if (e.getSenderId() == 2 && e.getReceiverId() == 3) {
 
                 textField[i] = new Label();
                 textField[i].nodeOrientationProperty().setValue(NodeOrientation.RIGHT_TO_LEFT);
@@ -217,7 +217,7 @@ public class InstantMessagingViewController implements Initializable {
                 wrap = new HBox();
                 textField[i].setTranslateX(350);
                 textField[i].getStyleClass().add("recu");
-                textField[i].setAlignment(Pos.BOTTOM_RIGHT);
+                textField[i].setAlignment(Pos.CENTER);
 
                 envoye.getChildren().add(textField[i]);
 
@@ -229,7 +229,7 @@ public class InstantMessagingViewController implements Initializable {
                 x.setContent(content2);
                 x.setVvalue(1.0d);
 
-            } else if (e.getSenderId() == 3 && e.getReceiverId() == 1) {
+            } else if (e.getSenderId() == 3 && e.getReceiverId() == 2) {
                 textField[i] = new Label();
 
                 textField[i].setText(" " + e.getContent() + " \n");
@@ -280,9 +280,9 @@ public class InstantMessagingViewController implements Initializable {
             inputmsg.setStyle("-fx-font-size : 20 px ;");
             envoye.setAlignment(Pos.CENTER);
             recu.setAlignment(Pos.CENTER);
-            envoye.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
-            recu.setMaxWidth(wrap.getMaxWidth() / 2);
-            envoye.setMaxWidth(wrap.getMaxWidth() / 2);
+            envoye.setNodeOrientation(NodeOrientation.INHERIT);
+//            recu.setMaxWidth(wrap.getMaxWidth() / 2);
+//            envoye.setMaxWidth(wrap.getMaxWidth() / 2);
 
             /**
              *
@@ -301,7 +301,7 @@ public class InstantMessagingViewController implements Initializable {
         try {
             Conversation c = new Conversation();
             cons = new VBox();
-            c.setPerson1Id(1);
+            c.setPerson1Id(2);
             c.setPerson2Id(3);
             Member m = new Member();
             m.setId(c.getPerson1Id());
@@ -362,7 +362,7 @@ public class InstantMessagingViewController implements Initializable {
     @FXML
     private Parent goSend(ActionEvent event6) throws SQLException, IOException {
 
-        String message = isServer ? "Server: " : "Badis: ";
+        String message ="";
 
         message += inputmsg.getText();
         inputmsg.clear();
