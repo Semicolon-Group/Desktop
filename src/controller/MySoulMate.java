@@ -5,6 +5,7 @@
  */
 package controller;
 
+import com.sun.management.jmx.Trace;
 import java.io.IOException;
 import java.util.Date;
 import java.util.UUID;
@@ -41,7 +42,7 @@ public class MySoulMate extends Application {
         mainStage = primaryStage;
         Parent globalPane = FXMLLoader.load(getClass().getResource("/view/Authentification.fxml"));
         Scene scene = new Scene(globalPane);
-            mainStage.setResizable(false);
+        mainStage.setResizable(false);
         mainStage.setScene(scene);
         mainStage.initStyle(StageStyle.UNDECORATED);
         mainStage.show();
