@@ -6,6 +6,9 @@
 package util;
 
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
@@ -52,9 +55,8 @@ public class N_SendMail {
             msgg.reply(true);
 
             Transport.send(msgg);
-        } catch (Exception e) {
-
-            System.out.println(e);
-        }
+        }catch (MessagingException ex) {
+             Logger.getLogger(N_SendMail.class.getName()).log(Level.SEVERE, null, ex);
+         }
     }
 }
