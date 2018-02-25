@@ -74,5 +74,6 @@ public class AccountMenuViewController implements Initializable {
 
     @FXML
     private void logout(ActionEvent event) {
+        MySoulMate.getInstance().logOut();
     }
 }

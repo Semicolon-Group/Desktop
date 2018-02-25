@@ -134,6 +134,10 @@ public class OthersProfileViewController implements Initializable {
     private VBox likesVBox;
     @FXML
     private Button meetButton;
+    @FXML
+    private Label prefRelationsLabel;
+    @FXML
+    private Label prefStatusLabel;
 
     /**
      * Initializes the controller class.
@@ -238,7 +242,7 @@ public class OthersProfileViewController implements Initializable {
     
     private void showImage(MouseEvent event){
         try {
-            Image image = ((ImageView)event.getTarget()).getImage();
+            ImageView image = ((ImageView)event.getTarget());
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ImageView.fxml"));
             Pane newLoadedPane =  loader.load();
             ((ImageViewController)loader.getController()).setImage(image);
@@ -268,6 +272,18 @@ public class OthersProfileViewController implements Initializable {
             aboutText.setText(member.getAbout());
             civilStatusLabel.setText(member.getMaritalStatus().name().substring(0, 1) + member.getMaritalStatus().name().substring(1).toLowerCase());
             createdAtLabel.setText(new SimpleDateFormat("dd MMMM yyyy", Locale.FRANCE).format(member.getCreatedAt()));
+            String relationsString = "";
+            for(Enumerations.RelationType type : member.getPreferedRelations()){
+                relationsString+=type.name().toLowerCase()+", ";
+            }
+            prefRelationsLabel.setText(relationsString.isEmpty()?relationsString:relationsString.substring(0, relationsString.length()-2));
+            String statusesString = "";
+            for(Enumerations.MaritalStatus status : member.getPreferedStatuses()){
+                statusesString+=status.name().toLowerCase()+", ";
+            }
+            prefStatusLabel.setText(statusesString.isEmpty()?statusesString:statusesString.substring(0, statusesString.length() -2));
+            
+            
         } catch (SQLException ex) {
             util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), "Connection de database failed");
         }catch (Exception ex){
@@ -407,6 +423,34 @@ public class OthersProfileViewController implements Initializable {
             ((RecommandationViewController)loader.getController()).setAddress(centerAddress, userId);
         }catch (SQLException ex) {
             Logger.getLogger(OthersProfileViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void showCoverPic(MouseEvent event) {
+        try {
+            ImageView image = ((ImageView)event.getTarget());
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ImageView.fxml"));
+            Pane newLoadedPane =  loader.load();
+            ((ImageViewController)loader.getController()).setImage(image);
+            ((ImageViewController)loader.getController()).setParentAnchorPane(mainAnchorPane);
+            mainAnchorPane.getChildren().add(newLoadedPane);
+        } catch (IOException ex) {
+            util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), null);
+        }
+    }
+
+    @FXML
+    private void showProfilePic(MouseEvent event) {
+        try {
+            ImageView image = ((ImageView)event.getTarget());
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ImageView.fxml"));
+            Pane newLoadedPane =  loader.load();
+            ((ImageViewController)loader.getController()).setImage(image);
+            ((ImageViewController)loader.getController()).setParentAnchorPane(mainAnchorPane);
+            mainAnchorPane.getChildren().add(newLoadedPane);
+        } catch (IOException ex) {
+            util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), null);
         }
     }
 }
