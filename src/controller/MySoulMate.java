@@ -46,7 +46,6 @@ public class MySoulMate extends Application {
     
     @Override
     public void start(Stage primaryStage) throws IOException {
-        testUpload();
         instance=this;
         mainStage = primaryStage;
         AnchorPane globalPane = FXMLLoader.load(getClass().getResource("/view/Authentification.fxml"));
@@ -83,11 +82,6 @@ public class MySoulMate extends Application {
      */
     public static void main(String[] args){
         launch(args);
-    }
-    
-    private void testUpload(){
-//        String s = FileUploader.upload("C:\\Users\\Seif\\Desktop\\hoss.jpg");
-//        System.out.println(s);
     }
     
     public static void showAlert(Alert.AlertType alertType, String content, ButtonType... buttonType){
