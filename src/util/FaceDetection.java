@@ -34,6 +34,7 @@ public class FaceDetection {
     
     /*
     * returns maleConfidence between 0 and 1.
+    * throws an exception if there is more than one face in the picture.
     */
     public static double getMaleConfidence(String absolutePath) throws Exception {
         File f = new File(absolutePath);
@@ -72,6 +73,8 @@ public class FaceDetection {
         JSONArray array = (JSONArray)json.values().stream().findFirst().get();
         json = (JSONObject)array.stream().findFirst().get();
         array = (JSONArray)((JSONArray)json.get("faces"));
+        if(array.size() > 1)
+            throw new Exception("Too many faces");
         Object conf = ((JSONObject)((JSONObject)((JSONObject)array.get(0)).get("attributes")).get("gender")).get("maleConfidence");
         if(conf instanceof Double)
             return (double)conf;
