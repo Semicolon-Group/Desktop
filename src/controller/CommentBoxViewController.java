@@ -140,6 +140,7 @@ public class CommentBoxViewController implements Initializable {
             cont.setComment(c);
             cont.setPseudo(online.getPseudo());
             cont.setContent(comment.getText());
+            cont.startListening();
             selected = 0;
             comment.clear();
             box.getChildren().add(0,p);

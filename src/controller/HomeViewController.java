@@ -36,6 +36,7 @@ import models.StatusPost;
 import services.MemberService;
 import services.NewsFeed;
 import services.PhotoService;
+import util.TimeDiff;
 
 /**
  * FXML Controller class
@@ -105,19 +106,40 @@ public class HomeViewController implements Initializable {
     }
     
     public String getTimeDiff(Timestamp t){
-        Date date = new Date(t.getTime());
-        int days = Period.between(LocalDate.of(date.getYear() + 1900, date.getMonth() + 1,
-                date.getDate()), LocalDate.now()).getDays();
-        if(days < 7)
-            return days + " days";
-        if(days < 14)
-            return "1 week";
-        if(days < 28)
-            return days / 7 + " weeks";
-        if(days < 365)
-            return days / 30 + " months";
-        if(days < 630)
-            return "Over a year";
-        return days / 365 + " years";
+        TimeDiff diff = TimeDiff.getInstance(t, new Timestamp(new java.util.Date().getTime()));
+        
+        if(diff.getYears() == 1)
+            return diff.getYears() + " year ago";
+        if(diff.getYears() > 1)
+            return diff.getYears() + " years ago";
+        
+        if(diff.getMonths() == 1)
+            return diff.getMonths() + " month ago";
+        if(diff.getMonths() > 1)
+            return diff.getMonths() + " months ago";
+        
+        if(diff.getWeeks() == 1)
+            return diff.getWeeks() + " week ago";
+        if(diff.getWeeks() > 1)
+            return diff.getWeeks() + " weeks ago";
+        
+        if(diff.getDays() == 1)
+            return diff.getDays() + " day ago";
+        if(diff.getDays() > 1)
+            return diff.getDays() + " days ago";
+        
+        if(diff.getHours() == 1)
+            return diff.getHours() + " hour ago";
+        if(diff.getHours() > 1)
+            return diff.getHours() + " hours ago";
+        
+        if(diff.getMinutes() == 1)
+            return diff.getMinutes() + " minute ago";
+        if(diff.getMinutes() > 1)
+            return diff.getMinutes() + " minutes ago";
+        
+        if(diff.getSeconds() == 1)
+            return diff.getSeconds() + " second ago";
+        return diff.getSeconds() + " seconds ago";
     }
 }

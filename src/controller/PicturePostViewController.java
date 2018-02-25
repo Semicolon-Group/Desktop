@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,12 +26,17 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import models.Enumerations;
+import models.Member;
+import models.Notification;
 import models.Photo;
 import models.Reaction;
 import models.StatusPost;
+import services.MemberService;
+import services.NotificationService;
 import services.PhotoService;
 import services.ReactionService;
 import services.StatusPostService;
+import util.N_SendMail;
 
 /**
  * FXML Controller class
@@ -59,6 +65,7 @@ public class PicturePostViewController implements Initializable {
     private ImageView scowl;
     
     private int photoId;
+    private int ownerId;
     private ImageView selectedReaction;
     private Reaction r;
     @FXML
@@ -79,6 +86,7 @@ public class PicturePostViewController implements Initializable {
         this.picture.setImage(new Image(picture));
         this.photoId = photoId;
         try {
+            ownerId = PhotoService.getInstance().get(new Photo(photoId,0,null)).getUserId();
             r = ReactionService.getInstance().get(new Reaction(online.getId(),0,photoId,0,null));
             if(r != null) switch (r.getReactionType()) {
                 case SMILE:
@@ -131,6 +139,12 @@ public class PicturePostViewController implements Initializable {
                 if (selectedReaction != null)
                     selectedReaction.setOpacity(0.4);
                 selectedReaction = smile;
+                NotificationService.getInstance().create(new Notification(online.getId(),
+                        ownerId,
+                        Enumerations.NotificationType.REACTION,
+                        "has reacted to your photo.", new Timestamp(new Date().getTime()), null, 0, photoId, false));
+                new N_SendMail(MemberService.getInstance().get(new Member(ownerId)).getEmail(),"MySoulMate | Notification",
+                                online.getPseudo() + " has reacted to your photo. Login to see more details.");
             }
         } catch (SQLException ex) {
             Logger.getLogger(PicturePostViewController.class.getName()).log(Level.SEVERE, null, ex);
@@ -154,6 +168,12 @@ public class PicturePostViewController implements Initializable {
                 if (selectedReaction != null)
                     selectedReaction.setOpacity(0.4);
                 selectedReaction = love;
+                NotificationService.getInstance().create(new Notification(online.getId(),
+                        ownerId,
+                        Enumerations.NotificationType.REACTION,
+                        "has reacted to your photo.", new Timestamp(new Date().getTime()), null, 0, photoId, false));
+                new N_SendMail(MemberService.getInstance().get(new Member(ownerId)).getEmail(),"MySoulMate | Notification",
+                                online.getPseudo() + " has reacted to your photo. Login to see more details.");
             }
         } catch (SQLException ex) {
             Logger.getLogger(PicturePostViewController.class.getName()).log(Level.SEVERE, null, ex);
@@ -177,6 +197,12 @@ public class PicturePostViewController implements Initializable {
                 if (selectedReaction != null)
                     selectedReaction.setOpacity(0.4);
                 selectedReaction = laugh;
+                NotificationService.getInstance().create(new Notification(online.getId(),
+                        ownerId,
+                        Enumerations.NotificationType.REACTION,
+                        "has reacted to your photo.", new Timestamp(new Date().getTime()), null, 0, photoId, false));
+                new N_SendMail(MemberService.getInstance().get(new Member(ownerId)).getEmail(),"MySoulMate | Notification",
+                                online.getPseudo() + " has reacted to your photo. Login to see more details.");
             }
         } catch (SQLException ex) {
             Logger.getLogger(PicturePostViewController.class.getName()).log(Level.SEVERE, null, ex);
@@ -200,6 +226,12 @@ public class PicturePostViewController implements Initializable {
                 if (selectedReaction != null)
                     selectedReaction.setOpacity(0.4);
                 selectedReaction = scowl;
+                NotificationService.getInstance().create(new Notification(online.getId(),
+                        ownerId,
+                        Enumerations.NotificationType.REACTION,
+                        "has reacted to your photo.", new Timestamp(new Date().getTime()), null, 0, photoId, false));
+                new N_SendMail(MemberService.getInstance().get(new Member(ownerId)).getEmail(),"MySoulMate | Notification",
+                                online.getPseudo() + " has reacted to your photo. Login to see more details.");
             }
         } catch (SQLException ex) {
             Logger.getLogger(PicturePostViewController.class.getName()).log(Level.SEVERE, null, ex);

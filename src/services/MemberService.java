@@ -313,7 +313,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
 
         ResultSet rs = CONNECTION.createStatement().executeQuery(req);
         Map<Member,Map.Entry<Double,Integer>> mmbrs = new HashMap<>();
-        while (rs.next()) {            
+        while (rs.next()) {
             Member mbr = new Member();
             mbr.setId(rs.getInt("id"));
             mbr.setAddress(AddressService.getInstance().get(new Address(mbr.getId())));
