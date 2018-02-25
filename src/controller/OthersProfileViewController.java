@@ -242,7 +242,7 @@ public class OthersProfileViewController implements Initializable {
     
     private void showImage(MouseEvent event){
         try {
-            Image image = ((ImageView)event.getTarget()).getImage();
+            ImageView image = ((ImageView)event.getTarget());
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ImageView.fxml"));
             Pane newLoadedPane =  loader.load();
             ((ImageViewController)loader.getController()).setImage(image);
@@ -423,6 +423,34 @@ public class OthersProfileViewController implements Initializable {
             ((RecommandationViewController)loader.getController()).setAddress(centerAddress, userId);
         }catch (SQLException ex) {
             Logger.getLogger(OthersProfileViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void showCoverPic(MouseEvent event) {
+        try {
+            ImageView image = ((ImageView)event.getTarget());
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ImageView.fxml"));
+            Pane newLoadedPane =  loader.load();
+            ((ImageViewController)loader.getController()).setImage(image);
+            ((ImageViewController)loader.getController()).setParentAnchorPane(mainAnchorPane);
+            mainAnchorPane.getChildren().add(newLoadedPane);
+        } catch (IOException ex) {
+            util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), null);
+        }
+    }
+
+    @FXML
+    private void showProfilePic(MouseEvent event) {
+        try {
+            ImageView image = ((ImageView)event.getTarget());
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ImageView.fxml"));
+            Pane newLoadedPane =  loader.load();
+            ((ImageViewController)loader.getController()).setImage(image);
+            ((ImageViewController)loader.getController()).setParentAnchorPane(mainAnchorPane);
+            mainAnchorPane.getChildren().add(newLoadedPane);
+        } catch (IOException ex) {
+            util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), null);
         }
     }
 }

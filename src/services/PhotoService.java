@@ -8,6 +8,7 @@ package services;
 import iservice.Create;
 import iservice.Delete;
 import iservice.Read;
+import iservice.Update;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,7 +25,7 @@ import models.Photo;
  *
  * @author Elyes
  */
-public class PhotoService extends Service implements Create<Photo>,Read<Photo>,Delete<Photo>{
+public class PhotoService extends Service implements Create<Photo>,Read<Photo>,Delete<Photo>, Update<Photo>{
 
     private static PhotoService photoService;
     
@@ -109,6 +110,16 @@ public class PhotoService extends Service implements Create<Photo>,Read<Photo>,D
     public void delete(Photo obj) throws SQLException {
 	String req = "DELETE FROM `photo` WHERE id = " + obj.getId();
 	CONNECTION.createStatement().executeUpdate(req);
+    }
+
+    @Override
+    public void update(Photo obj) throws SQLException {
+        if(obj.getType() == null || obj.getId() == 0) return;
+        String query = "UPDATE `photo` SET `type`=? WHERE id = ?";
+        PreparedStatement prepare = CONNECTION.prepareStatement(query);
+        prepare.setInt(1, obj.getType().ordinal());
+        prepare.setInt(2, obj.getId());
+        prepare.executeUpdate();
     }
     
 }
