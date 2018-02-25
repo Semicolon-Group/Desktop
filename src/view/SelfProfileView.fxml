@@ -513,14 +513,20 @@
             </AnchorPane>
             <AnchorPane layoutX="1301.0" styleClass="paragraph_container" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="1301.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="57.0">
                <children>
-                  <HBox alignment="CENTER_LEFT" layoutX="38.0" prefHeight="71.0" prefWidth="201.0" spacing="30.0">
+                  <HBox alignment="CENTER_LEFT" layoutX="38.0" prefHeight="71.0" prefWidth="501.0" spacing="250.0">
                      <children>
                         <Label text="Photos" textFill="#e74c3c">
                            <font>
                               <Font name="System Bold" size="30.0" />
                            </font>
                         </Label>
-                        <Button mnemonicParsing="false" onAction="#showFileChooser" text="Ajouter" />
+                        <Button mnemonicParsing="false" onAction="#showFileChooser" prefHeight="43.0" prefWidth="103.0" styleClass="ok_button" text="Ajouter">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="30.0" />
+                           </HBox.margin></Button>
                      </children>
                   </HBox>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="70.0">
@@ -544,5 +550,6 @@
    <stylesheets>
       <URL value="@style/MainStyleSheet.css" />
       <URL value="@style/ProfileStyleSheet.css" />
+      <URL value="@style/FomStyleSheet.css" />
    </stylesheets>
 </AnchorPane>
