@@ -6,7 +6,11 @@
 package controller;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
@@ -14,6 +18,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import models.Enumerations;
+import models.Photo;
+import services.PhotoService;
 
 /**
  * FXML Controller class
@@ -27,10 +34,16 @@ public class ImageViewController implements Initializable {
     @FXML
     private ImageView imageContainer;
     
-    private Image image;
+    private ImageView image;
     private AnchorPane parentAnchorPane;
     private SelfProfileViewController selfProfileViewController;
     private OthersProfileViewController othersProfileViewController;
+    @FXML
+    private AnchorPane buttonsPane;
+    
+    private Photo photo;
+    private boolean owner;
+    private SelfProfileViewController controller;
 
     /**
      * Initializes the controller class.
@@ -44,10 +57,24 @@ public class ImageViewController implements Initializable {
         this.parentAnchorPane = pane;
     }
     
-    public void setImage(Image image){
+    public void setImage(ImageView image){
         this.image = image;
-        imageContainer.setImage(image);
+        this.owner = false;
+        imageContainer.setImage(image.getImage());
         GlobalViewController.getInstance().lockScrollToTop();
+    }
+    
+    public void setParams(ImageView image, SelfProfileViewController controller){
+        try {
+            this.image = image;
+            this.owner = true;
+            this.controller = controller;
+            photo = PhotoService.getInstance().get(new Photo(Integer.parseInt(image.getId()), 0, null));
+            imageContainer.setImage(image.getImage());
+            GlobalViewController.getInstance().lockScrollToTop();
+        } catch (SQLException ex) {
+            Logger.getLogger(ImageViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
@@ -55,6 +82,50 @@ public class ImageViewController implements Initializable {
         if(event.getTarget() instanceof VBox){
             parentAnchorPane.getChildren().remove(parentAnchorPane.getChildren().size()-1);
             GlobalViewController.getInstance().releaseScroll();
+        }
+    }
+
+    @FXML
+    private void showButtons(MouseEvent event) {
+        buttonsPane.setVisible(owner && (photo.getType()==Enumerations.PhotoType.REGULAR));
+    }
+
+    @FXML
+    private void hideButtons(MouseEvent event) {
+        buttonsPane.setVisible(false);
+    }
+
+    @FXML
+    private void setImageAsCover(ActionEvent event) {
+        try {
+            Photo coverPhoto = PhotoService.getInstance().get(new Photo(photo.getUserId(), Enumerations.PhotoType.COVER));
+            if(coverPhoto != null){
+                coverPhoto.setType(Enumerations.PhotoType.REGULAR);
+                PhotoService.getInstance().update(coverPhoto);
+            }
+            photo.setType(Enumerations.PhotoType.COVER);
+            PhotoService.getInstance().update(photo);
+            buttonsPane.setVisible(false);
+            controller.updatePictures();
+        } catch (SQLException ex) {
+            Logger.getLogger(ImageViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void setImageAsProfile(ActionEvent event) {
+        try {
+            Photo profilePhoto = PhotoService.getInstance().get(new Photo(photo.getUserId(), Enumerations.PhotoType.PROFILE));
+            if(profilePhoto != null){
+                profilePhoto.setType(Enumerations.PhotoType.REGULAR);
+                PhotoService.getInstance().update(profilePhoto);
+            }
+            photo.setType(Enumerations.PhotoType.PROFILE);
+            PhotoService.getInstance().update(photo);
+            buttonsPane.setVisible(false);
+            controller.updatePictures();
+        } catch (SQLException ex) {
+            Logger.getLogger(ImageViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

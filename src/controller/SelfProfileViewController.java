@@ -144,11 +144,21 @@ public class SelfProfileViewController implements Initializable {
         photosVBox.fillWidthProperty().bind(photoScrollPane.fitToWidthProperty());
         aboutTextarea.focusedProperty().addListener((o, oldValue, newValue) -> updateAbout(o, oldValue, newValue));
         members = new ArrayList<>();
+        
+        Circle imageClip = new Circle(profileImage.getX()+(profileImage.getFitWidth()/2), profileImage.getY()+(profileImage.getFitHeight()/2), 135);
+        profileImage.setClip(imageClip);
+        Circle contenairClip = new Circle(profileImgPane.getLayoutX()+(profileImgPane.getPrefWidth()/2), profileImgPane.getLayoutY()+(profileImgPane.getPrefHeight()/2), 145);
+        profileImgPane.setClip(contenairClip);
+        
+        populateFields();
+        makeAnswersPane();
+        updatePictures();
+    }
+    
+    public void updatePictures(){
         makeCoverPicture();
         makeProfilePicture();
-        populateFields();
         populatePhotosPane();
-        makeAnswersPane();
     }
     
     public List<Answer> getAnswers(){
@@ -215,6 +225,7 @@ public class SelfProfileViewController implements Initializable {
                 button.getStyleClass().add("regular_button");
                 button.setId(photo.getId()+"");
                 ImageView imageView = new ImageView(MySoulMate.UPLOAD_URL+photo.getUrl());
+                imageView.setId(photo.getId()+"");
                 imageView.setCursor(Cursor.HAND);
                 imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> showImage(e));
                 imageView.setPreserveRatio(true);
@@ -230,10 +241,10 @@ public class SelfProfileViewController implements Initializable {
     
     private void showImage(MouseEvent event){
         try {
-            Image image = ((ImageView)event.getTarget()).getImage();
+            ImageView image = ((ImageView)event.getTarget());
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ImageView.fxml"));
             Pane newLoadedPane =  loader.load();
-            ((ImageViewController)loader.getController()).setImage(image);
+            ((ImageViewController)loader.getController()).setParams(image, this);
             ((ImageViewController)loader.getController()).setParentAnchorPane(mainAnchorPane);
             mainAnchorPane.getChildren().add(newLoadedPane);
         } catch (IOException ex) {
@@ -315,10 +326,6 @@ public class SelfProfileViewController implements Initializable {
     
     private void makeProfilePicture(){
         try {
-            Circle imageClip = new Circle(profileImage.getX()+(profileImage.getFitWidth()/2), profileImage.getY()+(profileImage.getFitHeight()/2), 135);
-            profileImage.setClip(imageClip);
-            Circle contenairClip = new Circle(profileImgPane.getLayoutX()+(profileImgPane.getPrefWidth()/2), profileImgPane.getLayoutY()+(profileImgPane.getPrefHeight()/2), 145);
-            profileImgPane.setClip(contenairClip);
             Photo photo = PhotoService.getInstance().get(new Photo(0, MySoulMate.MEMBER_ID, null, null, PhotoType.PROFILE));
             String photoPath ="";
             if(photo == null){
@@ -437,6 +444,34 @@ public class SelfProfileViewController implements Initializable {
             } catch (SQLException ex) {
                 Logger.getLogger(SelfProfileViewController.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
+    }
+
+    @FXML
+    private void showCoverPic(MouseEvent event) {
+        try {
+            ImageView image = ((ImageView)event.getTarget());
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ImageView.fxml"));
+            Pane newLoadedPane =  loader.load();
+            ((ImageViewController)loader.getController()).setImage(image);
+            ((ImageViewController)loader.getController()).setParentAnchorPane(mainAnchorPane);
+            mainAnchorPane.getChildren().add(newLoadedPane);
+        } catch (IOException ex) {
+            util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), null);
+        }
+    }
+
+    @FXML
+    private void showProfilePic(MouseEvent event) {
+        try {
+            ImageView image = ((ImageView)event.getTarget());
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ImageView.fxml"));
+            Pane newLoadedPane =  loader.load();
+            ((ImageViewController)loader.getController()).setImage(image);
+            ((ImageViewController)loader.getController()).setParentAnchorPane(mainAnchorPane);
+            mainAnchorPane.getChildren().add(newLoadedPane);
+        } catch (IOException ex) {
+            util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), null);
         }
     }
 }
