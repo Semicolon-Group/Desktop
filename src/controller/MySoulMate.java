@@ -26,6 +26,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import models.Member;
 import services.MemberService;
+import util.FileUploader;
 
 /**
  *
@@ -34,7 +35,7 @@ import services.MemberService;
 public class MySoulMate extends Application {
     
     public static int MEMBER_ID=2;
-    public static final String UPLOAD_URL = "http://localhost/mysoulmateuploads/";
+    public static final String UPLOAD_URL = "http://localhost/mysoulmateuploads/images/";
     public static Stage mainStage;
     private static MySoulMate instance;
     private double loginWidth, loginHeight;
@@ -45,7 +46,7 @@ public class MySoulMate extends Application {
     
     @Override
     public void start(Stage primaryStage) throws IOException {
-
+        testUpload();
         instance=this;
         mainStage = primaryStage;
         AnchorPane globalPane = FXMLLoader.load(getClass().getResource("/view/Authentification.fxml"));
@@ -82,6 +83,11 @@ public class MySoulMate extends Application {
      */
     public static void main(String[] args){
         launch(args);
+    }
+    
+    private void testUpload(){
+//        String s = FileUploader.upload("C:\\Users\\Seif\\Desktop\\hoss.jpg");
+//        System.out.println(s);
     }
     
     public static void showAlert(Alert.AlertType alertType, String content, ButtonType... buttonType){
