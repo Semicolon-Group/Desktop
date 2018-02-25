@@ -7,6 +7,8 @@ package controller;
 
 import java.awt.Dimension;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.UUID;
 import java.util.logging.Level;
@@ -22,6 +24,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import models.Member;
+import services.MemberService;
 
 /**
  *
@@ -89,6 +93,9 @@ public class MySoulMate extends Application {
     
     public void logOut(){
         try {
+            Member member = MemberService.getInstance().get(new Member(MEMBER_ID));
+            member.setLastLogin(new Timestamp(new Date().getTime()));
+            MemberService.getInstance().update(member);
             MEMBER_ID = 0;
             AnchorPane globalPane = FXMLLoader.load(getClass().getResource("/view/Authentification.fxml"));
             Scene scene = new Scene(globalPane);
@@ -100,6 +107,8 @@ public class MySoulMate extends Application {
             mainStage.setHeight(loginHeight);
             mainStage.setScene(scene);
         } catch (IOException ex) {
+            Logger.getLogger(MySoulMate.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
             Logger.getLogger(MySoulMate.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
