@@ -25,16 +25,22 @@
          <children>
             <AnchorPane fx:id="coverContainer" prefHeight="486.0" prefWidth="200.0" style="-fx-background-color: lightgray;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <ImageView fx:id="coverImage" fitHeight="486.0" pickOnBounds="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <ImageView fx:id="coverImage" fitHeight="486.0" onMouseClicked="#showCoverPic" pickOnBounds="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></ImageView>
                </children>
             </AnchorPane>
             <AnchorPane id="under_info_pane" layoutX="-4.0" layoutY="285.0" prefHeight="130.0" AnchorPane.bottomAnchor="47.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
             <AnchorPane id="profile_image_pane" fx:id="profileImgPane" prefHeight="290.0" prefWidth="290.0" AnchorPane.leftAnchor="197.0" AnchorPane.topAnchor="242.0">
                <children>
-                  <ImageView fx:id="profileImage" fitHeight="270.0" fitWidth="270.0" pickOnBounds="true" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                  <ImageView fx:id="profileImage" fitHeight="270.0" fitWidth="270.0" onMouseClicked="#showProfilePic" pickOnBounds="true" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                      <image>
                         <Image url="@assets/img/profil.jpg" />
                      </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </ImageView>
                </children>
             </AnchorPane>
@@ -356,7 +362,7 @@
                                              <children>
                                                 <VBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="268.0">
                                                    <children>
-                                                      <Label prefHeight="37.0" prefWidth="197.0" text="Member sinc:">
+                                                      <Label prefHeight="37.0" prefWidth="197.0" text="Member since:">
                                                          <font>
                                                             <Font name="System Bold" size="24.0" />
                                                          </font>
@@ -366,6 +372,50 @@
                                                 <VBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="196.0">
                                                    <children>
                                                       <Label fx:id="createdAtLabel" prefHeight="36.0" prefWidth="196.0" text="Label">
+                                                         <font>
+                                                            <Font size="24.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </HBox>
+                                          <HBox layoutX="10.0" layoutY="310.0" prefHeight="100.0" prefWidth="367.0">
+                                             <children>
+                                                <VBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="268.0">
+                                                   <children>
+                                                      <Label prefHeight="37.0" prefWidth="249.0" text="Prefered relations:">
+                                                         <font>
+                                                            <Font name="System Bold" size="24.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </VBox>
+                                                <VBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="196.0">
+                                                   <children>
+                                                      <Label fx:id="prefRelationsLabel" prefHeight="36.0" prefWidth="196.0" text="Label">
+                                                         <font>
+                                                            <Font size="24.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </HBox>
+                                          <HBox layoutX="10.0" layoutY="410.0" prefHeight="100.0" prefWidth="367.0">
+                                             <children>
+                                                <VBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="268.0">
+                                                   <children>
+                                                      <Label prefHeight="73.0" prefWidth="268.0" text="Prefered marital statuses:" wrapText="true">
+                                                         <font>
+                                                            <Font name="System Bold" size="24.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </VBox>
+                                                <VBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="196.0">
+                                                   <children>
+                                                      <Label fx:id="prefStatusLabel" prefHeight="36.0" prefWidth="196.0" text="Label">
                                                          <font>
                                                             <Font size="24.0" />
                                                          </font>
