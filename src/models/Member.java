@@ -17,6 +17,7 @@ import models.Enumerations.Importance;
 import models.Enumerations.MaritalStatus;
 import models.Enumerations.Proximity;
 import models.Enumerations.RelationType;
+import util.TimeDiff;
 
 /**
  *
@@ -351,8 +352,7 @@ public class Member extends User{
     }
 
     public int getAge() {
-        return Period.between(LocalDate.of(birthDate.getYear() + 1900, birthDate.getMonth() + 1,
-                birthDate.getDate()), LocalDate.now()).getYears();
+        return TimeDiff.getInstance(new Timestamp(birthDate.getTime()), new Timestamp(new java.util.Date().getTime())).getYears();
     }
 
     @Override
