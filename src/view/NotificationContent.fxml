@@ -18,12 +18,7 @@
          <children>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label fx:id="FnameSender" prefHeight="34.0" prefWidth="83.0" textFill="#3b2fc3">
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="LnameSender" prefHeight="34.0" prefWidth="195.0" textFill="#3b2fc3">
+                  <Label fx:id="nameSender" prefHeight="34.0" prefWidth="248.0" textFill="#3b2fc3">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>

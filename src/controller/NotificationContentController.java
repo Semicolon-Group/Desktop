@@ -49,6 +49,7 @@ public class NotificationContentController implements Initializable {
     private HBox Img_element;
     @FXML
     private VBox nameSender_element;
+    @FXML
     private Label nameSender;
     @FXML
     private Label Action;
@@ -62,9 +63,7 @@ public class NotificationContentController implements Initializable {
     private Label n_date;
     @FXML
     private ImageView Img;
-    @FXML
     private Label FnameSender;
-    @FXML
     private Label LnameSender;
     @FXML
     private VBox Action_element;
@@ -81,8 +80,7 @@ public class NotificationContentController implements Initializable {
     public void fill(Notification n) {
 
         try {
-            FnameSender.setText(n.getSenderFName());
-            LnameSender.setText(n.getSenderLName());
+            nameSender.setText(n.getSenderFName()+" "+n.getSenderLName());
             Action.setText(n.getContent());
             
             n_date.setText(HomeViewController.getInstance().getTimeDiff(n.getDate()));
