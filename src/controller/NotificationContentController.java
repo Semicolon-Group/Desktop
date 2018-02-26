@@ -84,7 +84,8 @@ public class NotificationContentController implements Initializable {
             FnameSender.setText(n.getSenderFName());
             LnameSender.setText(n.getSenderLName());
             Action.setText(n.getContent());
-            n_date.setText(n.getDate().toString());
+            
+            n_date.setText(HomeViewController.getInstance().getTimeDiff(n.getDate()));
 
 //                File f1=new File(n.getUrlPhoto());
             Image img1 = new Image(MySoulMate.UPLOAD_URL + n.getUrlPhoto());

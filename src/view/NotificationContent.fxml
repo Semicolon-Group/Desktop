@@ -11,7 +11,7 @@
    <children>
       <HBox fx:id="Img_element" layoutX="6.0" layoutY="6.0" prefHeight="99.0" prefWidth="92.0">
          <children>
-            <ImageView fx:id="Img" fitHeight="91.0" fitWidth="92.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="Img" fitHeight="91.0" fitWidth="92.0" pickOnBounds="true" />
          </children>
       </HBox>
       <VBox fx:id="nameSender_element" layoutX="107.0" layoutY="-1.0" prefHeight="34.0" prefWidth="252.0">
