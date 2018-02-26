@@ -38,6 +38,7 @@ import services.NotificationService;
 import services.ReactionService;
 import services.StatusPostService;
 import util.N_SendMail;
+import util.SendSMS;
 
 /**
  * FXML Controller class
@@ -148,9 +149,12 @@ public class StatusPostViewController implements Initializable {
                 NotificationService.getInstance().create(new Notification(online.getId(),
                         ownerId,
                         Enumerations.NotificationType.REACTION,
-                        "has reacted to your post.", new Timestamp(new Date().getTime()), null, 0, 0, false));
+                        "has reacted to your post.", new Timestamp(new Date().getTime()), null, postId, 0, false));
                 new N_SendMail(MemberService.getInstance().get(new Member(ownerId)).getEmail(),"MySoulMate | Notification",
                                 online.getPseudo() + " has reacted to your post. Login to see more details.");
+                SendSMS sm = new SendSMS();
+                //sm.SendSms("MySoulmate\\n" + online.getPseudo() + " has reacted to your post.", "24");
+                
             }
         } catch (SQLException ex) {
             Logger.getLogger(PicturePostViewController.class.getName()).log(Level.SEVERE, null, ex);
@@ -177,9 +181,11 @@ public class StatusPostViewController implements Initializable {
                 NotificationService.getInstance().create(new Notification(online.getId(),
                         ownerId,
                         Enumerations.NotificationType.REACTION,
-                        "has reacted to your post.", new Timestamp(new Date().getTime()), null, 0, 0, false));
+                        "has reacted to your post.", new Timestamp(new Date().getTime()), null, postId, 0, false));
                 new N_SendMail(MemberService.getInstance().get(new Member(ownerId)).getEmail(),"MySoulMate | Notification",
                                 online.getPseudo() + " has reacted to your post. Login to see more details.");
+                SendSMS sm = new SendSMS();
+                //sm.SendSms("MySoulmate\\n" + online.getPseudo() + " has reacted to your post.", "24");
             }
         } catch (SQLException ex) {
             Logger.getLogger(PicturePostViewController.class.getName()).log(Level.SEVERE, null, ex);
@@ -206,9 +212,11 @@ public class StatusPostViewController implements Initializable {
                 NotificationService.getInstance().create(new Notification(online.getId(),
                         ownerId,
                         Enumerations.NotificationType.REACTION,
-                        "has reacted to your post.", new Timestamp(new Date().getTime()), null, 0, 0, false));
+                        "has reacted to your post.", new Timestamp(new Date().getTime()), null, postId, 0, false));
                 new N_SendMail(MemberService.getInstance().get(new Member(ownerId)).getEmail(),"MySoulMate | Notification",
                                 online.getPseudo() + " has reacted to your post. Login to see more details.");
+                SendSMS sm = new SendSMS();
+                //sm.SendSms("MySoulmate\\n" + online.getPseudo() + " has reacted to your post.", "24");
             }
         } catch (SQLException ex) {
             Logger.getLogger(PicturePostViewController.class.getName()).log(Level.SEVERE, null, ex);
@@ -235,9 +243,11 @@ public class StatusPostViewController implements Initializable {
                 NotificationService.getInstance().create(new Notification(online.getId(),
                         ownerId,
                         Enumerations.NotificationType.REACTION,
-                        "has reacted to your post.", new Timestamp(new Date().getTime()), null, 0, 0, false));
+                        "has reacted to your post.", new Timestamp(new Date().getTime()), null, postId, 0, false));
                 new N_SendMail(MemberService.getInstance().get(new Member(ownerId)).getEmail(),"MySoulMate | Notification",
                                 online.getPseudo() + " has reacted to your post. Login to see more details.");
+                SendSMS sm = new SendSMS();
+                //sm.SendSms("MySoulmate\\n" + online.getPseudo() + " has reacted to your post.", "24");
             }
         } catch (SQLException ex) {
             Logger.getLogger(PicturePostViewController.class.getName()).log(Level.SEVERE, null, ex);

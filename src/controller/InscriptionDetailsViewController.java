@@ -282,7 +282,6 @@ public class InscriptionDetailsViewController implements Initializable {
             m.setBodyType(BodyType.valueOf(bodyBox.getValue()));
             m.setReligion(Religion.valueOf(religionBox.getValue()));
             m.setReligionImportance(Importance.valueOf(importanceBox.getValue()));
-            m.setProximity(Proximity.valueOf(proximityBox.getValue()));
             m.getPreferedRelations().add(RelationType.valueOf(relationBox.getValue()));
             m.setPreferedStatuses((List<MaritalStatus>) maritalGroup.getSelectedToggle().getUserData());
             m.setMaritalStatus(MaritalStatus.valueOf(statusBox.getValue()));
