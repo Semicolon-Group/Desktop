@@ -6,13 +6,12 @@
 package util;
 
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import models.Member;
+import models.Notification;
 
 /**
  *
@@ -21,14 +20,14 @@ import javax.mail.internet.MimeMessage;
 public class N_SendMail {
      private String user = "testmailesprit69@gmail.com";
     private String password = "testmailesprit69@";
+    Member m=new Member();
+    Notification n=new Notification();
+    private String to= m.getEmail();
+    private String sub="Email notification";
+    private String msg="Salut"+ m.getFirstname()+"vous êtes notifié";
 
     public N_SendMail(String to, String sub, String msg) {
-//        Properties prop = new Properties();
-//        prop.put("mail.smtp.ssl.trust", "smtp.gmail.com");
-//        prop.put("mail.smtp.auth", true);
-//        prop.put("mail.smtp.starttls.enable", true);
-//        prop.put("mail.smtp.host", "smtp.gmail.com");
-//        prop.put("mail.smtp.port", "587");
+
         Properties properties = new Properties();
 
         properties.setProperty("mail.smtp.auth", "true");
@@ -55,8 +54,9 @@ public class N_SendMail {
             msgg.reply(true);
 
             Transport.send(msgg);
-        }catch (MessagingException ex) {
-             Logger.getLogger(N_SendMail.class.getName()).log(Level.SEVERE, null, ex);
-         }
+        } catch (Exception e) {
+
+            System.out.println(e);
+        }
     }
 }

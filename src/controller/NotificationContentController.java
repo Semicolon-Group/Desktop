@@ -21,6 +21,8 @@ import java.sql.Timestamp;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
+import models.Enumerations;
 import models.Enumerations.NotificationType;
 import static models.Enumerations.NotificationType.LIKE;
 import static models.Enumerations.NotificationType.MESSAGE;
@@ -28,8 +30,11 @@ import static models.Enumerations.NotificationType.REACTION;
 import static models.Enumerations.NotificationType.SIGNAL;
 import models.Member;
 import models.Notification;
+import models.Photo;
 import services.MemberService;
 import services.NotificationService;
+import services.PhotoService;
+import util.ShowNotification;
 
 /**
  * FXML Controller class
@@ -63,13 +68,14 @@ public class NotificationContentController implements Initializable {
     private Label LnameSender;
     @FXML
     private VBox Action_element;
+   
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        
     }
 
     public void fill(Notification n) {
@@ -78,7 +84,8 @@ public class NotificationContentController implements Initializable {
             FnameSender.setText(n.getSenderFName());
             LnameSender.setText(n.getSenderLName());
             Action.setText(n.getContent());
-            n_date.setText(n.getDate().toString());
+            
+            n_date.setText(HomeViewController.getInstance().getTimeDiff(n.getDate()));
 
 //                File f1=new File(n.getUrlPhoto());
             Image img1 = new Image(MySoulMate.UPLOAD_URL + n.getUrlPhoto());
@@ -91,6 +98,8 @@ public class NotificationContentController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(NotificationContentController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+           
     }
 
     public String iconType(NotificationType type) {
@@ -109,5 +118,5 @@ public class NotificationContentController implements Initializable {
         return path;
 
     }
-
+    
 }

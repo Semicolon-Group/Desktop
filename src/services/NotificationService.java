@@ -104,6 +104,7 @@ public class NotificationService extends Service implements Create<Notification>
 	    ntf.setSeen(rs.getBoolean("seen"));
 	    ntfs.add(ntf);
 	}
+        ntfs.sort((a,b)->b.getDate().compareTo(a.getDate()));
 	return ntfs;
 
     }
