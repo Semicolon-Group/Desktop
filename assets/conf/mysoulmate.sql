@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 24, 2018 at 11:17 PM
+-- Generation Time: Feb 26, 2018 at 05:06 PM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.1
 
@@ -72,7 +72,8 @@ INSERT INTO `address` (`user_id`, `longitude`, `latitude`, `country`, `city`) VA
 (2, 10.1647, 36.8665, NULL, 'Ariana'),
 (3, 13.405, 52.52, NULL, 'Berlin'),
 (4, -0.1278, 51.5074, NULL, 'London'),
-(5, 2.3522, 48.8566, NULL, 'Paris');
+(5, 2.3522, 48.8566, NULL, 'Paris'),
+(6, 2.3522, 48.8566, NULL, 'Paris');
 
 -- --------------------------------------------------------
 
@@ -196,7 +197,9 @@ INSERT INTO `comment` (`id`, `sender_id`, `receiver_id`, `post_id`, `photo_id`, 
 (17, 1, 3, 10, 0, 'nice one :*', '2018-02-24 21:29:23'),
 (18, 3, 1, 10, 0, '@John thank baby :kisses:', '2018-02-24 21:29:45'),
 (21, 3, 1, 10, 0, '@John gotcha :D', '2018-02-24 22:31:31'),
-(22, 3, 1, 11, 0, 'jjj', '2018-02-24 23:08:25');
+(24, 3, 1, 10, 0, '@John fgfgd', '2018-02-25 12:58:09'),
+(25, 3, 1, 11, 0, 'lollll', '2018-02-25 13:12:20'),
+(26, 1, 3, 11, 0, '@Sara that\'s nice of you :D', '2018-02-25 14:44:42');
 
 -- --------------------------------------------------------
 
@@ -274,7 +277,7 @@ CREATE TABLE `notification` (
   `sender_id` int(11) DEFAULT NULL,
   `receiver_id` int(11) DEFAULT NULL,
   `photo_id` int(11) DEFAULT NULL,
-  `answer_id` int(11) DEFAULT NULL,
+  `post_id` int(11) DEFAULT NULL,
   `type` int(11) NOT NULL,
   `seen` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -283,9 +286,16 @@ CREATE TABLE `notification` (
 -- Dumping data for table `notification`
 --
 
-INSERT INTO `notification` (`id`, `content`, `date`, `icon`, `sender_id`, `receiver_id`, `photo_id`, `answer_id`, `type`, `seen`) VALUES
+INSERT INTO `notification` (`id`, `content`, `date`, `icon`, `sender_id`, `receiver_id`, `photo_id`, `post_id`, `type`, `seen`) VALUES
 (1, '3mal like', '2018-02-21 00:00:00', NULL, 5, 1, 3, NULL, 2, 0),
-(2, 'b3ath message', '2018-02-21 00:00:00', NULL, 3, 1, 4, NULL, 0, 0);
+(2, 'b3ath message', '2018-02-21 00:00:00', NULL, 3, 1, 4, NULL, 0, 0),
+(3, 'has reacted to your photo.', '2018-02-25 14:45:13', NULL, 1, 5, 8, 0, 2, 0),
+(4, 'has reacted to your post.', '2018-02-25 14:49:20', NULL, 1, 3, 0, 0, 2, 0),
+(5, 'has reacted to your photo.', '2018-02-25 14:51:04', NULL, 1, 2, 7, 0, 2, 0),
+(6, 'has reacted to your post.', '2018-02-25 15:13:17', NULL, 1, 3, 0, 0, 2, 0),
+(7, 'has reacted to your photo.', '2018-02-26 15:31:53', NULL, 1, 5, 8, 0, 2, 0),
+(8, 'has reacted to your photo.', '2018-02-26 15:32:38', NULL, 1, 2, 7, 0, 2, 0),
+(9, 'has reacted to your photo.', '2018-02-26 15:32:42', NULL, 1, 2, 7, 0, 2, 0);
 
 -- --------------------------------------------------------
 
@@ -306,13 +316,13 @@ CREATE TABLE `photo` (
 --
 
 INSERT INTO `photo` (`id`, `url`, `user_id`, `date`, `type`) VALUES
-(2, 'view/assets/img/girl1.jpg', 2, '2018-02-16 05:00:01', 1),
-(3, 'view/assets/img/girl2.jpg', 5, '2018-02-16 00:00:03', 1),
-(4, 'view/assets/img/mens-hairstyles-18.jpg', 1, '2018-02-16 00:00:00', 1),
-(5, 'view/assets/img/girl3.jpg', 4, '2018-02-15 00:00:00', 1),
-(6, 'view/assets/img/girl4.jpg', 3, '2018-02-13 00:00:00', 1),
-(7, 'view/assets/img/girl5.jpg', 2, '2018-02-16 00:00:01', 0),
-(8, 'view/assets/img/girl6.jpg', 5, '2018-02-17 00:00:00', 0);
+(2, 'girl1.jpg', 2, '2018-02-16 05:00:01', 1),
+(3, 'girl2.jpg', 5, '2018-02-16 00:00:03', 1),
+(4, 'mens-hairstyles-18.jpg', 1, '2018-02-16 00:00:00', 1),
+(5, 'girl3.jpg', 4, '2018-02-15 00:00:00', 1),
+(6, 'girl4.jpg', 3, '2018-02-13 00:00:00', 1),
+(7, 'girl5.jpg', 2, '2018-02-16 00:00:01', 0),
+(8, 'girl6.jpg', 5, '2018-02-17 00:00:00', 0);
 
 -- --------------------------------------------------------
 
@@ -335,7 +345,8 @@ INSERT INTO `post` (`id`, `date`, `content`, `user_id`) VALUES
 (1, '2018-02-16 00:00:00', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mi justo, congue quis dolor et, rhoncus sollicitudin sapien. Donec sed massa at nunc ullamcorper pretium.', 3),
 (2, '2018-02-16 00:00:02', 'Aenean sit amet nibh vitae tellus semper sagittis. Quisque auctor libero vehicula libero ornare, in congue eros fringilla. Donec sollicitudin egestas enim, in ullamcorper tellus imperdiet ut. Donec vitae odio in lectus mollis facilisis quis at sem. Vivamus id augue tincidunt ', 4),
 (10, '2018-02-24 21:28:29', 'yahoo', 3),
-(11, '2018-02-24 21:34:51', 'i\'m here', 1);
+(11, '2018-02-24 21:34:51', 'i\'m here', 1),
+(12, '2018-02-25 16:02:49', 'lalala', 1);
 
 -- --------------------------------------------------------
 
@@ -359,7 +370,7 @@ CREATE TABLE `post_reaction` (
 INSERT INTO `post_reaction` (`id`, `user_id`, `post_id`, `photo_id`, `answer_id`, `reaction`) VALUES
 (21, 1, 2, 0, 0, 3),
 (23, 1, 1, 0, 0, 2),
-(24, 1, 0, 7, 0, 4),
+(24, 1, 0, 7, 0, 2),
 (25, 1, 0, 8, 0, 2),
 (26, 1, 10, 0, 0, 4),
 (27, 3, 11, 0, 0, 4);
@@ -434,7 +445,7 @@ CREATE TABLE `user` (
   `drinker` tinyint(1) DEFAULT NULL,
   `min_age` int(11) DEFAULT NULL,
   `max_age` int(11) DEFAULT NULL,
-  `proximity` int(11) DEFAULT NULL,
+  `phone` int(11) DEFAULT NULL,
   `last_login` datetime DEFAULT NULL,
   `locked` smallint(6) DEFAULT NULL,
   `ip` varchar(15) DEFAULT NULL,
@@ -451,12 +462,13 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `pseudo`, `firstname`, `lastname`, `email`, `password`, `birth_date`, `gender`, `height`, `body_type`, `children_number`, `relegion`, `relegion_importance`, `smoker`, `drinker`, `min_age`, `max_age`, `proximity`, `last_login`, `locked`, `ip`, `port`, `role`, `created_at`, `updated_at`, `about`, `civil_status`, `connected`) VALUES
+INSERT INTO `user` (`id`, `pseudo`, `firstname`, `lastname`, `email`, `password`, `birth_date`, `gender`, `height`, `body_type`, `children_number`, `relegion`, `relegion_importance`, `smoker`, `drinker`, `min_age`, `max_age`, `phone`, `last_login`, `locked`, `ip`, `port`, `role`, `created_at`, `updated_at`, `about`, `civil_status`, `connected`) VALUES
 (1, 'John', 'John', 'Ackley', 'elyes.mansour@esprit.tn', 'll', '1993-12-12', 1, 1.78, 2, 0, 0, 1, 0, 0, 18, 32, 0, '2018-02-15 00:00:00', 0, NULL, 0, NULL, '2018-02-14 00:00:00', '2018-02-21 14:01:24', 'hello baby', 0, 0),
 (2, 'Ashley', NULL, NULL, NULL, 'll', '1997-01-05', 0, 1.75, 4, 0, 0, 1, 0, 0, 20, 25, 0, '2018-02-22 18:00:00', 0, NULL, NULL, NULL, '2018-02-14 00:00:00', '2018-02-15 00:00:00', 'I\'m so beautiful', 0, 0),
-(3, 'Sara', NULL, NULL, NULL, 'll', '2000-02-06', 0, 1.8, 6, NULL, 1, NULL, 0, 1, NULL, NULL, NULL, '2018-02-20 00:00:00', 0, NULL, NULL, NULL, NULL, NULL, '', 2, 0),
+(3, 'Sara', NULL, NULL, 'chebbaelyes@gmail.com', 'll', '2000-02-06', 0, 1.8, 6, NULL, 1, NULL, 0, 1, NULL, NULL, NULL, '2018-02-20 00:00:00', 0, NULL, NULL, NULL, NULL, NULL, '', 2, 0),
 (4, 'Zara', NULL, NULL, NULL, NULL, '1990-02-14', 0, 1.6, 4, NULL, 2, NULL, 1, 1, NULL, NULL, NULL, '2018-02-10 00:00:00', 0, NULL, NULL, NULL, NULL, NULL, '', 2, 0),
-(5, 'Emilia', NULL, NULL, NULL, NULL, '1995-02-07', 0, 1.7, 1, NULL, 3, NULL, 1, 0, NULL, NULL, NULL, '2018-01-01 00:00:00', 0, NULL, NULL, NULL, NULL, NULL, '', 3, 0);
+(5, 'Emilia', NULL, NULL, NULL, NULL, '1995-02-07', 0, 1.7, 1, NULL, 3, NULL, 1, 0, NULL, NULL, NULL, '2018-01-01 00:00:00', 0, NULL, NULL, NULL, NULL, NULL, '', 3, 0),
+(6, 'Lila', NULL, NULL, NULL, NULL, '1993-02-20', 0, 1.73, 2, 0, 3, 1, NULL, NULL, NULL, NULL, NULL, '2018-02-25 00:00:00', 0, NULL, NULL, NULL, NULL, NULL, '', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -487,6 +499,7 @@ CREATE TABLE `user_like` (
 --
 
 INSERT INTO `user_like` (`sender_id`, `receiver_id`, `date`) VALUES
+(1, 2, '2018-02-25 14:50:54'),
 (1, 3, NULL),
 (1, 4, NULL),
 (1, 5, NULL),
@@ -586,8 +599,8 @@ ALTER TABLE `notification`
   ADD PRIMARY KEY (`id`),
   ADD KEY `sender_id` (`sender_id`),
   ADD KEY `receiver_id` (`receiver_id`),
-  ADD KEY `photo_id` (`photo_id`,`answer_id`),
-  ADD KEY `answer_notification` (`answer_id`);
+  ADD KEY `photo_id` (`photo_id`,`post_id`),
+  ADD KEY `answer_notification` (`post_id`);
 
 --
 -- Indexes for table `photo`
@@ -679,7 +692,7 @@ ALTER TABLE `choice`
 -- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `conversation`
@@ -703,7 +716,7 @@ ALTER TABLE `message`
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `photo`
@@ -715,7 +728,7 @@ ALTER TABLE `photo`
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `post_reaction`
@@ -733,7 +746,7 @@ ALTER TABLE `question`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `user_signal`
