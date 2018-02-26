@@ -19,6 +19,7 @@ public class TimeDiff {
     private int weeks;
     private int months;
     private int years;
+    private String timeDiffString;
     
     private static TimeDiff instance;
     
@@ -39,8 +40,54 @@ public class TimeDiff {
         instance.setWeeks(instance.getDays() / 7);
         instance.setMonths(instance.getDays() / 30);
         instance.setYears(instance.getDays() / 365);
+        instance.setTimeDiffString(instance.makeTimeDiffString());
         
         return instance;
+    }
+    
+    private void setTimeDiffString(String s){
+        timeDiffString = s;
+    }
+    
+    public String getTimeDiffString(){
+        return timeDiffString;
+    }
+    
+    public String makeTimeDiffString(){
+        
+        if(instance.getYears() == 1)
+            return instance.getYears() + " year ago";
+        if(instance.getYears() > 1)
+            return instance.getYears() + " years ago";
+        
+        if(instance.getMonths() == 1)
+            return instance.getMonths() + " month ago";
+        if(instance.getMonths() > 1)
+            return instance.getMonths() + " months ago";
+        
+        if(instance.getWeeks() == 1)
+            return instance.getWeeks() + " week ago";
+        if(instance.getWeeks() > 1)
+            return instance.getWeeks() + " weeks ago";
+        
+        if(instance.getDays() == 1)
+            return instance.getDays() + " day ago";
+        if(instance.getDays() > 1)
+            return instance.getDays() + " days ago";
+        
+        if(instance.getHours() == 1)
+            return instance.getHours() + " hour ago";
+        if(instance.getHours() > 1)
+            return instance.getHours() + " hours ago";
+        
+        if(instance.getMinutes() == 1)
+            return instance.getMinutes() + " minute ago";
+        if(instance.getMinutes() > 1)
+            return instance.getMinutes() + " minutes ago";
+        
+        if(instance.getSeconds() == 1)
+            return instance.getSeconds() + " second ago";
+        return instance.getSeconds() + " seconds ago";
     }
 
     public long getSeconds() {

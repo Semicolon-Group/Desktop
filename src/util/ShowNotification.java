@@ -22,14 +22,14 @@ public class ShowNotification {
         Notifications notificationBuilder = Notifications.create()
                 
                 .title("SemiCOLON")
-                .text("***********")
+                .text("Notification envoyé")
                  .graphic(null)
                 .hideAfter(Duration.seconds(10))
                 .position(Pos.BOTTOM_RIGHT)
                 .onAction(new EventHandler<ActionEvent>(){
                 @Override
                 public void handle(ActionEvent event){
-                    System.out.println("Exemple(Question validée)");
+                    System.out.println("Notification envoyé");
                         }
                 });
          notificationBuilder.darkStyle();
