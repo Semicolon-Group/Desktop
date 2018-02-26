@@ -262,7 +262,7 @@ public class OthersProfileViewController implements Initializable {
             ageLabel.setText(age);
             addressLabel.setText(member.getAddress().getCity()+", "+member.getAddress().getCountry());
             genderLabel.setText(member.isGender()?"Male":"Female");
-            bdLabel.setText(new SimpleDateFormat("dd MMMM yyyy", Locale.FRANCE).format(member.getBirthDate()));
+            bdLabel.setText(new SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH).format(member.getBirthDate()));
             heightLabel.setText(member.getHeight()+"");
             bodyTypeLabel.setText(member.getBodyType().name().substring(0, 1) + member.getBodyType().name().substring(1).toLowerCase());
             smokerLabel.setText(member.isSmoker()?"Yes":"No");
@@ -271,7 +271,7 @@ public class OthersProfileViewController implements Initializable {
             childNumLabel.setText(member.getChildrenNumber()+"");
             aboutText.setText(member.getAbout());
             civilStatusLabel.setText(member.getMaritalStatus().name().substring(0, 1) + member.getMaritalStatus().name().substring(1).toLowerCase());
-            createdAtLabel.setText(new SimpleDateFormat("dd MMMM yyyy", Locale.FRANCE).format(member.getCreatedAt()));
+            createdAtLabel.setText(new SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH).format(member.getCreatedAt()));
             String relationsString = "";
             for(Enumerations.RelationType type : member.getPreferedRelations()){
                 relationsString+=type.name().toLowerCase()+", ";
