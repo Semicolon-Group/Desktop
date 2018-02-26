@@ -8,7 +8,11 @@ package controller;
 import static controller.GlobalViewController.online;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,6 +36,7 @@ import models.StatusPost;
 import services.MemberService;
 import services.NewsFeed;
 import services.PhotoService;
+import util.TimeDiff;
 
 /**
  * FXML Controller class
@@ -77,7 +82,8 @@ public class HomeViewController implements Initializable {
                     spc = (StatusPostViewController)loader.getController();
                     spc.fill(new Image(MySoulMate.UPLOAD_URL + PhotoService.getInstance().get(new Photo(0,p.getOwnerId(),null,null,PhotoType.PROFILE)).getUrl()),
                         ((StatusPost)p).getContent(), MemberService.getInstance().get(new Member(p.getOwnerId())).getPseudo(),
-                        p.getDate().toString(), p.getId());
+                        TimeDiff.getInstance(p.getDate(),new Timestamp(new java.util.Date().getTime())).getTimeDiffString(),
+                        p.getId());
                 }
                 else if(p instanceof PicturePost){
                     loader.setLocation(getClass().getResource("/view/PicturePostView.fxml"));
@@ -86,7 +92,8 @@ public class HomeViewController implements Initializable {
                     ppc = (PicturePostViewController)loader.getController();
                     ppc.fill(new Image(MySoulMate.UPLOAD_URL + PhotoService.getInstance().get(new Photo(0,p.getOwnerId(),null,null,PhotoType.PROFILE)).getUrl()),
                         MemberService.getInstance().get(new Member(p.getOwnerId())).getPseudo(),
-                        p.getDate().toString(), MySoulMate.UPLOAD_URL + ((PicturePost)p).getUrl(), ((PicturePost)p).getPhotoId());
+                        TimeDiff.getInstance(p.getDate(),new Timestamp(new java.util.Date().getTime())).getTimeDiffString(),
+                        MySoulMate.UPLOAD_URL + ((PicturePost)p).getUrl(), ((PicturePost)p).getPhotoId());
                 }
                 feed.getChildren().add(root);
             }

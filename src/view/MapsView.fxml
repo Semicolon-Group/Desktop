@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.web.WebView?>
+
+<AnchorPane id="AnchorPane" onMouseClicked="#dismiss" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: rgba(0,0,0,0.7);" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MapsViewController">
+   <children>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 30;" AnchorPane.bottomAnchor="180.0" AnchorPane.leftAnchor="280.0" AnchorPane.rightAnchor="280.0" AnchorPane.topAnchor="180.0" />
+      <WebView fx:id="mapsView" minHeight="500.0" minWidth="700.0" prefHeight="-1.0" prefWidth="-1.0" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="200.0" />
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="200.0">
+         <children>
+            <ProgressIndicator fx:id="loadIndicator" prefHeight="125.0" prefWidth="1320.0" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

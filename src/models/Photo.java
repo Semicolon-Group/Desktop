@@ -93,5 +93,7 @@ public class Photo {
 	this.date = date;
     }
     
-    
+    public void setType(Enumerations.PhotoType type){
+        this.type = type;
+    }
 }

@@ -25,13 +25,13 @@ public class Filter {
 
     private int ageMin = 18;
     private int ageMax = 90;
-    private float heightMin = 1;
-    private float heightMax = 3;
+    private float heightMin = 100;
+    private float heightMax = 300;
     private List<BodyType> bodyType;
     private List<Religion> religion;
     private List<MaritalStatus> maritalStatus;
-    private Proximity distance = Proximity.BOTH;
-    private LastLogin lastLogin;
+    private double distance = -1;
+    private LastLogin lastLogin = LastLogin.ANNEE;
     private int smokes = -1;
     private int drinks = -1;
 
@@ -99,16 +99,16 @@ public class Filter {
         this.maritalStatus = maritalStatus;
     }
 
-    public Proximity getDistance() {
+    public double getDistance() {
         return distance;
     }
 
-    public void setDistance(Proximity distance) {
+    public void setDistance(double distance) {
         this.distance = distance;
     }
 
-    public Timestamp getLastLogin() {
-        return new Timestamp(new Date(0).getTime());
+    public LastLogin getLastLogin() {
+        return lastLogin;
     }
 
     public void setLastLogin(LastLogin lastLogin) {

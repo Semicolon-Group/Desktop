@@ -5,6 +5,7 @@
  */
 package services;
 
+import static controller.GlobalViewController.online;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +36,7 @@ public class NewsFeed {
     }
     
     private NewsFeed(){
-        feed = new TreeSet<Post>((a,b) -> a.getDate().compareTo(b.getDate()));
+        feed = new TreeSet<Post>((a,b) -> b.getDate().compareTo(a.getDate()));
     }
     
     public Set<Post> getFeed(final Member M) throws SQLException{
@@ -58,14 +59,17 @@ public class NewsFeed {
             try {
                 // Adding recent status posts
                 feed.addAll(StatusPostService.getInstance().getAll(new StatusPost(null,m.getId(),null))
-                .stream().filter(A -> A.getDate().compareTo(M.getLastLogin()) > 0)
-                .collect(Collectors.toList()));
+                .stream().collect(Collectors.toList()));
                 // Adding recent picture posts
-                feed.addAll(PicturePostService.getInstance().getAll(new PicturePost(m.getId(),M.getLastLogin())));
+                feed.addAll(PicturePostService.getInstance().getAll(new PicturePost(m.getId(),null)));
             } catch (SQLException ex) {
                 Logger.getLogger(NewsFeed.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
+        //Adding the connected user's posts
+        feed.addAll(StatusPostService.getInstance().getAll(new StatusPost(null,online.getId(),null))
+        .stream().collect(Collectors.toList()));
+        feed.addAll(PicturePostService.getInstance().getAll(new PicturePost(online.getId(),null)));
         return feed;
     }
 }

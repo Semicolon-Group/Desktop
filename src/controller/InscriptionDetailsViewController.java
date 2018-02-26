@@ -5,11 +5,14 @@
  */
 package controller;
 
+import com.jfoenix.controls.JFXRadioButton;
+import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import static controller.InsViewController.m;
 import static controller.MainAchref.container3;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -41,6 +44,7 @@ import models.Enumerations.RelationType;
 import models.Enumerations.Religion;
 import models.Member;
 import services.MemberService;
+import util.SendMail;
 
 
 /**
@@ -61,10 +65,6 @@ public class InscriptionDetailsViewController implements Initializable {
     @FXML
     private ComboBox<String> importanceBox;
     ObservableList<String> importanceList = FXCollections.observableArrayList();
-
-    @FXML
-    private ComboBox<String> maritalBox;
-    ObservableList<String> maritalList = FXCollections.observableArrayList();
 
     @FXML
     private ComboBox<String> relationBox;
@@ -107,8 +107,6 @@ public class InscriptionDetailsViewController implements Initializable {
     @FXML
     private Label proximityLabel;
     @FXML
-    private JFXTextField Adress;
-    @FXML
     private JFXTextField childrenNum;
     @FXML
     private JFXTextField minAge;
@@ -124,6 +122,26 @@ public class InscriptionDetailsViewController implements Initializable {
     private ToggleGroup smoking;
     @FXML
     private ToggleGroup drink;
+    @FXML
+    private JFXTextArea about;
+    @FXML
+    private ComboBox<String> statusBox;
+    ObservableList<String> statusList = FXCollections.observableArrayList();
+    @FXML
+    private JFXTextField country;
+    @FXML
+    private JFXTextField city;
+    @FXML
+    private RadioButton singleBtn;
+    @FXML
+    private ToggleGroup maritalGroup;
+    @FXML
+    private RadioButton marriedBtn;
+    @FXML
+    private RadioButton widowerBtn;
+    @FXML
+    private RadioButton divorcedBtn;
+    
 
     /**
      * Initializes the controller class.
@@ -146,10 +164,6 @@ public class InscriptionDetailsViewController implements Initializable {
         }
         importanceBox.setItems(importanceList);
 
-        for (MaritalStatus m : MaritalStatus.values()) {
-            maritalList.add(m.toString());
-        }
-        maritalBox.setItems(maritalList);
 
         for (RelationType t : RelationType.values()) {
             relationList.add(t.toString());
@@ -160,16 +174,12 @@ public class InscriptionDetailsViewController implements Initializable {
             proximityList.add(p.toString());
         }
         proximityBox.setItems(proximityList);
+        
+         for (MaritalStatus mt : MaritalStatus.values()) {
+            statusList.add(mt.toString());
+        }
+        statusBox.setItems(statusList);
 
-//        final ToggleGroup group = new ToggleGroup();
-//        Nsmoker.setToggleGroup(group);
-//        Nsmoker.setSelected(true);
-//        Smoker.setToggleGroup(group);
-//
-//        final ToggleGroup group2 = new ToggleGroup();
-//        Ndrinker.setToggleGroup(group2);
-//        Ndrinker.setSelected(true);
-//        Drinker.setToggleGroup(group2);
     }
 
     public void setMember(Member member) {
@@ -236,14 +246,6 @@ public class InscriptionDetailsViewController implements Initializable {
                 religionLabel.setText("");
             }
             
-            if (maritalBox.getValue() == null) {
-                maritalLabel.setText("Field is empty !");
-                maritalLabel.setVisible(true);
-                valid = false;
-            } else {
-                maritalLabel.setText("");
-            }
-            
             if (importanceBox.getValue() == null) {
                 importanceLabel.setText("Field is empty !");
                 importanceLabel.setVisible(true);
@@ -267,6 +269,9 @@ public class InscriptionDetailsViewController implements Initializable {
             } else {
                 proximityLabel.setText("");
             }
+            
+            
+            
             if(!valid) return;
             
             m.setAddress(new Address(0, 0, "Tunisie", "Ariana"));
@@ -277,16 +282,21 @@ public class InscriptionDetailsViewController implements Initializable {
             m.setBodyType(BodyType.valueOf(bodyBox.getValue()));
             m.setReligion(Religion.valueOf(religionBox.getValue()));
             m.setReligionImportance(Importance.valueOf(importanceBox.getValue()));
-            m.setProximity(Proximity.valueOf(proximityBox.getValue()));
             m.getPreferedRelations().add(RelationType.valueOf(relationBox.getValue()));
-            m.getPreferedStatuses().add(MaritalStatus.valueOf(maritalBox.getValue()));
+            m.setPreferedStatuses((List<MaritalStatus>) maritalGroup.getSelectedToggle().getUserData());
+            m.setMaritalStatus(MaritalStatus.valueOf(statusBox.getValue()));
             m.setDrinker(Drinker.isSelected());
             m.setSmoker(Smoker.isSelected());
-            
+            m.setAbout(about.getText());
+           
             
             //TODO
             
-            MemberService.getInstance().create(m);
+          MemberService.getInstance().create(m);
+          SendMail sm = new SendMail(m.getEmail(), "Email Inscription", "Bonjour " + m.getFirstname() + "Bienvenu à MySoulMate" );
+//            
+            
+            
 		
             
         } catch (SQLException ex) {

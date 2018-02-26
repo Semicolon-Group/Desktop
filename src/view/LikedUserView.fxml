@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
@@ -9,8 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" onMouseClicked="#toOtherProfile" prefHeight="122.0" prefWidth="600.0" styleClass="card_pane" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9.0.1" fx:controller="controller.LikedUserViewController">
+<AnchorPane id="AnchorPane" onMouseClicked="#toOtherProfile" prefHeight="122.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LikedUserViewController">
    <children>
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -30,7 +30,7 @@
                         </Label>
                         <HBox prefHeight="14.0" prefWidth="399.0" spacing="20.0">
                            <children>
-                              <Label text="Depuis:">
+                              <Label text="Since:">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
@@ -58,4 +58,8 @@
    <cursor>
       <Cursor fx:constant="HAND" />
    </cursor>
+   <styleClass>
+      <String fx:value="card_pane" />
+      <String fx:value="hoverable" />
+   </styleClass>
 </AnchorPane>

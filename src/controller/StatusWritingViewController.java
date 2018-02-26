@@ -32,6 +32,7 @@ import models.StatusPost;
 import services.NewsFeed;
 import services.PhotoService;
 import services.StatusPostService;
+import util.N_SendMail;
 
 /**
  * FXML Controller class
@@ -76,6 +77,11 @@ public class StatusWritingViewController implements Initializable {
         } catch (IOException | SQLException ex) {
             Logger.getLogger(StatusWritingViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @FXML
+    private void onPhotoClick(MouseEvent event) {
+        GlobalViewController.getInstance().setMainContent("/view/SelfProfileView.fxml");
     }
     
 }
