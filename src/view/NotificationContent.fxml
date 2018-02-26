@@ -7,11 +7,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="NotificationElement" prefHeight="91.0" prefWidth="279.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NotificationContentController">
+<AnchorPane id="AnchorPane" fx:id="NotificationElement" prefHeight="91.0" prefWidth="279.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NotificationContentController">
    <children>
-      <HBox fx:id="Img_element" prefHeight="110.0" prefWidth="103.0">
+      <HBox fx:id="Img_element" layoutX="6.0" layoutY="6.0" prefHeight="99.0" prefWidth="92.0">
          <children>
-            <ImageView fx:id="Img" fitHeight="101.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="Img" fitHeight="91.0" fitWidth="92.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </HBox>
       <VBox fx:id="nameSender_element" layoutX="107.0" layoutY="-1.0" prefHeight="34.0" prefWidth="252.0">
@@ -45,9 +45,9 @@
             <ImageView fx:id="Icon" fitHeight="29.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </HBox>
-      <HBox fx:id="n_date_element" layoutX="166.0" layoutY="76.0" prefHeight="29.0" prefWidth="30.0">
+      <HBox fx:id="n_date_element" layoutX="166.0" layoutY="76.0" prefHeight="29.0" prefWidth="117.0">
          <children>
-            <Label fx:id="n_date" prefHeight="40.0" prefWidth="29.0">
+            <Label fx:id="n_date" prefHeight="29.0" prefWidth="116.0">
                <font>
                   <Font size="14.0" />
                </font></Label>

@@ -176,4 +176,5 @@ public class Notification {
 	return "Notification{" + "id=" + id + ", senderId=" + senderId + ", receiverId=" + receiverId + ", type=" + type + ", content=" + content + ", date=" + date + ", icon=" + icon + ", answerId=" + answerId + ", photoId=" + photoId + ", seen=" + seen + '}';
     }
     
+    
 }

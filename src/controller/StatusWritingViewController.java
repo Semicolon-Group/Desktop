@@ -32,6 +32,7 @@ import models.StatusPost;
 import services.NewsFeed;
 import services.PhotoService;
 import services.StatusPostService;
+import util.N_SendMail;
 
 /**
  * FXML Controller class

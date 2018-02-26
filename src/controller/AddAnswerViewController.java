@@ -5,6 +5,7 @@
  */
 package controller;
 
+import com.jfoenix.controls.JFXCheckBox;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -56,8 +57,8 @@ public class AddAnswerViewController implements Initializable {
     private Stage dialog;
     private SelfProfileViewController selfProfileViewController;
     private List<Answer> answers;
-    private List<CheckBox> possibleSelectedChoices;
-    private List<CheckBox> possibleAcceptedChoices;
+    private List<JFXCheckBox> possibleSelectedChoices;
+    private List<JFXCheckBox> possibleAcceptedChoices;
     private List<Choice> choices;
     private List<Question> questions;
 
@@ -106,13 +107,13 @@ public class AddAnswerViewController implements Initializable {
             importanceBox.getSelectionModel().select(answer.getImportance());
             questionBox.getSelectionModel().selectedItemProperty().addListener((obv, oldValue, newValue) -> questionChanged(obv, oldValue, newValue));
             questionBox.getSelectionModel().select(question);
-            for(CheckBox checkBox : possibleSelectedChoices){
-                int checkBoxId = Integer.parseInt(checkBox.getId());
-                checkBox.setSelected(answer.getSelectedChoices().stream().anyMatch(c -> c.getId() == checkBoxId));
+            for(CheckBox JFXcheckBox : possibleSelectedChoices){
+                int checkBoxId = Integer.parseInt(JFXcheckBox.getId());
+                JFXcheckBox.setSelected(answer.getSelectedChoices().stream().anyMatch(c -> c.getId() == checkBoxId));
             }
-            for(CheckBox checkBox : possibleAcceptedChoices){
-                int checkBoxId = Integer.parseInt(checkBox.getId());
-                checkBox.setSelected(answer.getAcceptedChoices().stream().anyMatch(c -> c.getId() == checkBoxId));
+            for(CheckBox JFXCheckBox : possibleAcceptedChoices){
+                int checkBoxId = Integer.parseInt(JFXCheckBox.getId());
+                JFXCheckBox.setSelected(answer.getAcceptedChoices().stream().anyMatch(c -> c.getId() == checkBoxId));
             }
         } catch (SQLException ex) {
             util.Logger.writeLog(ex, AddAnswerViewController.class.getName(), null);
@@ -149,19 +150,19 @@ public class AddAnswerViewController implements Initializable {
                 HBox hBox = new HBox();
                 hBox.setAlignment(Pos.CENTER_LEFT);
                 
-                CheckBox selectedCheckBox = new CheckBox(choice.getChoice());
+                JFXCheckBox selectedCheckBox = new JFXCheckBox(choice.getChoice());
                 selectedCheckBox.setId(choice.getId()+"");
                 selectedCheckBox.setStyle("-fx-font-size: 13pt;");
                 selectedCheckBox.setPadding(new Insets(0, 0, 15, 0));
                 
-                CheckBox acceptedCheckBox = new CheckBox(choice.getChoice());
+                JFXCheckBox acceptedCheckBox = new JFXCheckBox(choice.getChoice());
                 acceptedCheckBox.setId(choice.getId()+"");
                 acceptedCheckBox.setStyle("-fx-font-size: 13pt;");
                 acceptedCheckBox.setPadding(new Insets(0, 0, 15, 0));
                 
-                possibleSelectedChoices.add(selectedCheckBox);
+                possibleSelectedChoices.add((JFXCheckBox) selectedCheckBox);
                 
-                possibleAcceptedChoices.add(acceptedCheckBox);
+                possibleAcceptedChoices.add((JFXCheckBox) acceptedCheckBox);
                 
                 selectedChoicesVBox.getChildren().add(selectedCheckBox);
                 acceptedChoicesVBox.getChildren().add(acceptedCheckBox);
@@ -177,17 +178,17 @@ public class AddAnswerViewController implements Initializable {
             if(answer != null){
                 answer.setImportance(importanceBox.getValue());
                 answer.getSelectedChoices().clear();
-                for(CheckBox checkBox: possibleSelectedChoices){
-                    if(checkBox.isSelected()){
-                        Choice ch = choices.stream().filter(c -> c.getId() == Integer.parseInt(checkBox.getId())).findFirst().orElse(null);
+                for(CheckBox JFXcheckBox: possibleSelectedChoices){
+                    if(JFXcheckBox.isSelected()){
+                        Choice ch = choices.stream().filter(c -> c.getId() == Integer.parseInt(JFXcheckBox.getId())).findFirst().orElse(null);
                         answer.getSelectedChoices().add(ch);
                     }
                 }
                 
                 answer.getAcceptedChoices().clear();
-                for(CheckBox checkBox: possibleAcceptedChoices){
-                    if(checkBox.isSelected()){
-                        Choice ch = choices.stream().filter(c -> c.getId() == Integer.parseInt(checkBox.getId())).findFirst().orElse(null);
+                for(CheckBox JFXcheckBox: possibleAcceptedChoices){
+                    if(JFXcheckBox.isSelected()){
+                        Choice ch = choices.stream().filter(c -> c.getId() == Integer.parseInt(JFXcheckBox.getId())).findFirst().orElse(null);
                         answer.getAcceptedChoices().add(ch);
                     }
                 }
@@ -197,15 +198,15 @@ public class AddAnswerViewController implements Initializable {
                 Answer a = new Answer(
                         questionBox.getSelectionModel().getSelectedItem().getId(),
                         null, importanceBox.getSelectionModel().getSelectedItem(), MySoulMate.MEMBER_ID);
-                for(CheckBox checkBox: possibleSelectedChoices){
-                    if(checkBox.isSelected()){
-                        Choice ch = choices.stream().filter(c -> c.getId() == Integer.parseInt(checkBox.getId())).findFirst().orElse(null);
+                for(CheckBox JFXcheckBox: possibleSelectedChoices){
+                    if(JFXcheckBox.isSelected()){
+                        Choice ch = choices.stream().filter(c -> c.getId() == Integer.parseInt(JFXcheckBox.getId())).findFirst().orElse(null);
                         a.getSelectedChoices().add(ch);
                     }
                 }
-                for(CheckBox checkBox: possibleAcceptedChoices){
-                    if(checkBox.isSelected()){
-                        Choice ch = choices.stream().filter(c -> c.getId() == Integer.parseInt(checkBox.getId())).findFirst().orElse(null);
+                for(CheckBox JFXcheckBox: possibleAcceptedChoices){
+                    if(JFXcheckBox.isSelected()){
+                        Choice ch = choices.stream().filter(c -> c.getId() == Integer.parseInt(JFXcheckBox.getId())).findFirst().orElse(null);
                         a.getAcceptedChoices().add(ch);
                     }
                 }
