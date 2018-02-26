@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.HashSet;
 import models.Enumerations.NotificationType;
+import models.Enumerations.PhotoType;
 import services.AnswerService;
 import services.MemberService;
 import services.NotificationService;
@@ -122,7 +123,7 @@ public class Notification {
     }
     
     public String getUrlPhoto() throws SQLException{
-        return  PhotoService.getInstance().get(new Photo(photoId,0,null,null,null)).getUrl();
+        return  PhotoService.getInstance().get(new Photo(0,senderId,null,null,PhotoType.PROFILE)).getUrl();
     }
     
 //     public HashSet<Choice> getAnswer() throws SQLException{

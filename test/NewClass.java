@@ -25,12 +25,6 @@ import java.util.Base64;
 public class NewClass {
 
     public static void main(String[] args) throws IOException, InterruptedException {
-//        Date birthDate = new Date(1418984496227l);
-//        /*System.out.println(LocalDate.of(birthDate.getYear()+1900, birthDate.getMonth() + 1,
-//                birthDate.getDate()).toString());*/
-//        System.out.println(Period.between(LocalDate.of(birthDate.getYear()+1900, birthDate.getMonth() + 1,
-//                birthDate.getDate()), LocalDate.now()).getYears());
-
 //        File f =  new File("D:\\HeadQuarters\\Esprit\\3ème Année\\PI-DEV\\javafx\\MySoulMate\\test\\photo.png");
 //             String encodstring = encodeFileToBase64Binary(f);
 //

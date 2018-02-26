@@ -52,15 +52,6 @@ public class RecommandationViewController implements Initializable {
     @FXML
     private VBox parkVBox;
 
-    private List<PlaceSuggestion> restaurants;
-    private List<PlaceSuggestion> parks;
-    private List<PlaceSuggestion> cafees;
-    
-    private List<PlaceSuggestion> displayedRests;
-    private List<PlaceSuggestion> displayedParks;
-    private List<PlaceSuggestion> displayedCafees;
-    
-    private Address address;
     @FXML
     private TabPane mainTabPane;
     @FXML
@@ -105,6 +96,21 @@ public class RecommandationViewController implements Initializable {
     private VBox parcLoading;
     @FXML
     private ProgressIndicator cafeIndicator;
+    
+    
+    private List<PlaceSuggestion> restaurants;
+    private List<PlaceSuggestion> parks;
+    private List<PlaceSuggestion> cafees;
+    
+    private List<PlaceSuggestion> displayedRests;
+    private List<PlaceSuggestion> displayedParks;
+    private List<PlaceSuggestion> displayedCafees;
+    
+    private Address address;
+    @FXML
+    private AnchorPane closePane;
+    
+    private int userID;
 
     /**
      * Initializes the controller class.
@@ -112,8 +118,8 @@ public class RecommandationViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         sortTypes.addAll(Arrays.asList(
-                new String[]{"La plus notée", "La moins notée",
-                    "La plus proche", "La moins proches"}
+                new String[]{"Most rated", "Least rated",
+                    "Closest", "Farthest"}
         ));
         
         restSortComboBox.getItems().addAll(sortTypes);
@@ -142,7 +148,17 @@ public class RecommandationViewController implements Initializable {
                 applyParkFilter();
             }
         });
-        
+    }
+    
+    public void setAddress(Address address){
+        this.address = address;
+        populate();
+    }
+    
+    public void setAddress(Address address, int userID){
+        this.address = address;
+        this.userID = userID;
+        closePane.setVisible(true);
         populate();
     }
     
@@ -170,12 +186,7 @@ public class RecommandationViewController implements Initializable {
 
     private void populate() {
         mainPane.prefHeightProperty().bind(mainTabPane.prefWidthProperty());
-        try {
-            address = AddressService.getInstance().get(new Address(MySoulMate.MEMBER_ID));
-            populateRestaurants();
-        } catch (SQLException ex) {
-            util.Logger.writeLog(ex, RecommandationViewController.class.getName(), null);
-        }
+        populateRestaurants();
     }
 
     @FXML
@@ -249,7 +260,7 @@ public class RecommandationViewController implements Initializable {
             for (PlaceSuggestion suggestion : displayedParks) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/PlaceSuggestionView.fxml"));
                 AnchorPane pane = loader.load();
-                ((PlaceSuggestionViewController) loader.getController()).setSuggestion(suggestion);
+                ((PlaceSuggestionViewController) loader.getController()).setParams(suggestion, mainPane);
                 parkVBox.getChildren().add(pane);
             }
             parkVBox.setPrefHeight(displayedParks.size() * 356);
@@ -291,7 +302,7 @@ public class RecommandationViewController implements Initializable {
             for (PlaceSuggestion suggestion : displayedCafees) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/PlaceSuggestionView.fxml"));
                 AnchorPane pane = loader.load();
-                ((PlaceSuggestionViewController) loader.getController()).setSuggestion(suggestion);
+                ((PlaceSuggestionViewController) loader.getController()).setParams(suggestion, mainPane);
                 cafeeVBox.getChildren().add(pane);
             }
             cafeeVBox.setPrefHeight(displayedCafees.size() * 356);
@@ -333,7 +344,7 @@ public class RecommandationViewController implements Initializable {
             for (PlaceSuggestion suggestion : displayedRests) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/PlaceSuggestionView.fxml"));
                 AnchorPane pane = loader.load();
-                ((PlaceSuggestionViewController) loader.getController()).setSuggestion(suggestion);
+                ((PlaceSuggestionViewController) loader.getController()).setParams(suggestion, mainPane);
                 restaurantVBox.getChildren().add(pane);
             }
             restaurantVBox.setPrefHeight(displayedRests.size() * 356);
@@ -365,18 +376,17 @@ public class RecommandationViewController implements Initializable {
         if(restOpenCheck.isSelected()){
             displayedRests = displayedRests.stream().filter(r -> r.isOpen()).collect(Collectors.toList());
         }
-        
         switch (restSortComboBox.getValue()){
-            case "La plus notée":
+            case "Most rated":
                 displayedRests.sort((r1, r2) -> Double.compare(r2.getRating(), r1.getRating()));
                 break;
-            case "La moins notée":
+            case "Least rated":
                 displayedRests.sort((r1, r2) -> Double.compare(r1.getRating(), r2.getRating()));
                 break;
-            case "La plus proche":
+            case "Closest":
                 displayedRests.sort((r1, r2) -> Double.compare(distanceStringToInt(r1.getDistance()), distanceStringToInt(r2.getDistance())));
                 break;
-            case "La moins proches":
+            case "Farthest":
                 displayedRests.sort((r1, r2) -> Double.compare(distanceStringToInt(r2.getDistance()), distanceStringToInt(r1.getDistance())));
                 break;
         }
@@ -398,16 +408,16 @@ public class RecommandationViewController implements Initializable {
         }
         
         switch (cafeSortComboBox.getValue()){
-            case "La plus notée":
+            case "Most rated":
                 displayedCafees.sort((r1, r2) -> Double.compare(r2.getRating(), r1.getRating()));
                 break;
-            case "La moins notée":
+            case "Least rated":
                 displayedCafees.sort((r1, r2) -> Double.compare(r1.getRating(), r2.getRating()));
                 break;
-            case "La plus proche":
+            case "Closest":
                 displayedCafees.sort((r1, r2) -> Double.compare(distanceStringToInt(r1.getDistance()), distanceStringToInt(r2.getDistance())));
                 break;
-            case "La moins proches":
+            case "Farthest":
                 displayedCafees.sort((r1, r2) -> Double.compare(distanceStringToInt(r2.getDistance()), distanceStringToInt(r1.getDistance())));
                 break;
         }
@@ -428,16 +438,16 @@ public class RecommandationViewController implements Initializable {
         }
         
         switch (parkSortComboBox.getValue()){
-            case "La plus notée":
+            case "Most rated":
                 displayedParks.sort((r1, r2) -> Double.compare(r2.getRating(), r1.getRating()));
                 break;
-            case "La moins notée":
+            case "Least rated":
                 displayedParks.sort((r1, r2) -> Double.compare(r1.getRating(), r2.getRating()));
                 break;
-            case "La plus proche":
+            case "Closest":
                 displayedParks.sort((r1, r2) -> Double.compare(distanceStringToInt(r1.getDistance()), distanceStringToInt(r2.getDistance())));
                 break;
-            case "La moins proches":
+            case "Farthest":
                 displayedParks.sort((r1, r2) -> Double.compare(distanceStringToInt(r2.getDistance()), distanceStringToInt(r1.getDistance())));
                 break;
         }
@@ -462,5 +472,11 @@ public class RecommandationViewController implements Initializable {
     @FXML
     private void applyParkSearch(KeyEvent event) {
         applyParkFilter();
+    }
+
+    @FXML
+    private void dismiss(MouseEvent event) {
+        FXMLLoader loader = GlobalViewController.getInstance().setMainContent("/view/OthersProfileView.fxml");
+        ((OthersProfileViewController)loader.getController()).setUserId(userID);
     }
 }

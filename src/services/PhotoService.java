@@ -8,6 +8,7 @@ package services;
 import iservice.Create;
 import iservice.Delete;
 import iservice.Read;
+import iservice.Update;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,12 +20,13 @@ import models.Enumerations;
 import models.Enumerations.PhotoType;
 import models.Member;
 import models.Photo;
+import util.FileUploader;
 
 /**
  *
  * @author Elyes
  */
-public class PhotoService extends Service implements Create<Photo>,Read<Photo>,Delete<Photo>{
+public class PhotoService extends Service implements Create<Photo>,Read<Photo>,Delete<Photo>, Update<Photo>{
 
     private static PhotoService photoService;
     
@@ -41,11 +43,12 @@ public class PhotoService extends Service implements Create<Photo>,Read<Photo>,D
     
     @Override
     public Photo create(Photo obj) throws SQLException {
+        obj.setUrl(FileUploader.upload(obj.getUrl()));
 	String req = "INSERT INTO `photo`(`url`, `user_id`, `date`, `type`) VALUES (?,?,?,?)";
 	PreparedStatement pst = CONNECTION.prepareStatement(req);
 	pst.setString(1, obj.getUrl());
 	pst.setInt(2, obj.getUserId());
-	pst.setTimestamp(3, obj.getDate());
+	pst.setTimestamp(3, new Timestamp(new java.util.Date().getTime()));
         pst.setInt(4, obj.getType().ordinal());
 	pst.executeUpdate();
 	return obj;
@@ -69,9 +72,7 @@ public class PhotoService extends Service implements Create<Photo>,Read<Photo>,D
                     PhotoType.values()[rs.getInt("type")]);
         }
 	return null;
-    }    
-    
-    
+    }
     
     public Photo getuserphoto(int id) throws SQLException {
 	String req = "SELECT * FROM `photo` WHERE id = " + id;
@@ -108,7 +109,20 @@ public class PhotoService extends Service implements Create<Photo>,Read<Photo>,D
     @Override
     public void delete(Photo obj) throws SQLException {
 	String req = "DELETE FROM `photo` WHERE id = " + obj.getId();
+        if(obj.getUrl() != null && !FileUploader.delete(obj.getUrl())){
+            return;
+        }
 	CONNECTION.createStatement().executeUpdate(req);
+    }
+
+    @Override
+    public void update(Photo obj) throws SQLException {
+        if(obj.getType() == null || obj.getId() == 0) return;
+        String query = "UPDATE `photo` SET `type`=? WHERE id = ?";
+        PreparedStatement prepare = CONNECTION.prepareStatement(query);
+        prepare.setInt(1, obj.getType().ordinal());
+        prepare.setInt(2, obj.getId());
+        prepare.executeUpdate();
     }
     
 }
