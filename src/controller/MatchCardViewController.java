@@ -8,10 +8,13 @@ package controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import models.MatchCard;
 
 /**
@@ -59,6 +62,18 @@ public class MatchCardViewController implements Initializable {
 
     public void setCard(MatchCard card) {
         this.card = card;
+    }
+
+    @FXML
+    private void onPhotoClick(MouseEvent event) {
+        FXMLLoader loader = GlobalViewController.getInstance().setMainContent("/view/OthersProfileView.fxml");
+        ((OthersProfileViewController)loader.getController()).setUserId(card.getMemberId());
+    }
+
+    @FXML
+    private void onPseudoClick(MouseEvent event) {
+        FXMLLoader loader = GlobalViewController.getInstance().setMainContent("/view/OthersProfileView.fxml");
+        ((OthersProfileViewController)loader.getController()).setUserId(card.getMemberId());
     }
     
 }

@@ -16,6 +16,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,7 +33,9 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
@@ -53,12 +56,15 @@ import models.Answer;
 import models.Enumerations;
 import models.Enumerations.PhotoType;
 import models.Like;
+import models.MatchCard;
 import models.Member;
 import models.Photo;
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import services.AnswerService;
+import services.Filter;
 import services.LikeService;
+import services.Matching;
 import services.MemberService;
 import services.PhotoService;
 
@@ -152,9 +158,7 @@ public class SelfProfileViewController implements Initializable {
             for(Answer answer: answers){
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AnswerView.fxml"));
                 AnchorPane pane = loader.load();
-                ((AnswerViewController)loader.getController()).setEditable(true);
                 ((AnswerViewController)loader.getController()).setAnswer(answer);
-                ((AnswerViewController)loader.getController()).setController(this);
                 answersVBox.getChildren().add(pane);
             }
             AnchorPane buttomPane = new AnchorPane();
@@ -182,13 +186,11 @@ public class SelfProfileViewController implements Initializable {
             final Stage dialog = new Stage();
             dialog.initModality(Modality.APPLICATION_MODAL);
             dialog.initOwner(MySoulMate.mainStage);
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AddAnswerView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AnswerAddView.fxml"));
             Pane content = loader.load();
-            ((AddAnswerViewController)loader.getController()).setAnswers(answers);
-            ((AddAnswerViewController)loader.getController()).setDialog(dialog);
-            ((AddAnswerViewController)loader.getController()).setSelfProfileViewController(this);
-            Scene dialogScene = new Scene(content, 690, 508);
+            Scene dialogScene = new Scene(content, 752, 400);
             dialog.setScene(dialogScene);
+            ((AnswerAddViewController)loader.getController()).setParams(MySoulMate.MEMBER_ID, this, dialog);
             dialog.show();
         } catch (IOException ex) {
             Logger.getLogger(SelfProfileViewController.class.getName()).log(Level.SEVERE, null, ex);
@@ -204,7 +206,7 @@ public class SelfProfileViewController implements Initializable {
                 HBox hBox = new HBox();
                 hBox.setSpacing(20);
                 hBox.setAlignment(Pos.CENTER);
-                Button button = new Button("Supprimer");
+                Button button = new Button("Delete");
                 button.setOnAction(e-> supprimerPhoto(e));
                 button.getStyleClass().add("regular_button");
                 button.setId(photo.getId()+"");
@@ -237,8 +239,12 @@ public class SelfProfileViewController implements Initializable {
     
     private void supprimerPhoto(ActionEvent event){
         try {
-            PhotoService.getInstance().delete(new Photo(Integer.parseInt(((Button)event.getTarget()).getId())));
-            populatePhotosPane();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to delete this photo?", ButtonType.YES, ButtonType.CANCEL);
+            Optional<ButtonType> result = alert.showAndWait();
+            if(result.get() == ButtonType.YES){
+                PhotoService.getInstance().delete(new Photo(Integer.parseInt(((Button)event.getTarget()).getId())));
+                populatePhotosPane();
+            }
         } catch (SQLException ex) {
             util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), null);
         }
@@ -246,18 +252,20 @@ public class SelfProfileViewController implements Initializable {
     
     private void populateFields(){
         try {
+            List<MatchCard> cards = Matching.getInstance().getMatches(new Member(MySoulMate.MEMBER_ID), new Filter());
+            matchPercentageLabel.setText((cards!=null && cards.size()!=0)?cards.get(cards.size()-1).getMatch()+"%":"0%");
             MemberService memberService = MemberService.getInstance();
             Member member = memberService.get(new Member(MySoulMate.MEMBER_ID));
             nameLabel.setText(member.getFirstname()+" "+member.getLastname());
             String age = ""+((new Date()).getYear()-member.getBirthDate().getYear());
             ageLabel.setText(age);
             addressLabel.setText(member.getAddress().getCity()+", "+member.getAddress().getCountry());
-            genderLabel.setText(member.isGender()?"Homme":"Femme");
+            genderLabel.setText(member.isGender()?"Male":"Female");
             bdLabel.setText(new SimpleDateFormat("dd MMMM yyyy", Locale.FRANCE).format(member.getBirthDate()));
             heightLabel.setText(member.getHeight()+"");
             bodyTypeLabel.setText(member.getBodyType().name().substring(0, 1) + member.getBodyType().name().substring(1).toLowerCase());
-            smokerLabel.setText(member.isSmoker()?"Oui":"Non");
-            drinkerLabel.setText(member.isDrinker()?"Oui":"Non");
+            smokerLabel.setText(member.isSmoker()?"Yes":"No");
+            drinkerLabel.setText(member.isDrinker()?"Yes":"No");
             religionLabel.setText(member.getReligion().name().substring(0, 1) + member.getReligion().name().substring(1).toLowerCase());
             childNumLabel.setText(member.getChildrenNumber()+"");
             aboutText.setText(member.getAbout());
@@ -266,7 +274,7 @@ public class SelfProfileViewController implements Initializable {
             
             makeMemberLikePane();
         } catch (SQLException ex) {
-            util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), "Probleme de connéction à la base de donnée");
+            util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), "Connexion de database failed");
         }catch (Exception ex){
             util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), null);
         }
@@ -304,7 +312,6 @@ public class SelfProfileViewController implements Initializable {
             }else{
                 photoPath = MySoulMate.UPLOAD_URL+photo.getUrl();
             }
-            System.out.println(photoPath);
             profileImage.setImage(new Image(photoPath));
         } catch (SQLException ex) {
             util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), null);
@@ -330,7 +337,7 @@ public class SelfProfileViewController implements Initializable {
     @FXML
     private void showFileChooser(ActionEvent event) {
         FileChooser chooser = new FileChooser();
-        chooser.setTitle("Choisir une photo");
+        chooser.setTitle("Select a photo");
         File photo = chooser.showOpenDialog(MySoulMate.mainStage);
         System.out.println(photo.getAbsolutePath());
 //        FTPClient con = null;
@@ -379,11 +386,11 @@ public class SelfProfileViewController implements Initializable {
             dialog.initOwner(MySoulMate.mainStage);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/EditProfileView.fxml"));
             Pane content = loader.load();
+            Scene dialogScene = new Scene(content, 1200, 850);
+            dialog.setScene(dialogScene);
             ((EditProfileViewController)loader.getController()).setMember(MemberService.getInstance().get(new Member(MySoulMate.MEMBER_ID)));
             ((EditProfileViewController)loader.getController()).setController(this);
             ((EditProfileViewController)loader.getController()).setDialog(dialog);
-            Scene dialogScene = new Scene(content, 1200, 775);
-            dialog.setScene(dialogScene);
             dialog.show();
         } catch (IOException ex) {
             util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), null);

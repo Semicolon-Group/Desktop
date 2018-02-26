@@ -18,7 +18,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -27,7 +30,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import models.Address;
 import models.Member;
+import models.Question;
+import services.AddressService;
 import services.MemberService;
 
 /**
@@ -123,6 +132,8 @@ public class GlobalViewController implements Initializable {
             }
         }
     };
+    @FXML
+    private AnchorPane supportPane;
     
     /**
      * Initializes the controller class.
@@ -143,10 +154,12 @@ public class GlobalViewController implements Initializable {
         notificationPane.visibleProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue){
                 notificationPane.setPrefHeight(600);
+                setContent("/view/NotificationPaneView.fxml", notificationContent);
                 notificationIcon.getStyleClass().remove(notificationIcon.getStyleClass().size()-1);
                 activeIcon(notificationIcon, "notification");
                 return;
             }
+            notificationContent.getChildren().clear();
             notificationPane.setPrefHeight(0);
             notificationIcon.getStyleClass().add("hoverable");
             releaseIcon(notificationIcon, "notification");
@@ -176,6 +189,25 @@ public class GlobalViewController implements Initializable {
             releaseIcon(accountIcon, "account");
         });
         setMainContent("/view/HomeView.fxml");
+        if(online.getLastLogin() == null){
+            showQuestionDialog();
+        }
+    }
+    
+    private void showQuestionDialog(){
+        try {
+            final Stage dialog = new Stage();
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.initOwner(MySoulMate.mainStage);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AnswerAddView.fxml"));
+            Pane content = loader.load();
+            Scene dialogScene = new Scene(content, 752, 400);
+            dialog.setScene(dialogScene);
+            ((AnswerAddViewController)loader.getController()).setParams(MySoulMate.MEMBER_ID, dialog);
+            dialog.show();
+        } catch (IOException ex) {
+            Logger.getLogger(GlobalViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public FXMLLoader setMainContent(String path){
@@ -246,12 +278,19 @@ public class GlobalViewController implements Initializable {
 
     @FXML
     private void showRecommandationContent(ActionEvent event) {
-        setContent("/view/RecommandationView.fxml", content);
-        homeBox.setId("");
-        matchBox.setId("");
-        quickSearchBox.setId("");
-        blindDateBox.setId("");
-        recommandationBox.setId("selected");
+        try {
+            FXMLLoader loader = setContent("/view/RecommandationView.fxml", content);
+            ((RecommandationViewController) loader.getController()).setAddress(
+                    AddressService.getInstance().get(new Address(MySoulMate.MEMBER_ID))
+            );
+            homeBox.setId("");
+            matchBox.setId("");
+            quickSearchBox.setId("");
+            blindDateBox.setId("");
+            recommandationBox.setId("selected");
+        } catch (SQLException ex) {
+            Logger.getLogger(GlobalViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public void clearMenuSelection(){
@@ -291,11 +330,16 @@ public class GlobalViewController implements Initializable {
     }
 
     @FXML
-    private void affiche_notif(MouseEvent event) {
-    }
-
-    @FXML
     private void onMessageIconClick(MouseEvent event) {
         setContent("/view/InstantMessagingView.fxml", content);
+    }
+    
+    public void lockScrollToTop(){
+        scroll.setVvalue(0);
+        scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+    }
+    
+    public void releaseScroll(){
+        scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
     }
 }

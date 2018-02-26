@@ -53,7 +53,7 @@ public class StatusWritingViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
-            photo.setImage(new Image(MySoulMate.UPLOAD_URL+PhotoService.getInstance().get(new Photo(online.getId(),PhotoType.PROFILE)).getUrl()));
+            photo.setImage(new Image(MySoulMate.UPLOAD_URL + PhotoService.getInstance().get(new Photo(online.getId(),PhotoType.PROFILE)).getUrl()));
         } catch (SQLException ex) {
             Logger.getLogger(StatusWritingViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -76,6 +76,11 @@ public class StatusWritingViewController implements Initializable {
         } catch (IOException | SQLException ex) {
             Logger.getLogger(StatusWritingViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @FXML
+    private void onPhotoClick(MouseEvent event) {
+        GlobalViewController.getInstance().setMainContent("/view/SelfProfileView.fxml");
     }
     
 }

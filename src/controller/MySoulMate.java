@@ -41,12 +41,6 @@ public class MySoulMate extends Application {
         mainStage = primaryStage;
         Parent globalPane = FXMLLoader.load(getClass().getResource("/view/Authentification.fxml"));
         Scene scene = new Scene(globalPane);
-                    javafx.geometry.Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-            mainStage.setX(primaryScreenBounds.getMinX());
-            mainStage.setY(primaryScreenBounds.getMinY());
-            mainStage.setWidth(primaryScreenBounds.getWidth());
-            mainStage.setHeight(primaryScreenBounds.getHeight());
-
             mainStage.setResizable(false);
         mainStage.setScene(scene);
         mainStage.initStyle(StageStyle.UNDECORATED);
@@ -66,8 +60,6 @@ public class MySoulMate extends Application {
             mainStage.setHeight(primaryScreenBounds.getHeight());
 
             mainStage.setResizable(false);
-            mainStage.hide();
-            mainStage.show();
             
         } catch (IOException ex) {
             util.Logger.writeLog(ex, GlobalViewController.class.getCanonicalName(), null);

@@ -5,6 +5,7 @@
  */
 package services;
 
+import static controller.GlobalViewController.online;
 import iservice.Create;
 import iservice.Read;
 import iservice.Update;
@@ -14,13 +15,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import models.Address;
 import models.Enumerations;
 import models.Enumerations.Role;
+import models.Enumerations.LastLogin;
 import models.Member;
+import static util.GoogleDistanceMatrixAPI.getDistance;
 
 /**
  *
@@ -84,22 +90,27 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
         String req = "SELECT MAX(id) max from user";
         ResultSet rs = CONNECTION.createStatement().executeQuery(req);
         rs.next();
-
-        obj.getAddress().setUserId(rs.getInt("max"));
+        
+        obj.setId(rs.getInt("max"));
+        obj.getAddress().setUserId(obj.getId());
         AddressService.getInstance().create(obj.getAddress());
-
+        insertPreferedRelations(obj);
+        insertPreferedStatus(obj);
+        
+        obj = get(obj);
         return obj;
+    }
+
+    //methode update pour modifichier l'attribut locked , bannir un membre
+    public void updatelock(int id, short locked) throws SQLException {
+        String query = "UPDATE user SET  locked=? WHERE id=?";
+        PreparedStatement prepare = CONNECTION.prepareStatement(query);
+        prepare.setShort(1, locked);
+        prepare.setInt(2, id);
+        prepare.executeUpdate();
 
     }
-    //methode update pour modifichier l'attribut locked , bannir un membre
-            public void updatelock(int id,short locked) throws SQLException{
-                String query = "UPDATE user SET  locked=? WHERE id=?";
-                PreparedStatement prepare = CONNECTION.prepareStatement(query);
-                prepare.setShort(1, locked);
-                prepare.setInt(2, id);
-                prepare.executeUpdate();
 
-            }
     @Override
     public void update(Member obj) throws SQLException {
         String query = "UPDATE user SET pseudo=?, firstname=?, lastname=?,"
@@ -136,24 +147,36 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
         prepare.setInt(26, obj.getId());
         prepare.executeUpdate();
         AddressService.getInstance().update(obj.getAddress());
+        deletePreferedRelations(obj.getId());
+        insertPreferedRelations(obj);
+        deletePreferedStatus(obj.getId());
+        insertPreferedStatus(obj);
+    }
+    
+    private Member getPreferedStatus(Member member) throws SQLException{
+        String query = "SELECT * FROM prefered_status where user_id = "+member.getId();
+        ResultSet rs = CONNECTION.createStatement().executeQuery(query);
+        while(rs.next()){
+            member.getPreferedStatuses().add(Enumerations.MaritalStatus.values()[rs.getInt("status")]);
+        }
+        return member;
     }
 
-
- @Override
+    @Override
     public Member get(Member obj) throws SQLException {
         String condition = "";
         if (obj.getId() != 0) {
             condition = "Where id = " + obj.getId();
         } else if (obj.getPseudo() != null) {
-            condition = "Where pseudo = '" + obj.getPseudo()+"'";
+            condition = "Where pseudo = '" + obj.getPseudo() + "'";
         } else if (obj.getEmail() != null) {
-            condition = "Where email = '" + obj.getEmail()+"'";
+            condition = "Where email = '" + obj.getEmail() + "'";
         }
         String req = "Select * from user " + condition;
         st = CONNECTION.createStatement();
         rs = st.executeQuery(req);
-        
-        if(rs.next()){
+
+        if (rs.next()) {
             obj.setId(rs.getInt("id"));
             obj.setPseudo(rs.getString("pseudo"));
             obj.setFirstname(rs.getString("firstname"));
@@ -181,6 +204,8 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
             obj.setConnected(rs.getBoolean("connected"));
             obj.setCreatedAt(rs.getTimestamp("created_at"));
             obj.setAddress(AddressService.getInstance().get(new Address(obj.getId())));
+            obj = getPreferedRelations(obj);
+            obj = getPreferedStatus(obj);
             return obj;
         }
         return null;
@@ -222,10 +247,160 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
             mbr.setConnected(rs.getBoolean("connected"));
             mbr.setCreatedAt(rs.getTimestamp("created_at"));
             mbr.setAddress(AddressService.getInstance().get(new Address(mbr.getId())));
-
+            mbr = getPreferedRelations(mbr);
+            mbr = getPreferedStatus(mbr);
+            
             mmbrs.add(mbr);
         }
         return mmbrs;
     }
 
+    public Map<Member,Map.Entry<Double,Integer>> getFiltered(Filter F) throws SQLException {
+        String req = "SELECT *,TIMESTAMPDIFF(day,last_login,Sysdate()) as login FROM user WHERE ";
+        
+        req += "(TIMESTAMPDIFF(year,birth_date,Sysdate()) BETWEEN " + F.getAgeMin() + " AND " + F.getAgeMax() + ") ";
+        
+        switch (F.getLastLogin()) {
+            case UN_JOUR:
+                req += "AND (TIMESTAMPDIFF(day,last_login,Sysdate()) = 0) ";
+                break;
+            case SEMAINE:
+                req += "AND (TIMESTAMPDIFF(week,last_login,Sysdate()) = 0) ";
+                break;
+            case MOIS:
+                req += "AND (TIMESTAMPDIFF(month,last_login,Sysdate()) = 0) ";
+                break;
+            default:
+                req += "AND (TIMESTAMPDIFF(year,last_login,Sysdate()) = 0) ";
+                break;
+        }
+
+        req += "AND ((height * 100 >= " + F.getHeightMin() + ") and (height * 100 <= " + F.getHeightMax() + ")) ";
+
+        if (!F.getBodyType().isEmpty()) {
+            req += "and (body_type in (";
+            for (Enumerations.BodyType bt : F.getBodyType()) {
+                req += bt.ordinal() + ",";
+            }
+            req = req.substring(0, req.length() - 1) + ")) ";
+        }
+
+        if (!F.getReligion().isEmpty()) {
+            req += " and (relegion in (";
+            for (Enumerations.Religion r : F.getReligion()) {
+                req += r.ordinal() + ",";
+            }
+            req = req.substring(0, req.length() - 1) + ")) ";
+        }
+
+        if (!F.getMaritalStatus().isEmpty()) {
+            req += " and (civil_status in (";
+            for (Enumerations.MaritalStatus m : F.getMaritalStatus()) {
+                req += m.ordinal() + ",";
+            }
+            req = req.substring(0, req.length() - 1) + ")) ";
+        }
+
+        req += " and (gender = " + !online.isGender() + ") ";
+
+        if (F.getSmokes() != -1) {
+            req += "and (smoker = " + F.getSmokes() + ") ";
+        }
+
+        if (F.getDrinks() != -1) {
+            req += "and (drinker = " + F.getDrinks() + ") ";
+        }
+
+        ResultSet rs = CONNECTION.createStatement().executeQuery(req);
+        Map<Member,Map.Entry<Double,Integer>> mmbrs = new HashMap<>();
+        while (rs.next()) {            
+            Member mbr = new Member();
+            mbr.setId(rs.getInt("id"));
+            mbr.setAddress(AddressService.getInstance().get(new Address(mbr.getId())));
+            
+            Double distance = getDistance(online.getAddress(), mbr.getAddress());
+            if(F.getDistance() != -1){
+                if(distance > F.getDistance()){
+                    continue;
+                }
+            }
+            Integer login = rs.getInt("login");
+            
+            mbr.setPseudo(rs.getString("pseudo"));
+            mbr.setFirstname(rs.getString("firstname"));
+            mbr.setLastname(rs.getString("lastname"));
+            mbr.setEmail(rs.getString("Email"));
+            mbr.setPassword(rs.getString("password"));
+            mbr.setBirthDate(rs.getDate("birth_date"));
+            mbr.setGender(rs.getBoolean("gender"));
+            mbr.setHeight(rs.getFloat("height"));
+            mbr.setBodyType((Enumerations.BodyType.values()[rs.getInt("body_type")]));
+            mbr.setChildrenNumber(rs.getInt("children_number"));
+            mbr.setReligion((Enumerations.Religion.values()[rs.getInt("relegion")]));
+            mbr.setReligionImportance((Enumerations.Importance.values()[rs.getInt("relegion_importance")]));
+            mbr.setSmoker(rs.getBoolean("smoker"));
+            mbr.setDrinker(rs.getBoolean("drinker"));
+            mbr.setMinAge(rs.getInt("min_age"));
+            mbr.setMaxAge(rs.getInt("max_age"));
+            mbr.setProximity(Enumerations.Proximity.values()[rs.getInt("proximity")]);
+            mbr.setLastLogin(rs.getTimestamp("last_login"));
+            mbr.setLocked(rs.getShort("locked"));
+            mbr.setIp(rs.getString("ip"));
+            mbr.setPort(rs.getInt("port"));
+            mbr.setAbout(rs.getString("about"));
+            mbr.setMaritalStatus(Enumerations.MaritalStatus.values()[rs.getInt("civil_status")]);
+            mbr.setConnected(rs.getBoolean("connected"));
+            mbr.setCreatedAt(rs.getTimestamp("created_at"));
+            mbr = getPreferedRelations(mbr);
+            mbr = getPreferedStatus(mbr);
+            
+            mmbrs.put(mbr,new AbstractMap.SimpleEntry(distance,login));
+        }
+        return mmbrs;
+    }
+    
+    
+    
+    //Prefered relations CRUD
+    private void deletePreferedRelations(int userId) throws SQLException{
+        String query = "delete from prefered_relation where user_id = "+userId;
+        CONNECTION.createStatement().executeUpdate(query);
+    }
+    
+    private void insertPreferedRelations(Member member) throws SQLException{
+        String query ="";
+        for(Enumerations.RelationType type : member.getPreferedRelations()){
+            query = "insert into prefered_relation values(?,?)";
+            PreparedStatement prepare = CONNECTION.prepareStatement(query);
+            prepare.setInt(1, member.getId());
+            prepare.setInt(2, type.ordinal());
+            prepare.executeUpdate();
+        }
+    }
+    
+    private Member getPreferedRelations(Member member) throws SQLException{
+        String query = "SELECT * FROM prefered_relation where user_id = "+member.getId();
+        ResultSet rs = CONNECTION.createStatement().executeQuery(query);
+        while(rs.next()){
+            member.getPreferedRelations().add(Enumerations.RelationType.values()[rs.getInt("relation")]);
+        }
+        return member;
+    }
+    
+    //Prefered Statuses CRUD
+    private void deletePreferedStatus(int userId) throws SQLException{
+        String query = "delete from prefered_status where user_id = "+userId;
+        CONNECTION.createStatement().executeUpdate(query);
+    }
+    
+    private void insertPreferedStatus(Member member) throws SQLException{
+        String query ="";
+        for(Enumerations.MaritalStatus status : member.getPreferedStatuses()){
+            query = "insert into prefered_status values(?,?)";
+            PreparedStatement prepare = CONNECTION.prepareStatement(query);
+            prepare.setInt(1, member.getId());
+            prepare.setInt(2, status.ordinal());
+            prepare.executeUpdate();
+        }
+    }
 }

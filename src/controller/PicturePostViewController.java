@@ -13,16 +13,20 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.effect.Effect;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import models.Enumerations;
+import models.Photo;
 import models.Reaction;
 import models.StatusPost;
+import services.PhotoService;
 import services.ReactionService;
 import services.StatusPostService;
 
@@ -191,6 +195,24 @@ public class PicturePostViewController implements Initializable {
 
     @FXML
     private void onPseudoClick(MouseEvent event) {
+        try {
+            FXMLLoader loader = GlobalViewController.getInstance().setMainContent("/view/OthersProfileView.fxml");
+            ((OthersProfileViewController)loader.getController()).setUserId(PhotoService.getInstance()
+                    .get(new Photo(photoId,0,null)).getUserId());
+        } catch (SQLException ex) {
+            Logger.getLogger(StatusPostViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void onPhotoClick(MouseEvent event) {
+        try {
+            FXMLLoader loader = GlobalViewController.getInstance().setMainContent("/view/OthersProfileView.fxml");
+            ((OthersProfileViewController)loader.getController()).setUserId(PhotoService.getInstance()
+                    .get(new Photo(photoId,0,null)).getUserId());
+        } catch (SQLException ex) {
+            Logger.getLogger(StatusPostViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }

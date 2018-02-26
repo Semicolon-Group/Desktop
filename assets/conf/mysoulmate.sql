@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.6.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 21, 2018 at 10:56 AM
--- Server version: 10.1.30-MariaDB
--- PHP Version: 7.2.1
+-- Generation Time: Feb 22, 2018 at 09:45 AM
+-- Server version: 5.7.14
+-- PHP Version: 7.0.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -39,15 +37,10 @@ CREATE TABLE `accepted_choice` (
 
 INSERT INTO `accepted_choice` (`answer_id`, `choice_id`) VALUES
 (2, 1),
-(7, 1),
 (2, 2),
-(7, 2),
 (3, 4),
-(8, 4),
-(8, 5),
-(4, 7),
-(5, 10),
-(6, 13);
+(15, 1),
+(15, 5);
 
 -- --------------------------------------------------------
 
@@ -68,10 +61,8 @@ CREATE TABLE `address` (
 --
 
 INSERT INTO `address` (`user_id`, `longitude`, `latitude`, `country`, `city`) VALUES
-(2, NULL, NULL, NULL, 'Ariana'),
-(3, NULL, NULL, NULL, 'Berlin'),
-(4, NULL, NULL, NULL, 'London'),
-(5, NULL, NULL, NULL, 'Paris');
+(2, 10.310501, 36.8964803, 'Tunisie', 'La Marsa'),
+(3, 125553.322, 263588.2133, 'Tunisie', 'Ariana');
 
 -- --------------------------------------------------------
 
@@ -92,19 +83,9 @@ CREATE TABLE `answer` (
 --
 
 INSERT INTO `answer` (`id`, `importance`, `date`, `question_id`, `user_id`) VALUES
-(2, 2, NULL, 3, 1),
-(3, 2, NULL, 4, 1),
-(4, 2, NULL, 5, 1),
-(5, 2, NULL, 6, 1),
-(6, 2, NULL, 7, 1),
-(7, 2, NULL, 3, 2),
-(8, 2, NULL, 4, 2),
-(9, 2, NULL, 3, 5),
-(10, 2, NULL, 4, 3),
-(11, 2, NULL, 4, 4),
-(12, 2, NULL, 5, 4),
-(13, 2, NULL, 6, 4),
-(14, 2, NULL, 7, 4);
+(2, 2, '2018-02-06 00:00:00', 3, 2),
+(3, 2, '2018-02-01 00:00:00', 4, 2),
+(15, 1, '2018-02-07 00:00:00', 3, 3);
 
 -- --------------------------------------------------------
 
@@ -123,18 +104,9 @@ CREATE TABLE `answer_choice` (
 
 INSERT INTO `answer_choice` (`answer_id`, `choice_id`) VALUES
 (2, 1),
-(3, 4),
-(4, 7),
-(5, 10),
-(6, 13),
-(7, 2),
-(8, 5),
-(9, 2),
-(10, 7),
-(11, 4),
-(12, 7),
-(13, 10),
-(14, 14);
+(15, 1),
+(15, 2),
+(3, 4);
 
 -- --------------------------------------------------------
 
@@ -184,6 +156,13 @@ CREATE TABLE `conversation` (
   `seen_date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `conversation`
+--
+
+INSERT INTO `conversation` (`id`, `person1_id`, `person2_id`, `label`, `seen`, `seen_date`) VALUES
+(1, 2, 3, 'Conversation', 0, '2018-02-01 00:00:00');
+
 -- --------------------------------------------------------
 
 --
@@ -214,6 +193,14 @@ CREATE TABLE `message` (
   `receiver_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `message`
+--
+
+INSERT INTO `message` (`id`, `content`, `seen`, `seen_date`, `date`, `sender_id`, `receiver_id`) VALUES
+(1, 'Hii ', 1, '2018-02-22 10:43:24', '2018-02-06 00:00:00', 2, 3),
+(2, 'Hello', 1, '2018-02-22 10:43:24', '2018-02-01 00:00:00', 3, 2);
+
 -- --------------------------------------------------------
 
 --
@@ -229,8 +216,16 @@ CREATE TABLE `notification` (
   `receiver_id` int(11) DEFAULT NULL,
   `photo_id` int(11) DEFAULT NULL,
   `answer_id` int(11) DEFAULT NULL,
-  `type` int(11) NOT NULL
+  `type` int(11) NOT NULL,
+  `seen` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `notification`
+--
+
+INSERT INTO `notification` (`id`, `content`, `date`, `icon`, `sender_id`, `receiver_id`, `photo_id`, `answer_id`, `type`, `seen`) VALUES
+(1, 'Test', '2018-02-01 00:00:00', NULL, 3, 2, 2, 3, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -251,13 +246,11 @@ CREATE TABLE `photo` (
 --
 
 INSERT INTO `photo` (`id`, `url`, `user_id`, `date`, `type`) VALUES
-(2, '/view/assets/img/girl1.jpg', 2, '2018-02-16 05:00:01', 1),
-(3, '/view/assets/img/girl2.jpg', 5, '2018-02-16 00:00:03', 1),
+(2, 'koba.jpg', 2, '2018-02-16 05:00:01', 1),
 (4, '/view/assets/img/mens-hairstyles-18.jpg', 1, '2018-02-16 00:00:00', 1),
-(5, '/view/assets/img/girl3.jpg', 4, '2018-02-15 00:00:00', 1),
 (6, '/view/assets/img/girl4.jpg', 3, '2018-02-13 00:00:00', 1),
-(7, '/view/assets/img/girl5.jpg', 2, '2018-02-16 00:00:01', 0),
-(8, '/view/assets/img/girl6.jpg', 5, '2018-02-17 00:00:00', 0);
+(7, 'koba.jpg', 2, '2018-02-16 00:00:01', 0),
+(9, 'koba.jpg', 2, '2018-02-01 00:00:00', 2);
 
 -- --------------------------------------------------------
 
@@ -278,12 +271,13 @@ CREATE TABLE `post` (
 
 INSERT INTO `post` (`id`, `date`, `content`, `user_id`) VALUES
 (1, '2018-02-16 00:00:00', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mi justo, congue quis dolor et, rhoncus sollicitudin sapien. Donec sed massa at nunc ullamcorper pretium.', 3),
-(2, '2018-02-16 00:00:02', 'Aenean sit amet nibh vitae tellus semper sagittis. Quisque auctor libero vehicula libero ornare, in congue eros fringilla. Donec sollicitudin egestas enim, in ullamcorper tellus imperdiet ut. Donec vitae odio in lectus mollis facilisis quis at sem. Vivamus id augue tincidunt ', 4),
 (3, '2018-02-19 10:57:39', 'Hello', 1),
 (4, '2018-02-19 11:01:09', 'ghjgjh', 1),
 (5, '2018-02-19 12:48:30', 'hello', 1),
 (6, '2018-02-19 20:35:38', 'uuu', 1),
-(7, '2018-02-19 22:51:37', 'hello bitch', 1);
+(7, '2018-02-19 22:51:37', 'hello bitch', 1),
+(8, '2018-02-21 11:51:23', 'Hello girls, wanna chat...!?', 2),
+(9, '2018-02-21 19:46:56', '', 2);
 
 -- --------------------------------------------------------
 
@@ -350,11 +344,11 @@ CREATE TABLE `question` (
 
 INSERT INTO `question` (`id`, `question`, `topic`) VALUES
 (2, 'Your favorite pet?', 4),
-(3, '', NULL),
-(4, '', NULL),
-(5, '', NULL),
-(6, '', NULL),
-(7, '', NULL);
+(3, 'Test question 2?', 1),
+(4, 'Test question 3??', 3),
+(5, 'Test question 4??', 2),
+(6, 'Test question 5?', 4),
+(7, 'Test question 6?', 1);
 
 -- --------------------------------------------------------
 
@@ -399,10 +393,8 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `pseudo`, `firstname`, `lastname`, `email`, `password`, `birth_date`, `gender`, `height`, `body_type`, `children_number`, `relegion`, `relegion_importance`, `smoker`, `drinker`, `min_age`, `max_age`, `proximity`, `last_login`, `locked`, `ip`, `port`, `role`, `created_at`, `updated_at`, `about`, `civil_status`, `connected`) VALUES
 (1, 'John', 'John', 'Ackley', NULL, NULL, '1993-12-12', 1, 1.78, 2, 0, 0, 1, 0, 0, 18, 32, 0, '2018-02-15 00:00:00', NULL, NULL, NULL, NULL, '2018-02-14 00:00:00', '2018-02-20 00:00:00', 'hello baby', 0, 0),
-(2, 'Ashley', NULL, NULL, NULL, NULL, '1997-01-05', 0, 1.75, 2, 0, 0, 1, 0, 0, 20, 25, 0, '2018-02-19 00:00:00', NULL, NULL, NULL, NULL, '2018-02-14 00:00:00', '2018-02-15 00:00:00', 'I\'m so beautiful', 0, 0),
-(3, 'Sara', NULL, NULL, NULL, NULL, '2000-02-06', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-02-13 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL, '', 0, 0),
-(4, 'Zara', NULL, NULL, NULL, NULL, '1990-02-14', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-02-21 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL, '', 0, 0),
-(5, 'Emilia', NULL, NULL, NULL, NULL, '1995-02-07', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-02-12 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL, '', 0, 0);
+(2, 'Seif Abdennadher', 'Seif', 'Abdennadher', 'seif.abdennadher@esprit.tn', '123456', '1997-01-05', 1, 1.75, 2, 0, 0, 1, 0, 0, 20, 25, 0, '2018-02-15 00:00:00', 0, NULL, 0, NULL, '2018-02-14 00:00:00', '2018-02-22 09:58:19', 'I\'m so beautiful lallaaa laaa', 0, 0),
+(3, 'Sara', 'zeineb', 'guermazi', 'zeined@esprit.tn', '123457', '2000-02-06', 0, 1.85, 1, 0, 1, 1, 0, 0, 18, 25, 1, '2018-02-13 00:00:00', 0, '127.0.0.1', 80, 0, '2018-02-01 00:00:00', '2018-02-04 00:00:00', 'THIS IS AN EXEMPLE TEXT', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -433,10 +425,7 @@ CREATE TABLE `user_like` (
 --
 
 INSERT INTO `user_like` (`sender_id`, `receiver_id`, `date`) VALUES
-(1, 2, NULL),
-(1, 3, NULL),
-(1, 4, NULL),
-(1, 5, NULL);
+(2, 3, '2018-02-06 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -450,8 +439,16 @@ CREATE TABLE `user_signal` (
   `date` datetime DEFAULT NULL,
   `state` tinyint(1) DEFAULT NULL,
   `sender_id` int(11) DEFAULT NULL,
-  `receiver_id` int(11) DEFAULT NULL
+  `receiver_id` int(11) DEFAULT NULL,
+  `content` text
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `user_signal`
+--
+
+INSERT INTO `user_signal` (`id`, `reason`, `date`, `state`, `sender_id`, `receiver_id`, `content`) VALUES
+(1, 1, '2018-02-22 10:42:37', 0, 1, 2, NULL);
 
 --
 -- Indexes for dumped tables
@@ -603,74 +600,62 @@ ALTER TABLE `user_signal`
 -- AUTO_INCREMENT for table `answer`
 --
 ALTER TABLE `answer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `choice`
 --
 ALTER TABLE `choice`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
-
 --
 -- AUTO_INCREMENT for table `conversation`
 --
 ALTER TABLE `conversation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `feedback`
 --
 ALTER TABLE `feedback`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `message`
 --
 ALTER TABLE `message`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `photo`
 --
 ALTER TABLE `photo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `post_reaction`
 --
 ALTER TABLE `post_reaction`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
-
 --
 -- AUTO_INCREMENT for table `question`
 --
 ALTER TABLE `question`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `user_signal`
 --
 ALTER TABLE `user_signal`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- Constraints for dumped tables
 --
@@ -732,8 +717,6 @@ ALTER TABLE `message`
 -- Constraints for table `notification`
 --
 ALTER TABLE `notification`
-  ADD CONSTRAINT `answer_notification` FOREIGN KEY (`answer_id`) REFERENCES `answer` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `photo_notification` FOREIGN KEY (`photo_id`) REFERENCES `photo` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `receiver_notification` FOREIGN KEY (`receiver_id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `sender_notification` FOREIGN KEY (`sender_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
 
@@ -787,7 +770,6 @@ ALTER TABLE `user_like`
 ALTER TABLE `user_signal`
   ADD CONSTRAINT `signal_receiver` FOREIGN KEY (`receiver_id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `signal_sender` FOREIGN KEY (`sender_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
