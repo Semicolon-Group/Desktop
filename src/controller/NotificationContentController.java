@@ -5,6 +5,7 @@
  */
 package controller;
 
+import static controller.GlobalViewController.online;
 import java.io.File;
 import java.net.URL;
 import java.sql.SQLException;
@@ -18,6 +19,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import java.sql.Timestamp;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -28,13 +31,19 @@ import static models.Enumerations.NotificationType.LIKE;
 import static models.Enumerations.NotificationType.MESSAGE;
 import static models.Enumerations.NotificationType.REACTION;
 import static models.Enumerations.NotificationType.SIGNAL;
+import models.Enumerations.PhotoType;
 import models.Member;
 import models.Notification;
 import models.Photo;
+import models.PicturePost;
+import models.StatusPost;
 import services.MemberService;
 import services.NotificationService;
 import services.PhotoService;
+import services.PicturePostService;
+import services.StatusPostService;
 import util.ShowNotification;
+import util.TimeDiff;
 
 /**
  * FXML Controller class
@@ -49,7 +58,6 @@ public class NotificationContentController implements Initializable {
     private HBox Img_element;
     @FXML
     private VBox nameSender_element;
-    @FXML
     private Label nameSender;
     @FXML
     private Label Action;
@@ -63,10 +71,15 @@ public class NotificationContentController implements Initializable {
     private Label n_date;
     @FXML
     private ImageView Img;
+    @FXML
     private Label FnameSender;
+    @FXML
     private Label LnameSender;
     @FXML
     private VBox Action_element;
+    
+    private int photoId;
+    private int postId;
    
 
     /**
@@ -80,10 +93,11 @@ public class NotificationContentController implements Initializable {
     public void fill(Notification n) {
 
         try {
-            nameSender.setText(n.getSenderFName()+" "+n.getSenderLName());
+            FnameSender.setText(n.getSenderFName());
+            LnameSender.setText(n.getSenderLName());
             Action.setText(n.getContent());
             
-            n_date.setText(HomeViewController.getInstance().getTimeDiff(n.getDate()));
+            n_date.setText(TimeDiff.getInstance(n.getDate(),new Timestamp(new java.util.Date().getTime())).getTimeDiffString());
 
 //                File f1=new File(n.getUrlPhoto());
             Image img1 = new Image(MySoulMate.UPLOAD_URL + n.getUrlPhoto());
@@ -116,5 +130,46 @@ public class NotificationContentController implements Initializable {
         return path;
 
     }
+
+    @FXML
+    private void goToPost(MouseEvent event) {
+        try {
+            String path;
+            Image photo = new Image(MySoulMate.UPLOAD_URL + PhotoService.getInstance()
+                    .get(new Photo(0,online.getId(),null,null,PhotoType.PROFILE)).getUrl());
+            if(postId != 0){
+                path = "/view/StatusPostView.fxml";
+                FXMLLoader loader = GlobalViewController.getInstance().setMainContent(path);
+                StatusPostViewController c = (StatusPostViewController)loader.getController();
+                StatusPost post = StatusPostService.getInstance().get(new StatusPost(postId));
+                c.fill(photo, post.getContent(), online.getPseudo(),
+                    TimeDiff.getInstance(post.getDate(),new Timestamp(new java.util.Date().getTime())).getTimeDiffString(),
+                    postId);
+            }
+            else{
+                path = "/view/PicturePostView.fxml";
+                FXMLLoader loader = GlobalViewController.getInstance().setMainContent(path);
+                PicturePostViewController c = (PicturePostViewController)loader.getController();
+                Photo picture = PhotoService.getInstance().get(new Photo(photoId,0,null));
+                c.fill(photo,online.getPseudo(),
+                    TimeDiff.getInstance(picture.getDate(),new Timestamp(new java.util.Date().getTime())).getTimeDiffString(),
+                    MySoulMate.UPLOAD_URL + picture.getUrl(),
+                    postId);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(NotificationContentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }
+
+    public void setPhotoId(int photoId) {
+        this.photoId = photoId;
+    }
+
+    public void setPostId(int postId) {
+        this.postId = postId;
+    }
+    
     
 }

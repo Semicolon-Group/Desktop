@@ -27,7 +27,7 @@ public class Notification {
     private String content;
     private Timestamp date;
     private String icon;
-    private int answerId;
+    private int postId;
     private int photoId;
     private boolean seen;
 
@@ -38,7 +38,7 @@ public class Notification {
         this.id = id;
     }
 
-    public Notification(int id, int senderId, int receiverId, NotificationType type, String content, Timestamp date, String icon, int answerId, int photoId, boolean seen) {
+    public Notification(int id, int senderId, int receiverId, NotificationType type, String content, Timestamp date, String icon, int postId, int photoId, boolean seen) {
 	this.id = id;
 	this.senderId = senderId;
 	this.receiverId = receiverId;
@@ -46,19 +46,19 @@ public class Notification {
 	this.content = content;
 	this.date = date;
 	this.icon = icon;
-	this.answerId = answerId;
+	this.postId = postId;
 	this.photoId = photoId;
 	this.seen = seen;
     }
 
-    public Notification(int senderId, int receiverId, NotificationType type, String content, Timestamp date, String icon, int answerId, int photoId, boolean seen) {
+    public Notification(int senderId, int receiverId, NotificationType type, String content, Timestamp date, String icon, int postId, int photoId, boolean seen) {
 	this.senderId = senderId;
 	this.receiverId = receiverId;
 	this.type = type;
 	this.content = content;
 	this.date = date;
 	this.icon = icon;
-	this.answerId = answerId;
+	this.postId = postId;
 	this.photoId = photoId;
 	this.seen = seen;
     }
@@ -77,12 +77,12 @@ public class Notification {
 
     
 
-    public int getAnswerId() {
-	return answerId;
+    public int getPostId() {
+	return postId;
     }
 
-    public void setAnswerId(int answerId) {
-	this.answerId = answerId;
+    public void setPostId(int postId) {
+	this.postId = postId;
     }
 
     public int getPhotoId() {
@@ -174,7 +174,7 @@ public class Notification {
 
     @Override
     public String toString() {
-	return "Notification{" + "id=" + id + ", senderId=" + senderId + ", receiverId=" + receiverId + ", type=" + type + ", content=" + content + ", date=" + date + ", icon=" + icon + ", answerId=" + answerId + ", photoId=" + photoId + ", seen=" + seen + '}';
+	return "Notification{" + "id=" + id + ", senderId=" + senderId + ", receiverId=" + receiverId + ", type=" + type + ", content=" + content + ", date=" + date + ", icon=" + icon + ", postId=" + postId + ", photoId=" + photoId + ", seen=" + seen + '}';
     }
     
     
