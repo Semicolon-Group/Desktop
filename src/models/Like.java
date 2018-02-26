@@ -49,5 +49,10 @@ public class Like {
     public void setDate(Timestamp date) {
 	this.date = date;
     }
+
+    @Override
+    public String toString() {
+        return "Like{" + "senderId=" + senderId + ", receiverId=" + receiverId + ", date=" + date + "}\n";
+    }
     
 }

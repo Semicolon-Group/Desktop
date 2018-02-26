@@ -15,10 +15,16 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -28,7 +34,11 @@ import javafx.scene.control.TextFormatter;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.converter.NumberStringConverter;
 import models.Address;
 import models.Enumerations;
@@ -96,6 +106,13 @@ public class EditProfileViewController implements Initializable {
     private TextField countryField;
     private List<Address> addresses;
     private SuggestionProvider<Address> provider;
+    @FXML
+    private VBox prefRelationsBox;
+    @FXML
+    private VBox prefStatusBox;
+    
+    private List<CheckBox> selectedPrefered = new ArrayList<>();
+    private List<CheckBox> selectedRelations = new ArrayList<>();
 
     /**
      * Initializes the controller class.
@@ -126,6 +143,7 @@ public class EditProfileViewController implements Initializable {
     
     @FXML
     private void checkPlaces(KeyEvent event) {
+        cityField.getStyleClass().remove("error");
         addresses.clear();
         addresses.addAll(GooglePlacesAPI.autoCompleteAddress(cityField.getText()));
         provider.clearSuggestions();
@@ -143,9 +161,51 @@ public class EditProfileViewController implements Initializable {
     
     public void setDialog(Stage dialog){
         this.dialog = dialog;
+        dialog.initStyle(StageStyle.TRANSPARENT);
+        dialog.getScene().setFill(Color.TRANSPARENT);
     }
     
     private void populateFields(){
+        for(Enumerations.MaritalStatus status : Enumerations.MaritalStatus.values()){
+            CheckBox box = new CheckBox(status.name());
+            box.setId(status.ordinal()+"");
+            if(member.getPreferedStatuses().contains(status)){
+                box.setSelected(true);
+                selectedPrefered.add(box);
+            }
+            box.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    CheckBox cb = (CheckBox)event.getTarget();
+                    if(cb.isSelected())
+                        selectedPrefered.add(cb);
+                    else
+                        selectedPrefered.remove(cb);
+                }
+            });
+            prefStatusBox.getChildren().add(box);
+        }
+        
+        for(Enumerations.RelationType type : Enumerations.RelationType.values()){
+            CheckBox box = new CheckBox(type.name());
+            box.setId(type.ordinal()+"");
+            if(member.getPreferedRelations().contains(type)){
+                box.setSelected(true);
+                selectedRelations.add(box);
+            }
+            box.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    CheckBox cb = (CheckBox)event.getTarget();
+                    if(cb.isSelected())
+                        selectedRelations.add(cb);
+                    else
+                        selectedRelations.remove(cb);
+                }
+            });
+            prefRelationsBox.getChildren().add(box);
+        }
+        
         firstNameField.setText(member.getFirstname());
         lastnameField.setText(member.getLastname());
         cityField.setText(member.getAddress().getCity());
@@ -169,6 +229,41 @@ public class EditProfileViewController implements Initializable {
     @FXML
     private void update(ActionEvent event) {
         try {
+            if(firstNameField.getText().isEmpty()){
+                activateError(firstNameField, "Firstname");
+                return;
+            }else if(lastnameField.getText().isEmpty()){
+                activateError(lastnameField, "Lastname");
+                return;
+            }else if(birthdayPicker.getValue() == null){
+                activateError(birthdayPicker, "Birthdate");
+                return;
+            }else if(heightFiled.getText().isEmpty()){
+                activateError(heightFiled, "Height");
+                return;
+            }else if(cityField.getText().isEmpty()){
+                activateError(cityField, "Address");
+                return;
+            }else if(childNumberFiled.getText().isEmpty()){
+                activateError(childNumberFiled, "Number of children");
+                return;
+            }else if(selectedRelations.size() == 0){
+                Alert alert = new Alert(Alert.AlertType.ERROR, "At least one prefered relation type needs to be selected!", ButtonType.OK);
+                alert.show();
+                return;
+            }else if(selectedPrefered.size() == 0){
+                Alert alert = new Alert(Alert.AlertType.ERROR, "At least one prefered marital status needs to be selected!", ButtonType.OK);
+                alert.show();
+                return;
+            }
+            member.getPreferedStatuses().clear();
+            for(CheckBox box : selectedPrefered){
+                member.getPreferedStatuses().add(Enumerations.MaritalStatus.values()[Integer.parseInt(box.getId())]);
+            }
+            member.getPreferedRelations().clear();
+            for(CheckBox box: selectedRelations){
+                member.getPreferedRelations().add(Enumerations.RelationType.values()[Integer.parseInt(box.getId())]);
+            }
             member.setFirstname(firstNameField.getText());
             member.setLastname(lastnameField.getText());
             if(maleRadio.isSelected()) member.setGender(true); else member.setGender(false);
@@ -186,8 +281,30 @@ public class EditProfileViewController implements Initializable {
             controller.updateMemberInfo();
             dialog.close();
         } catch (SQLException ex) {
-            util.Logger.writeLog(ex, EditProfileViewController.class.getName(), "Connection à la base de donnée impossible");
+            util.Logger.writeLog(ex, EditProfileViewController.class.getName(), "Connexion to database failed");
         }
+    }
+    
+    private void activateError(Node field, String fieldName){
+        field.getStyleClass().add("error");
+        Alert alert = new Alert(Alert.AlertType.ERROR, fieldName+" can't be emply!", ButtonType.OK);
+        alert.show();
+    }
+
+    @FXML
+    private void close(MouseEvent event) {
+        dialog.close();
+    }
+
+    @FXML
+    private void removeError(KeyEvent event) {
+        ((Node)event.getTarget()).getStyleClass().remove("error");
+    }
+
+    @FXML
+    private void removeDateError(ActionEvent event) {
+        if(birthdayPicker.getValue()!=null)
+            ((Node)event.getTarget()).getStyleClass().remove("error");
     }
     
 }

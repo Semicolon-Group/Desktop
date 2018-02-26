@@ -27,7 +27,7 @@
                            </children></AnchorPane>
                      <AnchorPane id="notification_panes_container" fx:id="navBar" prefHeight="48.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                         <children>
-                              <AnchorPane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <AnchorPane fx:id="supportPane" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
                                     <AnchorPane fx:id="notificationPane" prefHeight="0.0" prefWidth="413.0" styleClass="notification_container, notificationClickable" visible="false" AnchorPane.rightAnchor="176.0" AnchorPane.topAnchor="54.0">
                                        <children>
@@ -147,7 +147,7 @@
                                              </VBox>
                                              <VBox id="message_icon_box" alignment="CENTER" layoutX="636.0" layoutY="10.0" onMouseEntered="#hover" onMouseExited="#exit" prefHeight="48.0" prefWidth="70.0" styleClass="nav_bar_icon_box">
                                                 <children>
-                                                   <ImageView id="message_icon" fx:id="messageIcon" fitHeight="24.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                                   <ImageView id="message_icon" fx:id="messageIcon" fitHeight="24.0" fitWidth="200.0" onMouseClicked="#onMessageIconClick" pickOnBounds="true" preserveRatio="true">
                                                       <image>
                                                          <Image url="@assets/icons/natural/message.png" />
                                                       </image>
@@ -181,7 +181,7 @@
                                           <children>
                                              <ImageView fitHeight="48.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                                 <image>
-                                                   <Image url="@assets/icons/logo/logo.png" />
+                                                   <Image url="@assets/icons/logo.png" />
                                                 </image>
                                              </ImageView>
                                           </children>

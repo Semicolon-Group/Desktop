@@ -1,0 +1,1 @@
+copy "mysoulmateuploads" under "www" of wamp's folder (or equivalent in other servers)

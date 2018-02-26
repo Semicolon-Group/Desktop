@@ -39,10 +39,8 @@ public class ChoiceService extends Service implements Create<Choice>, Read<Choic
     public Choice get(Choice obj) throws SQLException {
         String req = "SELECT * FROM `choice` WHERE id = " + obj.getId();
 	ResultSet rs = CONNECTION.createStatement().executeQuery(req);
-	if(rs.next()){
-            return new Choice(rs.getInt("id"), rs.getInt("question_id"), rs.getString("choice"));
-        }
-	return null;
+	rs.next();
+	return new Choice(rs.getInt("id"), rs.getInt("question_id"), rs.getString("choice"));
     }
 
     @Override

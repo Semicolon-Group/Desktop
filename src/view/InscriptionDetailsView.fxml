@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="638.0" prefWidth="701.0" style="-fx-background-color: #cce6f4;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.InscriptionDetailsViewController">
+   <children>
+      <ComboBox fx:id="bodyBox" layoutX="150.0" layoutY="198.0" prefHeight="25.0" prefWidth="150.0" style="-fx-border-color: #38388D; -fx-background-color: white;" />
+      <ComboBox fx:id="religionBox" layoutX="150.0" layoutY="252.0" prefWidth="150.0" style="-fx-background-color: white; -fx-border-color: #38388D;" />
+      <RadioButton fx:id="Smoker" layoutX="513.0" layoutY="104.0" mnemonicParsing="false" text="Yes">
+         <toggleGroup>
+            <ToggleGroup fx:id="smoking" />
+         </toggleGroup></RadioButton>
+      <RadioButton fx:id="Nsmoker" layoutX="594.0" layoutY="104.0" mnemonicParsing="false" selected="true" text="No" toggleGroup="$smoking" />
+      <RadioButton fx:id="Drinker" layoutX="512.0" layoutY="150.0" mnemonicParsing="false" text="Yes">
+         <toggleGroup>
+            <ToggleGroup fx:id="drink" />
+         </toggleGroup></RadioButton>
+      <RadioButton fx:id="Ndrinker" layoutX="594.0" layoutY="150.0" mnemonicParsing="false" selected="true" text="No" toggleGroup="$drink" />
+      <ComboBox fx:id="importanceBox" layoutX="150.0" layoutY="306.0" prefWidth="150.0" style="-fx-background-color: white; -fx-border-color: #38388D;" />
+      <Label layoutX="388.0" layoutY="104.0" prefHeight="17.0" prefWidth="60.0" text="Smoker" />
+      <Label layoutX="387.0" layoutY="150.0" prefHeight="17.0" prefWidth="60.0" text="Drinker" />
+      <ComboBox fx:id="relationBox" layoutX="150.0" layoutY="472.0" prefHeight="27.0" prefWidth="150.0" style="-fx-background-color: white; -fx-border-color: #38388D;" />
+      <ComboBox fx:id="proximityBox" layoutX="150.0" layoutY="419.0" prefHeight="27.0" prefWidth="150.0" style="-fx-background-color: white; -fx-border-color: #38388D;" />
+      <Button fx:id="confirmer" layoutX="594.0" layoutY="575.0" mnemonicParsing="false" onAction="#AjouterMembre" style="-fx-background-color: white; -fx-border-color: #38388D;" text="Confirmer" />
+      <Button fx:id="back" layoutX="505.0" layoutY="575.0" mnemonicParsing="false" onAction="#returnIns" prefHeight="25.0" prefWidth="54.0" style="-fx-background-color: white; -fx-border-color: #38388D;" text="Back" />
+      <Label fx:id="heightLabel" layoutX="81.0" layoutY="162.0" prefHeight="17.0" prefWidth="98.0" textFill="#fb0808" visible="false" />
+      <Label fx:id="bodyLabel" layoutX="78.0" layoutY="220.0" prefHeight="17.0" prefWidth="106.0" textFill="#fb0808" visible="false" />
+      <Label fx:id="religionLabel" layoutX="81.0" layoutY="274.0" prefHeight="17.0" prefWidth="106.0" text="Label" textFill="#fb0808" visible="false" />
+      <Label fx:id="importanceLabel" layoutX="82.0" layoutY="328.0" prefHeight="17.0" prefWidth="106.0" textFill="#fb0808" visible="false" />
+      <Label fx:id="maritalLabel" layoutX="80.0" layoutY="395.0" prefHeight="17.0" prefWidth="98.0" text="Label" textFill="#fb0808" visible="false" />
+      <Label fx:id="childrenLabel" layoutX="407.0" layoutY="128.0" prefHeight="17.0" prefWidth="98.0" text="Label" textFill="#fb0808" visible="false" />
+      <Label fx:id="minLabel" layoutX="406.0" layoutY="194.0" prefHeight="17.0" prefWidth="89.0" text="Label" textFill="#fb0808" visible="false" />
+      <Label fx:id="maxLabel" layoutX="406.0" layoutY="257.0" prefHeight="17.0" prefWidth="106.0" text="Label" textFill="#fb0808" visible="false" />
+      <Label fx:id="relationLabel" layoutX="82.0" layoutY="517.0" prefHeight="17.0" prefWidth="106.0" text="Label" textFill="#fb0808" visible="false" />
+      <Label fx:id="proximityLabel" layoutX="81.0" layoutY="455.0" prefHeight="17.0" prefWidth="98.0" text="Label" textFill="#fb0808" visible="false" />
+      <JFXTextField fx:id="country" layoutX="146.0" layoutY="91.0" prefHeight="25.0" prefWidth="71.0" promptText="Country" />
+      <JFXTextField fx:id="childrenNum" layoutX="512.0" layoutY="199.0" />
+      <JFXTextField fx:id="minAge" layoutX="512.0" layoutY="307.0" />
+      <JFXTextField fx:id="maxAge" layoutX="512.0" layoutY="253.0" />
+      <Label fx:id="addressLabel" layoutX="85.0" layoutY="120.0" prefHeight="17.0" prefWidth="98.0" text="Label" textFill="#fb0808" visible="false" />
+      <JFXTextField fx:id="height" layoutX="143.0" layoutY="133.0" prefHeight="25.0" prefWidth="158.0" />
+      <ImageView fitHeight="75.0" fitWidth="200.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="15.0">
+         <image>
+            <Image url="@images/logo.png" />
+         </image>
+      </ImageView>
+      <ComboBox fx:id="statusBox" layoutX="150.0" layoutY="364.0" prefWidth="150.0" style="-fx-background-color: white; -fx-border-color: #38388D;" />
+      <Label layoutX="17.0" layoutY="203.0" prefHeight="17.0" prefWidth="98.0" text="Body type">
+         <padding>
+            <Insets left="10.0" />
+         </padding></Label>
+      <Label layoutX="16.0" layoutY="257.0" prefHeight="17.0" prefWidth="89.0" text="Religion">
+         <padding>
+            <Insets left="10.0" />
+         </padding></Label>
+      <Label layoutX="26.0" layoutY="311.0" prefHeight="17.0" prefWidth="113.0" text="Religion importance" />
+      <Label layoutX="26.0" layoutY="540.0" prefHeight="17.0" prefWidth="106.0" text="Prefered status" />
+      <Label layoutX="26.0" layoutY="424.0" prefHeight="17.0" prefWidth="113.0" text="Prefered Proximity" />
+      <Label layoutX="25.0" layoutY="477.0" prefHeight="17.0" prefWidth="106.0" text="Prefered Relation" />
+      <Label layoutX="29.0" layoutY="369.0" prefHeight="17.0" prefWidth="98.0" text="Marital Status" />
+      <Label layoutX="16.0" layoutY="104.0" prefHeight="17.0" prefWidth="89.0" text="Address">
+         <padding>
+            <Insets left="10.0" right="10.0" />
+         </padding></Label>
+      <Label layoutX="16.0" layoutY="150.0" prefHeight="17.0" prefWidth="63.0" text="Height">
+         <padding>
+            <Insets left="10.0" />
+         </padding></Label>
+      <Label layoutX="381.0" layoutY="212.0" prefHeight="17.0" prefWidth="106.0" text="Children Number" />
+      <Label layoutX="385.0" layoutY="325.0" prefHeight="17.0" prefWidth="106.0" text="Prefered Max_age" />
+      <Label layoutX="381.0" layoutY="271.0" prefHeight="17.0" prefWidth="106.0" text="Prefered Min_age" />
+      <JFXTextArea fx:id="about" layoutX="386.0" layoutY="397.0" prefHeight="48.0" prefWidth="284.0" promptText="About you !" />
+      <JFXTextField fx:id="city" layoutX="226.0" layoutY="89.0" prefHeight="27.0" prefWidth="71.0" promptText="City" />
+      <RadioButton fx:id="SingleBtn" layoutX="136.0" layoutY="540.0" mnemonicParsing="false" selected="true" text="Single">
+         <toggleGroup>
+            <ToggleGroup fx:id="maritalGroup" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="marriedBtn" layoutX="231.0" layoutY="540.0" mnemonicParsing="false" text="Married" toggleGroup="$maritalGroup" />
+      <RadioButton fx:id="widowerBtn" layoutX="135.0" layoutY="580.0" mnemonicParsing="false" text="Widower" toggleGroup="$maritalGroup" />
+      <RadioButton fx:id="divorcedBtn" layoutX="231.0" layoutY="580.0" mnemonicParsing="false" text="Divorced" toggleGroup="$maritalGroup" />
+   </children>
+</AnchorPane>

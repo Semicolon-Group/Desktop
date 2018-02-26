@@ -1,0 +1,72 @@
+
+
+#button {
+
+    -fx-background-color :   #e74c3c ; 
+    -fx-border-color : #e74c3c ; 
+    -fx-border-width : 0.5 ;
+    -fx-text-fill : #fff ; 
+    -fx-border-radius : 30 30 30 30 ;
+    -fx-background-radius : 30 30 30 30 ;
+
+}
+
+.typing {
+
+
+
+    -fx-text-fill:  #e74c3c ;
+    -fx-background-color :  #fff ; 
+    -fx-border-color : #e74c3c; 
+    -fx-border-width : 0.5 ;
+    -fx-font-size : 20 px ; 
+    -fx-border-radius : 30 30 30 30 ; 
+    -fx-background-radius : 30 30 30 30 ;
+}
+
+.recu {
+
+
+    -fx-background-color :   #e74c3c ; 
+    -fx-border-color : white ; 
+    -fx-border-width : 0.5 ;
+    -fx-text-fill : #fff ; 
+    -fx-border-radius : 30 30 30 30 ;
+    -fx-background-radius : 30 30 30 30 ;
+    -fx-font-size : 20px ; 
+}
+
+#button:hover {
+    -fx-text-fill:  #e74c3c ;
+    -fx-background-color :  #fff ; 
+    -fx-border-color : #e74c3c; 
+    -fx-border-width : 0.5 ;
+
+    /* -fx-webkit-transform: scale(1, 1);
+     -fx-ms-transform: scale(1, 1);
+     -fx-transform: scale(1, 1);*/
+
+}
+#bg 
+{
+    -fx-background-color : #fff ;
+    -fx-border-color :  #e74c3c ; 
+
+    -fx-border-width : 5 ; 
+    -fx-border-radius : 10 10 10 10 ; 
+    -fx-background-radius : 30 30 30 30 ;
+}
+#close:pressed {
+
+    -fx-border-color : blue; 
+
+
+}
+#msg {    
+    -fx-background-color : #fff ;
+    -fx-border-color :  #e74c3c ; 
+    -fx-border-width : 2 ; 
+    -fx-border-radius : 3 3 3 3 ; 
+    -fx-background-radius : 3 3 3 3 ;
+
+}

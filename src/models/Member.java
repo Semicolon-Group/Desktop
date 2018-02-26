@@ -7,14 +7,16 @@ package models;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import models.Enumerations.BodyType;
 import models.Enumerations.Importance;
 import models.Enumerations.MaritalStatus;
-import models.Enumerations.Proximity;
-import models.Enumerations.Religion;
 import models.Enumerations.RelationType;
+import util.TimeDiff;
 
 /**
  *
@@ -26,13 +28,13 @@ public class Member extends User{
     private float height;
     private BodyType bodyType;
     private int childrenNumber;
-    private Religion religion;
+    private Enumerations.Religion religion;
     private Importance religionImportance;
     private boolean smoker;
     private boolean drinker;
     private int minAge;
     private int maxAge;
-    private Proximity proximity;
+    private int phone;
     private Timestamp lastLogin;
     private short locked;
     private Address address;
@@ -47,16 +49,79 @@ public class Member extends User{
         preferedRelations = new ArrayList<>();
         preferedStatuses = new ArrayList<>();
     }
-    
+
+    public Member(String pseudo, String email) {
+        super(pseudo, email);
+    }
+  
     public Member(int id){
         super(id);
         preferedRelations = new ArrayList<>();
         preferedStatuses = new ArrayList<>();
     }
 
-    public Member(int id, Date birthDate, boolean gender, float height, BodyType bodyType, int childrenNumber, Religion religion, 
+    public Member(Date birthDate, boolean gender, float height, BodyType bodyType, int childrenNumber, Enumerations.Religion religion, Importance religionImportance, boolean smoker, boolean drinker, int minAge, int maxAge, int phone, Address address, List<RelationType> preferedRelations, String about, String pseudo, String firstname, String lastname, String email, String password) {
+        super(pseudo, firstname, lastname, email, password);
+        this.birthDate = birthDate;
+        this.gender = gender;
+        this.height = height;
+        this.bodyType = bodyType;
+        this.childrenNumber = childrenNumber;
+        this.religion = religion;
+        this.religionImportance = religionImportance;
+        this.smoker = smoker;
+        this.drinker = drinker;
+        this.minAge = minAge;
+        this.maxAge = maxAge;
+        this.phone = phone;
+        this.address = address;
+        this.preferedRelations = preferedRelations;
+        this.about = about;
+    }
+
+    public Member(Date birthDate, boolean gender, float height, BodyType bodyType, int childrenNumber, Enumerations.Religion religion, Importance religionImportance, boolean smoker, boolean drinker, int minAge, int maxAge, int phone, Address address, List<RelationType> preferedRelations, String pseudo, String firstname, String lastname, String email, String password) {
+        super(pseudo, firstname, lastname, email, password);
+        this.birthDate = birthDate;
+        this.gender = gender;
+        this.height = height;
+        this.bodyType = bodyType;
+        this.childrenNumber = childrenNumber;
+        this.religion = religion;
+        this.religionImportance = religionImportance;
+        this.smoker = smoker;
+        this.drinker = drinker;
+        this.minAge = minAge;
+        this.maxAge = maxAge;
+        this.phone = phone;
+        this.address = address;
+        this.preferedRelations = preferedRelations;
+    }
+    
+
+    public Member(Date birthDate, boolean gender, float height, BodyType bodyType, int childrenNumber, Enumerations.Religion religion, Importance religionImportance, boolean smoker, boolean drinker, int minAge, int maxAge, int phone, Address address, List<RelationType> preferedRelations, List<MaritalStatus> preferedStatuses, String about, String pseudo, String firstname, String lastname, String email, String password) {
+        super(pseudo, firstname, lastname, email, password);
+        this.birthDate = birthDate;
+        this.gender = gender;
+        this.height = height;
+        this.bodyType = bodyType;
+        this.childrenNumber = childrenNumber;
+        this.religion = religion;
+        this.religionImportance = religionImportance;
+        this.smoker = smoker;
+        this.drinker = drinker;
+        this.minAge = minAge;
+        this.maxAge = maxAge;
+        this.phone = phone;
+        this.address = address;
+        this.preferedRelations = preferedRelations;
+        this.preferedStatuses = preferedStatuses;
+        this.about = about;
+    }
+    
+  
+    public Member(int id, Date birthDate, boolean gender, float height, BodyType bodyType, int childrenNumber, Enumerations.Religion religion, 
             Importance religionImportance, boolean smoker, boolean drinker, int minAge, int maxAge, 
-            Proximity proximity, Timestamp lastLogin, short locked, Address address, String pseudo, 
+            int phone, Timestamp lastLogin, short locked, Address address, String pseudo, 
             String firstname, String lastname, String email, String password, String ip, int port, String about, 
             MaritalStatus maritalStatus, boolean connected, Timestamp createdAt) {
 	super(id, pseudo, firstname, lastname, email, password, ip, port);
@@ -71,7 +136,7 @@ public class Member extends User{
 	this.drinker = drinker;
 	this.minAge = minAge;
 	this.maxAge = maxAge;
-	this.proximity = proximity;
+	this.phone = phone;
 	this.lastLogin = lastLogin;
 	this.locked = locked;
 	this.address = address;
@@ -82,9 +147,9 @@ public class Member extends User{
 	this.preferedRelations = new ArrayList<RelationType>();
 	this.preferedStatuses = new ArrayList<MaritalStatus>();
     }
-
-    public Member(Date birthDate, boolean gender, float height, BodyType bodyType, int childrenNumber, Religion religion, 
-            Importance religionImportance, boolean smoker, boolean drinker, int minAge, int maxAge, Proximity proximity, 
+  
+    public Member(Date birthDate, boolean gender, float height, BodyType bodyType, int childrenNumber, Enumerations.Religion religion, 
+            Importance religionImportance, boolean smoker, boolean drinker, int minAge, int maxAge, int phone, 
             Timestamp lastLogin, short locked, Address address, String pseudo, String firstname, String lastname, String email, 
             String password, String ip, int port, String about, MaritalStatus maritalStatus, boolean connected,
             Timestamp createdAt) {
@@ -100,7 +165,7 @@ public class Member extends User{
 	this.drinker = drinker;
 	this.minAge = minAge;
 	this.maxAge = maxAge;
-	this.proximity = proximity;
+	this.phone = phone;
 	this.lastLogin = lastLogin;
 	this.locked = locked;
 	this.address = address;
@@ -111,7 +176,7 @@ public class Member extends User{
 	this.preferedRelations = new ArrayList<RelationType>();
 	this.preferedStatuses = new ArrayList<MaritalStatus>();
     }
-
+      
     public Timestamp getCreatedAt() {
         return createdAt;
     }
@@ -119,7 +184,7 @@ public class Member extends User{
     public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
     }
-
+    
     public MaritalStatus getMaritalStatus() {
         return maritalStatus;
     }
@@ -184,11 +249,11 @@ public class Member extends User{
 	this.childrenNumber = childrenNumber;
     }
 
-    public Religion getReligion() {
+    public Enumerations.Religion getReligion() {
 	return religion;
     }
 
-    public void setReligion(Religion religion) {
+    public void setReligion(Enumerations.Religion religion) {
 	this.religion = religion;
     }
 
@@ -232,12 +297,12 @@ public class Member extends User{
 	this.maxAge = maxAge;
     }
 
-    public Proximity getProximity() {
-	return proximity;
+    public int getPhone() {
+	return phone;
     }
 
-    public void setProximity(Proximity proximity) {
-	this.proximity = proximity;
+    public void setPhone(int phone) {
+	this.phone = phone;
     }
 
     public Timestamp getLastLogin() {
@@ -268,13 +333,67 @@ public class Member extends User{
         return preferedRelations;
     }
 
+    public void setPreferedRelations(List<RelationType> preferedRelations) {
+        this.preferedRelations = preferedRelations;
+    }
+
     public List<MaritalStatus> getPreferedStatuses() {
         return preferedStatuses;
     }
 
+    public void setPreferedStatuses(List<MaritalStatus> preferedStatuses) {
+        this.preferedStatuses = preferedStatuses;
+    }
+        
     @Override
     public String toString() {
-	return super.toString() + "Member{" + "birthDate=" + birthDate + ", gender=" + gender + ", height=" + height + ", bodyType=" + bodyType + ", childrenNumber=" + childrenNumber + ", religion=" + religion + ", religionImportance=" + religionImportance + ", smoker=" + smoker + ", drinker=" + drinker + ", minAge=" + minAge + ", maxAge=" + maxAge + ", proximity=" + proximity + ", lastLogin=" + lastLogin + ", locked=" + locked + ", address=" + address + ", preferedRelations=" + preferedRelations + ", preferedStatuses=" + preferedStatuses + '}';
+	return super.toString() + "Member{" + "birthDate=" + birthDate + ", gender=" + gender + ", height=" + height + ", bodyType=" + bodyType + ", childrenNumber=" + childrenNumber + ", religion=" + religion + ", religionImportance=" + religionImportance + ", smoker=" + smoker + ", drinker=" + drinker + ", minAge=" + minAge + ", maxAge=" + maxAge + ", phone=" + phone + ", lastLogin=" + lastLogin + ", locked=" + locked + ", address=" + address + ", preferedRelations=" + preferedRelations + ", preferedStatuses=" + preferedStatuses + "}\n";
+    }
+
+    public int getAge() {
+        return TimeDiff.getInstance(new Timestamp(birthDate.getTime()), new Timestamp(new java.util.Date().getTime())).getYears();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + (this.gender ? 1 : 0);
+        hash = 97 * hash + Float.floatToIntBits(this.height);
+        hash = 97 * hash + Objects.hashCode(this.bodyType);
+        hash = 97 * hash + this.childrenNumber;
+        hash = 97 * hash + Objects.hashCode(this.religion);
+        hash = 97 * hash + Objects.hashCode(this.createdAt);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Member other = (Member) obj;
+        if (this.gender != other.gender) {
+            return false;
+        }
+        if (Float.floatToIntBits(this.height) != Float.floatToIntBits(other.height)) {
+            return false;
+        }
+        if (this.childrenNumber != other.childrenNumber) {
+            return false;
+        }
+        if (this.bodyType != other.bodyType) {
+            return false;
+        }
+        if (!Objects.equals(this.createdAt, other.createdAt)) {
+            return false;
+        }
+        return true;
     }
     
 }

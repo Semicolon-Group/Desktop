@@ -49,16 +49,24 @@ public class Enumerations {
     public enum ReactionType{
 	LIKE,
 	SUPER_LIKE,
-	LAUGH
+	LAUGH,
+        SMILE,
+        LOVE,
+        SCOWL
     }
     public enum SignalReason{
 	CONTENU_INAPPROPRIE,
-	RACISME
+	RACISME,
+        Violence,
+        Harcélement,
+        Faux_Profil,
+        Autre
+        
     }
     public enum Proximity{
 	PROCHE,
 	DISTANT,
-	BOTH
+	PARTOUT
     }
     public enum LockedType{
 	ENABLED,
@@ -81,9 +89,21 @@ public class Enumerations {
     }
     public enum Topic{
 	RELIGION,
-	SEX,
+	Relation,
 	CULTURE,
 	SPORT,
-	GENERAL
+	GENERAL,
+        Mandatory,
+    }
+    public enum PhotoType{
+        REGULAR,
+        PROFILE,
+        COVER
+    }
+    public enum LastLogin{
+        UN_JOUR,
+        SEMAINE,
+        MOIS,
+        ANNEE
     }
 }

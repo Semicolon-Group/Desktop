@@ -10,6 +10,7 @@ package models;
  * @author Elyes
  */
 public abstract class User {
+
     private int id;
     private String pseudo;
     private String firstname;
@@ -21,99 +22,114 @@ public abstract class User {
 
     public User() {
     }
+
+    public User(String pseudo, String firstname, String lastname, String email, String password) {
+        this.pseudo = pseudo;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.password = password;
+    }
+    
     
     public User(int id){
         this.id = id;
     }
 
     public User(int id, String pseudo, String firstname, String lastname, String email, String password, String ip, int port) {
-	this.id = id;
-	this.pseudo = pseudo;
-	this.firstname = firstname;
-	this.lastname = lastname;
-	this.email = email;
-	this.password = password;
-	this.ip = ip;
-	this.port = port;
+        this.id = id;
+        this.pseudo = pseudo;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.password = password;
+        this.ip = ip;
+        this.port = port;
     }
 
     public User(String pseudo, String firstname, String lastname, String email, String password, String ip, int port) {
-	this.pseudo = pseudo;
-	this.firstname = firstname;
-	this.lastname = lastname;
-	this.email = email;
-	this.password = password;
-	this.ip = ip;
-	this.port = port;
+        this.pseudo = pseudo;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.password = password;
+        this.ip = ip;
+        this.port = port;
+    }
+
+    public User(String pseudo, String password) {
+        this.pseudo = pseudo;
+        this.password = password;
+
     }
 
     public String getIp() {
-	return ip;
+        return ip;
     }
 
     public void setIp(String ip) {
-	this.ip = ip;
+        this.ip = ip;
     }
 
     public int getPort() {
-	return port;
+        return port;
     }
 
     public void setPort(int port) {
-	this.port = port;
+        this.port = port;
     }
 
     public int getId() {
-	return id;
+        return id;
     }
 
     public void setId(int id) {
-	this.id = id;
+        this.id = id;
     }
 
     public String getPseudo() {
-	return pseudo;
+        return pseudo;
     }
 
     public void setPseudo(String pseudo) {
-	this.pseudo = pseudo;
+        this.pseudo = pseudo;
     }
 
     public String getFirstname() {
-	return firstname;
+        return firstname;
     }
 
     public void setFirstname(String firstname) {
-	this.firstname = firstname;
+        this.firstname = firstname;
     }
 
     public String getLastname() {
-	return lastname;
+        return lastname;
     }
 
     public void setLastname(String lastname) {
-	this.lastname = lastname;
+        this.lastname = lastname;
     }
 
     public String getEmail() {
-	return email;
+        return email;
     }
 
     public void setEmail(String email) {
-	this.email = email;
+        this.email = email;
     }
 
     public String getPassword() {
-	return password;
+        return password;
     }
 
     public void setPassword(String password) {
-	this.password = password;
+        this.password = password;
     }
 
     @Override
     public String toString() {
-	return "User{" + "id=" + id + ", pseudo=" + pseudo + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email + ", password=" + password + ", ip=" + ip + ", port=" + port + '}';
+        return "User{" + "id=" + id + ", pseudo=" + pseudo + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email + ", password=" + password + ", ip=" + ip + ", port=" + port + '}';
     }
     
 }

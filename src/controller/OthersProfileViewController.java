@@ -46,13 +46,16 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import models.Address;
 import models.Answer;
 import models.Block;
 import models.Enumerations;
+import models.Enumerations.PhotoType;
 import models.Like;
 import models.Member;
 import models.Photo;
 import models.Signal;
+import services.AddressService;
 import services.AnswerService;
 import services.BlockService;
 import services.LikeService;
@@ -81,8 +84,6 @@ public class OthersProfileViewController implements Initializable {
     private Label ageLabel;
     @FXML
     private Label addressLabel;
-    @FXML
-    private Label matchPercentageLabel;
     @FXML
     private Label genderLabel;
     @FXML
@@ -131,6 +132,12 @@ public class OthersProfileViewController implements Initializable {
     private VBox answersVBox;
     @FXML
     private VBox likesVBox;
+    @FXML
+    private Button meetButton;
+    @FXML
+    private Label prefRelationsLabel;
+    @FXML
+    private Label prefStatusLabel;
 
     /**
      * Initializes the controller class.
@@ -165,11 +172,10 @@ public class OthersProfileViewController implements Initializable {
         try {
             answersVBox.getChildren().clear();
             List<Answer> answers = AnswerService.getInstance().getAll(new Answer(0, null, null, userId));
-            for(Answer answer: answers){
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AnswerView.fxml"));
+            for(Answer answer : answers){
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/OthersAnswerView.fxml"));
                 AnchorPane pane = loader.load();
-                ((AnswerViewController)loader.getController()).setEditable(false);
-                ((AnswerViewController)loader.getController()).setAnswer(answer);
+                ((OthersAnswerViewController)loader.getController()).setAnswer(answer);
                 answersVBox.getChildren().add(pane);
             }
         } catch (SQLException ex) {
@@ -184,10 +190,12 @@ public class OthersProfileViewController implements Initializable {
             if(LikeService.getInstance().get(new Like(MySoulMate.MEMBER_ID, userId, null))!=null){
                 likeButton.setVisible(false);
                 dislikeButton.setVisible(true);
+                meetButton.setVisible(true);
                 messageButton.setVisible(true);
             }else{
                 likeButton.setVisible(true);
                 dislikeButton.setVisible(false);
+                meetButton.setVisible(false);
                 messageButton.setVisible(false);
             }
         } catch (SQLException ex) {
@@ -213,7 +221,7 @@ public class OthersProfileViewController implements Initializable {
     private void populatePhotosPane(){
         photosVBox.getChildren().clear();
         try {
-            List<Photo> photos = PhotoService.getInstance().getAll(new Photo(0, userId, null, null));
+            List<Photo> photos = PhotoService.getInstance().getAll(new Photo(userId));
             
             for(Photo photo:photos){
                 HBox hBox = new HBox();
@@ -234,7 +242,7 @@ public class OthersProfileViewController implements Initializable {
     
     private void showImage(MouseEvent event){
         try {
-            Image image = ((ImageView)event.getTarget()).getImage();
+            ImageView image = ((ImageView)event.getTarget());
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ImageView.fxml"));
             Pane newLoadedPane =  loader.load();
             ((ImageViewController)loader.getController()).setImage(image);
@@ -253,19 +261,31 @@ public class OthersProfileViewController implements Initializable {
             String age = ""+((new Date()).getYear()-member.getBirthDate().getYear());
             ageLabel.setText(age);
             addressLabel.setText(member.getAddress().getCity()+", "+member.getAddress().getCountry());
-            genderLabel.setText(member.isGender()?"Homme":"Femme");
+            genderLabel.setText(member.isGender()?"Male":"Female");
             bdLabel.setText(new SimpleDateFormat("dd MMMM yyyy", Locale.FRANCE).format(member.getBirthDate()));
             heightLabel.setText(member.getHeight()+"");
             bodyTypeLabel.setText(member.getBodyType().name().substring(0, 1) + member.getBodyType().name().substring(1).toLowerCase());
-            smokerLabel.setText(member.isSmoker()?"Oui":"Non");
-            drinkerLabel.setText(member.isDrinker()?"Oui":"Non");
+            smokerLabel.setText(member.isSmoker()?"Yes":"No");
+            drinkerLabel.setText(member.isDrinker()?"Yes":"No");
             religionLabel.setText(member.getReligion().name().substring(0, 1) + member.getReligion().name().substring(1).toLowerCase());
             childNumLabel.setText(member.getChildrenNumber()+"");
             aboutText.setText(member.getAbout());
             civilStatusLabel.setText(member.getMaritalStatus().name().substring(0, 1) + member.getMaritalStatus().name().substring(1).toLowerCase());
             createdAtLabel.setText(new SimpleDateFormat("dd MMMM yyyy", Locale.FRANCE).format(member.getCreatedAt()));
+            String relationsString = "";
+            for(Enumerations.RelationType type : member.getPreferedRelations()){
+                relationsString+=type.name().toLowerCase()+", ";
+            }
+            prefRelationsLabel.setText(relationsString.isEmpty()?relationsString:relationsString.substring(0, relationsString.length()-2));
+            String statusesString = "";
+            for(Enumerations.MaritalStatus status : member.getPreferedStatuses()){
+                statusesString+=status.name().toLowerCase()+", ";
+            }
+            prefStatusLabel.setText(statusesString.isEmpty()?statusesString:statusesString.substring(0, statusesString.length() -2));
+            
+            
         } catch (SQLException ex) {
-            util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), "Probleme de connéction à la base de donnée");
+            util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), "Connection de database failed");
         }catch (Exception ex){
             util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), null);
         }
@@ -277,12 +297,12 @@ public class OthersProfileViewController implements Initializable {
             profileImage.setClip(imageClip);
             Circle contenairClip = new Circle(profileImgPane.getLayoutX()+(profileImgPane.getPrefWidth()/2), profileImgPane.getLayoutY()+(profileImgPane.getPrefHeight()/2), 145);
             profileImgPane.setClip(contenairClip);
-            List<Photo> photos = PhotoService.getInstance().getAll(new Photo(0, userId, null, null));
+            Photo photo = PhotoService.getInstance().get(new Photo(0, userId, null, null, PhotoType.PROFILE));
             String photoPath ="";
-            if(photos.isEmpty()){
+            if(photo == null){
                 photoPath = "/view/assets/icons/member.jpg";
             }else{
-                photoPath = MySoulMate.UPLOAD_URL+photos.get(0).getUrl();
+                photoPath = MySoulMate.UPLOAD_URL+photo.getUrl();
             }
             profileImage.setImage(new Image(photoPath));
         } catch (SQLException ex) {
@@ -293,12 +313,12 @@ public class OthersProfileViewController implements Initializable {
     private void makeCoverPicture(){
         try {
             coverImage.fitWidthProperty().bind(coverContainer.widthProperty());
-            List<Photo> photos = PhotoService.getInstance().getAll(new Photo(0, userId, null, null));
+            Photo photo = PhotoService.getInstance().get(new Photo(0, userId, null, null, PhotoType.COVER));
             String photoPath ="";
-            if(photos.size()<=1){
+            if(photo== null){
                 photoPath = "/view/assets/img/banner.jpg";
             }else{
-                photoPath = MySoulMate.UPLOAD_URL+photos.get(1).getUrl();
+                photoPath = MySoulMate.UPLOAD_URL+photo.getUrl();
             }
             coverImage.setImage(new Image(photoPath));
         } catch (SQLException ex) {
@@ -349,7 +369,7 @@ public class OthersProfileViewController implements Initializable {
 
     @FXML
     private void showBlockAlert(MouseEvent event) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Étes-vous sûr de vouloire bloquer cette personne?", ButtonType.YES, ButtonType.CANCEL);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to block this person?", ButtonType.YES, ButtonType.CANCEL);
         alert.showAndWait().ifPresent(response -> {
             hideSideMenu();
             if(response == ButtonType.YES){
@@ -372,12 +392,12 @@ public class OthersProfileViewController implements Initializable {
     @FXML
     private void showSignalAlert(MouseEvent event) {
         ChoiceDialog<Enumerations.SignalReason> dialog = new ChoiceDialog<>(Enumerations.SignalReason.values()[0], Enumerations.SignalReason.values());
-        dialog.setTitle("Signaler cette personne");
-        dialog.setContentText("Sélectionner la raison de signale: ");
+        dialog.setTitle("Report");
+        dialog.setContentText("Select the reason of the report");
         dialog.showAndWait().ifPresent(reason -> {
             try {
                 SignalService.getInstance().create(new Signal(MySoulMate.MEMBER_ID, userId, reason, false, null));
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Voulez-vous bloquer cette personne?", ButtonType.YES, ButtonType.NO);
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to block this person?", ButtonType.YES, ButtonType.NO);
                 alert.showAndWait().ifPresent(response -> {
                     hideSideMenu();
                     if(response == ButtonType.YES){
@@ -388,5 +408,49 @@ public class OthersProfileViewController implements Initializable {
                 util.Logger.writeLog(ex, OthersProfileViewController.class.getName(), null);
             }
         });
+    }
+    
+    @FXML
+    private void showSug(ActionEvent event) {
+        try {
+            FXMLLoader loader = GlobalViewController.getInstance().setMainContent("/view/RecommandationView.fxml");
+            Address selfAddress = AddressService.getInstance().get(new Address(MySoulMate.MEMBER_ID));
+            Address othersAddress = AddressService.getInstance().get(new Address(userId));
+            Address centerAddress = new Address(
+                    (selfAddress.getLongitude()+othersAddress.getLongitude())/2, 
+                    (selfAddress.getLatitude()+othersAddress.getLatitude())/2, 
+                    "", "");
+            ((RecommandationViewController)loader.getController()).setAddress(centerAddress, userId);
+        }catch (SQLException ex) {
+            Logger.getLogger(OthersProfileViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void showCoverPic(MouseEvent event) {
+        try {
+            ImageView image = ((ImageView)event.getTarget());
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ImageView.fxml"));
+            Pane newLoadedPane =  loader.load();
+            ((ImageViewController)loader.getController()).setImage(image);
+            ((ImageViewController)loader.getController()).setParentAnchorPane(mainAnchorPane);
+            mainAnchorPane.getChildren().add(newLoadedPane);
+        } catch (IOException ex) {
+            util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), null);
+        }
+    }
+
+    @FXML
+    private void showProfilePic(MouseEvent event) {
+        try {
+            ImageView image = ((ImageView)event.getTarget());
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ImageView.fxml"));
+            Pane newLoadedPane =  loader.load();
+            ((ImageViewController)loader.getController()).setImage(image);
+            ((ImageViewController)loader.getController()).setParentAnchorPane(mainAnchorPane);
+            mainAnchorPane.getChildren().add(newLoadedPane);
+        } catch (IOException ex) {
+            util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), null);
+        }
     }
 }

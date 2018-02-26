@@ -67,13 +67,11 @@ public class BlockService extends Service implements Create<Block>,Delete<Block>
         String query = "select * from user_block where sender_id = " + obj.getSenderId() + " and receiver_id = "
                 + obj.getReceiverId();
         ResultSet rs = CONNECTION.createStatement().executeQuery(query);
-        if(rs.next()){
-            obj.setSenderId(rs.getInt("sender_id"));
-            obj.setReceiverId(rs.getInt("receiver_id"));
-            obj.setDate(rs.getTimestamp("date"));
-            return obj;
-        }
-        return null;
+        rs.next();
+        obj.setSenderId(rs.getInt("sender_id"));
+        obj.setReceiverId(rs.getInt("receiver_id"));
+        obj.setDate(rs.getTimestamp("date"));
+        return obj;
     }
 
     @Override

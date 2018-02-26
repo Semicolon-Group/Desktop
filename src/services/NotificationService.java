@@ -39,7 +39,7 @@ public class NotificationService extends Service implements Create<Notification>
 
     @Override
     public Notification create(Notification obj) throws SQLException {
-	String query = "INSERT INTO `notification`(`content`, `date`, `icon`, `sender_id`, `receiver_id`, `photo_id`, `answer_id`, `type`, `seen`) VALUES (?,?,?,?,?,?,?,?,?)";
+	String query = "INSERT INTO `notification`(`content`, `date`, `icon`, `sender_id`, `receiver_id`, `photo_id`, `post_id`, `type`, `seen`) VALUES (?,?,?,?,?,?,?,?,?)";
 	PreparedStatement preparedStatement = CONNECTION.prepareStatement(query);
 
 	preparedStatement.setString(1, obj.getContent());
@@ -48,7 +48,7 @@ public class NotificationService extends Service implements Create<Notification>
 	preparedStatement.setInt(4, obj.getSenderId());
 	preparedStatement.setInt(5, obj.getReceiverId());
 	preparedStatement.setInt(6, obj.getPhotoId());
-	preparedStatement.setInt(7, obj.getAnswerId());
+	preparedStatement.setInt(7, obj.getPostId());
 	preparedStatement.setInt(8, obj.getType().ordinal());
 	preparedStatement.setBoolean(9, false);
 	preparedStatement.executeUpdate();
@@ -76,13 +76,14 @@ public class NotificationService extends Service implements Create<Notification>
             obj.setSenderId(rs.getInt("sender_id"));
             obj.setReceiverId(rs.getInt("receiver_id"));
             obj.setPhotoId(rs.getInt("photo_id"));
-            obj.setAnswerId(rs.getInt("answer_id"));
+            obj.setPostId(rs.getInt("post_id"));
             obj.setType(Enumerations.NotificationType.values()[rs.getInt("type")]);
             obj.setSeen(rs.getBoolean("seen"));
             return obj;
         }
 	return null;
     }
+ 
 
     @Override
     public List<Notification> getAll(Notification obj) throws SQLException {
@@ -98,11 +99,12 @@ public class NotificationService extends Service implements Create<Notification>
 	    ntf.setSenderId(rs.getInt("sender_id"));
 	    ntf.setReceiverId(rs.getInt("receiver_id"));
 	    ntf.setPhotoId(rs.getInt("photo_id"));
-	    ntf.setAnswerId(rs.getInt("answer_id"));
+	    ntf.setPostId(rs.getInt("post_id"));
 	    ntf.setType(Enumerations.NotificationType.values()[rs.getInt("type")]);
 	    ntf.setSeen(rs.getBoolean("seen"));
 	    ntfs.add(ntf);
 	}
+        ntfs.sort((a,b)->b.getDate().compareTo(a.getDate()));
 	return ntfs;
 
     }

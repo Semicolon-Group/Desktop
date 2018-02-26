@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="197.0" prefWidth="460.0" style="-fx-background-color: white; -fx-border-color: #E5E5E5; -fx-border-radius: 8 8 8 8; -fx-background-radius: 8 8 8 8;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.StatusWritingViewController">
+   <children>
+      <HBox maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="138.0" prefWidth="438.0" spacing="5.0" style="-fx-background-color: white;">
+         <children>
+            <ImageView fx:id="photo" fitWidth="60.0" onMouseClicked="#onPhotoClick" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@assets/img/obama.jpg" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <TextArea fx:id="text" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="128.0" prefWidth="374.0" promptText="Share your thoughts ..." stylesheets="@style/textAreaStyle.css" wrapText="true">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextArea>
+         </children>
+      </HBox>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="1.0" stroke="#e5e5e5" strokeType="INSIDE" width="438.0" />
+      <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" prefWidth="438.0" style="-fx-background-color: white;">
+         <children>
+            <Button fx:id="postButton" mnemonicParsing="false" onMouseClicked="#postButtonClicked" prefHeight="25.0" prefWidth="59.0" style="-fx-background-color: #365899;" text="Post" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+         </children>
+         <padding>
+            <Insets bottom="1.0" />
+         </padding>
+      </HBox>
+   </children>
+   <padding>
+      <Insets bottom="10.0" left="10.0" top="10.0" />
+   </padding>
+</VBox>

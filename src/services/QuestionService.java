@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.TreeSet;
 import models.Choice;
 import models.Enumerations.Topic;
 import models.Question;
@@ -55,7 +56,14 @@ public class QuestionService extends Service implements Create<Question>, Delete
 	
 	return obj;
     }
+   
+     public void deleteq(int id) throws SQLException{
+        String query = "delete from question where id= " + id;
+        CONNECTION.createStatement().executeUpdate(query);
 
+            }
+            
+            
     @Override
     public void delete(Question obj) throws SQLException {
 	String query = "delete from question where id= " + obj.getId();
@@ -105,4 +113,9 @@ public class QuestionService extends Service implements Create<Question>, Delete
 	}
 	return qsts;
     }
+    
+   
+ 
+    
+    
 }

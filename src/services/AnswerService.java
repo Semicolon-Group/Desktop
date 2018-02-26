@@ -69,17 +69,15 @@ public class AnswerService extends Service implements Create<Answer>,Delete<Answ
     public Answer get(Answer obj) throws SQLException {
         String query = "select * from answer where id = " + obj.getId();
         ResultSet rs = CONNECTION.createStatement().executeQuery(query);
-        if(rs.next()){
-            obj.setId(rs.getInt("id"));
-            obj.setImportance(Enumerations.Importance.values()[rs.getInt("importance")]);
-            obj.setMemberId(rs.getInt("user_id"));
-            obj.setQuestionId(rs.getInt("question_id"));
-
-            getAcceptedChoices(obj);
-            getSelectedChoices(obj);
-            return obj;
-        }
-        return null;
+        rs.next();
+        obj.setId(rs.getInt("id"));
+        obj.setImportance(Enumerations.Importance.values()[rs.getInt("importance")]);
+        obj.setMemberId(rs.getInt("user_id"));
+        obj.setQuestionId(rs.getInt("question_id"));
+        
+        getAcceptedChoices(obj);
+        getSelectedChoices(obj);
+        return obj;
     }
 
     @Override
