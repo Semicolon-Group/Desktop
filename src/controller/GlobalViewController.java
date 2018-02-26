@@ -158,6 +158,7 @@ public class GlobalViewController implements Initializable {
         conversationPane.visibleProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue){
                 conversationPane.setPrefHeight(600);
+                setContent("/view/ConversationView.fxml", conversationContent);
                 messageIcon.getStyleClass().remove(messageIcon.getStyleClass().size()-1);
                 activeIcon(messageIcon, "message");
                 return;
@@ -296,6 +297,7 @@ public class GlobalViewController implements Initializable {
 
     @FXML
     private void onMessageIconClick(MouseEvent event) {
-        setContent("/view/InstantMessagingView.fxml", content);
+        FXMLLoader loader = setContent("/view/InstantMessagingView.fxml", content);
+        ((InstantMessagingViewController)loader.getController()).setReceiverId(2);
     }
 }

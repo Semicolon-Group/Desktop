@@ -18,7 +18,7 @@
    <children>
       <HBox fx:id="profileImgPane" layoutX="439.0" layoutY="80.0" prefHeight="88.0" prefWidth="108.0" style="-fx-border-radius: 30 30 30 30;" AnchorPane.topAnchor="79.0">
          <children>
-            <ImageView fx:id="profileImage" fitHeight="88.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="profileImage" fitHeight="88.0" fitWidth="107.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../view/assets/soul-1.png" />
                </image>
@@ -28,15 +28,10 @@
             </ImageView>
          </children>
       </HBox>
-      <Label id="recu" fx:id="nom" alignment="CENTER" contentDisplay="CENTER" layoutX="547.0" layoutY="80.0" prefHeight="17.0" prefWidth="150.0" AnchorPane.topAnchor="80.0">
-         <font>
-            <Font size="17.0" />
-         </font></Label>
-      <Label id="recu" fx:id="status" alignment="CENTER" contentDisplay="CENTER" layoutX="547.0" layoutY="124.0" prefHeight="25.0" prefWidth="150.0" AnchorPane.topAnchor="124.0">
-         <font>
-            <Font size="17.0" />
-         </font></Label>
-      <Label fx:id="typing" alignment="CENTER" contentDisplay="CENTER" layoutX="439.0" layoutY="168.0" prefHeight="26.0" prefWidth="108.0" AnchorPane.topAnchor="168.0" />
+      <Label id="nom" fx:id="nom" layoutX="555.0" layoutY="100.0" prefHeight="17.0" prefWidth="150.0" AnchorPane.topAnchor="100.0" />
+      <Label fx:id="age" layoutX="555.0" layoutY="138.0" prefHeight="17.0" prefWidth="150.0" AnchorPane.topAnchor="138.0" />
+      <Label fx:id="status" layoutX="555.0" layoutY="119.0" prefHeight="17.0" prefWidth="150.0" AnchorPane.topAnchor="119.0" />
+      <Label fx:id="typing" layoutX="439.0" layoutY="168.0" prefHeight="26.0" prefWidth="108.0" AnchorPane.topAnchor="168.0" />
       <ScrollPane id="msg" fx:id="convs" hbarPolicy="NEVER" layoutX="110.0" layoutY="146.0" prefHeight="391.0" prefWidth="230.0" AnchorPane.bottomAnchor="98.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="200.0">
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -47,13 +42,6 @@
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
-         <content>
-            <VBox fx:id="cons" prefHeight="486.0" prefWidth="212.0">
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-            </VBox>
-         </content>
       </ScrollPane>
       <ScrollPane id="msg" fitToHeight="true" focusTraversable="false" hbarPolicy="NEVER" layoutX="277.0" layoutY="136.0" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" onDragDetected="#goReceive" vvalue="1.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="200.0" fx:id="x">
          <content>

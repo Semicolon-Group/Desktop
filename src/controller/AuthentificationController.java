@@ -60,6 +60,8 @@ public class AuthentificationController implements Initializable {
     private ImageView fb_btn;
     @FXML
     private Label recover;
+    @FXML
+    private Button buttonAdmin;
 
     /**
      * Initializes the controller class.
@@ -75,17 +77,17 @@ public class AuthentificationController implements Initializable {
         MemberService memberService = MemberService.getInstance();
         if (username.getText().isEmpty()) {
             Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Empty username");
-            alert.setHeaderText("Username ");
-            alert.setContentText("No username was inserted");
+            alert.setTitle("Veuillez insérer votre Pseudo");
+            alert.setHeaderText("Veuillez insérer votre Pseudo ");
+            alert.setContentText("Veuillez insérer votre Pseudo");
 
             alert.showAndWait();
 
         } else if (pw.getText().isEmpty()) {
             Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Empty password");
-            alert.setHeaderText(" Password ");
-            alert.setContentText("No Password was inserted");
+            alert.setTitle("Veuillez insérer votre Mot de passe ");
+            alert.setHeaderText("Veuillez insérer votre Mot de passe ");
+            alert.setContentText("Veuillez insérer votre Mot de passe ");
 
             alert.showAndWait();
         } else {
@@ -101,16 +103,34 @@ public class AuthentificationController implements Initializable {
 
                 if (m != null) {
                     if (m.getPseudo().equals(username.getText()) && m.getPassword().equals(pw.getText())) {
+                        if (m.getLocked() == 0) {
+                            m.setConnected(true);
+                            memberService.update(m);
+                            MySoulMate.MEMBER_ID = m.getId();
+                            MySoulMate.getInstance().ChangeToHomeScene();
+                        } else if (m.getLocked() == 1) {
+                            Alert alert = new Alert(AlertType.ERROR);
+                            alert.setTitle("Bloqué");
+                            alert.setHeaderText("Vous etes bloqué ! ");
+                            alert.setContentText(" Vous etes bloqué . \n Vous ne pouvez pas accéder à MySoulMate .");
 
-                        MySoulMate.MEMBER_ID = m.getId();
-                        MySoulMate.getInstance().ChangeToHomeScene();
+                            alert.showAndWait();
+                        } else if (m.getLocked() == 2) {
+                            Alert alert = new Alert(AlertType.ERROR);
+                            alert.setTitle("Compte supprimé");
+                            alert.setHeaderText("Compte supprimé ");
+                            alert.setContentText(" Compte supprimé");
+
+                            alert.showAndWait();
+
+                        }
 
                     } else {
                         Alert alert = new Alert(AlertType.ERROR);
 
-                        alert.setTitle("Wrong password !");
-                        alert.setHeaderText(" Wrong password ! ");
-                        alert.setContentText(" Wrong password !");
+                        alert.setTitle("Mot de passe eronné !");
+                        alert.setHeaderText("Mot de passe eronné ! ");
+                        alert.setContentText(" Mot de passe eronné !");
 
                         alert.showAndWait();
 
@@ -120,9 +140,9 @@ public class AuthentificationController implements Initializable {
 
                     Alert alert = new Alert(AlertType.ERROR);
 
-                    alert.setTitle("This member doesn't exist!");
-                    alert.setHeaderText(" This member doesn't exist! ");
-                    alert.setContentText(" This member doesn't exist!");
+                    alert.setTitle("Erreur ");
+                    alert.setHeaderText(" Ce membre n'existe pas ! ");
+                    alert.setContentText(" Ce membre n'existe pas ! ");
 
                     alert.showAndWait();
                 }
@@ -170,13 +190,32 @@ public class AuthentificationController implements Initializable {
                 try {
                     m = memberService.get(m);
                     if (m != null) {
-                        MySoulMate.getInstance().ChangeToHomeScene();
-//                        button.getScene().setRoot(FXMLLoader.load(getClass().getResource("/view/GlobalView.fxml")));
+                        if (m.getLocked() == 0) {
+                            m.setConnected(true);
+                            memberService.update(m);
+                            MySoulMate.MEMBER_ID = m.getId();
+                            MySoulMate.getInstance().ChangeToHomeScene();
+                        } else if (m.getLocked() == 1) {
+                            Alert alert = new Alert(AlertType.ERROR);
+                            alert.setTitle("Bloqué");
+                            alert.setHeaderText("Vous etes bloqué ! ");
+                            alert.setContentText(" Vous etes bloqué . \n Vous ne pouvez pas accéder à MySoulMate .");
+
+                            alert.showAndWait();
+                        } else if (m.getLocked() == 2) {
+                            Alert alert = new Alert(AlertType.ERROR);
+                            alert.setTitle("Compte supprimé");
+                            alert.setHeaderText("Compte supprimé ");
+                            alert.setContentText(" Compte supprimé");
+
+                            alert.showAndWait();
+
+                        }
                     } else {
                         Alert alert = new Alert(AlertType.ERROR);
-                        alert.setTitle("Not registred");
-                        alert.setHeaderText("Error ");
-                        alert.setContentText("No user is registred with such account");
+                        alert.setTitle("Erreur  ");
+                        alert.setHeaderText("Ce membre n'existe pas ! ");
+                        alert.setContentText("Ce membre n'existe pas ! ");
 
                         alert.showAndWait();
                     }
@@ -199,6 +238,23 @@ public class AuthentificationController implements Initializable {
     @FXML
     private void goRecover1(MouseEvent event) throws IOException {
         Parent globalPane = FXMLLoader.load(getClass().getResource("/view/RecoveryView.fxml"));
+        Scene scene = new Scene(globalPane);
+        mainStage.setScene(scene);
+        mainStage.show();
+    }
+
+    @FXML
+    private void goAdmin(ActionEvent event) throws IOException {
+
+        Parent globalPane = FXMLLoader.load(getClass().getResource("/view/StatistiquesView.fxml"));
+        Scene scene = new Scene(globalPane);
+        mainStage.setScene(scene);
+        mainStage.show();
+    }
+
+    @FXML
+    private void goInscri(MouseEvent event) throws IOException {
+        Parent globalPane = FXMLLoader.load(getClass().getResource("/view/InsView.fxml"));
         Scene scene = new Scene(globalPane);
         mainStage.setScene(scene);
         mainStage.show();

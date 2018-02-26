@@ -32,26 +32,29 @@
          <children>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="87.0" prefWidth="861.0" style="-fx-alignment: center; -fx-font-size: 30; -fx-font-family: Ubuntu; -fx-font-weight: bold;" text="User Login" textFill="#1a0101" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="87.0" prefWidth="861.0" style="-fx-alignment: center; -fx-font-size: 30; -fx-font-family: Ubuntu; -fx-font-weight: bold;" text="Login Membre" textFill="#1a0101" />
                </children>
             </HBox>
             <HBox prefHeight="161.0" prefWidth="855.0">
                <children>
                   <VBox prefHeight="100.0" prefWidth="857.0">
                      <children>
-                        <JFXTextField fx:id="username" alignment="CENTER" focusColor="#e74c3c" maxWidth="860.0" minWidth="676.0" prefHeight="82.0" prefWidth="857.0" promptText="Pseudo">
+                        <JFXTextField fx:id="username" focusColor="#e74c3c" maxWidth="860.0" minWidth="676.0" prefHeight="82.0" prefWidth="857.0" promptText="Pseudo">
                            <font>
                               <Font size="25.0" />
                            </font>
                         </JFXTextField>
-                        <JFXPasswordField fx:id="pw" focusColor="#e74c3c" maxWidth="857.0" minWidth="676.0" prefHeight="80.0" prefWidth="857.0" />
+                        <JFXPasswordField fx:id="pw" focusColor="#e74c3c" maxWidth="857.0" minWidth="676.0" prefHeight="80.0" prefWidth="857.0" promptText="Mot de passe">
+                           <font>
+                              <Font size="25.0" />
+                           </font></JFXPasswordField>
                      </children>
                   </VBox>
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label fx:id="recover" accessibleRole="BUTTON" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="8.0" onMouseClicked="#goRecover1" prefHeight="61.0" prefWidth="855.0" text="Forgot Password ? Click Here ." textFill="#1a0101">
+                  <Label fx:id="recover" accessibleRole="BUTTON" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="8.0" onMouseClicked="#goRecover1" prefHeight="61.0" prefWidth="855.0" text="Mot de passe oublié ? Cliquez içi." textFill="#1a0101">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -61,9 +64,9 @@
                   </Label>
                </children>
             </HBox>
-            <HBox prefHeight="82.0" prefWidth="620.0">
+            <HBox prefHeight="82.0" prefWidth="555.0">
                <children>
-                  <Button id="button" fx:id="button" defaultButton="true" mnemonicParsing="false" onAction="#goAuthentification" prefHeight="54.0" prefWidth="236.0" style="-fx-font-family: Ubuntu; -fx-border-width: 5; -fx-font-size: 16; -fx-font-weight: bold; -fx-border-radius: 30 30 30 30; -fx-background-radius: 30 30 30 30;" text="Login" textAlignment="CENTER">
+                  <Button id="buttonlogin" fx:id="button" defaultButton="true" mnemonicParsing="false" onAction="#goAuthentification" prefHeight="54.0" prefWidth="236.0" style="-fx-font-family: Ubuntu; -fx-border-width: 5; -fx-font-size: 16; -fx-font-weight: bold; -fx-border-radius: 30 30 30 30; -fx-background-radius: 30 30 30 30;" text="Login" textAlignment="CENTER">
                      <HBox.margin>
                         <Insets left="30.0" />
                      </HBox.margin>
@@ -82,25 +85,14 @@
                         <Insets left="30.0" />
                      </HBox.margin>
                   </ImageView>
-                  <ImageView fitHeight="59.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../view/assets/Webp.net-resizeimage.png" />
-                     </image>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <HBox.margin>
-                        <Insets left="30.0" />
-                     </HBox.margin>
-                  </ImageView>
                </children>
                <VBox.margin>
-                  <Insets left="190.0" right="100.0" />
+                  <Insets left="240.0" right="100.0" />
                </VBox.margin>
             </HBox>
             <HBox prefHeight="89.0" prefWidth="855.0">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="55.0" prefWidth="855.0" text="Not yet a member ? Register Here ." textFill="#1a0101">
+                  <Label alignment="CENTER" contentDisplay="CENTER" onMouseClicked="#goInscri" prefHeight="55.0" prefWidth="855.0" text="Pas encore membre ? Cliquez içi." textFill="#1a0101">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -112,5 +104,10 @@
             </HBox>
          </children>
       </VBox>
+      <Button id="buttonlogin" fx:id="buttonAdmin" defaultButton="true" layoutX="1038.0" layoutY="532.0" mnemonicParsing="false" onAction="#goAdmin" prefHeight="47.0" prefWidth="172.0" style="-fx-font-family: Ubuntu; -fx-border-width: 5; -fx-font-size: 16; -fx-font-weight: bold; -fx-border-radius: 30 30 30 30; -fx-background-radius: 30 30 30 30;" text="Login Admin" textAlignment="CENTER" AnchorPane.bottomAnchor="35.0" AnchorPane.rightAnchor="35.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
    </children>
 </AnchorPane>

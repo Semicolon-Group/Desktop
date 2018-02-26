@@ -311,4 +311,30 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
         }
         return mmbrs;
     }
+
+    public ResultSet getStats() throws SQLException {
+        PreparedStatement stat = CONNECTION.prepareStatement("select concat(MONTH(created_at)) as created from user");
+        return stat.executeQuery();
+    }
+
+    public ResultSet getGender() throws SQLException {
+        PreparedStatement stat = CONNECTION.prepareStatement("select gender as sex from user");
+        return stat.executeQuery();
+    }
+
+    public ResultSet getLike() throws SQLException {
+        PreparedStatement stat = CONNECTION.prepareStatement("select concat(MONTH(date)) as created1 from user_like");
+        return stat.executeQuery();
+    }
+
+    public ResultSet getBlock() throws SQLException {
+        PreparedStatement stat = CONNECTION.prepareStatement("select concat(MONTH(date)) as created2 from user_block");
+        return stat.executeQuery();
+    }
+
+    public ResultSet getSignal() throws SQLException {
+        PreparedStatement stat = CONNECTION.prepareStatement("select concat(MONTH(date)) as created3 from user_signal");
+        return stat.executeQuery();
+    }
+
 }

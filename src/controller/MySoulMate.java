@@ -41,9 +41,9 @@ public class MySoulMate extends Application {
         mainStage = primaryStage;
         Parent globalPane = FXMLLoader.load(getClass().getResource("/view/Authentification.fxml"));
         Scene scene = new Scene(globalPane);
-            mainStage.setResizable(false);
+//            mainStage.setResizable(false);
         mainStage.setScene(scene);
-        mainStage.initStyle(StageStyle.UNDECORATED);
+        mainStage.initStyle(StageStyle.DECORATED);
         mainStage.show();
     }
     
@@ -64,7 +64,10 @@ public class MySoulMate extends Application {
         } catch (IOException ex) {
             util.Logger.writeLog(ex, GlobalViewController.class.getCanonicalName(), null);
         }
-    }
+    }       
+    
+    
+        
 
     /**
      * @param args the command line arguments
