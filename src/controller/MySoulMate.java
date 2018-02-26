@@ -76,6 +76,25 @@ public class MySoulMate extends Application {
             util.Logger.writeLog(ex, GlobalViewController.class.getCanonicalName(), null);
         }
     }
+    
+    public void ChangeToAdminHomeScene(){
+        try {
+            Parent globalPane = FXMLLoader.load(getClass().getResource("/view/AdminGlobalView.fxml"));
+            Scene scene = new Scene(globalPane);
+            mainStage.setScene(scene);
+
+            javafx.geometry.Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+            mainStage.setX(primaryScreenBounds.getMinX());
+            mainStage.setY(primaryScreenBounds.getMinY());
+            mainStage.setWidth(primaryScreenBounds.getWidth());
+            mainStage.setHeight(primaryScreenBounds.getHeight());
+
+            mainStage.setResizable(false);
+            
+        } catch (IOException ex) {
+            util.Logger.writeLog(ex, GlobalViewController.class.getCanonicalName(), null);
+        }
+    }
 
     /**
      * @param args the command line arguments
