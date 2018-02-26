@@ -23,11 +23,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.AnchorPane;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -43,6 +45,7 @@ import models.Enumerations.Proximity;
 import models.Enumerations.RelationType;
 import models.Enumerations.Religion;
 import models.Member;
+import models.SendSms;
 import services.MemberService;
 import util.SendMail;
 
@@ -127,20 +130,21 @@ public class InscriptionDetailsViewController implements Initializable {
     @FXML
     private ComboBox<String> statusBox;
     ObservableList<String> statusList = FXCollections.observableArrayList();
+    private ToggleGroup maritalGroup;
+    @FXML
+    private CheckBox marriedBtn;
+    @FXML
+    private CheckBox widowerBtn;
+    @FXML
+    private CheckBox divorcedBtn;
+    @FXML
+    private CheckBox SingleBtn;
+    @FXML
+    private AnchorPane anchor;
     @FXML
     private JFXTextField country;
     @FXML
     private JFXTextField city;
-    @FXML
-    private RadioButton singleBtn;
-    @FXML
-    private ToggleGroup maritalGroup;
-    @FXML
-    private RadioButton marriedBtn;
-    @FXML
-    private RadioButton widowerBtn;
-    @FXML
-    private RadioButton divorcedBtn;
     
 
     /**
@@ -274,7 +278,7 @@ public class InscriptionDetailsViewController implements Initializable {
             
             if(!valid) return;
             
-            m.setAddress(new Address(0, 0, "Tunisie", "Ariana"));
+            m.setAddress(new Address(0, 0, country.getText(), city.getText()));
             m.setChildrenNumber(Integer.parseInt(childrenNum.getText()));
             m.setMinAge(Integer.parseInt(minAge.getText()));
             m.setMaxAge(Integer.parseInt(maxAge.getText()));
@@ -289,16 +293,14 @@ public class InscriptionDetailsViewController implements Initializable {
             m.setDrinker(Drinker.isSelected());
             m.setSmoker(Smoker.isSelected());
             m.setAbout(about.getText());
-           
+            
             
             //TODO
             
           MemberService.getInstance().create(m);
-          SendMail sm = new SendMail(m.getEmail(), "Email Inscription", "Bonjour " + m.getFirstname() + "Bienvenu à MySoulMate" );
-//            
-            
-            
-		
+          SendMail sm = new SendMail(m.getEmail(), " Confirmation d'inscription ", " Bonjour " + m.getFirstname() + " Vous etes maintenant inscrit à MySoulMate" );
+//          SendSms s=new  SendSms();
+//           String sendSms = s.sendSms();
             
         } catch (SQLException ex) {
             util.Logger.writeLog(ex, InscriptionDetailsViewController.class.getName(), null);
