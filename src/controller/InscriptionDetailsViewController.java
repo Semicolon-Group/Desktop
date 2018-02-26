@@ -12,6 +12,7 @@ import static controller.InsViewController.m;
 import static controller.MainAchref.container3;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.ResourceBundle;
@@ -20,6 +21,7 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -30,6 +32,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -38,6 +41,7 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import models.Address;
+import models.Enumerations;
 import models.Enumerations.BodyType;
 import models.Enumerations.Importance;
 import models.Enumerations.MaritalStatus;
@@ -45,7 +49,7 @@ import models.Enumerations.Proximity;
 import models.Enumerations.RelationType;
 import models.Enumerations.Religion;
 import models.Member;
-import models.SendSms;
+import util.SendSms;
 import services.MemberService;
 import util.SendMail;
 
@@ -69,8 +73,7 @@ public class InscriptionDetailsViewController implements Initializable {
     private ComboBox<String> importanceBox;
     ObservableList<String> importanceList = FXCollections.observableArrayList();
 
-    @FXML
-    private ComboBox<String> relationBox;
+//    private ComboBox<String> relationBox;
     ObservableList<String> relationList = FXCollections.observableArrayList();
 
     @FXML
@@ -132,19 +135,21 @@ public class InscriptionDetailsViewController implements Initializable {
     ObservableList<String> statusList = FXCollections.observableArrayList();
     private ToggleGroup maritalGroup;
     @FXML
-    private CheckBox marriedBtn;
-    @FXML
-    private CheckBox widowerBtn;
-    @FXML
-    private CheckBox divorcedBtn;
-    @FXML
-    private CheckBox SingleBtn;
-    @FXML
     private AnchorPane anchor;
     @FXML
     private JFXTextField country;
     @FXML
     private JFXTextField city;
+    @FXML
+    private VBox statusVBox;
+    
+    private List<CheckBox> statusesCheckBoxes = new ArrayList<>();
+    private List<CheckBox> relationsCheckBoxes = new ArrayList<>();
+    
+    @FXML
+    private VBox relationsVBox;
+    @FXML
+    private JFXTextField phoneText;
     
 
     /**
@@ -169,10 +174,10 @@ public class InscriptionDetailsViewController implements Initializable {
         importanceBox.setItems(importanceList);
 
 
-        for (RelationType t : RelationType.values()) {
-            relationList.add(t.toString());
-        }
-        relationBox.setItems(relationList);
+//        for (RelationType t : RelationType.values()) {
+//            relationList.add(t.toString());
+//        }
+//        relationBox.setItems(relationList);
 
         for (Proximity p : Proximity.values()) {
             proximityList.add(p.toString());
@@ -183,7 +188,37 @@ public class InscriptionDetailsViewController implements Initializable {
             statusList.add(mt.toString());
         }
         statusBox.setItems(statusList);
-
+        for(Enumerations.MaritalStatus maritalStatus : Enumerations.MaritalStatus.values()){
+            CheckBox cb = new CheckBox(maritalStatus.name());
+            cb.setId(maritalStatus.ordinal()+"");
+            cb.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    CheckBox b = (CheckBox)event.getTarget();
+                    if(b.isSelected())
+                        statusesCheckBoxes.add(b);
+                    else
+                        statusesCheckBoxes.remove(b);
+                }
+            });
+            statusVBox.getChildren().add(cb);
+        }
+        
+        for(RelationType type : RelationType.values()){
+            CheckBox cb = new CheckBox(type.name());
+            cb.setId(type.ordinal()+"");
+            cb.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    CheckBox c = (CheckBox) event.getTarget();
+                    if(c.isSelected())
+                        relationsCheckBoxes.add(c);
+                    else
+                        relationsCheckBoxes.remove(c);
+                }
+            });
+            relationsVBox.getChildren().add(cb);
+        }
     }
 
     public void setMember(Member member) {
@@ -201,6 +236,17 @@ public class InscriptionDetailsViewController implements Initializable {
 //            } else {
 //                addressLabel.setText("");
 //            }
+            if(statusesCheckBoxes.size() == 0){
+                //error message
+            }else{
+                
+            }
+            
+            if(relationsCheckBoxes.size() == 0){
+                
+            }else{
+                
+            }
             
             if (height.getText().equals("")) {
                 heightLabel.setText("Field is empty !");
@@ -258,13 +304,13 @@ public class InscriptionDetailsViewController implements Initializable {
                 importanceLabel.setText("");
             }
             
-            if (relationBox.getValue() == null) {
-                relationLabel.setText("Field is empty !");
-                relationLabel.setVisible(true);
-                valid = false;
-            } else {
-                relationLabel.setText("");
-            }
+//            if (relationBox.getValue() == null) {
+//                relationLabel.setText("Field is empty !");
+//                relationLabel.setVisible(true);
+//                valid = false;
+//            } else {
+//                relationLabel.setText("");
+//            }
             
             if (proximityBox.getValue() == null) {
                 proximityLabel.setText("Field is empty !");
@@ -287,20 +333,25 @@ public class InscriptionDetailsViewController implements Initializable {
             m.setReligion(Religion.valueOf(religionBox.getValue()));
             m.setReligionImportance(Importance.valueOf(importanceBox.getValue()));
             m.setProximity(Proximity.valueOf(proximityBox.getValue()));
-            m.getPreferedRelations().add(RelationType.valueOf(relationBox.getValue()));
-            m.setPreferedStatuses((List<MaritalStatus>) maritalGroup.getSelectedToggle().getUserData());
             m.setMaritalStatus(MaritalStatus.valueOf(statusBox.getValue()));
             m.setDrinker(Drinker.isSelected());
             m.setSmoker(Smoker.isSelected());
             m.setAbout(about.getText());
+            for(CheckBox cb : statusesCheckBoxes){
+                m.getPreferedStatuses().add(MaritalStatus.values()[Integer.parseInt(cb.getId())]);
+            }
+            for(CheckBox cb : relationsCheckBoxes){
+                m.getPreferedRelations().add(RelationType.values()[Integer.parseInt(cb.getId())]);
+            }
             
             
             //TODO
             
           MemberService.getInstance().create(m);
           SendMail sm = new SendMail(m.getEmail(), " Confirmation d'inscription ", " Bonjour " + m.getFirstname() + " Vous etes maintenant inscrit à MySoulMate" );
-//          SendSms s=new  SendSms();
-//           String sendSms = s.sendSms();
+          
+          SendSms s=new  SendSms();
+          s.sendSms("Inscription confirmée",phoneText.getText());
             
         } catch (SQLException ex) {
             util.Logger.writeLog(ex, InscriptionDetailsViewController.class.getName(), null);

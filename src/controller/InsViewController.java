@@ -186,6 +186,7 @@ public class InsViewController implements Initializable {
 
 
         FXMLLoader loader = container3.switchView("InscriptionDetailsView");
+        System.out.println(loader);
         ((InscriptionDetailsViewController)loader.getController()).setMember(m);
         
          

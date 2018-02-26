@@ -4,7 +4,6 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
@@ -12,9 +11,11 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="anchor" prefHeight="638.0" prefWidth="701.0" style="-fx-background-color: #cce6f4;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.InscriptionDetailsViewController">
+<AnchorPane id="AnchorPane" fx:id="anchor" prefHeight="750.0" prefWidth="701.0" style="-fx-background-color: #cce6f4;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.InscriptionDetailsViewController">
    <children>
       <ComboBox fx:id="bodyBox" layoutX="150.0" layoutY="198.0" prefHeight="25.0" prefWidth="150.0" style="-fx-border-color: #38388D; -fx-background-color: white;" />
       <ComboBox fx:id="religionBox" layoutX="150.0" layoutY="252.0" prefWidth="150.0" style="-fx-background-color: white; -fx-border-color: #38388D;" />
@@ -29,28 +30,27 @@
          </toggleGroup></RadioButton>
       <RadioButton fx:id="Ndrinker" layoutX="594.0" layoutY="150.0" mnemonicParsing="false" selected="true" text="No" toggleGroup="$drink" />
       <ComboBox fx:id="importanceBox" layoutX="150.0" layoutY="306.0" prefWidth="150.0" style="-fx-background-color: white; -fx-border-color: #38388D;" />
-      <Label layoutX="388.0" layoutY="104.0" prefHeight="17.0" prefWidth="60.0" text="Smoker">
-         <font>
-            <Font name="System Bold" size="11.0" />
-         </font></Label>
-      <Label layoutX="387.0" layoutY="150.0" prefHeight="17.0" prefWidth="60.0" text="Drinker">
+      <Label layoutX="377.0" layoutY="104.0" prefHeight="17.0" prefWidth="60.0" text="Smoker">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Label>
-      <ComboBox fx:id="relationBox" layoutX="150.0" layoutY="472.0" prefHeight="27.0" prefWidth="150.0" style="-fx-background-color: white; -fx-border-color: #38388D;" />
+      <Label layoutX="377.0" layoutY="150.0" prefHeight="17.0" prefWidth="60.0" text="Drinker">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
       <ComboBox fx:id="proximityBox" layoutX="150.0" layoutY="419.0" prefHeight="27.0" prefWidth="150.0" style="-fx-background-color: white; -fx-border-color: #38388D;" />
-      <Button fx:id="confirmer" layoutX="597.0" layoutY="589.0" mnemonicParsing="false" onAction="#AjouterMembre" style="-fx-background-color: white; -fx-border-color: #38388D;" text="Confirmer" />
-      <Button fx:id="back" layoutX="505.0" layoutY="589.0" mnemonicParsing="false" onAction="#returnIns" prefHeight="25.0" prefWidth="54.0" style="-fx-background-color: white; -fx-border-color: #38388D;" text="Back" />
-      <Label fx:id="heightLabel" layoutX="81.0" layoutY="162.0" prefHeight="17.0" prefWidth="98.0" textFill="#fb0808" visible="false" />
-      <Label fx:id="bodyLabel" layoutX="78.0" layoutY="220.0" prefHeight="17.0" prefWidth="106.0" textFill="#fb0808" visible="false" />
-      <Label fx:id="religionLabel" layoutX="81.0" layoutY="274.0" prefHeight="17.0" prefWidth="106.0" text="Label" textFill="#fb0808" visible="false" />
-      <Label fx:id="importanceLabel" layoutX="82.0" layoutY="328.0" prefHeight="17.0" prefWidth="106.0" textFill="#fb0808" visible="false" />
-      <Label fx:id="maritalLabel" layoutX="80.0" layoutY="395.0" prefHeight="17.0" prefWidth="98.0" text="Label" textFill="#fb0808" visible="false" />
-      <Label fx:id="childrenLabel" layoutX="407.0" layoutY="128.0" prefHeight="17.0" prefWidth="98.0" text="Label" textFill="#fb0808" visible="false" />
-      <Label fx:id="minLabel" layoutX="406.0" layoutY="194.0" prefHeight="17.0" prefWidth="89.0" text="Label" textFill="#fb0808" visible="false" />
-      <Label fx:id="maxLabel" layoutX="406.0" layoutY="257.0" prefHeight="17.0" prefWidth="106.0" text="Label" textFill="#fb0808" visible="false" />
-      <Label fx:id="relationLabel" layoutX="82.0" layoutY="517.0" prefHeight="17.0" prefWidth="106.0" text="Label" textFill="#fb0808" visible="false" />
-      <Label fx:id="proximityLabel" layoutX="81.0" layoutY="455.0" prefHeight="17.0" prefWidth="98.0" text="Label" textFill="#fb0808" visible="false" />
+      <Button fx:id="confirmer" layoutX="589.0" layoutY="681.0" mnemonicParsing="false" onAction="#AjouterMembre" style="-fx-background-color: white; -fx-border-color: #38388D;" text="Confirmer" />
+      <Button fx:id="back" layoutX="500.0" layoutY="681.0" mnemonicParsing="false" onAction="#returnIns" prefHeight="27.0" prefWidth="60.0" style="-fx-background-color: white; -fx-border-color: #38388D;" text="Back" />
+      <Label fx:id="heightLabel" layoutX="175.0" layoutY="162.0" prefHeight="17.0" prefWidth="106.0" textFill="#fb0808" visible="false" />
+      <Label fx:id="bodyLabel" layoutX="166.0" layoutY="230.0" prefHeight="17.0" prefWidth="120.0" textFill="#fb0808" visible="false" />
+      <Label fx:id="religionLabel" layoutX="170.0" layoutY="281.0" prefHeight="17.0" prefWidth="106.0" text="Label" textFill="#fb0808" visible="false" />
+      <Label fx:id="importanceLabel" layoutX="166.0" layoutY="337.0" prefHeight="17.0" prefWidth="106.0" textFill="#fb0808" visible="false" />
+      <Label fx:id="maritalLabel" layoutX="166.0" layoutY="395.0" prefHeight="17.0" prefWidth="127.0" text="Label" textFill="#fb0808" visible="false" />
+      <Label fx:id="childrenLabel" layoutX="531.0" layoutY="291.0" prefHeight="17.0" prefWidth="120.0" text="Label" textFill="#fb0808" visible="false" />
+      <Label fx:id="minLabel" layoutX="164.0" layoutY="127.0" prefHeight="6.0" prefWidth="113.0" text="Label" textFill="#fb0808" visible="false" />
+      <Label fx:id="maxLabel" layoutX="527.0" layoutY="236.0" prefHeight="17.0" prefWidth="113.0" text="Label" textFill="#fb0808" visible="false" />
+      <Label fx:id="relationLabel" layoutX="510.0" layoutY="348.0" prefHeight="0.0" prefWidth="135.0" text="Label" textFill="#fb0808" visible="false" />
+      <Label fx:id="proximityLabel" layoutX="152.0" layoutY="398.0" prefHeight="9.0" prefWidth="127.0" text="Label" textFill="#fb0808" visible="false" />
       <JFXTextField fx:id="country" layoutX="146.0" layoutY="91.0" prefHeight="25.0" prefWidth="71.0" promptText="Country" />
       <JFXTextField fx:id="childrenNum" layoutX="512.0" layoutY="199.0" />
       <JFXTextField fx:id="minAge" layoutX="512.0" layoutY="307.0" />
@@ -81,15 +81,10 @@
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Label>
-      <Label layoutX="26.0" layoutY="540.0" prefHeight="17.0" prefWidth="106.0" text="Prefered status">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font></Label>
       <Label layoutX="26.0" layoutY="424.0" prefHeight="17.0" prefWidth="113.0" text="Prefered Proximity">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Label>
-      <Label layoutX="25.0" layoutY="477.0" prefHeight="17.0" prefWidth="106.0" text="Prefered Relation" />
       <Label layoutX="29.0" layoutY="369.0" prefHeight="17.0" prefWidth="98.0" text="Marital Status">
          <font>
             <Font name="System Bold" size="12.0" />
@@ -125,9 +120,32 @@
             <Font name="System Bold" size="12.0" />
          </font></JFXTextArea>
       <JFXTextField fx:id="city" layoutX="226.0" layoutY="89.0" prefHeight="27.0" prefWidth="71.0" promptText="City" />
-      <CheckBox fx:id="SingleBtn" layoutX="143.0" layoutY="540.0" mnemonicParsing="false" text="Single" />
-      <CheckBox fx:id="marriedBtn" layoutX="216.0" layoutY="540.0" mnemonicParsing="false" text="Married" />
-      <CheckBox fx:id="widowerBtn" layoutX="142.0" layoutY="581.0" mnemonicParsing="false" text="Widower" />
-      <CheckBox fx:id="divorcedBtn" layoutX="217.0" layoutY="581.0" mnemonicParsing="false" text="Divorced" />
+      <HBox alignment="CENTER_RIGHT" layoutX="17.0" layoutY="567.0" prefHeight="128.0" prefWidth="335.0" spacing="20.0">
+         <children>
+            <Label prefHeight="94.0" prefWidth="106.0" text="Prefered Status">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+               <padding>
+                  <Insets bottom="70.0" />
+               </padding>
+            </Label>
+            <VBox fx:id="statusVBox" prefHeight="128.0" prefWidth="201.0" spacing="7.0" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" layoutX="27.0" layoutY="455.0" prefHeight="100.0" prefWidth="323.0" spacing="20.0">
+         <children>
+            <Label prefHeight="77.0" prefWidth="111.0" text="Prefered Relations">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+               <padding>
+                  <Insets bottom="60.0" />
+               </padding>
+            </Label>
+            <VBox fx:id="relationsVBox" prefHeight="100.0" prefWidth="205.0" spacing="7.0" />
+         </children>
+      </HBox>
+      <JFXTextField fx:id="phoneText" layoutX="389.0" layoutY="505.0" prefHeight="25.0" prefWidth="169.0" promptText="Enter your phone number" />
    </children>
 </AnchorPane>

@@ -52,7 +52,7 @@
       <JFXTextField fx:id="Firstname" layoutX="327.0" layoutY="166.0" prefHeight="25.0" prefWidth="178.0" promptText="First name" />
       <JFXTextField fx:id="Last_name" layoutX="327.0" layoutY="218.0" prefHeight="25.0" prefWidth="178.0" promptText="Last name" />
       <JFXTextField fx:id="pseudo" layoutX="327.0" layoutY="277.0" prefHeight="25.0" prefWidth="178.0" promptText="Pseudo" />
-      <JFXTextField fx:id="Email" layoutX="327.0" layoutY="341.0" prefHeight="25.0" prefWidth="178.0" promptText="Email" />
+      <JFXTextField fx:id="emailTextField" layoutX="327.0" layoutY="341.0" prefHeight="25.0" prefWidth="178.0" promptText="Email" />
       <JFXPasswordField fx:id="Password" layoutX="327.0" layoutY="400.0" prefHeight="25.0" prefWidth="178.0" promptText="Password" />
       <JFXPasswordField fx:id="Rpassword" layoutX="327.0" layoutY="463.0" prefHeight="25.0" prefWidth="178.0" promptText="Retype password" />
       <DatePicker fx:id="birth_date" cache="true" layoutX="328.0" layoutY="561.0" prefHeight="25.0" prefWidth="163.0" promptText="Birth_date" style="-fx-background-color: #545454;" />

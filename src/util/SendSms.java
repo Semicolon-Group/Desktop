@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package models;
+package util;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,13 +17,13 @@ import java.net.URL;
  */
 public class SendSms {
     
-    public String sendSms() {
+    public void sendSms(String msg, String number) {
 		try {
 			// Construct data
 			String apiKey = "apikey=" + "rJ1jArq7/EU-EaZExPLnUeUKcREcZlkFikap3zx2et";
-			String message = "&message=" + "Inscription confirmée";
+			String message = "&message=" + msg;
 			String sender = "&sender=" + "Med ac";
-			String numbers = "&numbers=" + "+21622692527";
+			String numbers = "&numbers=" + "+216"+number;
 			
 			// Send data
 			HttpURLConnection conn = (HttpURLConnection) new URL("https://api.txtlocal.com/send/?").openConnection();
@@ -35,14 +36,17 @@ public class SendSms {
 			final StringBuffer stringBuffer = new StringBuffer();
 			String line;
 			while ((line = rd.readLine()) != null) {
-				stringBuffer.append(line);
+				//stringBuffer.append(line);
+                            JOptionPane.showMessageDialog(null,"message"+line);
 			}
 			rd.close();
 			
-			return stringBuffer.toString();
+			//return stringBuffer.toString();
 		} catch (Exception e) {
-			System.out.println("Error SMS "+e);
-			return "Error "+e;
+			//System.out.println("Error SMS "+e);
+                    JOptionPane.showMessageDialog(null,e);
+
+			//return "Error "+e;
 		}
 	}
     
