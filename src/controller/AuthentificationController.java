@@ -60,13 +60,15 @@ public class AuthentificationController implements Initializable {
     private ImageView fb_btn;
     @FXML
     private Label recover;
+    @FXML
+    private Button buttonAdmin;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        button.requestFocus();
     }
 
     @FXML
@@ -75,17 +77,17 @@ public class AuthentificationController implements Initializable {
         MemberService memberService = MemberService.getInstance();
         if (username.getText().isEmpty()) {
             Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Empty username");
-            alert.setHeaderText("Username ");
-            alert.setContentText("No username was inserted");
+            alert.setTitle("Insert your Pseudo");
+            alert.setHeaderText("Insert your Pseudo");
+            alert.setContentText("Insert your Pseudo");
 
             alert.showAndWait();
 
         } else if (pw.getText().isEmpty()) {
             Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Empty password");
-            alert.setHeaderText(" Password ");
-            alert.setContentText("No Password was inserted");
+            alert.setTitle("Insert your Password");
+            alert.setHeaderText("Insert your Password");
+            alert.setContentText("Insert your Password");
 
             alert.showAndWait();
         } else {
@@ -95,22 +97,40 @@ public class AuthentificationController implements Initializable {
                 Member m = new Member();
 
                 m.setPseudo(username.getText());
-//                m.setPassword(pw.getText());
+
 
                 m = memberService.get(m);
 
                 if (m != null) {
                     if (m.getPseudo().equals(username.getText()) && m.getPassword().equals(pw.getText())) {
+                        if (m.getLocked() == 0) {
+                            m.setConnected(true);
+                            memberService.update(m);
+                            MySoulMate.MEMBER_ID = m.getId();
+                            MySoulMate.getInstance().ChangeToHomeScene();
+                        } else if (m.getLocked() == 1) {
+                            Alert alert = new Alert(AlertType.ERROR);
+                            alert.setTitle("Blocked");
+                            alert.setHeaderText("You are blocked ! ");
+                            alert.setContentText(" You are blocked !");
 
-                        MySoulMate.MEMBER_ID = m.getId();
-                        MySoulMate.getInstance().ChangeToHomeScene();
+                            alert.showAndWait();
+                        } else if (m.getLocked() == 2) {
+                            Alert alert = new Alert(AlertType.ERROR);
+                            alert.setTitle("Account deactivated");
+                            alert.setHeaderText("Account deactivated");
+                            alert.setContentText(" Account deactivated");
+
+                            alert.showAndWait();
+
+                        }
 
                     } else {
                         Alert alert = new Alert(AlertType.ERROR);
 
-                        alert.setTitle("Wrong password !");
-                        alert.setHeaderText(" Wrong password ! ");
-                        alert.setContentText(" Wrong password !");
+                        alert.setTitle("Wrong Password ! ");
+                        alert.setHeaderText("Wrong Password ! ");
+                        alert.setContentText("Wrong Password ! ");
 
                         alert.showAndWait();
 
@@ -120,9 +140,9 @@ public class AuthentificationController implements Initializable {
 
                     Alert alert = new Alert(AlertType.ERROR);
 
-                    alert.setTitle("This member doesn't exist!");
-                    alert.setHeaderText(" This member doesn't exist! ");
-                    alert.setContentText(" This member doesn't exist!");
+                    alert.setTitle("Error  ");
+                    alert.setHeaderText("This account doesn't exist ! ");
+                    alert.setContentText("This account doesn't exist ! ");
 
                     alert.showAndWait();
                 }
@@ -170,13 +190,32 @@ public class AuthentificationController implements Initializable {
                 try {
                     m = memberService.get(m);
                     if (m != null) {
-                        MySoulMate.getInstance().ChangeToHomeScene();
-//                        button.getScene().setRoot(FXMLLoader.load(getClass().getResource("/view/GlobalView.fxml")));
+                        if (m.getLocked() == 0) {
+                            m.setConnected(true);
+                            memberService.update(m);
+                            MySoulMate.MEMBER_ID = m.getId();
+                            MySoulMate.getInstance().ChangeToHomeScene();
+                        } else if (m.getLocked() == 1) {
+                            Alert alert = new Alert(AlertType.ERROR);
+                            alert.setTitle("You are blocked !");
+                            alert.setHeaderText("You are blocked !");
+                            alert.setContentText("You are blocked !");
+
+                            alert.showAndWait();
+                        } else if (m.getLocked() == 2) {
+                            Alert alert = new Alert(AlertType.ERROR);
+                            alert.setTitle("Account deactivated");
+                            alert.setHeaderText("Account deactivated");
+                            alert.setContentText("Account deactivated");
+
+                            alert.showAndWait();
+
+                        }
                     } else {
                         Alert alert = new Alert(AlertType.ERROR);
-                        alert.setTitle("Not registred");
-                        alert.setHeaderText("Error ");
-                        alert.setContentText("No user is registred with such account");
+                        alert.setTitle("Error ");
+                        alert.setHeaderText("This account doesn't exist ! ");
+                        alert.setContentText("This account doesn't exist ! ");
 
                         alert.showAndWait();
                     }
@@ -203,4 +242,23 @@ public class AuthentificationController implements Initializable {
         mainStage.setScene(scene);
         mainStage.show();
     }
+
+    @FXML
+    private void goAdmin(ActionEvent event) throws IOException {
+
+        Parent globalPane = FXMLLoader.load(getClass().getResource("/view/AuthAdminView.fxml"));
+        Scene scene = new Scene(globalPane);
+        mainStage.setScene(scene);
+        mainStage.show();
+    }
+
+    @FXML
+    private void goInscri(MouseEvent event) throws IOException {
+        Parent globalPane = FXMLLoader.load(getClass().getResource("/view/InsView.fxml"));
+        Scene scene = new Scene(globalPane);
+        mainStage.setScene(scene);
+        mainStage.show();
+    }
+    
+
 }

@@ -5,10 +5,12 @@
  */
 package controller;
 
+import static controller.GlobalViewController.online;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -53,6 +55,7 @@ import models.Enumerations;
 import models.Enumerations.PhotoType;
 import models.Like;
 import models.Member;
+import models.Notification;
 import models.Photo;
 import models.Signal;
 import services.AddressService;
@@ -60,8 +63,11 @@ import services.AnswerService;
 import services.BlockService;
 import services.LikeService;
 import services.MemberService;
+import services.NotificationService;
 import services.PhotoService;
 import services.SignalService;
+import util.N_SendMail;
+import util.SendSMS;
 
 /**
  * FXML Controller class
@@ -112,7 +118,7 @@ public class OthersProfileViewController implements Initializable {
     private VBox photosVBox;
     private GlobalViewController controller;
     List<Member> members;
-    
+
     private int userId;
     @FXML
     private Button likeButton;
@@ -148,17 +154,17 @@ public class OthersProfileViewController implements Initializable {
         photosVBox.fillWidthProperty().bind(photoScrollPane.fitToWidthProperty());
         members = new ArrayList<>();
     }
-    
-    private void makeMemberLikePane(){
+
+    private void makeMemberLikePane() {
         try {
             List<Like> likes = LikeService.getInstance().getAll(new Like(userId, 0, null)).stream().limit(6)
                     .collect(Collectors.toList());
             likesVBox.getChildren().clear();
-            for(Like like: likes){
+            for (Like like : likes) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/LikedUserView.fxml"));
                 AnchorPane likedUserPane = loader.load();
-                ((LikedUserViewController)loader.getController()).setLike(like);
-                ((LikedUserViewController)loader.getController()).setController(controller);
+                ((LikedUserViewController) loader.getController()).setLike(like);
+                ((LikedUserViewController) loader.getController()).setController(controller);
                 likesVBox.getChildren().add(likedUserPane);
             }
         } catch (SQLException ex) {
@@ -167,15 +173,15 @@ public class OthersProfileViewController implements Initializable {
             util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), null);
         }
     }
-    
-    public void makeAnswersPane(){
+
+    public void makeAnswersPane() {
         try {
             answersVBox.getChildren().clear();
             List<Answer> answers = AnswerService.getInstance().getAll(new Answer(0, null, null, userId));
-            for(Answer answer : answers){
+            for (Answer answer : answers) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/OthersAnswerView.fxml"));
                 AnchorPane pane = loader.load();
-                ((OthersAnswerViewController)loader.getController()).setAnswer(answer);
+                ((OthersAnswerViewController) loader.getController()).setAnswer(answer);
                 answersVBox.getChildren().add(pane);
             }
         } catch (SQLException ex) {
@@ -184,15 +190,15 @@ public class OthersProfileViewController implements Initializable {
             util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), null);
         }
     }
-    
-    private void checkForLike(){
+
+    private void checkForLike() {
         try {
-            if(LikeService.getInstance().get(new Like(MySoulMate.MEMBER_ID, userId, null))!=null){
+            if (LikeService.getInstance().get(new Like(MySoulMate.MEMBER_ID, userId, null)) != null) {
                 likeButton.setVisible(false);
                 dislikeButton.setVisible(true);
                 meetButton.setVisible(true);
                 messageButton.setVisible(true);
-            }else{
+            } else {
                 likeButton.setVisible(true);
                 dislikeButton.setVisible(false);
                 meetButton.setVisible(false);
@@ -202,32 +208,32 @@ public class OthersProfileViewController implements Initializable {
             util.Logger.writeLog(ex, OthersProfileViewController.class.getName(), null);
         }
     }
-    
-    private void populate(){
+
+    private void populate() {
         checkForLike();
         makeCoverPicture();
         makeProfilePicture();
         populateFields();
         populatePhotosPane();
     }
-    
-    public void setUserId(int userId){
+
+    public void setUserId(int userId) {
         this.userId = userId;
         populate();
         makeMemberLikePane();
         makeAnswersPane();
     }
-    
-    private void populatePhotosPane(){
+
+    private void populatePhotosPane() {
         photosVBox.getChildren().clear();
         try {
             List<Photo> photos = PhotoService.getInstance().getAll(new Photo(userId));
-            
-            for(Photo photo:photos){
+
+            for (Photo photo : photos) {
                 HBox hBox = new HBox();
                 hBox.setSpacing(20);
                 hBox.setAlignment(Pos.CENTER);
-                ImageView imageView = new ImageView(MySoulMate.UPLOAD_URL+photo.getUrl());
+                ImageView imageView = new ImageView(MySoulMate.UPLOAD_URL + photo.getUrl());
                 imageView.setCursor(Cursor.HAND);
                 imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> showImage(e));
                 imageView.setPreserveRatio(true);
@@ -239,86 +245,85 @@ public class OthersProfileViewController implements Initializable {
             util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), null);
         }
     }
-    
-    private void showImage(MouseEvent event){
+
+    private void showImage(MouseEvent event) {
         try {
-            ImageView image = ((ImageView)event.getTarget());
+            ImageView image = ((ImageView) event.getTarget());
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ImageView.fxml"));
-            Pane newLoadedPane =  loader.load();
-            ((ImageViewController)loader.getController()).setImage(image);
-            ((ImageViewController)loader.getController()).setParentAnchorPane(mainAnchorPane);
+            Pane newLoadedPane = loader.load();
+            ((ImageViewController) loader.getController()).setImage(image);
+            ((ImageViewController) loader.getController()).setParentAnchorPane(mainAnchorPane);
             mainAnchorPane.getChildren().add(newLoadedPane);
         } catch (IOException ex) {
             util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), null);
         }
     }
-    
-    private void populateFields(){
+
+    private void populateFields() {
         try {
             MemberService memberService = MemberService.getInstance();
             Member member = memberService.get(new Member(userId));
-            nameLabel.setText(member.getFirstname()+" "+member.getLastname());
-            String age = ""+((new Date()).getYear()-member.getBirthDate().getYear());
+            nameLabel.setText(member.getFirstname() + " " + member.getLastname());
+            String age = "" + ((new Date()).getYear() - member.getBirthDate().getYear());
             ageLabel.setText(age);
-            addressLabel.setText(member.getAddress().getCity()+", "+member.getAddress().getCountry());
-            genderLabel.setText(member.isGender()?"Male":"Female");
-            bdLabel.setText(new SimpleDateFormat("dd MMMM yyyy", Locale.FRANCE).format(member.getBirthDate()));
-            heightLabel.setText(member.getHeight()+"");
+            addressLabel.setText(member.getAddress().getCity() + ", " + member.getAddress().getCountry());
+            genderLabel.setText(member.isGender() ? "Male" : "Female");
+            bdLabel.setText(new SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH).format(member.getBirthDate()));
+            heightLabel.setText(member.getHeight() + "");
             bodyTypeLabel.setText(member.getBodyType().name().substring(0, 1) + member.getBodyType().name().substring(1).toLowerCase());
-            smokerLabel.setText(member.isSmoker()?"Yes":"No");
-            drinkerLabel.setText(member.isDrinker()?"Yes":"No");
+            smokerLabel.setText(member.isSmoker() ? "Yes" : "No");
+            drinkerLabel.setText(member.isDrinker() ? "Yes" : "No");
             religionLabel.setText(member.getReligion().name().substring(0, 1) + member.getReligion().name().substring(1).toLowerCase());
-            childNumLabel.setText(member.getChildrenNumber()+"");
+            childNumLabel.setText(member.getChildrenNumber() + "");
             aboutText.setText(member.getAbout());
             civilStatusLabel.setText(member.getMaritalStatus().name().substring(0, 1) + member.getMaritalStatus().name().substring(1).toLowerCase());
-            createdAtLabel.setText(new SimpleDateFormat("dd MMMM yyyy", Locale.FRANCE).format(member.getCreatedAt()));
+            createdAtLabel.setText(new SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH).format(member.getCreatedAt()));
             String relationsString = "";
-            for(Enumerations.RelationType type : member.getPreferedRelations()){
-                relationsString+=type.name().toLowerCase()+", ";
+            for (Enumerations.RelationType type : member.getPreferedRelations()) {
+                relationsString += type.name().toLowerCase() + ", ";
             }
-            prefRelationsLabel.setText(relationsString.isEmpty()?relationsString:relationsString.substring(0, relationsString.length()-2));
+            prefRelationsLabel.setText(relationsString.isEmpty() ? relationsString : relationsString.substring(0, relationsString.length() - 2));
             String statusesString = "";
-            for(Enumerations.MaritalStatus status : member.getPreferedStatuses()){
-                statusesString+=status.name().toLowerCase()+", ";
+            for (Enumerations.MaritalStatus status : member.getPreferedStatuses()) {
+                statusesString += status.name().toLowerCase() + ", ";
             }
-            prefStatusLabel.setText(statusesString.isEmpty()?statusesString:statusesString.substring(0, statusesString.length() -2));
-            
-            
+            prefStatusLabel.setText(statusesString.isEmpty() ? statusesString : statusesString.substring(0, statusesString.length() - 2));
+
         } catch (SQLException ex) {
             util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), "Connection de database failed");
-        }catch (Exception ex){
+        } catch (Exception ex) {
             util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), null);
         }
     }
-    
-    private void makeProfilePicture(){
+
+    private void makeProfilePicture() {
         try {
-            Circle imageClip = new Circle(profileImage.getX()+(profileImage.getFitWidth()/2), profileImage.getY()+(profileImage.getFitHeight()/2), 135);
+            Circle imageClip = new Circle(profileImage.getX() + (profileImage.getFitWidth() / 2), profileImage.getY() + (profileImage.getFitHeight() / 2), 135);
             profileImage.setClip(imageClip);
-            Circle contenairClip = new Circle(profileImgPane.getLayoutX()+(profileImgPane.getPrefWidth()/2), profileImgPane.getLayoutY()+(profileImgPane.getPrefHeight()/2), 145);
+            Circle contenairClip = new Circle(profileImgPane.getLayoutX() + (profileImgPane.getPrefWidth() / 2), profileImgPane.getLayoutY() + (profileImgPane.getPrefHeight() / 2), 145);
             profileImgPane.setClip(contenairClip);
             Photo photo = PhotoService.getInstance().get(new Photo(0, userId, null, null, PhotoType.PROFILE));
-            String photoPath ="";
-            if(photo == null){
+            String photoPath = "";
+            if (photo == null) {
                 photoPath = "/view/assets/icons/member.jpg";
-            }else{
-                photoPath = MySoulMate.UPLOAD_URL+photo.getUrl();
+            } else {
+                photoPath = MySoulMate.UPLOAD_URL + photo.getUrl();
             }
             profileImage.setImage(new Image(photoPath));
         } catch (SQLException ex) {
             util.Logger.writeLog(ex, OthersProfileViewController.class.getName(), null);
         }
     }
-    
-    private void makeCoverPicture(){
+
+    private void makeCoverPicture() {
         try {
             coverImage.fitWidthProperty().bind(coverContainer.widthProperty());
             Photo photo = PhotoService.getInstance().get(new Photo(0, userId, null, null, PhotoType.COVER));
-            String photoPath ="";
-            if(photo== null){
+            String photoPath = "";
+            if (photo == null) {
                 photoPath = "/view/assets/img/banner.jpg";
-            }else{
-                photoPath = MySoulMate.UPLOAD_URL+photo.getUrl();
+            } else {
+                photoPath = MySoulMate.UPLOAD_URL + photo.getUrl();
             }
             coverImage.setImage(new Image(photoPath));
         } catch (SQLException ex) {
@@ -328,12 +333,24 @@ public class OthersProfileViewController implements Initializable {
 
     @FXML
     private void startChat(ActionEvent event) {
+        FXMLLoader loader = GlobalViewController.getInstance().setMainContent("/view/InstantMessagingView.fxml");
+        ((InstantMessagingViewController) loader.getController()).setReceiverId(userId);
     }
 
     @FXML
     private void doLike(ActionEvent event) {
         try {
             LikeService.getInstance().create(new Like(MySoulMate.MEMBER_ID, userId, null));
+            NotificationService.getInstance().create(new Notification(
+                    MySoulMate.MEMBER_ID,
+                    userId,
+                    Enumerations.NotificationType.LIKE,
+                    "has liked your profile.", new Timestamp(new Date().getTime()), null, 0, 0, false)
+            );
+            new N_SendMail(MemberService.getInstance().get(new Member(userId)).getEmail(), "MySoulMate | Notification",
+                    online.getPseudo() + " has liked your profile. Login to see more details.");
+            SendSMS sm = new SendSMS();
+            //sm.SendSms("MySoulmate\\n" + online.getPseudo() + " has reacted to your post.", "24");
             checkForLike();
         } catch (SQLException ex) {
             util.Logger.writeLog(ex, OthersProfileViewController.class.getName(), null);
@@ -352,7 +369,7 @@ public class OthersProfileViewController implements Initializable {
 
     @FXML
     private void showMenu(MouseEvent event) {
-        if(sideMenu.isVisible()){
+        if (sideMenu.isVisible()) {
             hideSideMenu();
             return;
         }
@@ -360,8 +377,8 @@ public class OthersProfileViewController implements Initializable {
         sideMenu.setPrefHeight(164);
         sideMenu.setVisible(true);
     }
-    
-    private void hideSideMenu(){
+
+    private void hideSideMenu() {
         sideMenu.setPrefWidth(0);
         sideMenu.setPrefHeight(0);
         sideMenu.setVisible(false);
@@ -372,13 +389,13 @@ public class OthersProfileViewController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to block this person?", ButtonType.YES, ButtonType.CANCEL);
         alert.showAndWait().ifPresent(response -> {
             hideSideMenu();
-            if(response == ButtonType.YES){
+            if (response == ButtonType.YES) {
                 createBlock();
             }
         });
     }
-    
-    private void createBlock(){
+
+    private void createBlock() {
         try {
             BlockService.getInstance().create(new Block(MySoulMate.MEMBER_ID, userId, null));
             LikeService.getInstance().delete(new Like(MySoulMate.MEMBER_ID, userId, null));
@@ -400,7 +417,7 @@ public class OthersProfileViewController implements Initializable {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to block this person?", ButtonType.YES, ButtonType.NO);
                 alert.showAndWait().ifPresent(response -> {
                     hideSideMenu();
-                    if(response == ButtonType.YES){
+                    if (response == ButtonType.YES) {
                         createBlock();
                     }
                 });
@@ -409,7 +426,7 @@ public class OthersProfileViewController implements Initializable {
             }
         });
     }
-    
+
     @FXML
     private void showSug(ActionEvent event) {
         try {
@@ -417,11 +434,11 @@ public class OthersProfileViewController implements Initializable {
             Address selfAddress = AddressService.getInstance().get(new Address(MySoulMate.MEMBER_ID));
             Address othersAddress = AddressService.getInstance().get(new Address(userId));
             Address centerAddress = new Address(
-                    (selfAddress.getLongitude()+othersAddress.getLongitude())/2, 
-                    (selfAddress.getLatitude()+othersAddress.getLatitude())/2, 
+                    (selfAddress.getLongitude() + othersAddress.getLongitude()) / 2,
+                    (selfAddress.getLatitude() + othersAddress.getLatitude()) / 2,
                     "", "");
-            ((RecommandationViewController)loader.getController()).setAddress(centerAddress, userId);
-        }catch (SQLException ex) {
+            ((RecommandationViewController) loader.getController()).setAddress(centerAddress, userId);
+        } catch (SQLException ex) {
             Logger.getLogger(OthersProfileViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -429,11 +446,11 @@ public class OthersProfileViewController implements Initializable {
     @FXML
     private void showCoverPic(MouseEvent event) {
         try {
-            ImageView image = ((ImageView)event.getTarget());
+            ImageView image = ((ImageView) event.getTarget());
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ImageView.fxml"));
-            Pane newLoadedPane =  loader.load();
-            ((ImageViewController)loader.getController()).setImage(image);
-            ((ImageViewController)loader.getController()).setParentAnchorPane(mainAnchorPane);
+            Pane newLoadedPane = loader.load();
+            ((ImageViewController) loader.getController()).setImage(image);
+            ((ImageViewController) loader.getController()).setParentAnchorPane(mainAnchorPane);
             mainAnchorPane.getChildren().add(newLoadedPane);
         } catch (IOException ex) {
             util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), null);
@@ -443,11 +460,11 @@ public class OthersProfileViewController implements Initializable {
     @FXML
     private void showProfilePic(MouseEvent event) {
         try {
-            ImageView image = ((ImageView)event.getTarget());
+            ImageView image = ((ImageView) event.getTarget());
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ImageView.fxml"));
-            Pane newLoadedPane =  loader.load();
-            ((ImageViewController)loader.getController()).setImage(image);
-            ((ImageViewController)loader.getController()).setParentAnchorPane(mainAnchorPane);
+            Pane newLoadedPane = loader.load();
+            ((ImageViewController) loader.getController()).setImage(image);
+            ((ImageViewController) loader.getController()).setParentAnchorPane(mainAnchorPane);
             mainAnchorPane.getChildren().add(newLoadedPane);
         } catch (IOException ex) {
             util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), null);
