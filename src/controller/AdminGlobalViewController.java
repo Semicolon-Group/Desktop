@@ -71,8 +71,16 @@ public class AdminGlobalViewController implements Initializable {
     /**
      * Initializes the controller class.
      */
+    
+    private static AdminGlobalViewController instance;
+    
+    public static AdminGlobalViewController getInstance(){
+        return instance;
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        instance = this;
         scroll.vvalueProperty().addListener( (observable, oldValue, newValue) -> {
             double yTranslate = (content.getHeight()*newValue.doubleValue())-(scroll.getHeight()*newValue.doubleValue());
             navBar.translateYProperty().setValue(yTranslate);
