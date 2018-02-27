@@ -77,7 +77,7 @@ public class LikedUserViewController implements Initializable {
             }
             memberImage.setImage(new Image(photoPath));
             memberName.setText(member.getFirstname()+" "+member.getLastname());
-            likeDate.setText((new SimpleDateFormat("dd MMMM yyyy", Locale.FRANCE).format(like.getDate())));
+            likeDate.setText((new SimpleDateFormat("dd MMMM yyyy", Locale.ENGLISH).format(like.getDate())));
         } catch (SQLException ex) {
             util.Logger.writeLog(ex, LikedUserViewController.class.getName(), null);
         }
