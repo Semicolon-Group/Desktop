@@ -93,6 +93,8 @@ public class MembreController extends Service implements Initializable {
     @FXML
     private TextField txt_id;
     private int selected_id;
+    @FXML
+    private Button removeBanButton;
 
     /**
      * Initializes the controller class.
@@ -138,15 +140,37 @@ public class MembreController extends Service implements Initializable {
     private void Banner_click(MouseEvent event) {
         Member m = (Member) table.getSelectionModel().getSelectedItem();
         txt_id.setText(String.valueOf(m.getId()));
-        if(m.getLocked() == 2) return;
+        if(m.getLocked() == 2){
+            bt_banne.setVisible(false);
+            removeBanButton.setVisible(true);
+            return;
+        }
+        removeBanButton.setVisible(false);
+        bt_banne.setVisible(true);
         bt_banne.setDisable(false);
     }
 
     @FXML
-    private void BannerAction(ActionEvent event) throws SQLException {
-        if(txt_id == null || txt_id.getText().isEmpty()) return;
-        MemberService ms = MemberService.getInstance();
-        ms.updatelock(Integer.parseInt(txt_id.getText()), (short)2);
-        AdminGlobalViewController.getInstance().setMainContent("/view/Membre.fxml");
+    private void BannerAction(ActionEvent event){
+        try {
+            if(txt_id == null || txt_id.getText().isEmpty()) return;
+            MemberService ms = MemberService.getInstance();
+            ms.updatelock(Integer.parseInt(txt_id.getText()), (short)2);
+            AdminGlobalViewController.getInstance().setMainContent("/view/Membre.fxml");
+        } catch (SQLException ex) {
+            Logger.getLogger(MembreController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void removeBann(ActionEvent event) {
+        try {
+            if(txt_id == null || txt_id.getText().isEmpty()) return;
+            MemberService ms = MemberService.getInstance();
+            ms.updatelock(Integer.parseInt(txt_id.getText()), (short)0);
+            AdminGlobalViewController.getInstance().setMainContent("/view/Membre.fxml");
+        } catch (SQLException ex) {
+            Logger.getLogger(MembreController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

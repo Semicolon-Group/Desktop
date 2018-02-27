@@ -40,7 +40,8 @@
             <Point3D y="100.0" z="1.0" />
          </rotationAxis>
       </TableView>
-      <Button id="button" fx:id="bt_banne" disable="true" layoutX="40.0" layoutY="642.0" mnemonicParsing="false" onAction="#BannerAction" prefHeight="40.0" prefWidth="97.0" style="-fx-background-size: 14; -fx-border-width: 5; -fx-font-weight: bold;" stylesheets="@../view/style/QuestionStyle.css" text="Ban" AnchorPane.bottomAnchor="118.0" />
+      <Button id="button" fx:id="bt_banne" disable="true" layoutX="40.0" layoutY="642.0" mnemonicParsing="false" onAction="#BannerAction" prefHeight="40.0" prefWidth="97.0" style="-fx-background-size: 14; -fx-border-width: 5; -fx-font-weight: bold;" stylesheets="@../view/style/QuestionStyle.css" text="Ban" AnchorPane.bottomAnchor="118.0" AnchorPane.leftAnchor="50.0" />
+      <Button id="button" fx:id="removeBanButton" layoutX="70.0" layoutY="642.0" mnemonicParsing="false" onAction="#removeBann" prefHeight="40.0" prefWidth="142.0" style="-fx-background-size: 14; -fx-border-width: 5; -fx-font-weight: bold;" stylesheets="@../view/style/QuestionStyle.css" text="Remove Ban" visible="false" AnchorPane.bottomAnchor="118.0" AnchorPane.leftAnchor="50.0" />
       <TextField fx:id="txt_id" layoutX="58.0" layoutY="632.0" visible="false" />
      
    </children>
