@@ -393,7 +393,7 @@
                                                 </VBox>
                                                 <VBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="196.0">
                                                    <children>
-                                                      <Label fx:id="prefRelationsLabel" prefHeight="36.0" prefWidth="196.0" text="Label">
+                                                      <Label fx:id="prefRelationsLabel" prefHeight="94.0" prefWidth="196.0" text="Label" wrapText="true">
                                                          <font>
                                                             <Font size="24.0" />
                                                          </font>
@@ -415,7 +415,7 @@
                                                 </VBox>
                                                 <VBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="196.0">
                                                    <children>
-                                                      <Label fx:id="prefStatusLabel" prefHeight="36.0" prefWidth="196.0" text="Label">
+                                                      <Label fx:id="prefStatusLabel" prefHeight="89.0" prefWidth="196.0" text="Label" wrapText="true">
                                                          <font>
                                                             <Font size="24.0" />
                                                          </font>

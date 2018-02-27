@@ -75,10 +75,6 @@ public class GlobalViewController implements Initializable {
     @FXML
     private Button homeButton;
     @FXML
-    private Button quickSearchButton;
-    @FXML
-    private Button blindDateButton;
-    @FXML
     private Button recommandationButton;
     @FXML
     private Button matchButton;
@@ -87,11 +83,7 @@ public class GlobalViewController implements Initializable {
     @FXML
     private VBox matchBox;
     @FXML
-    private VBox quickSearchBox;
-    @FXML
     private VBox recommandationBox;
-    @FXML
-    private VBox blindDateBox;
     @FXML
     private ImageView accountIcon;
     
@@ -244,8 +236,6 @@ public class GlobalViewController implements Initializable {
         setContent("/view/HomeView.fxml", content);
         homeBox.setId("selected");
         matchBox.setId("");
-        quickSearchBox.setId("");
-        blindDateBox.setId("");
         recommandationBox.setId("");
         
     }
@@ -255,26 +245,6 @@ public class GlobalViewController implements Initializable {
         setContent("/view/MatchView.fxml", content);
         homeBox.setId("");
         matchBox.setId("selected");
-        quickSearchBox.setId("");
-        blindDateBox.setId("");
-        recommandationBox.setId("");
-    }
-
-    @FXML
-    private void showQuickSearchContent(ActionEvent event) {
-        homeBox.setId("");
-        matchBox.setId("");
-        quickSearchBox.setId("selected");
-        blindDateBox.setId("");
-        recommandationBox.setId("");
-    }
-
-    @FXML
-    private void showBlindDateContent(ActionEvent event) {
-        homeBox.setId("");
-        matchBox.setId("");
-        quickSearchBox.setId("");
-        blindDateBox.setId("selected");
         recommandationBox.setId("");
     }
 
@@ -287,8 +257,6 @@ public class GlobalViewController implements Initializable {
             );
             homeBox.setId("");
             matchBox.setId("");
-            quickSearchBox.setId("");
-            blindDateBox.setId("");
             recommandationBox.setId("selected");
         } catch (SQLException ex) {
             Logger.getLogger(GlobalViewController.class.getName()).log(Level.SEVERE, null, ex);
@@ -298,8 +266,6 @@ public class GlobalViewController implements Initializable {
     public void clearMenuSelection(){
         homeBox.setId("");
         matchBox.setId("");
-        quickSearchBox.setId("");
-        blindDateBox.setId("");
         recommandationBox.setId("");
     }
 

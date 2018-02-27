@@ -11,6 +11,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -113,6 +114,8 @@ public class EditProfileViewController implements Initializable {
     
     private List<CheckBox> selectedPrefered = new ArrayList<>();
     private List<CheckBox> selectedRelations = new ArrayList<>();
+    @FXML
+    private TextField phoneNumberField;
 
     /**
      * Initializes the controller class.
@@ -121,6 +124,7 @@ public class EditProfileViewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         heightFiled.setTextFormatter(new TextFormatter<>(new NumberStringConverter()));
         childNumberFiled.setTextFormatter(new TextFormatter<>(new NumberStringConverter()));
+        phoneNumberField.setTextFormatter(new TextFormatter<>(new NumberStringConverter()));
         addresses = new ArrayList<>();
         provider = SuggestionProvider.create(addresses);
         AutoCompletionTextFieldBinding actfb = new AutoCompletionTextFieldBinding<>(cityField, provider);
@@ -224,6 +228,7 @@ public class EditProfileViewController implements Initializable {
         civicStateBox.getItems().setAll(Enumerations.MaritalStatus.values());
         civicStateBox.getSelectionModel().select(member.getMaritalStatus());
         childNumberFiled.setText(member.getChildrenNumber()+"");
+        phoneNumberField.setText(member.getPhone()+"");
     }
 
     @FXML
@@ -237,6 +242,11 @@ public class EditProfileViewController implements Initializable {
                 return;
             }else if(birthdayPicker.getValue() == null){
                 activateError(birthdayPicker, "Birthdate");
+                return;
+            }else if(((new Date()).getYear() - java.sql.Date.valueOf(birthdayPicker.getValue()).getYear()) < 18){
+                birthdayPicker.getStyleClass().add("error");
+                Alert alert = new Alert(Alert.AlertType.ERROR, "You must at least 18 years old!", ButtonType.OK);
+                alert.show();
                 return;
             }else if(heightFiled.getText().isEmpty()){
                 activateError(heightFiled, "Height");
@@ -255,6 +265,9 @@ public class EditProfileViewController implements Initializable {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "At least one prefered marital status needs to be selected!", ButtonType.OK);
                 alert.show();
                 return;
+            }else if(phoneNumberField.getText().isEmpty()){
+                activateError(phoneNumberField, "Phone number");
+                return;
             }
             member.getPreferedStatuses().clear();
             for(CheckBox box : selectedPrefered){
@@ -264,6 +277,7 @@ public class EditProfileViewController implements Initializable {
             for(CheckBox box: selectedRelations){
                 member.getPreferedRelations().add(Enumerations.RelationType.values()[Integer.parseInt(box.getId())]);
             }
+            member.setPhone(Integer.parseInt(phoneNumberField.getText().replace(",", "")));
             member.setFirstname(firstNameField.getText());
             member.setLastname(lastnameField.getText());
             if(maleRadio.isSelected()) member.setGender(true); else member.setGender(false);
