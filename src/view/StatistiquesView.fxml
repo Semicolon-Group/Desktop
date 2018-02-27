@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.StatistiquesViewController">
+   <children>
+      <ScrollPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="48.0">
+         <content>
+            <AnchorPane id="AnchorPane" prefHeight="886.0" prefWidth="1200.0">
+               <children>
+                  <AnchorPane fx:id="statmois" layoutX="36.0" layoutY="-9.0" prefHeight="347.0" prefWidth="600.0" AnchorPane.bottomAnchor="500.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="600.0" AnchorPane.topAnchor="20.0">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </AnchorPane>
+                  <AnchorPane fx:id="statgender" layoutX="89.0" layoutY="371.0" prefHeight="350.0" prefWidth="600.0" AnchorPane.bottomAnchor="500.0" AnchorPane.leftAnchor="600.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </AnchorPane>
+                  <AnchorPane fx:id="start2" layoutX="176.0" layoutY="384.0" prefHeight="364.0" prefWidth="856.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="400.0" />
+                  <Button layoutX="1020.0" layoutY="741.0" mnemonicParsing="false" onAction="#print" prefHeight="59.0" prefWidth="166.0" text="Print PDF" />
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

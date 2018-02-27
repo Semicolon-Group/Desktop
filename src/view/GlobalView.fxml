@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" fx:id="mainAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1838.0" stylesheets="@style/MainStyleSheet.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GlobalViewController">
+<AnchorPane id="AnchorPane" fx:id="mainAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1838.0" stylesheets="@style/MainStyleSheet.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GlobalViewController">
    <children>
       <ScrollPane fx:id="scroll" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" pickOnBounds="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <content>
@@ -100,7 +100,7 @@
                                  <children>
                                  <AnchorPane prefHeight="51.0" prefWidth="998.0" AnchorPane.rightAnchor="10.0">
                                     <children>
-                                       <HBox prefHeight="51.0" prefWidth="967.0" AnchorPane.rightAnchor="0.0">
+                                       <HBox prefHeight="51.0" prefWidth="662.0" AnchorPane.rightAnchor="0.0">
                                           <children>
                                              <VBox id="selected" fx:id="homeBox" alignment="CENTER" prefHeight="48.0" prefWidth="150.0" styleClass="nav_bar_button_box">
                                                 <children>
@@ -110,16 +110,6 @@
                                              <VBox fx:id="matchBox" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="48.0" prefWidth="150.0" styleClass="nav_bar_button_box">
                                                 <children>
                                                    <Button fx:id="matchButton" mnemonicParsing="false" onAction="#showMatchContent" prefHeight="48.0" prefWidth="200.0" styleClass="nav_bar_button" text="Match" textFill="WHITE" />
-                                                </children>
-                                             </VBox>
-                                             <VBox fx:id="quickSearchBox" alignment="CENTER" layoutX="81.0" layoutY="10.0" prefHeight="48.0" prefWidth="150.0" styleClass="nav_bar_button_box">
-                                                <children>
-                                                   <Button fx:id="quickSearchButton" mnemonicParsing="false" onAction="#showQuickSearchContent" prefHeight="48.0" prefWidth="200.0" styleClass="nav_bar_button" text="Quick Search" textFill="WHITE" />
-                                                </children>
-                                             </VBox>
-                                             <VBox fx:id="blindDateBox" alignment="CENTER" layoutX="151.0" layoutY="10.0" prefHeight="48.0" prefWidth="150.0" styleClass="nav_bar_button_box">
-                                                <children>
-                                                   <Button fx:id="blindDateButton" mnemonicParsing="false" onAction="#showBlindDateContent" prefHeight="48.0" prefWidth="200.0" styleClass="nav_bar_button" text="Blind Date" textFill="WHITE" />
                                                 </children>
                                              </VBox>
                                              <VBox fx:id="recommandationBox" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="48.0" prefWidth="150.0" styleClass="nav_bar_button_box">
@@ -147,7 +137,7 @@
                                              </VBox>
                                              <VBox id="message_icon_box" alignment="CENTER" layoutX="636.0" layoutY="10.0" onMouseEntered="#hover" onMouseExited="#exit" prefHeight="48.0" prefWidth="70.0" styleClass="nav_bar_icon_box">
                                                 <children>
-                                                   <ImageView id="message_icon" fx:id="messageIcon" fitHeight="24.0" fitWidth="200.0" onMouseClicked="#onMessageIconClick" pickOnBounds="true" preserveRatio="true">
+                                                   <ImageView id="message_icon" fx:id="messageIcon" fitHeight="24.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                                       <image>
                                                          <Image url="@assets/icons/natural/message.png" />
                                                       </image>

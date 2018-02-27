@@ -62,7 +62,7 @@
                                                       </VBox>
                                                       <VBox alignment="CENTER_LEFT" prefHeight="93.0" prefWidth="202.0">
                                                          <children>
-                                                            <TextField fx:id="firstNameField" onKeyReleased="#removeError" prefHeight="27.0" prefWidth="130.0" />
+                                                            <TextField fx:id="firstNameField" onKeyReleased="#removeError" prefHeight="27.0" prefWidth="130.0" promptText="Your firstname..." />
                                                          </children>
                                                       </VBox>
                                                    </children>
@@ -80,7 +80,7 @@
                                                       </VBox>
                                                       <VBox alignment="CENTER_LEFT" prefHeight="93.0" prefWidth="202.0">
                                                          <children>
-                                                            <TextField fx:id="lastnameField" onKeyReleased="#removeError" prefHeight="27.0" prefWidth="130.0" />
+                                                            <TextField fx:id="lastnameField" onKeyReleased="#removeError" prefHeight="27.0" prefWidth="130.0" promptText="Your lastname..." />
                                                          </children>
                                                       </VBox>
                                                    </children>
@@ -143,7 +143,7 @@
                                                       </VBox>
                                                       <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
                                                          <children>
-                                                            <TextField fx:id="heightFiled" onKeyReleased="#removeError" prefHeight="27.0" prefWidth="130.0" />
+                                                            <TextField fx:id="heightFiled" onKeyReleased="#removeError" prefHeight="27.0" prefWidth="130.0" promptText="Your height..." />
                                                          </children>
                                                       </VBox>
                                                    </children>
@@ -163,7 +163,7 @@
                                                          <children>
                                                             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="353.0" spacing="30.0">
                                                                <children>
-                                                                  <TextField fx:id="cityField" onKeyReleased="#checkPlaces" prefHeight="27.0" prefWidth="129.0" />
+                                                                  <TextField fx:id="cityField" onKeyReleased="#checkPlaces" prefHeight="27.0" prefWidth="129.0" promptText="City..." />
                                                                   <TextField fx:id="countryField" disable="true" editable="false" layoutX="10.0" layoutY="47.0" prefHeight="27.0" prefWidth="156.0" />
                                                                </children>
                                                             </HBox>
@@ -350,6 +350,24 @@
                                                       <VBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="59.0">
                                                          <children>
                                                             <TextField fx:id="childNumberFiled" onKeyReleased="#removeError" prefHeight="27.0" prefWidth="137.0" />
+                                                         </children>
+                                                      </VBox>
+                                                   </children>
+                                                </HBox>
+                                                <HBox layoutX="10.0" layoutY="610.0" prefHeight="100.0" prefWidth="377.0">
+                                                   <children>
+                                                      <VBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="225.0">
+                                                         <children>
+                                                            <Label prefHeight="36.0" prefWidth="191.0" text="Phone number:">
+                                                               <font>
+                                                                  <Font name="System Bold" size="24.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </VBox>
+                                                      <VBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="216.0">
+                                                         <children>
+                                                            <TextField fx:id="phoneNumberField" onKeyReleased="#removeError" prefHeight="27.0" prefWidth="223.0" promptText="xx xxx xxx" />
                                                          </children>
                                                       </VBox>
                                                    </children>

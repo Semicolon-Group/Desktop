@@ -47,6 +47,18 @@
                         </Label>
                      </children>
                   </VBox>
+                  <VBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="147.0">
+                     <children>
+                        <ImageView fx:id="delete" fitHeight="16.0" fitWidth="16.0" onMouseClicked="#onDeleteClick" pickOnBounds="true" preserveRatio="true" visible="false">
+                           <image>
+                              <Image url="@assets/icons/delete.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                     </children>
+                  </VBox>
                </children>
             </HBox>
             <TextArea fx:id="status" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="435.0" text="I have just returned from Canada Today, after spending over 2 weeks there. I must say I have never been more amazed by nature. I can't even descrive my feelings!" wrapText="true">

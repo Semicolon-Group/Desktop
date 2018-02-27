@@ -66,6 +66,10 @@ public class CommentViewController implements Initializable {
                     content.setEditable(true);
                 else{
                     content.setEditable(false);
+                    if(content.getText().equals("")){
+                        content.setText(comment.getContent());
+                        return;
+                    }
                     try {
                         comment.setContent(content.getText());
                         CommentService.getInstance().update(comment);

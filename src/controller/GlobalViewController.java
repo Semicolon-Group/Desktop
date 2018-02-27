@@ -75,10 +75,6 @@ public class GlobalViewController implements Initializable {
     @FXML
     private Button homeButton;
     @FXML
-    private Button quickSearchButton;
-    @FXML
-    private Button blindDateButton;
-    @FXML
     private Button recommandationButton;
     @FXML
     private Button matchButton;
@@ -87,11 +83,7 @@ public class GlobalViewController implements Initializable {
     @FXML
     private VBox matchBox;
     @FXML
-    private VBox quickSearchBox;
-    @FXML
     private VBox recommandationBox;
-    @FXML
-    private VBox blindDateBox;
     @FXML
     private ImageView accountIcon;
     
@@ -121,7 +113,7 @@ public class GlobalViewController implements Initializable {
                 notificationPane.setVisible(false);
             }else{
                 if(!((Node)event.getTarget()).getStyleClass().contains(new String("notificationClickable"))){
-                notificationPane.setVisible(false);
+                    notificationPane.setVisible(false);
                 }
                 if(!((Node)event.getTarget()).getStyleClass().contains(new String("conversationClickable"))){
                     conversationPane.setVisible(false);
@@ -167,10 +159,12 @@ public class GlobalViewController implements Initializable {
         conversationPane.visibleProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue){
                 conversationPane.setPrefHeight(600);
+                setContent("/view/ConversationView.fxml", conversationContent);
                 messageIcon.getStyleClass().remove(messageIcon.getStyleClass().size()-1);
                 activeIcon(messageIcon, "message");
                 return;
             }
+            conversationContent.getChildren().clear();
             conversationPane.setPrefHeight(0);
             messageIcon.getStyleClass().add("hoverable");
             releaseIcon(messageIcon, "message");
@@ -243,8 +237,6 @@ public class GlobalViewController implements Initializable {
         setContent("/view/HomeView.fxml", content);
         homeBox.setId("selected");
         matchBox.setId("");
-        quickSearchBox.setId("");
-        blindDateBox.setId("");
         recommandationBox.setId("");
         
     }
@@ -254,26 +246,6 @@ public class GlobalViewController implements Initializable {
         setContent("/view/MatchView.fxml", content);
         homeBox.setId("");
         matchBox.setId("selected");
-        quickSearchBox.setId("");
-        blindDateBox.setId("");
-        recommandationBox.setId("");
-    }
-
-    @FXML
-    private void showQuickSearchContent(ActionEvent event) {
-        homeBox.setId("");
-        matchBox.setId("");
-        quickSearchBox.setId("selected");
-        blindDateBox.setId("");
-        recommandationBox.setId("");
-    }
-
-    @FXML
-    private void showBlindDateContent(ActionEvent event) {
-        homeBox.setId("");
-        matchBox.setId("");
-        quickSearchBox.setId("");
-        blindDateBox.setId("selected");
         recommandationBox.setId("");
     }
 
@@ -286,8 +258,6 @@ public class GlobalViewController implements Initializable {
             );
             homeBox.setId("");
             matchBox.setId("");
-            quickSearchBox.setId("");
-            blindDateBox.setId("");
             recommandationBox.setId("selected");
         } catch (SQLException ex) {
             Logger.getLogger(GlobalViewController.class.getName()).log(Level.SEVERE, null, ex);
@@ -297,8 +267,6 @@ public class GlobalViewController implements Initializable {
     public void clearMenuSelection(){
         homeBox.setId("");
         matchBox.setId("");
-        quickSearchBox.setId("");
-        blindDateBox.setId("");
         recommandationBox.setId("");
     }
 
@@ -328,11 +296,6 @@ public class GlobalViewController implements Initializable {
     private void releaseIcon(ImageView imageView, String imageName){
         String url = getClass().getResource("/view/assets/icons/natural/"+imageName+".png").toExternalForm();
         imageView.setImage(new Image(url));
-    }
-
-    @FXML
-    private void onMessageIconClick(MouseEvent event) {
-        setContent("/view/InstantMessagingView.fxml", content);
     }
     
     public void lockScrollToTop(){

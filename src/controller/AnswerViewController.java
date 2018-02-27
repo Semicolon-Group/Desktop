@@ -72,12 +72,12 @@ public class AnswerViewController implements Initializable {
             for(Choice choice : answer.getSelectedChoices()){
                 selectedChoices+=choice.getChoice()+", ";
             }
-            answerLabel.setText(selectedChoices.substring(0, selectedChoices.length()-2));
+            answerLabel.setText(selectedChoices.length()!=0?selectedChoices.substring(0, selectedChoices.length()-2):"");
             String acceptedChoices="";
             for(Choice choice:answer.getAcceptedChoices()){
                 acceptedChoices+=choice.getChoice()+", ";
             }
-            acceptedChoicesLabel.setText(acceptedChoices.substring(0, acceptedChoices.length()-2));
+            acceptedChoicesLabel.setText(acceptedChoices.length()!=0?acceptedChoices.substring(0, acceptedChoices.length()-2):"");
             topicLabel.setText(question.getTopic().name());
             importanceLabel.setText(answer.getImportance().name());
         } catch (SQLException ex) {
