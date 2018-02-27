@@ -136,12 +136,6 @@ public class MySoulMate extends Application {
         try {
             AnchorPane globalPane = FXMLLoader.load(getClass().getResource("/view/Authentification.fxml"));
             Scene scene = new Scene(globalPane);
-            
-            javafx.geometry.Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
-            mainStage.setX(bounds.getMinX() + ((bounds.getWidth()/2) - (loginWidth/2)));
-            mainStage.setY(bounds.getMinY() + ((bounds.getHeight()/2) - (loginHeight/2)));
-            mainStage.setWidth(loginWidth);
-            mainStage.setHeight(loginHeight);
             mainStage.setScene(scene);
         } catch (IOException ex) {
             Logger.getLogger(MySoulMate.class.getName()).log(Level.SEVERE, null, ex);
