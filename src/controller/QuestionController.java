@@ -25,6 +25,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -66,6 +67,7 @@ public class QuestionController extends Service implements Initializable {
     @FXML
     private TextField txt_id;
     
+    
     @Override
     public void initialize(URL url, ResourceBundle rb)  {
         txt_id.setVisible(false);
@@ -94,10 +96,10 @@ public class QuestionController extends Service implements Initializable {
         table.setItems(data);
         
 
-    }    
+         
     
     
-
+                }
     @FXML
     private void movetoajoutquestion(ActionEvent event) throws IOException {
         bt_ajout.getScene().setRoot(FXMLLoader.load(getClass().getResource("/view/AjoutQuestion.fxml")));
