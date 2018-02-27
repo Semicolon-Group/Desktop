@@ -284,6 +284,9 @@ public class StatusPostViewController implements Initializable {
     private void onDeleteClick(MouseEvent event) {
         try {
             StatusPostService.getInstance().delete(new StatusPost(postId));
+            Notification n = new Notification();
+            n.setPostId(postId);
+            NotificationService.getInstance().delete(n);
             HomeViewController.getInstance().fill();
         } catch (SQLException ex) {
             Logger.getLogger(StatusPostViewController.class.getName()).log(Level.SEVERE, null, ex);

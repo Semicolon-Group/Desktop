@@ -281,6 +281,9 @@ public class PicturePostViewController implements Initializable {
     private void onDeleteClick(MouseEvent event) {
         try {
             PhotoService.getInstance().delete(new Photo(photoId,0,null));
+            Notification n = new Notification();
+            n.setPhotoId(photoId);
+            NotificationService.getInstance().delete(n);
             HomeViewController.getInstance().fill();
         } catch (SQLException ex) {
             Logger.getLogger(StatusPostViewController.class.getName()).log(Level.SEVERE, null, ex);

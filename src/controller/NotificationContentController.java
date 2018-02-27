@@ -146,7 +146,7 @@ public class NotificationContentController implements Initializable {
                     TimeDiff.getInstance(post.getDate(),new Timestamp(new java.util.Date().getTime())).getTimeDiffString(),
                     postId);
             }
-            else{
+            else if(photoId != 0){
                 path = "/view/PicturePostView.fxml";
                 FXMLLoader loader = GlobalViewController.getInstance().setMainContent(path);
                 PicturePostViewController c = (PicturePostViewController)loader.getController();
@@ -154,7 +154,7 @@ public class NotificationContentController implements Initializable {
                 c.fill(photo,online.getPseudo(),
                     TimeDiff.getInstance(picture.getDate(),new Timestamp(new java.util.Date().getTime())).getTimeDiffString(),
                     MySoulMate.UPLOAD_URL + picture.getUrl(),
-                    postId);
+                    photoId);
             }
         } catch (SQLException ex) {
             Logger.getLogger(NotificationContentController.class.getName()).log(Level.SEVERE, null, ex);
