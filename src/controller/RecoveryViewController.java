@@ -86,7 +86,7 @@ public class RecoveryViewController implements Initializable {
 //            m.setEmail(email.getText());
             m = ms.get(m);
             if (m.getPseudo() != null ) {
-                logged = m.getId(); 
+                    logged=m.getId();
                 
                 if (m.getPseudo().equals(pseudo.getText())&&m.getEmail().equals(email.getText()))
                     
@@ -95,14 +95,14 @@ public class RecoveryViewController implements Initializable {
 //                SendMail sm = new SendMail(m.getEmail(), "Email recovery", "Bonjour " + m.getFirstname() + " , Votre token de"
 //                        + " récupération est " + token);
                 String[] attachFiles = new String[1];
-                attachFiles[0] = "E:\\New folder\\Esprit Cours\\Sem2\\PI\\MySoulmate\\Workspace\\new\\Desktop\\First.jpg";
+                attachFiles[0] = "Desktop/First.jpg";
                 sendEmailWithAttachments("smtp.gmail.com", "465", "testmailesprit69@gmail.com", "testmailesprit69@",
-                        m.getEmail(), "Recovery mail", "Ce mail contient un token pour récuperer votre mot de passe , ainsi que la photo de la personne qui a essayé de le récuperer ."+
-                                " \n My Soul Mate ."+"  \n "
+                        m.getEmail(), "Recovery mail", "Ce mail contient un token pour récuperer votre mot de passe , ainsi que la photo de la personne qui a essayé de le récuperer .\n"+
+                                "  My Soul Mate ."+"  \n "
                                 + "Token : " + token, attachFiles);
                 Alert alert = new Alert(AlertType.CONFIRMATION);
-                alert.setTitle("Recovery mail ");
-                alert.setHeaderText("Mail Sent ! ");
+                alert.setTitle("Email de récuperation envoyé !");
+                alert.setHeaderText("Email de récuperation envoyé ! ");
                 alert.setContentText("Nous avons envoyé un mail de récuperation , veuillez consulter votre boit Mail ! ");
 
                 alert.showAndWait();

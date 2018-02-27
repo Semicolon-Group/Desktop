@@ -75,7 +75,7 @@ public class MySoulMate extends Application {
         } catch (IOException ex) {
             util.Logger.writeLog(ex, GlobalViewController.class.getCanonicalName(), null);
         }
-    }
+    }    
     
     public void ChangeToAdminHomeScene(){
         try {
@@ -128,6 +128,16 @@ public class MySoulMate extends Application {
         } catch (IOException ex) {
             Logger.getLogger(MySoulMate.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
+            Logger.getLogger(MySoulMate.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void showAuthenticationView(){
+        try {
+            AnchorPane globalPane = FXMLLoader.load(getClass().getResource("/view/Authentification.fxml"));
+            Scene scene = new Scene(globalPane);
+            mainStage.setScene(scene);
+        } catch (IOException ex) {
             Logger.getLogger(MySoulMate.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
