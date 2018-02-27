@@ -36,6 +36,7 @@ import models.StatusPost;
 import services.MemberService;
 import services.NewsFeed;
 import services.PhotoService;
+import util.TimeDiff;
 
 /**
  * FXML Controller class
@@ -81,7 +82,8 @@ public class HomeViewController implements Initializable {
                     spc = (StatusPostViewController)loader.getController();
                     spc.fill(new Image(MySoulMate.UPLOAD_URL + PhotoService.getInstance().get(new Photo(0,p.getOwnerId(),null,null,PhotoType.PROFILE)).getUrl()),
                         ((StatusPost)p).getContent(), MemberService.getInstance().get(new Member(p.getOwnerId())).getPseudo(),
-                        getTimeDiff(p.getDate()), p.getId());
+                        TimeDiff.getInstance(p.getDate(),new Timestamp(new java.util.Date().getTime())).getTimeDiffString(),
+                        p.getId());
                 }
                 else if(p instanceof PicturePost){
                     loader.setLocation(getClass().getResource("/view/PicturePostView.fxml"));
@@ -90,7 +92,8 @@ public class HomeViewController implements Initializable {
                     ppc = (PicturePostViewController)loader.getController();
                     ppc.fill(new Image(MySoulMate.UPLOAD_URL + PhotoService.getInstance().get(new Photo(0,p.getOwnerId(),null,null,PhotoType.PROFILE)).getUrl()),
                         MemberService.getInstance().get(new Member(p.getOwnerId())).getPseudo(),
-                        getTimeDiff(p.getDate()), MySoulMate.UPLOAD_URL + ((PicturePost)p).getUrl(), ((PicturePost)p).getPhotoId());
+                        TimeDiff.getInstance(p.getDate(),new Timestamp(new java.util.Date().getTime())).getTimeDiffString(),
+                        MySoulMate.UPLOAD_URL + ((PicturePost)p).getUrl(), ((PicturePost)p).getPhotoId());
                 }
                 feed.getChildren().add(root);
             }
@@ -102,22 +105,5 @@ public class HomeViewController implements Initializable {
     
     public void addToTopFeed(Parent p){
         feed.getChildren().add(1, p);
-    }
-    
-    public String getTimeDiff(Timestamp t){
-        Date date = new Date(t.getTime());
-        int days = Period.between(LocalDate.of(date.getYear() + 1900, date.getMonth() + 1,
-                date.getDate()), LocalDate.now()).getDays();
-        if(days < 7)
-            return days + " days";
-        if(days < 14)
-            return "1 week";
-        if(days < 28)
-            return days / 7 + " weeks";
-        if(days < 365)
-            return days / 30 + " months";
-        if(days < 630)
-            return "Over a year";
-        return days / 365 + " years";
     }
 }

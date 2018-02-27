@@ -25,6 +25,7 @@ import javafx.stage.StageStyle;
 import models.Member;
 import services.MemberService;
 import util.MailVerification;
+import util.PasswordDialog;
 
 /**
  * FXML Controller class
@@ -104,6 +105,28 @@ public class SettingsViewController implements Initializable {
 
     @FXML
     private void confirmDesactivation(MouseEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to deactivate your account?", ButtonType.YES, ButtonType.CANCEL);
+        Optional<ButtonType> result = alert.showAndWait();
+        if(result.get() == ButtonType.YES){
+            PasswordDialog dialog = new PasswordDialog();
+            Optional<String> res = dialog.showAndWait();
+            res.ifPresent(password -> {
+                if(password.equals(member.getPassword())){
+                    try {
+                        MemberService.getInstance().updatelock(member.getId(), (short)2);
+                        Alert alert1 = new Alert(Alert.AlertType.CONFIRMATION, "Your account has been deactivated.", ButtonType.OK);
+                        Optional<ButtonType> r = alert1.showAndWait();
+                        this.dialog.close();
+                        MySoulMate.getInstance().logOut();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(SettingsViewController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }else{
+                    Alert alert1 = new Alert(Alert.AlertType.ERROR, "Incorrect password!", ButtonType.OK);
+                    alert1.show();
+                }
+            });
+        }
     }
 
     @FXML

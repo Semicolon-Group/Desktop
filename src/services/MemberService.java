@@ -55,7 +55,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
     public Member create(Member obj) throws SQLException {
         String query = "insert into user (pseudo, firstname, lastname, email,password,birth_date,gender,height,"
                 + "body_type,children_number,relegion,relegion_importance,smoker,drinker,min_age,max_age,"
-                + "proximity,last_login,locked,ip,port,role,created_at,updated_at,about,civil_status,connected)"
+                + "phone,last_login,locked,ip,port,role,created_at,updated_at,about,civil_status,connected)"
                 + " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement preparedStatement = CONNECTION.prepareStatement(query);
         preparedStatement.setString(1, obj.getPseudo());
@@ -74,7 +74,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
         preparedStatement.setBoolean(14, obj.isDrinker());
         preparedStatement.setInt(15, obj.getMinAge());
         preparedStatement.setInt(16, obj.getMaxAge());
-        preparedStatement.setInt(17, obj.getProximity().ordinal());
+        preparedStatement.setInt(17, obj.getPhone());
         preparedStatement.setTimestamp(18, obj.getLastLogin());
         preparedStatement.setShort(19, obj.getLocked());
         preparedStatement.setString(20, obj.getIp());
@@ -116,7 +116,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
         String query = "UPDATE user SET pseudo=?, firstname=?, lastname=?,"
                 + "email=?, password=?, birth_date=?, gender=?, height=?,"
                 + "body_type=?, children_number=?, relegion=?, relegion_importance=?,"
-                + "smoker=?, drinker=?, min_age=?, max_age=?, proximity=?,"
+                + "smoker=?, drinker=?, min_age=?, max_age=?, phone=?,"
                 + "last_login=?, locked=?, ip=?, port=?, updated_at=?, about=?, civil_status=?, connected=? WHERE id=?";
         PreparedStatement prepare = CONNECTION.prepareStatement(query);
         prepare.setString(1, obj.getPseudo());
@@ -135,7 +135,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
         prepare.setBoolean(14, obj.isDrinker());
         prepare.setInt(15, obj.getMinAge());
         prepare.setInt(16, obj.getMaxAge());
-        prepare.setInt(17, obj.getProximity().ordinal());
+        prepare.setInt(17, obj.getPhone());
         prepare.setTimestamp(18, obj.getLastLogin());
         prepare.setShort(19, obj.getLocked());
         prepare.setString(20, obj.getIp());
@@ -194,7 +194,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
             obj.setDrinker(rs.getBoolean("drinker"));
             obj.setMinAge(rs.getInt("min_age"));
             obj.setMaxAge(rs.getInt("max_age"));
-            obj.setProximity(Enumerations.Proximity.values()[rs.getInt("proximity")]);
+            obj.setPhone(rs.getInt("phone"));
             obj.setLastLogin(rs.getTimestamp("last_login"));
             obj.setLocked(rs.getShort("locked"));
             obj.setIp(rs.getString("ip"));
@@ -237,7 +237,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
             mbr.setDrinker(rs.getBoolean("drinker"));
             mbr.setMinAge(rs.getInt("min_age"));
             mbr.setMaxAge(rs.getInt("max_age"));
-            mbr.setProximity(Enumerations.Proximity.values()[rs.getInt("proximity")]);
+            mbr.setPhone(rs.getInt("phone"));
             mbr.setLastLogin(rs.getTimestamp("last_login"));
             mbr.setLocked(rs.getShort("locked"));
             mbr.setIp(rs.getString("ip"));
@@ -313,7 +313,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
 
         ResultSet rs = CONNECTION.createStatement().executeQuery(req);
         Map<Member,Map.Entry<Double,Integer>> mmbrs = new HashMap<>();
-        while (rs.next()) {            
+        while (rs.next()) {
             Member mbr = new Member();
             mbr.setId(rs.getInt("id"));
             mbr.setAddress(AddressService.getInstance().get(new Address(mbr.getId())));
@@ -342,7 +342,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
             mbr.setDrinker(rs.getBoolean("drinker"));
             mbr.setMinAge(rs.getInt("min_age"));
             mbr.setMaxAge(rs.getInt("max_age"));
-            mbr.setProximity(Enumerations.Proximity.values()[rs.getInt("proximity")]);
+            mbr.setPhone(rs.getInt("phone"));
             mbr.setLastLogin(rs.getTimestamp("last_login"));
             mbr.setLocked(rs.getShort("locked"));
             mbr.setIp(rs.getString("ip"));

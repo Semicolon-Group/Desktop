@@ -9,84 +9,90 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="post" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="436.0" prefWidth="460.0" spacing="3.0" style="-fx-background-color: white; -fx-border-color: #E5E5E5; -fx-border-radius: 8 8 8 8; -fx-background-radius: 8 8 8 8;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PicturePostViewController">
+<VBox fx:id="container" alignment="TOP_CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="460.0" spacing="5.0" style="-fx-background-color: white; -fx-border-color: #E5E5E5; -fx-background-radius: 8 8 0 0; -fx-border-radius: 8 8 0 0;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PicturePostViewController">
    <children>
-      <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="436.0" style="-fx-background-color: white;">
+      <VBox fx:id="post" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="436.0" prefWidth="436.0" spacing="3.0">
          <children>
-            <ImageView fx:id="photo" fitHeight="100.0" onMouseClicked="#onPhotoClick" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@assets/img/mens-hairstyles-18.jpg" />
-               </image>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor></ImageView>
-            <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="100.0" prefWidth="190.0">
+            <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="436.0" style="-fx-background-color: white;">
                <children>
-                  <Label fx:id="name" onMouseClicked="#onPseudoClick" text="John Cena" textFill="#29487d">
-                     <VBox.margin>
-                        <Insets left="7.0" />
-                     </VBox.margin>
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font>
+                  <ImageView fx:id="photo" fitHeight="100.0" fitWidth="100.0" onMouseClicked="#onPhotoClick" pickOnBounds="true">
+                     <image>
+                        <Image url="@assets/img/mens-hairstyles-18.jpg" />
+                     </image>
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
-                  </Label>
-                  <Label fx:id="time" text="1 hr" textFill="#9a9ea5">
-                     <VBox.margin>
-                        <Insets left="7.0" />
-                     </VBox.margin>
-                     <font>
-                        <Font name="Arial" size="12.0" />
-                     </font>
-                  </Label>
+                  </ImageView>
+                  <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="100.0" prefWidth="190.0">
+                     <children>
+                        <Label fx:id="name" onMouseClicked="#onPseudoClick" text="John Cena" textFill="#29487d">
+                           <VBox.margin>
+                              <Insets left="7.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Label>
+                        <Label fx:id="time" text="1 hr" textFill="#9a9ea5">
+                           <VBox.margin>
+                              <Insets left="7.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font name="Arial" size="12.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
                </children>
-            </VBox>
+            </HBox>
+            <ImageView fx:id="picture" fitWidth="436.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@assets/img/Men’s-Modern-Haircuts-2014-16.jpg" />
+               </image>
+            </ImageView>
+            <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="436.0" spacing="10.0" style="-fx-background-color: white;">
+               <children>
+                  <ImageView fx:id="smile" fitHeight="32.0" fitWidth="39.0" onMouseClicked="#onSmileClick" opacity="0.4" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@assets/icons/emoticons/003-happy.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+                  <ImageView fx:id="love" fitHeight="32.0" fitWidth="39.0" onMouseClicked="#onLoveClick" opacity="0.4" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@assets/icons/emoticons/004-in-love.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+                  <ImageView fx:id="laugh" fitHeight="32.0" fitWidth="39.0" onMouseClicked="#onLaughClick" opacity="0.4" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@assets/icons/emoticons/002-happy-1.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+                  <ImageView fx:id="scowl" fitHeight="32.0" fitWidth="39.0" onMouseClicked="#onScowlClick" opacity="0.4" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@assets/icons/emoticons/001-suspicious.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+               </children>
+            </HBox>
          </children>
-      </HBox>
-      <ImageView fx:id="picture" fitWidth="436.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@assets/img/Men’s-Modern-Haircuts-2014-16.jpg" />
-         </image>
-      </ImageView>
-      <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="436.0" spacing="10.0" style="-fx-background-color: white;">
-         <children>
-            <ImageView fx:id="smile" fitHeight="32.0" fitWidth="39.0" onMouseClicked="#onSmileClick" opacity="0.4" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@assets/icons/emoticons/003-happy.png" />
-               </image>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
-            <ImageView fx:id="love" fitHeight="32.0" fitWidth="39.0" onMouseClicked="#onLoveClick" opacity="0.4" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@assets/icons/emoticons/004-in-love.png" />
-               </image>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
-            <ImageView fx:id="laugh" fitHeight="32.0" fitWidth="39.0" onMouseClicked="#onLaughClick" opacity="0.4" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@assets/icons/emoticons/002-happy-1.png" />
-               </image>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
-            <ImageView fx:id="scowl" fitHeight="32.0" fitWidth="39.0" onMouseClicked="#onScowlClick" opacity="0.4" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@assets/icons/emoticons/001-suspicious.png" />
-               </image>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
-         </children></HBox>
+         <padding>
+            <Insets top="10.0" />
+         </padding>
+      </VBox>
    </children>
-   <padding>
-      <Insets left="11.0" top="10.0" />
-   </padding>
 </VBox>

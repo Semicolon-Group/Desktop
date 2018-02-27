@@ -21,6 +21,7 @@ import util.DataSource;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,6 +38,7 @@ import javafx.stage.Stage;
 import models.Choice;
 import models.Enumerations;
 import models.Question;
+import org.controlsfx.control.textfield.TextFields;
 import services.ChoiceService;
 import services.Service;
 
@@ -91,7 +93,10 @@ public class QuestionController extends Service implements Initializable {
         table.setItems(null);
         table.setItems(data);
         
+
     }    
+    
+    
 
     @FXML
     private void movetoajoutquestion(ActionEvent event) throws IOException {
@@ -126,11 +131,5 @@ public class QuestionController extends Service implements Initializable {
         txt_id.setText(String.valueOf(q.getId()));
     }
 
-    
 
-  
-    
-
-   
-    
-}
+}    
