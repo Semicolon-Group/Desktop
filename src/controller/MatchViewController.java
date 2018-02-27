@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -136,16 +137,61 @@ public class MatchViewController implements Initializable {
             Logger.getLogger(MatchViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
         sort.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
-            if(newValue.equals("Match %"))
-                cards.sort((a,b) -> b.getMatch() - a.getMatch());
-            if(newValue.equals("Distance"))
-                cards.sort((a,b) -> (int)(a.getDistance() - b.getDistance()));
-            if(newValue.equals("Last Online"))
-                cards.sort((a,b) -> a.getLastLogin() - b.getLastLogin());
+            if (newValue.equals("Match %")) {
+                cards.sort((a, b) -> b.getMatch() - a.getMatch());
+            }
+            if (newValue.equals("Distance")) {
+                cards.sort((a, b) -> (int) (a.getDistance() - b.getDistance()));
+            }
+            if (newValue.equals("Last Online")) {
+                cards.sort((a, b) -> a.getLastLogin() - b.getLastLogin());
+            }
             try {
                 fill();
             } catch (SQLException | IOException ex) {
                 Logger.getLogger(MatchViewController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        ageMin.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
+            if (newValue != null) {
+                if (newValue.equals("")) {
+                    Platform.runLater(() -> ageMin.getSelectionModel().clearSelection());
+                }
+            }
+        });
+        ageMax.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
+            if (newValue != null) {
+                if (newValue.equals("")) {
+                    Platform.runLater(() -> ageMax.getSelectionModel().clearSelection());
+                }
+            }
+        });
+        heightMin.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
+            if (newValue != null) {
+                if (newValue.equals("")) {
+                    Platform.runLater(() -> heightMin.getSelectionModel().clearSelection());
+                }
+            }
+        });
+        heightMax.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
+            if (newValue != null) {
+                if (newValue.equals("")) {
+                    Platform.runLater(() -> heightMax.getSelectionModel().clearSelection());
+                }
+            }
+        });
+        distance.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
+            if (newValue != null) {
+                if (newValue.equals("")) {
+                    Platform.runLater(() -> distance.getSelectionModel().clearSelection());
+                }
+            }
+        });
+        login.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
+            if (newValue != null) {
+                if (newValue.equals("")) {
+                    Platform.runLater(() -> login.getSelectionModel().clearSelection());
+                }
             }
         });
     }
@@ -165,6 +211,10 @@ public class MatchViewController implements Initializable {
 
     @FXML
     private void onSearchButtonClick(MouseEvent event) {
+        Filter tempF = new Filter();
+        tempF.setSmokes(f.getSmokes());
+        tempF.setDrinks(f.getDrinks());
+        f = tempF;
         if (mince.isSelected()) {
             f.getBodyType().add(BodyType.MINCE);
         }
@@ -251,7 +301,7 @@ public class MatchViewController implements Initializable {
         smokeNo.getStyleClass().removeAll("noBoxSelected");
         drinkYes.getStyleClass().removeAll("yesBoxSelected");
         drinkNo.getStyleClass().removeAll("noBoxSelected");
-        try{
+        try {
             f = new Filter();
             cards = Matching.getInstance().getMatches(online, f);
             fill();
