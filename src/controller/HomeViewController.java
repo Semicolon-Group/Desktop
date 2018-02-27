@@ -67,7 +67,12 @@ public class HomeViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        fill();
+    }
+    
+    public void fill(){
         try {
+            feed.getChildren().clear();
             FXMLLoader loader = new FXMLLoader();
             Parent root = loader.load(getClass().getResource("/view/StatusWritingView.fxml"));
             feed.getChildren().add(root);

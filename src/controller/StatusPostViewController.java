@@ -75,6 +75,8 @@ public class StatusPostViewController implements Initializable {
     private Reaction r;
     @FXML
     private VBox container;
+    @FXML
+    private ImageView delete;
 
     /**
      * Initializes the controller class.
@@ -94,6 +96,7 @@ public class StatusPostViewController implements Initializable {
             ownerId = StatusPostService.getInstance().get(new StatusPost(postId)).getOwnerId();
             if (ownerId == online.getId()){
                 reactions.setVisible(false);
+                delete.setVisible(true);
             }
             r = ReactionService.getInstance().get(new Reaction(online.getId(),postId,0,0,null));
             if(r != null) switch (r.getReactionType()) {
@@ -272,6 +275,16 @@ public class StatusPostViewController implements Initializable {
             FXMLLoader loader = GlobalViewController.getInstance().setMainContent("/view/OthersProfileView.fxml");
             ((OthersProfileViewController)loader.getController()).setUserId(StatusPostService.getInstance()
                     .get(new StatusPost(postId)).getOwnerId());
+        } catch (SQLException ex) {
+            Logger.getLogger(StatusPostViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void onDeleteClick(MouseEvent event) {
+        try {
+            StatusPostService.getInstance().delete(new StatusPost(postId));
+            HomeViewController.getInstance().fill();
         } catch (SQLException ex) {
             Logger.getLogger(StatusPostViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
