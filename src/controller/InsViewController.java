@@ -18,7 +18,11 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.time.ZoneId;
+import static java.time.temporal.TemporalQueries.localDate;
+import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 import javafx.animation.RotateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,12 +34,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import models.Email;
 import models.Member;
 import org.json.JSONObject;
-import org.json.simple.JSONObject;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import util.MailVerification;
@@ -97,7 +101,7 @@ public class InsViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        RotateTransition rt = new RotateTransition(Duration.seconds(35),image);
+        RotateTransition rt = new RotateTransition(Duration.seconds(120),image);
         rt.setByAngle(9*360);
         rt.play();
       
@@ -114,6 +118,7 @@ public class InsViewController implements Initializable {
         } else {
             labelfirst.setText("");
         }
+
         if (Last_name.getText().equals("")) {
             labelname.setText("Field is empty !");
             labelname.setVisible(true);
@@ -121,6 +126,7 @@ public class InsViewController implements Initializable {
         } else {
             labelname.setText("");
         }
+
         if (pseudo.getText().equals("")) {
             labelps.setText("Field is empty !");
             labelps.setVisible(true);
@@ -128,7 +134,7 @@ public class InsViewController implements Initializable {
         } else {
             labelps.setText("");
         }
-        if (Email.getText().equals("")) {
+        if (emailTextField.getText().equals("")) {
             labelemail.setText("Field is empty !");
             labelemail.setVisible(true);
             valid = false;
@@ -141,6 +147,7 @@ public class InsViewController implements Initializable {
         } else {
             labelemail.setText("");
         }
+
         if (Password.getText().equals("")) {
             labelpass.setText("Field is empty !");
             labelpass.setVisible(true);
@@ -148,11 +155,13 @@ public class InsViewController implements Initializable {
         } else {
             labelpass.setText("");
         }
+
         if (Rpassword.getText().equals("")) {
             labelrepass.setText("Field is empty !");
             labelrepass.setVisible(true);
             valid = false;
         }
+
         if (!Password.getText().equals(Rpassword.getText())) {
             labelrepass.setText("Password doesn't match !");
             labelrepass.setVisible(true);
@@ -162,24 +171,31 @@ public class InsViewController implements Initializable {
             labelrepass.setTextFill(Color.web("GREEN"));;
             labelrepass.setVisible(true);
         }
+
         if (birth_date.getValue() == null) {
             labeldate.setText("Field is empty !");
             labeldate.setVisible(true);
             valid = false;
-            }
+        }
         if(!valid) return;
+        
         m = new Member();
         m.setFirstname(Firstname.getText());
         m.setLastname(Last_name.getText());
         m.setPseudo(pseudo.getText());
-        m.setEmail(Email.getText());
+        m.setEmail(emailTextField.getText());
         m.setPassword(Password.getText());
         m.setGender(male.isSelected());
         m.setBirthDate(java.sql.Date.valueOf(birth_date.getValue()));
-        FXMLLoader loader = container3.switchView("InscriptionDetailsView");
-        ((InscriptionDetailsViewController)loader.getController()).setMember(m);
-
         
+
+
+        FXMLLoader loader = container3.switchView("InscriptionDetailsView");
+        System.out.println(loader);
+        ((InscriptionDetailsViewController)loader.getController()).setMember(m);
+        
+         
+            
     }
 
     @FXML
@@ -188,7 +204,7 @@ public class InsViewController implements Initializable {
         Firstname.clear();
         Last_name.clear();
         pseudo.clear();
-        Email.clear();
+        emailTextField.clear();
         Password.clear();
         Rpassword.clear();
         
