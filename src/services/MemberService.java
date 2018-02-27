@@ -22,10 +22,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import models.Address;
+import models.Admin;
 import models.Enumerations;
 import models.Enumerations.Role;
 import models.Enumerations.LastLogin;
 import models.Member;
+import models.User;
 import static util.GoogleDistanceMatrixAPI.getDistance;
 
 /**
@@ -164,15 +166,16 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
 
     @Override
     public Member get(Member obj) throws SQLException {
-        String condition = "";
+        String condition = "Where role = 0";
         if (obj.getId() != 0) {
-            condition = "Where id = " + obj.getId();
+            condition += " and id = " + obj.getId();
         } else if (obj.getPseudo() != null) {
-            condition = "Where pseudo = '" + obj.getPseudo() + "'";
+            condition += " and pseudo = '" + obj.getPseudo() + "'";
         } else if (obj.getEmail() != null) {
-            condition = "Where email = '" + obj.getEmail() + "'";
+            condition += " and email = '" + obj.getEmail() + "'";
         }
         String req = "Select * from user " + condition;
+        System.out.println(req);
         st = CONNECTION.createStatement();
         rs = st.executeQuery(req);
 
@@ -210,7 +213,26 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
         }
         return null;
     }
-
+    
+    public Admin getAdmin(Admin obj) throws SQLException {
+        if (obj.getPseudo() == null) return null;
+        String query = "Select * from user Where role=1 and pseudo = '" + obj.getPseudo() + "'";
+        st = CONNECTION.createStatement();
+        rs = st.executeQuery(query);
+        if (rs.next()) {
+            obj.setId(rs.getInt("id"));
+            obj.setPseudo(rs.getString("pseudo"));
+            obj.setFirstname(rs.getString("firstname"));
+            obj.setLastname(rs.getString("lastname"));
+            obj.setEmail(rs.getString("email"));
+            obj.setPassword(rs.getString("password"));
+            obj.setIp(rs.getString("ip"));
+            obj.setPort(rs.getInt("port")); 
+            return obj;
+        }
+        return null;
+    }
+    
     @Override
     public List<Member> getAll(Member obj) throws SQLException {
         String query = "select * from user";
@@ -403,4 +425,30 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
             prepare.executeUpdate();
         }
     }
+
+    public ResultSet getStats() throws SQLException {
+        PreparedStatement stat = CONNECTION.prepareStatement("select concat(MONTH(created_at)) as created from user");
+        return stat.executeQuery();
+    }
+
+    public ResultSet getGender() throws SQLException {
+        PreparedStatement stat = CONNECTION.prepareStatement("select gender as sex from user");
+        return stat.executeQuery();
+    }
+
+    public ResultSet getLike() throws SQLException {
+        PreparedStatement stat = CONNECTION.prepareStatement("select concat(MONTH(date)) as created1 from user_like");
+        return stat.executeQuery();
+    }
+
+    public ResultSet getBlock() throws SQLException {
+        PreparedStatement stat = CONNECTION.prepareStatement("select concat(MONTH(date)) as created2 from user_block");
+        return stat.executeQuery();
+    }
+
+    public ResultSet getSignal() throws SQLException {
+        PreparedStatement stat = CONNECTION.prepareStatement("select concat(MONTH(date)) as created3 from user_signal");
+        return stat.executeQuery();
+    }
+
 }
