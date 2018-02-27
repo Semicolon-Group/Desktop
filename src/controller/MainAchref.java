@@ -86,18 +86,18 @@ public class MainAchref extends Application {
 //            System.out.println(ex.getMessage());
 //        }
 //        System.out.println(MemberService.getInstance().get(new Member(1)));
-     try {
-            FXMLLoader loader = new FXMLLoader();
-            Parent root = loader.
-                    load(getClass().getResource("/view/InscriptionContainerView.fxml").openStream());
-            container3 = loader.getController();
-            Scene scene = new Scene(root);
-            primaryStage.setScene(scene);
-            primaryStage.show();
-
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-        }
+//     try {
+//            FXMLLoader loader = new FXMLLoader();
+//            Parent root = loader.
+//                    load(getClass().getResource("/view/InscriptionContainerView.fxml").openStream());
+//            container3 = loader.getController();
+//            Scene scene = new Scene(root);
+//            primaryStage.setScene(scene);
+//            primaryStage.show();
+//
+//        } catch (IOException ex) {
+//            System.out.println(ex.getMessage());
+//        }
 ////   
 //
 //     try {

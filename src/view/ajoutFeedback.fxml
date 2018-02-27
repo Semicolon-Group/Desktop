@@ -25,11 +25,7 @@
          </children>
       </AnchorPane>
       <TextArea fx:id="content" layoutX="50.0" layoutY="119.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="141.0" prefWidth="400.0" promptText="Add a description.." />
-      <Button fx:id="btn" accessibleRole="CHECK_BOX" blendMode="SRC_ATOP" layoutX="402.0" layoutY="276.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#ajoutFeed" pickOnBounds="false" prefHeight="28.0" prefWidth="66.0" style="-fx-border-color: #343e43;" text="Submit">
-         <font>
-            <Font size="13.0" />
-         </font>
-      </Button>
       <Button fx:id="cancelButton" cancelButton="true" layoutX="313.0" layoutY="277.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#closeWindow" prefHeight="28.0" prefWidth="66.0" style="-fx-border-color: #343e43;" text="Cancel" />
+      <Button fx:id="btn" layoutX="399.0" layoutY="275.0" mnemonicParsing="false" onAction="#ajoutFeed" prefHeight="29.0" prefWidth="66.0" style="-fx-border-color: #343e43;" text="Submit" />
    </children>
 </AnchorPane>
