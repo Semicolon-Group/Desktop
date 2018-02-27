@@ -261,7 +261,6 @@ public class InsViewController implements Initializable {
 //                         System.out.println("User id "+user.getId());
 
                          
-                         
                          Firstname.setText(user.getFirstName());
                          Last_name.setText(user.getLastName());
 //                         driver.quit();

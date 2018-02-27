@@ -133,7 +133,7 @@ public class InscriptionDetailsViewController implements Initializable {
     @FXML
     private ComboBox<String> statusBox;
     ObservableList<String> statusList = FXCollections.observableArrayList();
-    private ToggleGroup maritalGroup;
+//    private ToggleGroup maritalGroup;
     @FXML
     private AnchorPane anchor;
     @FXML
@@ -289,7 +289,7 @@ public class InscriptionDetailsViewController implements Initializable {
             m.setChildrenNumber(Integer.parseInt(childrenNum.getText()));
             m.setMinAge(Integer.parseInt(minAge.getText()));
             m.setMaxAge(Integer.parseInt(maxAge.getText()));
-            m.setHeight(Float.parseFloat(height.getText()));
+            m.setHeight(Float.parseFloat(height.getText().replace(",", ".")));
             m.setBodyType(BodyType.valueOf(bodyBox.getValue()));
             m.setReligion(Religion.valueOf(religionBox.getValue()));
             m.setReligionImportance(Importance.valueOf(importanceBox.getValue()));
@@ -298,6 +298,8 @@ public class InscriptionDetailsViewController implements Initializable {
             m.setDrinker(Drinker.isSelected());
             m.setSmoker(Smoker.isSelected());
             m.setAbout(about.getText());
+            
+            
             for(CheckBox cb : statusesCheckBoxes){
                 m.getPreferedStatuses().add(MaritalStatus.values()[Integer.parseInt(cb.getId())]);
             }
@@ -309,10 +311,10 @@ public class InscriptionDetailsViewController implements Initializable {
             //TODO
             
           MemberService.getInstance().create(m);
-          SendMail sm = new SendMail(m.getEmail(), " Confirmation d'inscription ", " Bonjour " + m.getFirstname() + " Vous etes maintenant inscrit à MySoulMate" );
+          SendMail sm = new SendMail(m.getEmail(), " Confirmation d'inscription ", " Bonjour " + m.getFirstname() + "Felicitations! Vous etes maintenant inscrit à MySoulMate" );
           
-//          SendMessage s=new  SendMessage();
-//          s.sendSms(" Vous etes Maintenant Inscrit à Mysoulmate ",phoneText.getText());
+          SendMessage s=new  SendMessage();
+          s.sendSms("Felicitations! Vous etes Maintenant Inscrit à Mysoulmate ",phoneText.getText());
             
         } catch (SQLException ex) {
             util.Logger.writeLog(ex, InscriptionDetailsViewController.class.getName(), null);
