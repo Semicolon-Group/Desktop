@@ -37,7 +37,7 @@ import services.PhotoService;
 import services.ReactionService;
 import services.StatusPostService;
 import util.N_SendMail;
-import util.SendSMS;
+import util.SendSMS2;
 
 /**
  * FXML Controller class
@@ -154,7 +154,7 @@ public class PicturePostViewController implements Initializable {
                         "has reacted to your photo.", new Timestamp(new Date().getTime()), null, 0, photoId, false));
                 new N_SendMail(MemberService.getInstance().get(new Member(ownerId)).getEmail(),"MySoulMate | Notification",
                                 online.getPseudo() + " has reacted to your photo. Login to see more details.");
-                SendSMS sm = new SendSMS();
+                SendSMS2 sm = new SendSMS2();
                 //sm.SendSms("MySoulmate\\n" + online.getPseudo() + " has reacted to your photo.", "24");
             }
         } catch (SQLException ex) {
@@ -185,7 +185,7 @@ public class PicturePostViewController implements Initializable {
                         "has reacted to your photo.", new Timestamp(new Date().getTime()), null, 0, photoId, false));
                 new N_SendMail(MemberService.getInstance().get(new Member(ownerId)).getEmail(),"MySoulMate | Notification",
                                 online.getPseudo() + " has reacted to your photo. Login to see more details.");
-                SendSMS sm = new SendSMS();
+                SendSMS2 sm = new SendSMS2();
                 //sm.SendSms("MySoulmate\\n" + online.getPseudo() + " has reacted to your photo.", "24");
             }
         } catch (SQLException ex) {
@@ -216,7 +216,7 @@ public class PicturePostViewController implements Initializable {
                         "has reacted to your photo.", new Timestamp(new Date().getTime()), null, 0, photoId, false));
                 new N_SendMail(MemberService.getInstance().get(new Member(ownerId)).getEmail(),"MySoulMate | Notification",
                                 online.getPseudo() + " has reacted to your photo. Login to see more details.");
-                SendSMS sm = new SendSMS();
+                SendSMS2 sm = new SendSMS2();
                 //sm.SendSms("MySoulmate\\n" + online.getPseudo() + " has reacted to your photo.", "24539942");
             }
         } catch (SQLException ex) {
@@ -247,7 +247,7 @@ public class PicturePostViewController implements Initializable {
                         "has reacted to your photo.", new Timestamp(new Date().getTime()), null, 0, photoId, false));
                 new N_SendMail(MemberService.getInstance().get(new Member(ownerId)).getEmail(),"MySoulMate | Notification",
                                 online.getPseudo() + " has reacted to your photo. Login to see more details.");
-                SendSMS sm = new SendSMS();
+                SendSMS2 sm = new SendSMS2();
                 //sm.SendSms("MySoulmate\\n" + online.getPseudo() + " has reacted to your photo.", "24");
             }
         } catch (SQLException ex) {
