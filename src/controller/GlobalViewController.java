@@ -113,7 +113,7 @@ public class GlobalViewController implements Initializable {
                 notificationPane.setVisible(false);
             }else{
                 if(!((Node)event.getTarget()).getStyleClass().contains(new String("notificationClickable"))){
-                notificationPane.setVisible(false);
+                    notificationPane.setVisible(false);
                 }
                 if(!((Node)event.getTarget()).getStyleClass().contains(new String("conversationClickable"))){
                     conversationPane.setVisible(false);
@@ -164,6 +164,7 @@ public class GlobalViewController implements Initializable {
                 activeIcon(messageIcon, "message");
                 return;
             }
+            conversationContent.getChildren().clear();
             conversationPane.setPrefHeight(0);
             messageIcon.getStyleClass().add("hoverable");
             releaseIcon(messageIcon, "message");
