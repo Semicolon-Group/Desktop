@@ -14,9 +14,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="bg" fx:id="msgAnchore" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="800.0" prefWidth="1350.0" stylesheets="@../view/style/fazet.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.InstantMessagingViewController">
+<AnchorPane id="bg" fx:id="msgAnchore" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="750.0" prefWidth="1350.0" stylesheets="@../view/style/fazet.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.InstantMessagingViewController">
    <children>
-      <HBox fx:id="profileImgPane" layoutX="439.0" layoutY="80.0" prefHeight="88.0" prefWidth="108.0" style="-fx-border-radius: 30 30 30 30;" AnchorPane.topAnchor="79.0">
+      <HBox fx:id="profileImgPane" layoutX="235.0" layoutY="99.0" prefHeight="88.0" prefWidth="108.0" style="-fx-border-radius: 30 30 30 30;" AnchorPane.topAnchor="99.0">
          <children>
             <ImageView fx:id="profileImage" fitHeight="88.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -28,39 +28,21 @@
             </ImageView>
          </children>
       </HBox>
-      <Label id="recu" fx:id="nom" alignment="CENTER" contentDisplay="CENTER" layoutX="547.0" layoutY="80.0" prefHeight="17.0" prefWidth="150.0" AnchorPane.topAnchor="80.0">
+      <Label id="recu" fx:id="nom" alignment="CENTER" contentDisplay="CENTER" layoutX="343.0" layoutY="100.0" prefHeight="17.0" prefWidth="150.0" AnchorPane.topAnchor="100.0">
          <font>
             <Font size="17.0" />
          </font></Label>
-      <Label id="recu" fx:id="status" alignment="CENTER" contentDisplay="CENTER" layoutX="547.0" layoutY="124.0" prefHeight="25.0" prefWidth="150.0" AnchorPane.topAnchor="124.0">
+      <Label id="recu" fx:id="status" alignment="CENTER" contentDisplay="CENTER" layoutX="343.0" layoutY="144.0" prefHeight="25.0" prefWidth="150.0" AnchorPane.topAnchor="144.0">
          <font>
             <Font size="17.0" />
          </font></Label>
-      <Label fx:id="typing" alignment="CENTER" contentDisplay="CENTER" layoutX="439.0" layoutY="168.0" prefHeight="26.0" prefWidth="108.0" AnchorPane.topAnchor="168.0" />
-      <ScrollPane id="msg" fx:id="convs" hbarPolicy="NEVER" layoutX="110.0" layoutY="146.0" prefHeight="391.0" prefWidth="230.0" AnchorPane.bottomAnchor="98.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="200.0">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-         <opaqueInsets>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </opaqueInsets>
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding>
+      <Label fx:id="typing" alignment="CENTER" contentDisplay="CENTER" layoutX="235.0" layoutY="188.0" prefHeight="26.0" prefWidth="108.0" AnchorPane.topAnchor="188.0" />
+      <ScrollPane id="msg" fitToHeight="true" focusTraversable="false" hbarPolicy="NEVER" layoutX="200.0" layoutY="220.0" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" onDragDetected="#goReceive" vvalue="1.0" AnchorPane.bottomAnchor="88.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="298.0" AnchorPane.topAnchor="220.0" fx:id="x">
          <content>
-            <VBox fx:id="cons" prefHeight="486.0" prefWidth="212.0">
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-            </VBox>
+            <VBox alignment="CENTER" prefHeight="494.0" prefWidth="905.0" />
          </content>
       </ScrollPane>
-      <ScrollPane id="msg" fitToHeight="true" focusTraversable="false" hbarPolicy="NEVER" layoutX="277.0" layoutY="136.0" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" onDragDetected="#goReceive" vvalue="1.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="200.0" fx:id="x">
-         <content>
-            <VBox prefHeight="494.0" prefWidth="905.0" />
-         </content>
-      </ScrollPane>
-      <HBox alignment="BOTTOM_CENTER" layoutX="277.0" layoutY="676.0" maxHeight="-Infinity" prefHeight="55.0" prefWidth="708.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="90.0">
+      <HBox alignment="BOTTOM_CENTER" layoutX="200.0" layoutY="677.0" maxHeight="-Infinity" prefHeight="55.0" prefWidth="708.0" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="298.0">
          <children>
             <TextArea id="msg" fx:id="inputmsg" onInputMethodTextChanged="#isWriting" prefHeight="55.0" prefWidth="662.0">
                <HBox.margin>

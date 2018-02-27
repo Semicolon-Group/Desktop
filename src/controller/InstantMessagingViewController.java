@@ -77,7 +77,6 @@ public class InstantMessagingViewController implements Initializable {
 
     private int receiverId;
     javafx.geometry.Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-    @FXML
     private ScrollPane convs = new ScrollPane();
     @FXML
     private Label nom;
@@ -116,7 +115,6 @@ public class InstantMessagingViewController implements Initializable {
     @FXML
     private Label typing;
 
-    @FXML
     private VBox cons;
 
     private HBox wrap;
@@ -138,11 +136,11 @@ public class InstantMessagingViewController implements Initializable {
             status.setText(conn);
             status.getStyleClass().add("typing");
             receiver = MemberService.getInstance().get(new Member(receiverId));
-//            profileImage.setImage(new Image(MySoulMate.UPLOAD_URL + PhotoService.getInstance().get(new Photo(receiver.getId(), Enumerations.PhotoType.PROFILE)).getUrl()));
+            profileImage.setImage(new Image(MySoulMate.UPLOAD_URL + PhotoService.getInstance().get(new Photo(receiver.getId(), Enumerations.PhotoType.PROFILE)).getUrl()));
 
             init();
             getHisotrique();
-            goConversations();
+//            goConversations();
             box.getSelectionModel().select(1);
             box.getItems().add("Emojis");
             box.getItems().add("☺");
@@ -260,7 +258,7 @@ public class InstantMessagingViewController implements Initializable {
                 textField[i].setText(" " + e.getContent() + " \n");
                 wrap = new HBox();
                 wrap.setAlignment(Pos.TOP_LEFT);
-                textField[i].setTranslateX(-500);
+                textField[i].setTranslateX(-730);
                 textField[i].getStyleClass().add("recu");
                 textField[i].setAlignment(Pos.CENTER);
                 wrap.getChildren().add(textField[i]);
@@ -326,6 +324,7 @@ public class InstantMessagingViewController implements Initializable {
                     bc.getStyleClass().add("recu");
                     String isConnected = m.isConnected() ? "Online" : "Offline";
                     bc.setAlignment(Pos.CENTER);
+                    bc.setPrefWidth(cons.getMinWidth());
                     bc.setId(e.getId() + "");
                     bc.setOnAction(new EventHandler<ActionEvent>() {
                         @Override
@@ -334,8 +333,7 @@ public class InstantMessagingViewController implements Initializable {
                                 Button b = (Button) event.getTarget();
                                 int conversationId = Integer.parseInt(b.getId());
                                 Conversation conversation = ConversationService.getInstance().get(new Conversation(conversationId));
-                                System.out.println(conversationId);
-                                System.out.println(conversation);
+                               
                                 FXMLLoader loader = GlobalViewController.getInstance().setMainContent("/view/InstantMessagingView.fxml");
                                 ((InstantMessagingViewController) loader.getController()).setReceiverId(
                                         conversation.getPerson1Id() == MySoulMate.MEMBER_ID
@@ -348,10 +346,10 @@ public class InstantMessagingViewController implements Initializable {
 
                         }
                     });
-                    cons.setMinWidth(bc.getWidth());
-                    cons.setMinWidth(bc.getWidth());
-                    cons.getChildren().add(bc);
                     
+                    
+                    
+                    cons.getChildren().add(bc);
 
                     i = i + 1;
                 } catch (SQLException ex) {
@@ -364,9 +362,9 @@ public class InstantMessagingViewController implements Initializable {
             Logger.getLogger(InstantMessagingViewController.class.getName()).log(Level.SEVERE, null, e);
         }
 
-        cons.setMinWidth(300);
-        convs.setMinWidth(cons.getMinWidth());
-        return cons;
+       
+        convs.setContent(cons);
+        return convs;
     }
 
     @FXML
@@ -388,7 +386,7 @@ public class InstantMessagingViewController implements Initializable {
 
         textField[i].getStyleClass().add("recu");
         textField[i].setAlignment(Pos.CENTER_LEFT);
-        textField[i].setTranslateX(-500);
+        textField[i].setTranslateX(-730);
 
         wrap.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
         wrap.setAlignment(Pos.CENTER_LEFT);
@@ -408,7 +406,8 @@ public class InstantMessagingViewController implements Initializable {
         try {
             connection.send((message.toString()));
         } catch (Exception e) {
-            System.out.println("instant msg exception" + e);
+          
+            
         }
 
         try {
@@ -417,7 +416,8 @@ public class InstantMessagingViewController implements Initializable {
 
         } catch (Exception e) {
 
-            System.out.println(e + " send msg exception");
+           
+            
         }
 
         Conversation c = new Conversation();
@@ -433,7 +433,7 @@ public class InstantMessagingViewController implements Initializable {
                 c.setSeen(false);
                 c.setSeenDate(null);
                 cs.update(c);
-                System.out.println("update" + c);
+                
 
             } else {
 
@@ -443,11 +443,11 @@ public class InstantMessagingViewController implements Initializable {
                 c.setLabel("New conversation");
                 c.setSeenDate(null);
                 c = cs.create(c);
-                System.out.println("create" + c);
+                
 
             }
         } catch (Exception e) {
-            System.out.println("conv exception" + e);
+           
         }
 
         x.setVvalue(1.0d);
@@ -468,7 +468,7 @@ public class InstantMessagingViewController implements Initializable {
 
         } catch (Exception e) {
 
-            System.out.println("failed to send");
+           
         }
 
     }
@@ -483,11 +483,15 @@ public class InstantMessagingViewController implements Initializable {
 
             box.show();
             if (box.getSelectionModel().getSelectedItem().toString() != "Emojis") {
+                try {
+                    
+              
                 String emojy = box.getSelectionModel().getSelectedItem().toString();
                 inputmsg.setText(inputmsg.getText() + " " + emojy);
                 box.setValue("Emojis");
                 box.setStyle("-fx-font-size : 15 px ; -fx-text-fill : #fff ;");
-            }
+            }catch (Exception e ) {}
+            }  
         } catch (Exception e) {
         }
 

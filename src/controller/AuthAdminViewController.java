@@ -73,23 +73,23 @@ public class AuthAdminViewController implements Initializable {
 
                 if (m != null) {
                     if (m.getPseudo().equals(username.getText()) && m.getPassword().equals(pw.getText())) {
-                        if (m.getLocked() == 0) {
+                        if (m.getLocked() == 0 ) { //must add controle on role 
                             m.setConnected(true);
                             memberService.update(m);
                             MySoulMate.MEMBER_ID = m.getId();
                             MySoulMate.getInstance().ChangeToHomeScene();
                         } else if (m.getLocked() == 1) {
                             Alert alert = new Alert(Alert.AlertType.ERROR);
-                            alert.setTitle("Bloqué");
-                            alert.setHeaderText("Vous etes bloqué ! ");
-                            alert.setContentText(" Vous etes bloqué . \n Vous ne pouvez pas accéder à MySoulMate .");
+                            alert.setTitle("Blocked");
+                            alert.setHeaderText("Blocked");
+                            alert.setContentText("You are Blocked .");
 
                             alert.showAndWait();
                         } else if (m.getLocked() == 2) {
                             Alert alert = new Alert(Alert.AlertType.ERROR);
-                            alert.setTitle("Compte supprimé");
-                            alert.setHeaderText("Compte supprimé ");
-                            alert.setContentText(" Compte supprimé");
+                            alert.setTitle("Account deactivated . ");
+                            alert.setHeaderText("Account deactivated .");
+                            alert.setContentText("Account deactivated .");
 
                             alert.showAndWait();
 
@@ -98,9 +98,9 @@ public class AuthAdminViewController implements Initializable {
                     } else {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
 
-                        alert.setTitle("Mot de passe eronné !");
-                        alert.setHeaderText("Mot de passe eronné ! ");
-                        alert.setContentText(" Mot de passe eronné !");
+                        alert.setTitle("Wrong password ");
+                        alert.setHeaderText("Wrong password ");
+                        alert.setContentText(" Wrong password ");
 
                         alert.showAndWait();
 
@@ -110,9 +110,9 @@ public class AuthAdminViewController implements Initializable {
 
                     Alert alert = new Alert(Alert.AlertType.ERROR);
 
-                    alert.setTitle("Erreur ");
-                    alert.setHeaderText(" Ce membre n'existe pas ! ");
-                    alert.setContentText(" Ce membre n'existe pas ! ");
+                    alert.setTitle("Error  ");
+                    alert.setHeaderText(" This member doesn't exist");
+                    alert.setContentText(" This member doesn't exist ");
 
                     alert.showAndWait();
                 }

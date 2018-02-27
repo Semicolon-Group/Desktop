@@ -29,6 +29,7 @@ import services.MemberService;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
@@ -77,7 +78,7 @@ public class StatistiquesViewController implements Initializable {
         final LineChart<Number, Number> lineChart
                 = new LineChart<Number, Number>(xAxis, yAxis);
 
-        lineChart.setTitle("Membres inscris, 2018");
+        lineChart.setTitle("Joined Members, 2018");
         //defining a series
         XYChart.Series series = new XYChart.Series();
         //series.setName("My portfolio");
@@ -174,12 +175,12 @@ public class StatistiquesViewController implements Initializable {
             }
         }
 
-        data.addAll(new PieChart.Data("Hommes", hommes),
-                new PieChart.Data("Femmes", femmes)
+        data.addAll(new PieChart.Data("Men", hommes),
+                new PieChart.Data("Women", femmes)
         );
 
         pie.setData(data);
-        pie.setTitle("Utilisateurs : Hommes vs Femmes");
+        pie.setTitle("Users Men vs Women");
         statgender.getChildren().add(pie);
      
     }
@@ -388,5 +389,9 @@ public class StatistiquesViewController implements Initializable {
         lineChart.getData().addAll(series1, series2, series3);
        
        start2.getChildren().add(lineChart);
+    }
+
+    @FXML
+    private void print(ActionEvent event) {
     }
 }
