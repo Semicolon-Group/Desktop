@@ -80,7 +80,7 @@ public class ConversationViewController implements Initializable {
                     String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(e.getSeenDate());
                     String seen = e.isSeen() ? e.getSeenDate().toString() : "no";
                     Button bc = new Button();
-                     bc.setPrefWidth(268);
+                    bc.setMinWidth(407);
                     bc.setText(" " + e.getLabel() + "\n " + m.getPseudo() + " \n Seen :" + e.getSeenDate().toString());
                     bc.getStyleClass().add("recu");
                     String isConnected = m.isConnected() ? "Online" : "Offline";
@@ -93,7 +93,6 @@ public class ConversationViewController implements Initializable {
                                 Button b = (Button) event.getTarget();
                                 int conversationId = Integer.parseInt(b.getId());
                                 Conversation conversation = ConversationService.getInstance().get(new Conversation(conversationId));
-                                System.out.println(conversationId);
                                 FXMLLoader loader = GlobalViewController.getInstance().setMainContent("/view/InstantMessagingView.fxml");
                                 ((InstantMessagingViewController) loader.getController()).setReceiverId(
                                         conversation.getPerson1Id() == MySoulMate.MEMBER_ID
@@ -107,7 +106,7 @@ public class ConversationViewController implements Initializable {
                         }
                     });
                     bc.setPrefWidth(268);
-                     bc.getStyleClass().add("recu");
+                    bc.getStyleClass().add("recu");
                     
                     cons.getChildren().add(bc);
                     
@@ -116,7 +115,6 @@ public class ConversationViewController implements Initializable {
                 } catch (SQLException ex) {
                     Logger.getLogger(InstantMessagingViewController.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
             });
 
         } catch (Exception e) {
