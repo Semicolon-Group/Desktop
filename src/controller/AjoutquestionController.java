@@ -127,7 +127,8 @@ public class AjoutquestionController implements Initializable {
 
     @FXML
     private void retour(ActionEvent event) throws IOException {
-        bt_qst.getScene().setRoot(FXMLLoader.load(getClass().getResource("/view/Question.fxml")));
+        AdminGlobalViewController.getInstance().setMainContent("/view/Question.fxml");
+//        bt_qst.getScene().setRoot(FXMLLoader.load(getClass().getResource("/view/Question.fxml")));
     }
 
     @FXML

@@ -9,33 +9,29 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1800.0" stylesheets="@style/QuestionStyle.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MembreController">
+<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1800.0" stylesheets="@style/QuestionStyle.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MembreController">
    <children>
-      <Text layoutX="64.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold; -fx-font-size: 30;" text="Liste members" />
-      <TableView fx:id="table" layoutX="30.0" layoutY="104.0" onMouseClicked="#Banner_click" prefHeight="186.0" prefWidth="1679.0" AnchorPane.bottomAnchor="320.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="94.0">
+      <Text layoutX="64.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold; -fx-font-size: 30;" text="List members" AnchorPane.topAnchor="60.0" />
+      <TableView fx:id="table" layoutX="40.0" layoutY="140.0" onMouseClicked="#Banner_click" prefHeight="490.0" prefWidth="1740.0" AnchorPane.bottomAnchor="180.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="130.0">
         <columns>
           <TableColumn fx:id="Pseudo" prefWidth="75.0" text="Pseudo" />
-          <TableColumn fx:id="firstname" prefWidth="75.0" text="firstname" />
-            <TableColumn fx:id="lastname" prefWidth="75.0" text="lastname" />
+          <TableColumn fx:id="firstname" prefWidth="75.0" text="Firstname" />
+            <TableColumn fx:id="lastname" prefWidth="75.0" text="Lastname" />
             <TableColumn fx:id="Email" prefWidth="75.0" text="Email" />
-            <TableColumn fx:id="password" prefWidth="75.0" text="password" />
-            <TableColumn fx:id="birth_date" prefWidth="75.0" text="birth_date" />
-            <TableColumn fx:id="gender" prefWidth="75.0" text="gender" />
-            <TableColumn fx:id="height" prefWidth="75.0" text="height" />
-            <TableColumn fx:id="body_type" prefWidth="75.0" text="body_type" />
-            <TableColumn fx:id="children_nember" prefWidth="75.0" text="children_nember" />
-            <TableColumn fx:id="relegion" prefWidth="75.0" text="relegion" />
-            <TableColumn fx:id="relegion_importance" prefWidth="75.0" text="relegion_importance" />
-            <TableColumn fx:id="smoker" prefWidth="75.0" text="smoker" />
-            <TableColumn fx:id="drinker" prefWidth="75.0" text="drinker" />
-            <TableColumn fx:id="min_age" prefWidth="75.0" text="min_age" />
-            <TableColumn fx:id="max_age" prefWidth="75.0" text="max_age" />
-            <TableColumn fx:id="proximity" prefWidth="75.0" text="proximity" />
-            <TableColumn fx:id="last_login" prefWidth="75.0" text="last_login" />
-            <TableColumn fx:id="locked" prefWidth="75.0" text="locked" />
-            <TableColumn fx:id="ip" prefWidth="75.0" text="ip" />
-            <TableColumn fx:id="port" prefWidth="75.0" text="port" />
-            <TableColumn fx:id="adresse" prefWidth="75.0" text="adresse" />
+            <TableColumn fx:id="birth_date" prefWidth="75.0" text="Birth Date" />
+            <TableColumn fx:id="gender" prefWidth="75.0" text="Gender" />
+            <TableColumn fx:id="height" prefWidth="75.0" text="Height" />
+            <TableColumn fx:id="body_type" prefWidth="89.0" text="Body Type" />
+            <TableColumn fx:id="children_nember" prefWidth="136.0" text="Children Number" />
+            <TableColumn fx:id="relegion" prefWidth="95.0" text="Religion" />
+            <TableColumn fx:id="relegion_importance" prefWidth="160.0" text="Religion Importance" />
+            <TableColumn fx:id="smoker" prefWidth="67.0" text="Smoker" />
+            <TableColumn fx:id="drinker" prefWidth="98.0" text="Drinker" />
+            <TableColumn fx:id="min_age" prefWidth="97.0" text="Min Age" />
+            <TableColumn fx:id="max_age" prefWidth="115.0" text="Max Age" />
+            <TableColumn fx:id="last_login" prefWidth="107.0" text="Last Login" />
+            <TableColumn fx:id="locked" prefWidth="79.0" text="Locked" />
+            <TableColumn fx:id="adresse" prefWidth="137.0" text="Address" />
         </columns>
          <padding>
             <Insets left="10.0" top="5.0" />
@@ -44,11 +40,9 @@
             <Point3D y="100.0" z="1.0" />
          </rotationAxis>
       </TableView>
-      
-      <Text layoutX="30.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold; -fx-font-size: 20;" text="Locked" />
-      <Button id="button" fx:id="bt_banne" layoutX="229.0" layoutY="324.0" mnemonicParsing="false" onAction="#BannerAction" style="-fx-background-size: 14; -fx-border-width: 5; -fx-font-weight: bold;" stylesheets="@../view/style/QuestionStyle.css" text="Bannir" />
-      <TextField fx:id="txt_lock" layoutX="30.0" layoutY="329.0" />
-      <TextField fx:id="txt_id" layoutX="42.0" layoutY="414.0" />
+      <Button id="button" fx:id="bt_banne" disable="true" layoutX="40.0" layoutY="642.0" mnemonicParsing="false" onAction="#BannerAction" prefHeight="40.0" prefWidth="97.0" style="-fx-background-size: 14; -fx-border-width: 5; -fx-font-weight: bold;" stylesheets="@../view/style/QuestionStyle.css" text="Ban" AnchorPane.bottomAnchor="118.0" AnchorPane.leftAnchor="50.0" />
+      <Button id="button" fx:id="removeBanButton" layoutX="70.0" layoutY="642.0" mnemonicParsing="false" onAction="#removeBann" prefHeight="40.0" prefWidth="142.0" style="-fx-background-size: 14; -fx-border-width: 5; -fx-font-weight: bold;" stylesheets="@../view/style/QuestionStyle.css" text="Remove Ban" visible="false" AnchorPane.bottomAnchor="118.0" AnchorPane.leftAnchor="50.0" />
+      <TextField fx:id="txt_id" layoutX="58.0" layoutY="632.0" visible="false" />
      
    </children>
    <padding>

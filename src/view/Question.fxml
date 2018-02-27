@@ -7,25 +7,30 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="712.0" style="-fx-background-color: white;" stylesheets="@style/QuestionStyle.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.QuestionController">
+<AnchorPane prefWidth="1838.0" style="-fx-background-color: white;" stylesheets="@style/QuestionStyle.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.QuestionController">
    <children>
-      <ImageView fitHeight="400.0" fitWidth="481.0" opacity="0.41" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="800.0" fitWidth="653.0" opacity="0.41" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
          <image>
             <Image url="@assets/Registration_man.png" />
          </image>
       </ImageView>
-      <Text layoutX="61.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold; -fx-font-size: 30;" text="Question" />
-      <TableView id="tableview" fx:id="table" layoutX="21.0" layoutY="81.0" onMouseClicked="#Supp_click" prefHeight="200.0" prefWidth="674.0" stylesheets="@../view/style/QuestionStyle.css">
+      <Text layoutX="61.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold; -fx-font-size: 30;" text="Question" AnchorPane.leftAnchor="61.0" AnchorPane.topAnchor="100.0" />
+      <TableView id="tableview" fx:id="table" layoutX="21.0" layoutY="81.0" onMouseClicked="#Supp_click" prefHeight="200.0" prefWidth="1316.0" stylesheets="@../view/style/QuestionStyle.css" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="150.0">
         <columns>
-          <TableColumn fx:id="c_question" minWidth="0.0" prefWidth="319.0" text="Question" />
-          <TableColumn fx:id="c_topic" minWidth="0.0" prefWidth="92.0" text="Topic" />
-            <TableColumn fx:id="c_choices" minWidth="0.0" prefWidth="267.0" text="choices" />
+          <TableColumn fx:id="c_question" minWidth="0.0" prefWidth="527.0" text="Question" />
+          <TableColumn fx:id="c_topic" minWidth="0.0" prefWidth="238.0" text="Topic" />
+            <TableColumn fx:id="c_choices" minWidth="0.0" prefWidth="647.0" text="choices" />
         </columns>
       </TableView>
-      <Button id="button" fx:id="bt_ajout" layoutX="55.0" layoutY="317.0" mnemonicParsing="false" onAction="#movetoajoutquestion" style="-fx-font-weight: bold; -fx-background-size: 14; -fx-border-width: 5;" stylesheets="@../view/style/QuestionStyle.css" text="Ajouter question" />
-      <Button id="button" fx:id="bt_supp" layoutX="217.0" layoutY="315.0" mnemonicParsing="false" onAction="#SupprimerAction" style="-fx-font-weight: bold; -fx-font-size: 14; -fx-border-width: 5;" stylesheets="@../view/style/QuestionStyle.css" text="Supprimer" />
-      <TextField fx:id="txt_id" layoutX="209.0" layoutY="358.0" />
+      <HBox layoutX="1544.0" layoutY="719.0" prefHeight="57.0" prefWidth="236.0" spacing="30.0" AnchorPane.bottomAnchor="24.0" AnchorPane.rightAnchor="58.0">
+         <children>
+            <Button id="button" fx:id="bt_ajout" mnemonicParsing="false" onAction="#movetoajoutquestion" style="-fx-font-weight: bold; -fx-background-size: 14; -fx-border-width: 5;" stylesheets="@../view/style/QuestionStyle.css" text="Add question" />
+            <Button id="button" fx:id="bt_supp" mnemonicParsing="false" onAction="#SupprimerAction" style="-fx-font-weight: bold; -fx-font-size: 14; -fx-border-width: 5;" stylesheets="@../view/style/QuestionStyle.css" text="Delete" />
+         </children>
+      </HBox>
+      <TextField fx:id="txt_id" layoutX="209.0" layoutY="358.0" visible="false" />
    </children>
 </AnchorPane>

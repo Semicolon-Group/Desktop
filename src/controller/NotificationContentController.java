@@ -58,6 +58,7 @@ public class NotificationContentController implements Initializable {
     private HBox Img_element;
     @FXML
     private VBox nameSender_element;
+    @FXML
     private Label nameSender;
     @FXML
     private Label Action;
@@ -71,10 +72,6 @@ public class NotificationContentController implements Initializable {
     private Label n_date;
     @FXML
     private ImageView Img;
-    @FXML
-    private Label FnameSender;
-    @FXML
-    private Label LnameSender;
     @FXML
     private VBox Action_element;
     
@@ -93,17 +90,14 @@ public class NotificationContentController implements Initializable {
     public void fill(Notification n) {
 
         try {
-            FnameSender.setText(n.getSenderFName());
-            LnameSender.setText(n.getSenderLName());
+            nameSender.setText(n.getSenderFName()+" "+n.getSenderLName());
             Action.setText(n.getContent());
             
             n_date.setText(TimeDiff.getInstance(n.getDate(),new Timestamp(new java.util.Date().getTime())).getTimeDiffString());
 
-//                File f1=new File(n.getUrlPhoto());
             Image img1 = new Image(MySoulMate.UPLOAD_URL + n.getUrlPhoto());
             Img.setImage(img1);
 
-//                File f2=new File(n.getIcon());
             Image icon1 = new Image(iconType(n.getType()));
             Icon.setImage(icon1);
 
@@ -115,19 +109,19 @@ public class NotificationContentController implements Initializable {
     }
 
     public String iconType(NotificationType type) {
-        String path = "/view/assets/icons/";
-        if (type == MESSAGE) {
-            path += "Message.png";
-        } else if (type == LIKE) {
-            path += "LIKE.png";
-        } else if (type == REACTION) {
-            path += "Reaction.png";
-        } else if (type == SIGNAL) {
-            path += "Signal.png";
-        } else {
-            path += "Feedback.png";
-        }
-        return path;
+            String path = "/view/assets/icons/";
+            if (type == MESSAGE) {
+                path += "Message.png";
+            } else if (type == LIKE) {
+                path += "Like.png";
+            } else if (type == REACTION) {
+                path += "Reaction.png";
+            } else if (type == SIGNAL) {
+                path += "Signal.png";
+            } else {
+                path += "Feedback.png";
+            }
+            return path;
 
     }
 
@@ -163,13 +157,13 @@ public class NotificationContentController implements Initializable {
         
     }
 
-    public void setPhotoId(int photoId) {
-        this.photoId = photoId;
-    }
+            public void setPhotoId(int photoId) {
+                this.photoId = photoId;
+            }
 
-    public void setPostId(int postId) {
-        this.postId = postId;
-    }
+            public void setPostId(int postId) {
+                this.postId = postId;
+            }
     
     
 }
