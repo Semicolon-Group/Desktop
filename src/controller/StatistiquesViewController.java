@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -33,10 +34,12 @@ import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.Chart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart.Series;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import org.jfree.chart.JFreeChart;
 
 /**
  * FXML Controller class
@@ -52,6 +55,7 @@ public class StatistiquesViewController implements Initializable {
     @FXML
     private AnchorPane start2= new AnchorPane();
 
+    private List<Chart> charts = new ArrayList<>();
     /**
      * Initializes the controller class.
      */
@@ -147,7 +151,7 @@ public class StatistiquesViewController implements Initializable {
 
         lineChart.getData().add(series);
         statmois.getChildren().add(lineChart);
-
+        charts.add(lineChart);
     }
 
     /**
@@ -182,7 +186,7 @@ public class StatistiquesViewController implements Initializable {
         pie.setData(data);
         pie.setTitle("Users Men vs Women");
         statgender.getChildren().add(pie);
-     
+        charts.add(pie);
     }
  
     public void start2() throws SQLException {
@@ -393,5 +397,6 @@ public class StatistiquesViewController implements Initializable {
 
     @FXML
     private void print(ActionEvent event) {
+        
     }
 }

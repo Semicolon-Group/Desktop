@@ -77,9 +77,7 @@ public class AuthAdminViewController implements Initializable {
                     if (m.getPseudo().equals(username.getText()) && m.getPassword().equals(pw.getText())) {
 
                         MySoulMate.MEMBER_ID = m.getId();
-                        Member  m2 = MemberService.getInstance().get(new Member(1));
-                        System.out.println("success");
-
+                        MySoulMate.getInstance().ChangeToAdminHomeScene();
                     } else {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
 

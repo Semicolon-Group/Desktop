@@ -141,7 +141,7 @@ public class InstantMessagingViewController implements Initializable {
             init();
             getHisotrique();
 //            goConversations();
-            box.getSelectionModel().select(1);
+            box.getSelectionModel().select(0);
             box.getItems().add("Emojis");
             box.getItems().add("☺");
             box.getItems().add("☹");
@@ -151,7 +151,6 @@ public class InstantMessagingViewController implements Initializable {
             box.getItems().add("☺");
             box.setStyle("-fx-font-size : 15 px ; -fx-text-fill : #fff ;");
             inputmsg.setStyle("-fx-font-size : 20 px ;");
-
         } catch (Exception ex) {
             Logger.getLogger(InstantMessagingViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -333,7 +332,7 @@ public class InstantMessagingViewController implements Initializable {
                                 Button b = (Button) event.getTarget();
                                 int conversationId = Integer.parseInt(b.getId());
                                 Conversation conversation = ConversationService.getInstance().get(new Conversation(conversationId));
-                               
+
                                 FXMLLoader loader = GlobalViewController.getInstance().setMainContent("/view/InstantMessagingView.fxml");
                                 ((InstantMessagingViewController) loader.getController()).setReceiverId(
                                         conversation.getPerson1Id() == MySoulMate.MEMBER_ID
@@ -346,9 +345,7 @@ public class InstantMessagingViewController implements Initializable {
 
                         }
                     });
-                    
-                    
-                    
+
                     cons.getChildren().add(bc);
 
                     i = i + 1;
@@ -362,7 +359,6 @@ public class InstantMessagingViewController implements Initializable {
             Logger.getLogger(InstantMessagingViewController.class.getName()).log(Level.SEVERE, null, e);
         }
 
-       
         convs.setContent(cons);
         return convs;
     }
@@ -406,8 +402,7 @@ public class InstantMessagingViewController implements Initializable {
         try {
             connection.send((message.toString()));
         } catch (Exception e) {
-          
-            
+
         }
 
         try {
@@ -416,8 +411,6 @@ public class InstantMessagingViewController implements Initializable {
 
         } catch (Exception e) {
 
-           
-            
         }
 
         Conversation c = new Conversation();
@@ -433,7 +426,6 @@ public class InstantMessagingViewController implements Initializable {
                 c.setSeen(false);
                 c.setSeenDate(null);
                 cs.update(c);
-                
 
             } else {
 
@@ -443,11 +435,10 @@ public class InstantMessagingViewController implements Initializable {
                 c.setLabel("New conversation");
                 c.setSeenDate(null);
                 c = cs.create(c);
-                
 
             }
         } catch (Exception e) {
-           
+
         }
 
         x.setVvalue(1.0d);
@@ -468,7 +459,6 @@ public class InstantMessagingViewController implements Initializable {
 
         } catch (Exception e) {
 
-           
         }
 
     }
@@ -480,20 +470,18 @@ public class InstantMessagingViewController implements Initializable {
     @FXML
     private void Emoji(ActionEvent event) {
         try {
-
-            box.show();
+//            box.show();
             if (box.getSelectionModel().getSelectedItem().toString() != "Emojis") {
                 try {
-                    
-              
-                String emojy = box.getSelectionModel().getSelectedItem().toString();
-                inputmsg.setText(inputmsg.getText() + " " + emojy);
-                box.setValue("Emojis");
-                box.setStyle("-fx-font-size : 15 px ; -fx-text-fill : #fff ;");
-            }catch (Exception e ) {}
-            }  
+
+                    String emojy = box.getSelectionModel().getSelectedItem().toString();
+                    inputmsg.setText(inputmsg.getText() + " " + emojy);
+                    box.setValue("Emojis");
+                    box.setStyle("-fx-font-size : 15 px ; -fx-text-fill : #fff ;");
+                } catch (Exception e) {
+                }
+            }
         } catch (Exception e) {
         }
-
     }
 }

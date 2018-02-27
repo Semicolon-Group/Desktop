@@ -296,12 +296,6 @@ public class GlobalViewController implements Initializable {
         String url = getClass().getResource("/view/assets/icons/natural/"+imageName+".png").toExternalForm();
         imageView.setImage(new Image(url));
     }
-
-    @FXML
-    private void onMessageIconClick(MouseEvent event) {
-        FXMLLoader loader = setContent("/view/InstantMessagingView.fxml", content);
-        ((InstantMessagingViewController)loader.getController()).setReceiverId(2);
-    }
     
     public void lockScrollToTop(){
         scroll.setVvalue(0);

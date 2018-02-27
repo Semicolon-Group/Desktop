@@ -175,7 +175,6 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
             condition += " and email = '" + obj.getEmail() + "'";
         }
         String req = "Select * from user " + condition;
-        System.out.println(req);
         st = CONNECTION.createStatement();
         rs = st.executeQuery(req);
 

@@ -333,6 +333,8 @@ public class OthersProfileViewController implements Initializable {
 
     @FXML
     private void startChat(ActionEvent event) {
+        FXMLLoader loader = GlobalViewController.getInstance().setMainContent("/view/InstantMessagingView.fxml");
+        ((InstantMessagingViewController) loader.getController()).setReceiverId(userId);
     }
 
     @FXML

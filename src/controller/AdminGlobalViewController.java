@@ -7,12 +7,16 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -59,6 +63,10 @@ public class AdminGlobalViewController implements Initializable {
     private VBox statisticsBox;
     @FXML
     private VBox membersBox;
+    @FXML
+    private VBox statisticsBox1;
+    @FXML
+    private Button logoutButton;
 
     /**
      * Initializes the controller class.
@@ -69,26 +77,7 @@ public class AdminGlobalViewController implements Initializable {
             double yTranslate = (content.getHeight()*newValue.doubleValue())-(scroll.getHeight()*newValue.doubleValue());
             navBar.translateYProperty().setValue(yTranslate);
         });
-    }    
-
-    private void showHomeContent(ActionEvent event) {
-        homeBox.setId("selected");
-        matchBox.setId("");
-        recommandationBox.setId("");
     }
-
-    private void showMatchContent(ActionEvent event) {
-        homeBox.setId("");
-        matchBox.setId("selected");
-        recommandationBox.setId("");
-    }
-
-    private void showRecommandationContent(ActionEvent event) {
-        homeBox.setId("");
-        matchBox.setId("");
-        recommandationBox.setId("selected");
-    }
-
     
     public FXMLLoader setMainContent(String path){
         return setContent(path, content);
@@ -156,10 +145,19 @@ public class AdminGlobalViewController implements Initializable {
 
     @FXML
     private void showStatisticsContent(ActionEvent event) {
+        setMainContent("/view/StatistiquesView.fxml");
         membersBox.setId("");
         questionsBox.setId("");
         feedbacksBox.setId("");
         reportsBox.setId("");
         statisticsBox.setId("selected");
+    }
+
+    @FXML
+    private void logout(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to exit My Soulmate?", ButtonType.YES, ButtonType.CANCEL);
+        Optional<ButtonType> rs = alert.showAndWait();
+        if(rs.get() == ButtonType.YES)
+            Platform.exit();
     }
 }
