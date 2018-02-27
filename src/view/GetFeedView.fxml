@@ -9,9 +9,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" opacity="0.9" prefHeight="284.0" prefWidth="520.0" style="-fx-background-color: #343e43;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GetFeedViewController">
+<AnchorPane id="AnchorPane" opacity="0.9" prefHeight="350.0" prefWidth="600.0" style="-fx-background-color: #343e43;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GetFeedViewController">
    <children>
-      <HBox alignment="CENTER" prefHeight="52.0" prefWidth="520.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox alignment="CENTER" prefHeight="52.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="List of received feedbacks">
                <font>
@@ -20,11 +20,11 @@
             </Text>
          </children>
       </HBox>
-      <TableView fx:id="table" fixedCellSize="0.0" layoutX="-1.0" layoutY="53.0" onMouseClicked="#onMouseClick" prefHeight="233.0" prefWidth="520.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="51.0">
+      <TableView fx:id="table" fixedCellSize="0.0" layoutX="-1.0" layoutY="53.0" onMouseClicked="#onMouseClick" prefHeight="300.0" prefWidth="600.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="51.0">
         <columns>
-          <TableColumn fx:id="Sender" prefWidth="178.0" text="Sender" />
-          <TableColumn fx:id="Date" minWidth="0.0" prefWidth="188.0" text="Sending date" />
-            <TableColumn fx:id="State" maxWidth="222.0" minWidth="-1.0" prefWidth="152.0" text="State of feedback" />
+          <TableColumn fx:id="Sender" maxWidth="566.0" minWidth="-1.0" prefWidth="200.0" text="Sender" />
+          <TableColumn fx:id="Date" maxWidth="760.0" minWidth="-1.0" prefWidth="200.0" text="Sending date" />
+            <TableColumn fx:id="State" maxWidth="710.0" minWidth="-1.0" prefWidth="200.0" text="State of feedback" />
         </columns>
       </TableView>
       <ImageView fitHeight="33.0" fitWidth="48.0" layoutX="-1.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true">

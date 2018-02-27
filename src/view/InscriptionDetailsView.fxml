@@ -15,46 +15,45 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="anchor" prefHeight="750.0" prefWidth="701.0" style="-fx-background-color: #cce6f4;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.InscriptionDetailsViewController">
+<AnchorPane id="AnchorPane" fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="616.0" style="-fx-background-color: #cce6f4;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.InscriptionDetailsViewController">
    <children>
       <ComboBox fx:id="bodyBox" layoutX="150.0" layoutY="198.0" prefHeight="25.0" prefWidth="150.0" style="-fx-border-color: #38388D; -fx-background-color: white;" />
       <ComboBox fx:id="religionBox" layoutX="150.0" layoutY="252.0" prefWidth="150.0" style="-fx-background-color: white; -fx-border-color: #38388D;" />
-      <RadioButton fx:id="Smoker" layoutX="513.0" layoutY="104.0" mnemonicParsing="false" text="Yes">
+      <RadioButton fx:id="Smoker" layoutX="481.0" layoutY="104.0" mnemonicParsing="false" text="Yes">
          <toggleGroup>
             <ToggleGroup fx:id="smoking" />
          </toggleGroup></RadioButton>
-      <RadioButton fx:id="Nsmoker" layoutX="594.0" layoutY="104.0" mnemonicParsing="false" selected="true" text="No" toggleGroup="$smoking" />
-      <RadioButton fx:id="Drinker" layoutX="512.0" layoutY="150.0" mnemonicParsing="false" text="Yes">
+      <RadioButton fx:id="Nsmoker" layoutX="551.0" layoutY="104.0" mnemonicParsing="false" selected="true" text="No" toggleGroup="$smoking" />
+      <RadioButton fx:id="Drinker" layoutX="481.0" layoutY="150.0" mnemonicParsing="false" text="Yes">
          <toggleGroup>
             <ToggleGroup fx:id="drink" />
          </toggleGroup></RadioButton>
-      <RadioButton fx:id="Ndrinker" layoutX="594.0" layoutY="150.0" mnemonicParsing="false" selected="true" text="No" toggleGroup="$drink" />
+      <RadioButton fx:id="Ndrinker" layoutX="551.0" layoutY="150.0" mnemonicParsing="false" selected="true" text="No" toggleGroup="$drink" />
       <ComboBox fx:id="importanceBox" layoutX="150.0" layoutY="306.0" prefWidth="150.0" style="-fx-background-color: white; -fx-border-color: #38388D;" />
-      <Label layoutX="377.0" layoutY="104.0" prefHeight="17.0" prefWidth="60.0" text="Smoker">
+      <Label layoutX="347.0" layoutY="104.0" prefHeight="17.0" prefWidth="60.0" text="Smoker">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Label>
-      <Label layoutX="377.0" layoutY="150.0" prefHeight="17.0" prefWidth="60.0" text="Drinker">
+      <Label layoutX="347.0" layoutY="150.0" prefHeight="17.0" prefWidth="60.0" text="Drinker">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Label>
-      <ComboBox fx:id="proximityBox" layoutX="150.0" layoutY="419.0" prefHeight="27.0" prefWidth="150.0" style="-fx-background-color: white; -fx-border-color: #38388D;" />
-      <Button fx:id="confirmer" layoutX="589.0" layoutY="681.0" mnemonicParsing="false" onAction="#AjouterMembre" style="-fx-background-color: white; -fx-border-color: #38388D;" text="Confirmer" />
-      <Button fx:id="back" layoutX="500.0" layoutY="681.0" mnemonicParsing="false" onAction="#returnIns" prefHeight="27.0" prefWidth="60.0" style="-fx-background-color: white; -fx-border-color: #38388D;" text="Back" />
-      <Label fx:id="heightLabel" layoutX="175.0" layoutY="162.0" prefHeight="17.0" prefWidth="106.0" textFill="#fb0808" visible="false" />
+      <Button fx:id="confirmer" layoutX="535.0" layoutY="603.0" mnemonicParsing="false" onAction="#AjouterMembre" style="-fx-background-color: white; -fx-border-color: #38388D;" text="Confirmer" />
+      <Button fx:id="back" layoutX="463.0" layoutY="603.0" mnemonicParsing="false" onAction="#returnIns" prefHeight="27.0" prefWidth="60.0" style="-fx-background-color: white; -fx-border-color: #38388D;" text="Back" />
+      <Label fx:id="heightLabel" layoutX="175.0" layoutY="162.0" prefHeight="25.0" prefWidth="106.0" textFill="#fb0808" visible="false" />
       <Label fx:id="bodyLabel" layoutX="166.0" layoutY="230.0" prefHeight="17.0" prefWidth="120.0" textFill="#fb0808" visible="false" />
       <Label fx:id="religionLabel" layoutX="170.0" layoutY="281.0" prefHeight="17.0" prefWidth="106.0" text="Label" textFill="#fb0808" visible="false" />
       <Label fx:id="importanceLabel" layoutX="166.0" layoutY="337.0" prefHeight="17.0" prefWidth="106.0" textFill="#fb0808" visible="false" />
       <Label fx:id="maritalLabel" layoutX="166.0" layoutY="395.0" prefHeight="17.0" prefWidth="127.0" text="Label" textFill="#fb0808" visible="false" />
-      <Label fx:id="childrenLabel" layoutX="531.0" layoutY="291.0" prefHeight="17.0" prefWidth="120.0" text="Label" textFill="#fb0808" visible="false" />
-      <Label fx:id="minLabel" layoutX="164.0" layoutY="127.0" prefHeight="6.0" prefWidth="113.0" text="Label" textFill="#fb0808" visible="false" />
-      <Label fx:id="maxLabel" layoutX="527.0" layoutY="236.0" prefHeight="17.0" prefWidth="113.0" text="Label" textFill="#fb0808" visible="false" />
-      <Label fx:id="relationLabel" layoutX="510.0" layoutY="348.0" prefHeight="0.0" prefWidth="135.0" text="Label" textFill="#fb0808" visible="false" />
+      <Label fx:id="childrenLabel" layoutX="473.0" layoutY="291.0" prefHeight="17.0" prefWidth="120.0" text="Label" textFill="#fb0808" visible="false" />
+      <Label fx:id="minLabel" layoutX="173.0" layoutY="127.0" prefHeight="17.0" prefWidth="120.0" text="Label" textFill="#fb0808" visible="false" />
+      <Label fx:id="maxLabel" layoutX="471.0" layoutY="353.0" prefHeight="17.0" prefWidth="110.0" text="Label" textFill="#fb0808" visible="false" />
+      <Label fx:id="relationLabel" layoutX="476.0" layoutY="348.0" prefHeight="17.0" prefWidth="106.0" text="Label" textFill="#fb0808" visible="false" />
       <Label fx:id="proximityLabel" layoutX="152.0" layoutY="398.0" prefHeight="9.0" prefWidth="127.0" text="Label" textFill="#fb0808" visible="false" />
       <JFXTextField fx:id="country" layoutX="146.0" layoutY="91.0" prefHeight="25.0" prefWidth="71.0" promptText="Country" />
-      <JFXTextField fx:id="childrenNum" layoutX="512.0" layoutY="199.0" />
-      <JFXTextField fx:id="minAge" layoutX="512.0" layoutY="307.0" />
-      <JFXTextField fx:id="maxAge" layoutX="512.0" layoutY="253.0" />
+      <JFXTextField fx:id="childrenNum" layoutX="463.0" layoutY="208.0" />
+      <JFXTextField fx:id="minAge" layoutX="464.0" layoutY="321.0" />
+      <JFXTextField fx:id="maxAge" layoutX="464.0" layoutY="262.0" />
       <Label fx:id="addressLabel" layoutX="85.0" layoutY="120.0" prefHeight="17.0" prefWidth="98.0" text="Label" textFill="#fb0808" visible="false" />
       <JFXTextField fx:id="height" layoutX="143.0" layoutY="133.0" prefHeight="25.0" prefWidth="158.0" />
       <ImageView fitHeight="75.0" fitWidth="200.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="15.0">
@@ -81,10 +80,6 @@
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Label>
-      <Label layoutX="26.0" layoutY="424.0" prefHeight="17.0" prefWidth="113.0" text="Prefered Proximity">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font></Label>
       <Label layoutX="29.0" layoutY="369.0" prefHeight="17.0" prefWidth="98.0" text="Marital Status">
          <font>
             <Font name="System Bold" size="12.0" />
@@ -103,26 +98,39 @@
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Label>
-      <Label layoutX="381.0" layoutY="212.0" prefHeight="17.0" prefWidth="106.0" text="Children Number">
+      <Label layoutX="346.0" layoutY="217.0" prefHeight="17.0" prefWidth="106.0" text="Children Number">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Label>
-      <Label layoutX="385.0" layoutY="325.0" prefHeight="17.0" prefWidth="106.0" text="Prefered Max_age">
+      <Label layoutX="346.0" layoutY="325.0" prefHeight="17.0" prefWidth="106.0" text="Prefered Max_age">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Label>
-      <Label layoutX="381.0" layoutY="271.0" prefHeight="17.0" prefWidth="106.0" text="Prefered Min_age">
+      <Label layoutX="346.0" layoutY="271.0" prefHeight="17.0" prefWidth="106.0" text="Prefered Min_age">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Label>
-      <JFXTextArea fx:id="about" layoutX="388.0" layoutY="395.0" prefHeight="48.0" prefWidth="272.0" promptText="About you !">
+      <JFXTextArea fx:id="about" layoutX="338.0" layoutY="398.0" prefHeight="48.0" prefWidth="272.0" promptText="About you !">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></JFXTextArea>
       <JFXTextField fx:id="city" layoutX="226.0" layoutY="89.0" prefHeight="27.0" prefWidth="71.0" promptText="City" />
-      <HBox alignment="CENTER_RIGHT" layoutX="17.0" layoutY="567.0" prefHeight="128.0" prefWidth="335.0" spacing="20.0">
+      <HBox alignment="CENTER_RIGHT" layoutX="16.0" layoutY="513.0" prefHeight="100.0" prefWidth="335.0" spacing="20.0">
          <children>
-            <Label prefHeight="94.0" prefWidth="106.0" text="Prefered Status">
+            <Label prefHeight="119.0" prefWidth="106.0" text="Prefered Status">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+               <padding>
+                  <Insets bottom="90.0" />
+               </padding>
+            </Label>
+            <VBox fx:id="statusVBox" prefHeight="128.0" prefWidth="201.0" spacing="7.0" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" layoutX="23.0" layoutY="412.0" prefHeight="100.0" prefWidth="323.0" spacing="20.0">
+         <children>
+            <Label prefHeight="98.0" prefWidth="110.0" text="Prefered Relations">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -130,22 +138,9 @@
                   <Insets bottom="70.0" />
                </padding>
             </Label>
-            <VBox fx:id="statusVBox" prefHeight="128.0" prefWidth="201.0" spacing="7.0" />
+            <VBox fx:id="relationsVBox" prefHeight="100.0" prefWidth="194.0" spacing="7.0" />
          </children>
       </HBox>
-      <HBox alignment="CENTER_LEFT" layoutX="27.0" layoutY="455.0" prefHeight="100.0" prefWidth="323.0" spacing="20.0">
-         <children>
-            <Label prefHeight="77.0" prefWidth="111.0" text="Prefered Relations">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-               <padding>
-                  <Insets bottom="60.0" />
-               </padding>
-            </Label>
-            <VBox fx:id="relationsVBox" prefHeight="100.0" prefWidth="205.0" spacing="7.0" />
-         </children>
-      </HBox>
-      <JFXTextField fx:id="phoneText" layoutX="389.0" layoutY="505.0" prefHeight="25.0" prefWidth="169.0" promptText="Enter your phone number" />
+      <JFXTextField fx:id="phoneText" layoutX="338.0" layoutY="500.0" prefHeight="25.0" prefWidth="169.0" promptText="Enter your phone number" />
    </children>
 </AnchorPane>

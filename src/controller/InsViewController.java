@@ -22,6 +22,7 @@ import java.time.ZoneId;
 import static java.time.temporal.TemporalQueries.localDate;
 import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 import javafx.animation.RotateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -41,6 +42,7 @@ import models.Member;
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import util.MailVerification;
 
 
 /**
@@ -91,6 +93,8 @@ public class InsViewController implements Initializable {
     private ImageView image;
     @FXML
     private JFXTextField emailTextField;
+    
+   
 
     /**
      * Initializes the controller class.
@@ -100,6 +104,7 @@ public class InsViewController implements Initializable {
         RotateTransition rt = new RotateTransition(Duration.seconds(120),image);
         rt.setByAngle(9*360);
         rt.play();
+      
 
     }
 
@@ -135,7 +140,7 @@ public class InsViewController implements Initializable {
             valid = false;
         }
 
-        if (!emailTextField.getText().contains("@") && !emailTextField.getText().contains(".")) {
+        if (!MailVerification.validate(emailTextField.getText())) {
             labelemail.setText("E-mail is not valid !");
             labelemail.setVisible(true);
             valid = false;
@@ -215,14 +220,14 @@ public class InsViewController implements Initializable {
         String code="";
         String userAccessToken="";
         
-        //permission lel email
+        //permission pour email
         ScopeBuilder scopeBuilder = new ScopeBuilder();
         scopeBuilder.addPermission(FacebookPermissions.EMAIL);
         scopeBuilder.addPermission(FacebookPermissions.USER_LOCATION);
         scopeBuilder.addPermission(FacebookPermissions.USER_BIRTHDAY);
         
 
-        //client jdid w nvl boite de dialg
+       
         FacebookClient client = new DefaultFacebookClient(Version.VERSION_2_6);
         String loginDialogUrlString = client.getLoginDialogUrl(appId, domain, scopeBuilder);
 
@@ -231,16 +236,11 @@ public class InsViewController implements Initializable {
         WebDriver driver = new ChromeDriver();
         driver.get(loginDialogUrlString);
 
-        /*while true bch tab9a tet3awed dima psk sans l while yodkhel lel if une seule fois
-        w it ll get the currentUrl only once*/
+      
         while (true) {
-            //ken redirect w c bon 
-            //w driver.title mch .getCurrentUrl psk yrajja3 fi valeur ghalta
             if (driver.getTitle().contains("White screen page")) {
                 String url = driver.getCurrentUrl();
 
-                //puisque jed om el accessToken mafamech rihtou w ena nest7a9ou donc bch ngahfou mel url
-                //w puisque l url mefhch ken l tokes akahw donc bch n'split el url win yabda si l code
                 if (url.contains("code=") && "".equals(code) ) {
                     String[] parts = url.split("code=");
                     String part1 = parts[0];
@@ -250,22 +250,21 @@ public class InsViewController implements Initializable {
 
                      
                       try {
-                        //khorm mtaa decryptage
                          userAccessToken =  InsViewController.call_me(appId, domain, appSecretKey, codeToken);
                        
                          FacebookClient fbclient = new DefaultFacebookClient(userAccessToken);
                          User user = fbclient.fetchObject("me",User.class);
                          System.out.print("User Name = "+ user.getName());
-                         System.out.println("User birthday "+user.getBirthday());
-                         System.out.println("User email "+user.getEmail());
-                         System.out.println("User location "+user.getLocation());
-                         System.out.println("User id "+user.getId());
+//                         System.out.println("User birthday "+user.getBirthday());
+//                         System.out.println("User email "+user.getEmail());
+//                         System.out.println("User location "+user.getLocation());
+//                         System.out.println("User id "+user.getId());
 
                          
                          
                          Firstname.setText(user.getFirstName());
                          Last_name.setText(user.getLastName());
-                         driver.quit();
+//                         driver.quit();
                       } catch (Exception e) {
                         e.printStackTrace();
                     }   
@@ -273,8 +272,7 @@ public class InsViewController implements Initializable {
             }
         }
     }
-    //decryptage taa l token eli sregtou ena 
-    //w puisque l output bel json donc voila
+   
     public static String call_me(String appId, String redirectUrl, String appSecret, String code) throws Exception {
         String url = "https://graph.facebook.com/v2.12/oauth/access_token?"+"client_id=" + appId+"&redirect_uri=" + redirectUrl+"&client_secret=" + appSecret+"&code=" + code;
         URL obj = new URL(url);

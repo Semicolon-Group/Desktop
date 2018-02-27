@@ -30,9 +30,11 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.converter.NumberStringConverter;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -49,9 +51,9 @@ import models.Enumerations.Proximity;
 import models.Enumerations.RelationType;
 import models.Enumerations.Religion;
 import models.Member;
-import util.SendSms;
 import services.MemberService;
 import util.SendMail;
+import util.SendMessage;
 
 
 /**
@@ -76,9 +78,7 @@ public class InscriptionDetailsViewController implements Initializable {
 //    private ComboBox<String> relationBox;
     ObservableList<String> relationList = FXCollections.observableArrayList();
 
-    @FXML
-    private ComboBox<String> proximityBox;
-    ObservableList<String> proximityList = FXCollections.observableArrayList();
+
 
     @FXML
     private Button confirmer;
@@ -158,6 +158,11 @@ public class InscriptionDetailsViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        height.setTextFormatter(new TextFormatter<>(new NumberStringConverter()));
+        childrenNum.setTextFormatter(new TextFormatter<>(new NumberStringConverter()));
+        minAge.setTextFormatter(new TextFormatter<>(new NumberStringConverter()));
+        maxAge.setTextFormatter(new TextFormatter<>(new NumberStringConverter()));
+        
         for (BodyType b : BodyType.values()) {
             bodyList.add(b.toString());
         }
@@ -173,16 +178,6 @@ public class InscriptionDetailsViewController implements Initializable {
         }
         importanceBox.setItems(importanceList);
 
-
-//        for (RelationType t : RelationType.values()) {
-//            relationList.add(t.toString());
-//        }
-//        relationBox.setItems(relationList);
-
-        for (Proximity p : Proximity.values()) {
-            proximityList.add(p.toString());
-        }
-        proximityBox.setItems(proximityList);
         
          for (MaritalStatus mt : MaritalStatus.values()) {
             statusList.add(mt.toString());
@@ -229,24 +224,7 @@ public class InscriptionDetailsViewController implements Initializable {
     private void AjouterMembre(ActionEvent event) throws AddressException, MessagingException {
         try {
             boolean valid = true;
-//            if (Adress.getText().equals("")) {
-//                addressLabel.setText("Field is empty !");
-//                addressLabel.setVisible(true);
-//                valid = false;
-//            } else {
-//                addressLabel.setText("");
-//            }
-            if(statusesCheckBoxes.size() == 0){
-                //error message
-            }else{
-                
-            }
             
-            if(relationsCheckBoxes.size() == 0){
-                
-            }else{
-                
-            }
             
             if (height.getText().equals("")) {
                 heightLabel.setText("Field is empty !");
@@ -304,24 +282,7 @@ public class InscriptionDetailsViewController implements Initializable {
                 importanceLabel.setText("");
             }
             
-//            if (relationBox.getValue() == null) {
-//                relationLabel.setText("Field is empty !");
-//                relationLabel.setVisible(true);
-//                valid = false;
-//            } else {
-//                relationLabel.setText("");
-//            }
-            
-            if (proximityBox.getValue() == null) {
-                proximityLabel.setText("Field is empty !");
-                proximityLabel.setVisible(true);
-                valid = false;
-            } else {
-                proximityLabel.setText("");
-            }
-            
-            
-            
+
             if(!valid) return;
             
             m.setAddress(new Address(0, 0, country.getText(), city.getText()));
@@ -332,7 +293,7 @@ public class InscriptionDetailsViewController implements Initializable {
             m.setBodyType(BodyType.valueOf(bodyBox.getValue()));
             m.setReligion(Religion.valueOf(religionBox.getValue()));
             m.setReligionImportance(Importance.valueOf(importanceBox.getValue()));
-            m.setProximity(Proximity.valueOf(proximityBox.getValue()));
+            m.setPhone(Integer.parseInt(phoneText.getText()));
             m.setMaritalStatus(MaritalStatus.valueOf(statusBox.getValue()));
             m.setDrinker(Drinker.isSelected());
             m.setSmoker(Smoker.isSelected());
@@ -350,8 +311,8 @@ public class InscriptionDetailsViewController implements Initializable {
           MemberService.getInstance().create(m);
           SendMail sm = new SendMail(m.getEmail(), " Confirmation d'inscription ", " Bonjour " + m.getFirstname() + " Vous etes maintenant inscrit à MySoulMate" );
           
-          SendSms s=new  SendSms();
-          s.sendSms("Inscription confirmée",phoneText.getText());
+//          SendMessage s=new  SendMessage();
+//          s.sendSms(" Vous etes Maintenant Inscrit à Mysoulmate ",phoneText.getText());
             
         } catch (SQLException ex) {
             util.Logger.writeLog(ex, InscriptionDetailsViewController.class.getName(), null);

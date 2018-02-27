@@ -10,21 +10,20 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import javax.swing.JOptionPane;
-import models.Member;
 
 /**
  *
- * @author vaider
+ * @author asus
  */
-public class SendSMS {
-    public void SendSms(String msg,String number){
-        Member m=new Member();
-        try {
+public class SendMessage {
+    
+    public void sendSms(String msg, String number) {
+		try {
 			// Construct data
-			String apiKey = "apikey=" + "7YNDqoPV1S8-mvZcDOz9B1ltvg0qJ9tEE3N0tLkVzK	";
+			String apiKey = "apikey=" + "rJ1jArq7/EU-EaZExPLnUeUKcREcZlkFikap3zx2et";
 			String message = "&message=" + msg;
-			String sender = "&sender=" + "SemiColon";
-			String numbers = "&numbers=" + "+216"+ number;
+			String sender = "&sender=" + "Med ac";
+			String numbers = "&numbers=" + "+216"+number;
 			
 			// Send data
 			HttpURLConnection conn = (HttpURLConnection) new URL("https://api.txtlocal.com/send/?").openConnection();
@@ -38,17 +37,17 @@ public class SendSMS {
 			String line;
 			while ((line = rd.readLine()) != null) {
 				//stringBuffer.append(line);
-                            JOptionPane.showMessageDialog(null, "message"+line);
+                            JOptionPane.showMessageDialog(null,"message"+line);
 			}
 			rd.close();
 			
 			//return stringBuffer.toString();
 		} catch (Exception e) {
 			//System.out.println("Error SMS "+e);
-                        JOptionPane.showMessageDialog(null, e);
+                    JOptionPane.showMessageDialog(null,e);
+
 			//return "Error "+e;
 		}
 	}
-    } 
     
-
+}
