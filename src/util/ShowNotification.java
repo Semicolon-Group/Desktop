@@ -5,6 +5,7 @@
  */
 package util;
 
+import java.io.File;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -21,11 +22,15 @@ public class ShowNotification {
     public void handleShowNotification(String title,String text,Node graphic){
         Notifications notificationBuilder = Notifications.create()
                 
-                .title("SemiCOLON")
+                
+
+                .title("MySoulmate")
                 .text("Notification envoyé")
                  .graphic(null)
                 .hideAfter(Duration.seconds(10))
                 .position(Pos.BOTTOM_RIGHT)
+                .darkStyle()
+                .graphic(graphic)
                 .onAction(new EventHandler<ActionEvent>(){
                 @Override
                 public void handle(ActionEvent event){
