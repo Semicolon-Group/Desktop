@@ -46,6 +46,15 @@
                         </Label>
                      </children>
                   </VBox>
+                  <VBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="147.0">
+                     <children>
+                        <ImageView fx:id="delete" fitHeight="16.0" fitWidth="16.0" onMouseClicked="#onDeleteClick" pickOnBounds="true" preserveRatio="true" visible="false">
+                           <image>
+                              <Image url="@assets/icons/delete.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </VBox>
                </children>
             </HBox>
             <ImageView fx:id="picture" fitWidth="436.0" pickOnBounds="true" preserveRatio="true">

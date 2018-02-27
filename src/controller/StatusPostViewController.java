@@ -153,7 +153,8 @@ public class StatusPostViewController implements Initializable {
                 new N_SendMail(MemberService.getInstance().get(new Member(ownerId)).getEmail(),"MySoulMate | Notification",
                                 online.getPseudo() + " has reacted to your post. Login to see more details.");
                 SendSMS sm = new SendSMS();
-                //sm.SendSms("MySoulmate\\n" + online.getPseudo() + " has reacted to your post.", "24");
+                /*sm.SendSms("MySoulmate | " + online.getPseudo() + " has reacted to your post.",
+                        "" + MemberService.getInstance().get(new Member(ownerId)).getPhone());*/
                 
             }
         } catch (SQLException ex) {
