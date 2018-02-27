@@ -68,7 +68,7 @@ public class AuthentificationController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        button.requestFocus();
     }
 
     @FXML
@@ -97,7 +97,7 @@ public class AuthentificationController implements Initializable {
                 Member m = new Member();
 
                 m.setPseudo(username.getText());
-//                m.setPassword(pw.getText());
+
 
                 m = memberService.get(m);
 
@@ -260,12 +260,5 @@ public class AuthentificationController implements Initializable {
         mainStage.show();
     }
     
-    
-//    private void goSignout () throws SQLException
-//    {   
-//      Member  m =  MemberService.getInstance().get(new Member (MySoulMate.MEMBER_ID));
-//       m.setConnected(false);
-//       MemberService.getInstance().update(m);
-//       Platform.exit();
-//    }
+
 }

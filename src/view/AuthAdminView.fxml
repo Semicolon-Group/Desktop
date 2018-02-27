@@ -70,5 +70,13 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Label>
+      <Label layoutX="24.0" layoutY="23.0" onMouseClicked="#backToLogin" prefHeight="43.0" prefWidth="188.0" text="Back to member login" textFill="#158bcf" underline="true">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Label>
    </children>
 </AnchorPane>
