@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" opacity="0.9" prefHeight="284.0" prefWidth="520.0" style="-fx-background-color: #343e43;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GetFeedbackDetailsViewController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.9" prefHeight="284.0" prefWidth="520.0" style="-fx-background-color: #343e43;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GetFeedbackDetailsViewController">
    <children>
-      <AnchorPane layoutX="61.0" opacity="0.9" prefHeight="104.0" prefWidth="520.0" style="-fx-background-color: #343e43;" AnchorPane.bottomAnchor="180.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane layoutX="61.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.9" prefHeight="104.0" prefWidth="520.0" style="-fx-background-color: #343e43;" AnchorPane.bottomAnchor="180.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label fx:id="name" layoutX="95.0" layoutY="18.0" text="Label" textFill="WHITE">
                <font>
@@ -36,6 +36,6 @@
          <padding>
             <Insets bottom="60.0" />
          </padding></Label>
-      <JFXButton fx:id="traiterButton" layoutX="441.0" layoutY="243.0" onAction="#Return" ripplerFill="#ff4242" style="-fx-background-color: silver; -fx-border-color: black;" text="Return" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="25.0" />
+      <JFXButton fx:id="traiterButton" layoutX="441.0" layoutY="243.0" onAction="#Return" ripplerFill="#ff4242" style="-fx-background-color: silver; -fx-border-color: black;" text="Return" />
    </children>
 </AnchorPane>
