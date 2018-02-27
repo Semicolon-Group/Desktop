@@ -130,6 +130,8 @@ public class CommentBoxViewController implements Initializable {
     private void onSendClick(MouseEvent event) {
         if(selected == 0)
             return;
+        if(comment.getText().equals(""))
+            return;
         try {
             Comment c = CommentService.getInstance().create(new Comment(online.getId(),selected,postId,photoId,comment.getText(),
                     new Timestamp(new Date().getTime())));

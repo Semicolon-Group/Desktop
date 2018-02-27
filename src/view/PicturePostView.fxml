@@ -46,6 +46,18 @@
                         </Label>
                      </children>
                   </VBox>
+                  <VBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="147.0">
+                     <children>
+                        <ImageView fx:id="delete" fitHeight="16.0" fitWidth="16.0" onMouseClicked="#onDeleteClick" pickOnBounds="true" preserveRatio="true" visible="false">
+                           <image>
+                              <Image url="@assets/icons/delete.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                     </children>
+                  </VBox>
                </children>
             </HBox>
             <ImageView fx:id="picture" fitWidth="436.0" pickOnBounds="true" preserveRatio="true">
@@ -53,7 +65,7 @@
                   <Image url="@assets/img/Men’s-Modern-Haircuts-2014-16.jpg" />
                </image>
             </ImageView>
-            <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="436.0" spacing="10.0" style="-fx-background-color: white;">
+            <HBox fx:id="reactions" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="436.0" spacing="10.0" style="-fx-background-color: white;">
                <children>
                   <ImageView fx:id="smile" fitHeight="32.0" fitWidth="39.0" onMouseClicked="#onSmileClick" opacity="0.4" pickOnBounds="true" preserveRatio="true">
                      <image>

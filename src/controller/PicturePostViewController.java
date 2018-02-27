@@ -71,6 +71,10 @@ public class PicturePostViewController implements Initializable {
     private Reaction r;
     @FXML
     private VBox container;
+    @FXML
+    private ImageView delete;
+    @FXML
+    private HBox reactions;
 
     /**
      * Initializes the controller class.
@@ -88,6 +92,10 @@ public class PicturePostViewController implements Initializable {
         this.photoId = photoId;
         try {
             ownerId = PhotoService.getInstance().get(new Photo(photoId,0,null)).getUserId();
+            if (ownerId == online.getId()){
+                reactions.setVisible(false);
+                delete.setVisible(true);
+            }
             r = ReactionService.getInstance().get(new Reaction(online.getId(),0,photoId,0,null));
             if(r != null) switch (r.getReactionType()) {
                 case SMILE:
@@ -264,6 +272,16 @@ public class PicturePostViewController implements Initializable {
             FXMLLoader loader = GlobalViewController.getInstance().setMainContent("/view/OthersProfileView.fxml");
             ((OthersProfileViewController)loader.getController()).setUserId(PhotoService.getInstance()
                     .get(new Photo(photoId,0,null)).getUserId());
+        } catch (SQLException ex) {
+            Logger.getLogger(StatusPostViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void onDeleteClick(MouseEvent event) {
+        try {
+            PhotoService.getInstance().delete(new Photo(photoId,0,null));
+            HomeViewController.getInstance().fill();
         } catch (SQLException ex) {
             Logger.getLogger(StatusPostViewController.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -75,6 +75,8 @@ public class StatusPostViewController implements Initializable {
     private Reaction r;
     @FXML
     private VBox container;
+    @FXML
+    private ImageView delete;
 
     /**
      * Initializes the controller class.
@@ -94,6 +96,7 @@ public class StatusPostViewController implements Initializable {
             ownerId = StatusPostService.getInstance().get(new StatusPost(postId)).getOwnerId();
             if (ownerId == online.getId()){
                 reactions.setVisible(false);
+                delete.setVisible(true);
             }
             r = ReactionService.getInstance().get(new Reaction(online.getId(),postId,0,0,null));
             if(r != null) switch (r.getReactionType()) {
@@ -153,7 +156,8 @@ public class StatusPostViewController implements Initializable {
                 new N_SendMail(MemberService.getInstance().get(new Member(ownerId)).getEmail(),"MySoulMate | Notification",
                                 online.getPseudo() + " has reacted to your post. Login to see more details.");
                 SendSMS sm = new SendSMS();
-                //sm.SendSms("MySoulmate\\n" + online.getPseudo() + " has reacted to your post.", "24");
+                /*sm.SendSms("MySoulmate | " + online.getPseudo() + " has reacted to your post.",
+                        "" + MemberService.getInstance().get(new Member(ownerId)).getPhone());*/
                 
             }
         } catch (SQLException ex) {
@@ -271,6 +275,16 @@ public class StatusPostViewController implements Initializable {
             FXMLLoader loader = GlobalViewController.getInstance().setMainContent("/view/OthersProfileView.fxml");
             ((OthersProfileViewController)loader.getController()).setUserId(StatusPostService.getInstance()
                     .get(new StatusPost(postId)).getOwnerId());
+        } catch (SQLException ex) {
+            Logger.getLogger(StatusPostViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void onDeleteClick(MouseEvent event) {
+        try {
+            StatusPostService.getInstance().delete(new StatusPost(postId));
+            HomeViewController.getInstance().fill();
         } catch (SQLException ex) {
             Logger.getLogger(StatusPostViewController.class.getName()).log(Level.SEVERE, null, ex);
         }

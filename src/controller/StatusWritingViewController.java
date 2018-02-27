@@ -63,6 +63,8 @@ public class StatusWritingViewController implements Initializable {
     @FXML
     private void postButtonClicked(MouseEvent event) {
         try {
+            if(text.getText().equals(""))
+                return;
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/view/StatusPostView.fxml"));
             Parent p = loader.load();
