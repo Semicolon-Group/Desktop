@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1800.0" stylesheets="@style/QuestionStyle.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MembreController">
+<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1800.0" stylesheets="@style/QuestionStyle.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MembreController">
    <children>
-      <Text layoutX="64.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold; -fx-font-size: 30;" text="Liste members" />
+      <Text layoutX="64.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold; -fx-font-size: 30;" text="List members" />
       <TableView fx:id="table" layoutX="30.0" layoutY="104.0" onMouseClicked="#Banner_click" prefHeight="186.0" prefWidth="1679.0" AnchorPane.bottomAnchor="320.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="94.0">
         <columns>
           <TableColumn fx:id="Pseudo" prefWidth="75.0" text="Pseudo" />
@@ -45,10 +45,10 @@
          </rotationAxis>
       </TableView>
       
-      <Text layoutX="30.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold; -fx-font-size: 20;" text="Locked" />
-      <Button id="button" fx:id="bt_banne" layoutX="229.0" layoutY="324.0" mnemonicParsing="false" onAction="#BannerAction" style="-fx-background-size: 14; -fx-border-width: 5; -fx-font-weight: bold;" stylesheets="@../view/style/QuestionStyle.css" text="Bannir" />
-      <TextField fx:id="txt_lock" layoutX="30.0" layoutY="329.0" />
-      <TextField fx:id="txt_id" layoutX="42.0" layoutY="414.0" />
+      <Text layoutX="46.0" layoutY="523.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold; -fx-font-size: 20;" text="Locked" />
+      <Button id="button" fx:id="bt_banne" layoutX="245.0" layoutY="542.0" mnemonicParsing="false" onAction="#BannerAction" style="-fx-background-size: 14; -fx-border-width: 5; -fx-font-weight: bold;" stylesheets="@../view/style/QuestionStyle.css" text="Ban" />
+      <TextField fx:id="txt_lock" layoutX="46.0" layoutY="547.0" />
+      <TextField fx:id="txt_id" layoutX="58.0" layoutY="632.0" />
      
    </children>
    <padding>
