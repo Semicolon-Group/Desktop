@@ -11,23 +11,33 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.FileSystems;
 import java.util.List;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.SnapshotParameters;
+import javafx.scene.chart.Chart;
+import javafx.scene.image.WritableImage;
+import javax.imageio.ImageIO;
 import org.apache.pdfbox.exceptions.COSVisitorException;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.edit.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.graphics.xobject.PDJpeg;
 import org.jfree.chart.ChartUtilities;
-import org.jfree.chart.JFreeChart;
 
 /**
  *
  * @author Elyes
  */
 public class PDFPrinter {
-    public static void printPDF(List<JFreeChart> charts) throws IOException, COSVisitorException{
+    public static void printPDF(List<Chart> charts) throws IOException, COSVisitorException{
         PDDocument document = new PDDocument();
-        for(JFreeChart chart : charts){
-            ChartUtilities.saveChartAsJPEG(new File("/views/assets/img/chart.jpg"), chart, 400, 300);
+        for(Chart chart : charts){
+            WritableImage image = chart.snapshot(new SnapshotParameters(), null);
+            File file = new File("/views/assets/img/chart.png");
+            try {
+                ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             PDPage page = new PDPage();
             document.addPage(page);
 

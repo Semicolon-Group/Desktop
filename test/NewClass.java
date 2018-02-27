@@ -22,7 +22,7 @@ import util.PDFPrinter;
 public class NewClass {
 
     public static void main(String[] args) throws IOException, COSVisitorException{
-        DefaultPieDataset pieDataset = new DefaultPieDataset();
+        /*DefaultPieDataset pieDataset = new DefaultPieDataset();
         pieDataset.setValue("Chrome", new Integer(42));
         pieDataset.setValue("Explorer", new Integer(24));
         pieDataset.setValue("Firefox", new Integer(24));
@@ -37,6 +37,6 @@ public class NewClass {
         );
         List<JFreeChart> charts = new ArrayList();
         charts.add(chart);
-        PDFPrinter.printPDF(charts);
+        PDFPrinter.printPDF(charts);*/
     }
 }
