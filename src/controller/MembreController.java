@@ -57,8 +57,6 @@ public class MembreController extends Service implements Initializable {
     @FXML
     private TableColumn<MemberService, String> Email;
     @FXML
-    private TableColumn<MemberService, String> password;
-    @FXML
     private TableColumn<MemberService, Date> birth_date;
     @FXML
     private TableColumn<MemberService, Boolean> gender;
@@ -80,23 +78,18 @@ public class MembreController extends Service implements Initializable {
     private TableColumn<MemberService, Integer> min_age;
     @FXML
     private TableColumn<MemberService, Integer> max_age;
-    @FXML
     private TableColumn<MemberService, String> proximity;
     @FXML
     private TableColumn<MemberService, Timestamp> last_login;
     @FXML
     private TableColumn<MemberService, Short> locked;
-    @FXML
     private TableColumn<MemberService, String> ip;
-    @FXML
     private TableColumn<MemberService, Integer> port;
     @FXML
     private TableColumn<MemberService, String> adresse;
     private ObservableList<Member> data;
     @FXML
     private Button bt_banne;
-    @FXML
-    private TextField txt_lock;
     @FXML
     private TextField txt_id;
     private int selected_id;
@@ -118,28 +111,24 @@ public class MembreController extends Service implements Initializable {
             data.add(i);
         }
 
-        Pseudo.setCellValueFactory(new PropertyValueFactory<>("Pseudo"));
+        Pseudo.setCellValueFactory(new PropertyValueFactory<>("pseudo"));
         firstname.setCellValueFactory(new PropertyValueFactory<>("firstname"));
         lastname.setCellValueFactory(new PropertyValueFactory<>("lastname"));
-        Email.setCellValueFactory(new PropertyValueFactory<>("Email"));
-        password.setCellValueFactory(new PropertyValueFactory<>("password"));
-        birth_date.setCellValueFactory(new PropertyValueFactory<>("birth_date"));
+        Email.setCellValueFactory(new PropertyValueFactory<>("email"));
+        birth_date.setCellValueFactory(new PropertyValueFactory<>("birthDate"));
         gender.setCellValueFactory(new PropertyValueFactory<>("gender"));
         height.setCellValueFactory(new PropertyValueFactory<>("height"));
-        body_type.setCellValueFactory(new PropertyValueFactory<>("body_type"));
-        children_nember.setCellValueFactory(new PropertyValueFactory<>("children_nember"));
-        relegion.setCellValueFactory(new PropertyValueFactory<>("relegion"));
-        relegion_importance.setCellValueFactory(new PropertyValueFactory<>("relegion_importance"));
+        body_type.setCellValueFactory(new PropertyValueFactory<>("bodyType"));
+        children_nember.setCellValueFactory(new PropertyValueFactory<>("childrenNumber"));
+        relegion.setCellValueFactory(new PropertyValueFactory<>("religion"));
+        relegion_importance.setCellValueFactory(new PropertyValueFactory<>("religionImportance"));
         smoker.setCellValueFactory(new PropertyValueFactory<>("smoker"));
         drinker.setCellValueFactory(new PropertyValueFactory<>("drinker"));
-        min_age.setCellValueFactory(new PropertyValueFactory<>("min_age"));
-        max_age.setCellValueFactory(new PropertyValueFactory<>("max_age"));
-        proximity.setCellValueFactory(new PropertyValueFactory<>("proximity"));
-        last_login.setCellValueFactory(new PropertyValueFactory<>("last_login"));
+        min_age.setCellValueFactory(new PropertyValueFactory<>("minAge"));
+        max_age.setCellValueFactory(new PropertyValueFactory<>("maxAge"));
+        last_login.setCellValueFactory(new PropertyValueFactory<>("lastLogin"));
         locked.setCellValueFactory(new PropertyValueFactory<>("locked"));
-        ip.setCellValueFactory(new PropertyValueFactory<>("ip"));
-        port.setCellValueFactory(new PropertyValueFactory<>("port"));
-        //adresse.setCellValueFactory(new PropertyValueFactory<>("adresse"));
+        adresse.setCellValueFactory(new PropertyValueFactory<>("address"));
 
         table.setItems(null);
         table.setItems(data);
@@ -147,16 +136,17 @@ public class MembreController extends Service implements Initializable {
 
     @FXML
     private void Banner_click(MouseEvent event) {
-        MemberService ms = MemberService.getInstance();
         Member m = (Member) table.getSelectionModel().getSelectedItem();
-        txt_lock.setText(String.valueOf(m.getLocked()));
         txt_id.setText(String.valueOf(m.getId()));
+        if(m.getLocked() == 2) return;
+        bt_banne.setDisable(false);
     }
 
     @FXML
     private void BannerAction(ActionEvent event) throws SQLException {
         if(txt_id == null || txt_id.getText().isEmpty()) return;
         MemberService ms = MemberService.getInstance();
-        ms.updatelock(Integer.parseInt(txt_id.getText()), Short.parseShort(txt_lock.getText()));
+        ms.updatelock(Integer.parseInt(txt_id.getText()), (short)2);
+        AdminGlobalViewController.getInstance().setMainContent("/view/Membre.fxml");
     }
 }

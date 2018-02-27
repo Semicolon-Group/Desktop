@@ -67,16 +67,24 @@ public class AdminGlobalViewController implements Initializable {
     private VBox statisticsBox1;
     @FXML
     private Button logoutButton;
+    
+    private static AdminGlobalViewController controller;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        controller = this;
         scroll.vvalueProperty().addListener( (observable, oldValue, newValue) -> {
             double yTranslate = (content.getHeight()*newValue.doubleValue())-(scroll.getHeight()*newValue.doubleValue());
             navBar.translateYProperty().setValue(yTranslate);
         });
+        showMembersContent(null);
+    }
+    
+    public static AdminGlobalViewController getInstance(){
+        return controller;
     }
     
     public FXMLLoader setMainContent(String path){
@@ -96,6 +104,7 @@ public class AdminGlobalViewController implements Initializable {
             container.getChildren().clear();
             container.getChildren().add(newLoadedPane);
             newLoadedPane.prefWidthProperty().bind(container.widthProperty());
+            newLoadedPane.prefHeightProperty().bind(container.heightProperty());
             return loader;
         } catch (IOException ex) {
             util.Logger.writeLog(ex, GlobalViewController.class.getCanonicalName(), null);
@@ -109,6 +118,7 @@ public class AdminGlobalViewController implements Initializable {
 
     @FXML
     private void showMembersContent(ActionEvent event) {
+        setMainContent("/view/Membre.fxml");
         membersBox.setId("selected");
         questionsBox.setId("");
         feedbacksBox.setId("");
@@ -118,6 +128,7 @@ public class AdminGlobalViewController implements Initializable {
 
     @FXML
     private void showQuestionsContent(ActionEvent event) {
+        setMainContent("/view/Question.fxml");
         membersBox.setId("");
         questionsBox.setId("selected");
         feedbacksBox.setId("");
