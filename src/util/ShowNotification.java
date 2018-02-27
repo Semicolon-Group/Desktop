@@ -19,7 +19,7 @@ import org.controlsfx.control.Notifications;
  */
 public class ShowNotification {
     
-    public void handleShowNotification(String title,String text,Node graphic){
+    public void handleShowNotification(){
         Notifications notificationBuilder = Notifications.create()
                 
                 
@@ -29,8 +29,7 @@ public class ShowNotification {
                  .graphic(null)
                 .hideAfter(Duration.seconds(10))
                 .position(Pos.BOTTOM_RIGHT)
-                .darkStyle()
-                .graphic(graphic)
+                .graphic(null)
                 .onAction(new EventHandler<ActionEvent>(){
                 @Override
                 public void handle(ActionEvent event){
@@ -38,7 +37,6 @@ public class ShowNotification {
                         }
                 });
          notificationBuilder.darkStyle();
-         notificationBuilder.showConfirm();
- 
+//         notificationBuilder.showConfirm();
     }
 }

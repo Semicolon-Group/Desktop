@@ -113,7 +113,7 @@ public class NotificationContentController implements Initializable {
             if (type == MESSAGE) {
                 path += "Message.png";
             } else if (type == LIKE) {
-                path += "LIKE.png";
+                path += "Like.png";
             } else if (type == REACTION) {
                 path += "Reaction.png";
             } else if (type == SIGNAL) {

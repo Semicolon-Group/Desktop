@@ -67,6 +67,7 @@ import services.NotificationService;
 import services.PhotoService;
 import services.SignalService;
 import util.N_SendMail;
+import util.Notification_N;
 import util.SendSMS;
 
 /**
@@ -341,16 +342,10 @@ public class OthersProfileViewController implements Initializable {
     private void doLike(ActionEvent event) {
         try {
             LikeService.getInstance().create(new Like(MySoulMate.MEMBER_ID, userId, null));
-            NotificationService.getInstance().create(new Notification(
-                    MySoulMate.MEMBER_ID,
-                    userId,
+            Notification_N.sendNotifications(new Notification(
+                    MySoulMate.MEMBER_ID, userId,
                     Enumerations.NotificationType.LIKE,
-                    "has liked your profile.", new Timestamp(new Date().getTime()), null, 0, 0, false)
-            );
-            new N_SendMail(MemberService.getInstance().get(new Member(userId)).getEmail(), "MySoulMate | Notification",
-                    online.getPseudo() + " has liked your profile. Login to see more details.");
-            SendSMS sm = new SendSMS();
-            //sm.SendSms("MySoulmate\\n" + online.getPseudo() + " has reacted to your post.", "24");
+                    null, null, null, 0, 0, false));
             checkForLike();
         } catch (SQLException ex) {
             util.Logger.writeLog(ex, OthersProfileViewController.class.getName(), null);

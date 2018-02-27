@@ -24,12 +24,13 @@ import models.Post;
  */
 public class Notification_N {
 
-    public void sendNotifications(Notification obj) throws SQLException {
+    public static void sendNotifications(Notification obj) throws SQLException {
         Member M = MemberService.getInstance().get(new Member(obj.getReceiverId()));
+        Member sender = MemberService.getInstance().get(new Member(obj.getSenderId()));
         String email = M.getEmail();
-        String phone = "" + M.getPhone();
+        String phone = ""+M.getPhone();
         String subject = "MySoulMate | Notification";
-        String body = "" + M.getPseudo();
+        String body = sender.getPseudo();
         switch (obj.getType()) {
             case REACTION:
                 if (obj.getPhotoId() != 0) {
@@ -55,7 +56,7 @@ public class Notification_N {
                 break;
 
         }
-
+        obj.setContent(body);
         NotificationService.getInstance().create(obj);
 
         new N_SendMail(email,subject,body);
@@ -63,7 +64,7 @@ public class Notification_N {
         //sm.SendSms(subject+" | "+body,phone);
 
         ShowNotification ps = new ShowNotification();
-        ps.handleShowNotification("MySoulmate", "Notification sent.", null);
+        ps.handleShowNotification();
 
     }
 
