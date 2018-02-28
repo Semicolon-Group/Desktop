@@ -116,7 +116,7 @@ public class NotificationService extends Service implements Create<Notification>
         if(obj.getPostId() != 0)
             query += "post_id = " + obj.getPostId();
         else if(obj.getPhotoId() != 0)
-            query += "poto_id = " + obj.getPhotoId();
+            query += "photo_id = " + obj.getPhotoId();
         else
             return;
 	

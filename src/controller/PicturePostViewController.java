@@ -269,7 +269,7 @@ public class PicturePostViewController implements Initializable {
             Notification n = new Notification();
             n.setPhotoId(photoId);
             NotificationService.getInstance().delete(n);
-            HomeViewController.getInstance().fill();
+            GlobalViewController.getInstance().setMainContent("/view/HomeView.fxml");
         } catch (SQLException ex) {
             Logger.getLogger(StatusPostViewController.class.getName()).log(Level.SEVERE, null, ex);
         }

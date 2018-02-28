@@ -271,7 +271,7 @@ public class StatusPostViewController implements Initializable {
             Notification n = new Notification();
             n.setPostId(postId);
             NotificationService.getInstance().delete(n);
-            HomeViewController.getInstance().fill();
+            GlobalViewController.getInstance().setMainContent("/view/HomeView.fxml");
         } catch (SQLException ex) {
             Logger.getLogger(StatusPostViewController.class.getName()).log(Level.SEVERE, null, ex);
         }

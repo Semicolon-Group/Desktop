@@ -15,7 +15,7 @@
    <children>
       <HBox maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="138.0" prefWidth="438.0" spacing="5.0" style="-fx-background-color: white;">
          <children>
-            <ImageView fx:id="photo" fitWidth="60.0" onMouseClicked="#onPhotoClick" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="photo" fitHeight="60.0" fitWidth="60.0" onMouseClicked="#onPhotoClick" pickOnBounds="true">
                <image>
                   <Image url="@assets/img/obama.jpg" />
                </image>

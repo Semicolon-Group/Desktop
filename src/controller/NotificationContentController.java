@@ -7,6 +7,7 @@ package controller;
 
 import static controller.GlobalViewController.online;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.sql.Date;
@@ -20,6 +21,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import java.sql.Timestamp;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -128,29 +130,39 @@ public class NotificationContentController implements Initializable {
     @FXML
     private void goToPost(MouseEvent event) {
         try {
+            /*
+            * loader to handle SinglePostView
+            * loader2 to handle post
+            */
             String path;
             Image photo = new Image(MySoulMate.UPLOAD_URL + PhotoService.getInstance()
                     .get(new Photo(0,online.getId(),null,null,PhotoType.PROFILE)).getUrl());
+            FXMLLoader loader = GlobalViewController.getInstance().setMainContent("/view/SinglePostView.fxml");
+            Parent p;
             if(postId != 0){
                 path = "/view/StatusPostView.fxml";
-                FXMLLoader loader = GlobalViewController.getInstance().setMainContent(path);
-                StatusPostViewController c = (StatusPostViewController)loader.getController();
+                FXMLLoader loader2 = new FXMLLoader(getClass().getResource(path));
+                p = loader2.load();
+                StatusPostViewController c = (StatusPostViewController)loader2.getController();
                 StatusPost post = StatusPostService.getInstance().get(new StatusPost(postId));
                 c.fill(photo, post.getContent(), online.getPseudo(),
                     TimeDiff.getInstance(post.getDate(),new Timestamp(new java.util.Date().getTime())).getTimeDiffString(),
                     postId);
+                ((SinglePostViewController)loader.getController()).fill(p);
             }
             else if(photoId != 0){
                 path = "/view/PicturePostView.fxml";
-                FXMLLoader loader = GlobalViewController.getInstance().setMainContent(path);
-                PicturePostViewController c = (PicturePostViewController)loader.getController();
+                FXMLLoader loader2 = new FXMLLoader(getClass().getResource(path));
+                p = loader2.load();
+                PicturePostViewController c = (PicturePostViewController)loader2.getController();
                 Photo picture = PhotoService.getInstance().get(new Photo(photoId,0,null));
                 c.fill(photo,online.getPseudo(),
                     TimeDiff.getInstance(picture.getDate(),new Timestamp(new java.util.Date().getTime())).getTimeDiffString(),
                     MySoulMate.UPLOAD_URL + picture.getUrl(),
                     photoId);
+                ((SinglePostViewController)loader.getController()).fill(p);
             }
-        } catch (SQLException ex) {
+        } catch (SQLException | IOException ex) {
             Logger.getLogger(NotificationContentController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
