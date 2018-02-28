@@ -34,6 +34,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.InputMethodEvent;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
@@ -125,6 +126,13 @@ public class EditProfileViewController implements Initializable {
         heightFiled.setTextFormatter(new TextFormatter<>(new NumberStringConverter()));
         childNumberFiled.setTextFormatter(new TextFormatter<>(new NumberStringConverter()));
         phoneNumberField.setTextFormatter(new TextFormatter<>(new NumberStringConverter()));
+        cityField.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if(!newValue && !addresses.stream().anyMatch(a -> a.getCity().equals(cityField.getText())))
+                    countryField.setText("");
+            }
+        });
         addresses = new ArrayList<>();
         provider = SuggestionProvider.create(addresses);
         AutoCompletionTextFieldBinding actfb = new AutoCompletionTextFieldBinding<>(cityField, provider);
@@ -150,6 +158,8 @@ public class EditProfileViewController implements Initializable {
         cityField.getStyleClass().remove("error");
         addresses.clear();
         addresses.addAll(GooglePlacesAPI.autoCompleteAddress(cityField.getText()));
+        if(addresses.isEmpty())
+            countryField.setText("");
         provider.clearSuggestions();
         provider.addPossibleSuggestions(addresses);
     }
@@ -253,6 +263,11 @@ public class EditProfileViewController implements Initializable {
                 return;
             }else if(cityField.getText().isEmpty()){
                 activateError(cityField, "Address");
+                return;
+            }else if(countryField.getText().isEmpty()){
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid address!", ButtonType.OK);
+                alert.show();
+                cityField.getStyleClass().add("error");
                 return;
             }else if(childNumberFiled.getText().isEmpty()){
                 activateError(childNumberFiled, "Number of children");
