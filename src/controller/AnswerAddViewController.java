@@ -104,7 +104,7 @@ public class AnswerAddViewController implements Initializable {
     public void setParams(int userId, Stage dialog) {
         this.userId = userId;
         this.dialog = dialog;
-        finishBt.setVisible(true);
+        finishBt.setVisible(false);
         dialog.initStyle(StageStyle.TRANSPARENT);
         dialog.getScene().setFill(Color.TRANSPARENT);
         i=0;

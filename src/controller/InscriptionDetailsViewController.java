@@ -160,8 +160,6 @@ public class InscriptionDetailsViewController implements Initializable {
     
     private List<Address> addresses;
     private SuggestionProvider<Address> provider;
-    @FXML
-    private TextField cityField;
     
 
     public void setContainer(InscriptionContainerViewController container) {
@@ -205,8 +203,6 @@ public class InscriptionDetailsViewController implements Initializable {
         childrenNum.setTextFormatter(new TextFormatter<>(new NumberStringConverter()));
         minAge.setTextFormatter(new TextFormatter<>(new NumberStringConverter()));
         maxAge.setTextFormatter(new TextFormatter<>(new NumberStringConverter()));
-        //phoneText.setTextFormatter(new TextFormatter<>(new NumberStringConverter()));
-        
 
         for (BodyType b : BodyType.values()) {
             bodyList.add(b.toString());
@@ -327,6 +323,14 @@ public class InscriptionDetailsViewController implements Initializable {
             } else {
                 importanceLabel.setText("");
             }
+            
+            if(country.getText().equals("")){
+                addressLabel.setText("Invalid address");
+                addressLabel.setVisible(true);
+                valid = false;
+            }else{
+                addressLabel.setText("");
+            }
 
             if (!valid) {
                 return;
@@ -340,7 +344,7 @@ public class InscriptionDetailsViewController implements Initializable {
             m.setBodyType(BodyType.valueOf(bodyBox.getValue()));
             m.setReligion(Religion.valueOf(religionBox.getValue()));
             m.setReligionImportance(Importance.valueOf(importanceBox.getValue()));
-            m.setPhone(Integer.parseInt(phoneText.getText().replaceAll("\\s","")));
+            m.setPhone(Integer.parseInt(phoneText.getText()));
             m.setMaritalStatus(MaritalStatus.valueOf(statusBox.getValue()));
             m.setDrinker(Drinker.isSelected());
             m.setSmoker(Smoker.isSelected());
@@ -355,10 +359,10 @@ public class InscriptionDetailsViewController implements Initializable {
 
             //TODO
             MemberService.getInstance().create(m);
-            SendMail sm = new SendMail(m.getEmail(), " Inscription Confirmation ", " Hello " + m.getFirstname() + "Congratulations! You are now subscribed to MySoulMate");
+            SendMail sm = new SendMail(m.getEmail(), " Confirmation d'inscription ", " Bonjour " + m.getFirstname() + "Felicitations! Vous etes maintenant inscrit à MySoulMate");
 
             SendMessage s = new SendMessage();
-            s.sendSms("Congratulations! You are now subscribed to MySoulMate ", phoneText.getText());
+            s.sendSms("Felicitations! Vous etes Maintenant Inscrit à Mysoulmate ", phoneText.getText());
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "You have been successfully registered.", ButtonType.OK);
             alert.showAndWait();
             MySoulMate.getInstance().showAuthenticationView();
