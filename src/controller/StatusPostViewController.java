@@ -40,8 +40,8 @@ import services.NotificationService;
 import services.ReactionService;
 import services.StatusPostService;
 import util.N_SendMail;
+import util.SendSMS2;
 import util.Notification_N;
-import util.SendSMS;
 
 /**
  * FXML Controller class
@@ -156,7 +156,6 @@ public class StatusPostViewController implements Initializable {
                         ownerId,
                         Enumerations.NotificationType.REACTION,
                         "has reacted to your post.", new Timestamp(new Date().getTime()), null, postId, 0, false));
-                
             }
         } catch (SQLException ex) {
             Logger.getLogger(PicturePostViewController.class.getName()).log(Level.SEVERE, null, ex);

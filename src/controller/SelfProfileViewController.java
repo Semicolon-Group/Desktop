@@ -371,7 +371,6 @@ public class SelfProfileViewController implements Initializable {
         try {
             Member member = MemberService.getInstance().get(new Member(MySoulMate.MEMBER_ID));
             String path = photo.getAbsolutePath().replace("/", "\\");
-            System.out.println(path);
             double confidence = FaceDetection.getMaleConfidence(path);
             if(confidence >= 0.8 && !member.isGender()){
                 Alert alert = new Alert(Alert.AlertType.ERROR, "Please insert a true photo of you!", ButtonType.OK);

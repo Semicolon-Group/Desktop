@@ -13,16 +13,16 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AjouterSignalViewController">
    <children>
-      <HBox layoutX="2.0" opacity="0.96" prefHeight="79.0" prefWidth="600.0" style="-fx-background-color: #343e43;" AnchorPane.bottomAnchor="321.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox alignment="CENTER" layoutX="2.0" opacity="0.96" prefHeight="79.0" prefWidth="600.0" spacing="10.0" style="-fx-background-color: #343e43;" AnchorPane.bottomAnchor="321.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <ImageView fitHeight="36.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@imagesFeed/icons8_Unfriend_48px.png" />
                </image>
             </ImageView>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Aidez_nous à comprendre ce qui se passe">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Help us understand what's happenig !">
                <HBox.margin>
-                  <Insets left="150.0" right="50.0" top="30.0" />
+                  <Insets top="10.0" />
                </HBox.margin>
                <font>
                   <Font name="System Bold" size="15.0" />
@@ -30,7 +30,7 @@
             </Text>
          </children>
       </HBox>
-      <RadioButton fx:id="contenu" layoutX="117.0" layoutY="119.0" mnemonicParsing="false" selected="true" text="Contenu inapproprié" AnchorPane.leftAnchor="110.0">
+      <RadioButton fx:id="contenu" layoutX="117.0" layoutY="119.0" mnemonicParsing="false" selected="true" text="Inappropriate content" AnchorPane.leftAnchor="110.0">
          <padding>
             <Insets left="10.0" />
          </padding>
@@ -38,7 +38,7 @@
             <ToggleGroup fx:id="reasons" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton fx:id="racisme" layoutX="121.0" layoutY="153.0" mnemonicParsing="false" text="Racisme" toggleGroup="$reasons" AnchorPane.leftAnchor="110.0">
+      <RadioButton fx:id="racisme" layoutX="121.0" layoutY="153.0" mnemonicParsing="false" text="Racism" toggleGroup="$reasons" AnchorPane.leftAnchor="110.0">
          <padding>
             <Insets left="10.0" />
          </padding>
@@ -48,18 +48,18 @@
             <Insets left="10.0" />
          </padding>
       </RadioButton>
-      <RadioButton fx:id="harcelement" layoutX="110.0" layoutY="233.0" mnemonicParsing="false" text="Harcélement" toggleGroup="$reasons" AnchorPane.leftAnchor="110.0">
+      <RadioButton fx:id="harcelement" layoutX="110.0" layoutY="233.0" mnemonicParsing="false" text="Harrassment" toggleGroup="$reasons" AnchorPane.leftAnchor="110.0">
          <padding>
             <Insets left="10.0" />
          </padding>
       </RadioButton>
-      <Button fx:id="continuer" layoutX="513.0" layoutY="352.0" mnemonicParsing="false" onAction="#Continuer" style="-fx-border-color: #343e43;" text="Continuer" />
-      <RadioButton fx:id="autre" layoutX="117.0" layoutY="318.0" mnemonicParsing="false" text="Autre" toggleGroup="$reasons" AnchorPane.leftAnchor="110.0">
+      <Button fx:id="continuer" layoutX="513.0" layoutY="352.0" mnemonicParsing="false" onAction="#Continuer" style="-fx-border-color: #343e43;" text="Continue" />
+      <RadioButton fx:id="autre" layoutX="117.0" layoutY="318.0" mnemonicParsing="false" text="Other" toggleGroup="$reasons" AnchorPane.leftAnchor="110.0">
          <padding>
             <Insets left="10.0" />
          </padding>
       </RadioButton>
-      <RadioButton fx:id="fauxprofil" layoutX="117.0" layoutY="274.0" mnemonicParsing="false" prefHeight="17.0" text="Faux profil" toggleGroup="$reasons" AnchorPane.leftAnchor="110.0">
+      <RadioButton fx:id="fauxprofil" layoutX="117.0" layoutY="274.0" mnemonicParsing="false" prefHeight="17.0" text="False Profile" toggleGroup="$reasons" AnchorPane.leftAnchor="110.0">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
@@ -67,7 +67,7 @@
             <Insets left="10.0" />
          </padding>
       </RadioButton>
-      <Text layoutX="14.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Que se passe-t-il ?" wrappingWidth="128.486328125">
+      <Text layoutX="14.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="What's happening?" wrappingWidth="128.486328125">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>

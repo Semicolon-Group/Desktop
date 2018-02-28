@@ -16,7 +16,7 @@ import models.Member;
  *
  * @author vaider
  */
-public class SendSMS {
+public class SendSMS2 {
     public void SendSms(String msg,String number){
         Member m=new Member();
         try {

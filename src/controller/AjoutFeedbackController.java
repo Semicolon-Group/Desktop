@@ -12,8 +12,11 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
+import javafx.stage.Stage;
 import models.Feedback;
 import services.FeedbackService;
 
@@ -30,6 +33,8 @@ public class AjoutFeedbackController implements Initializable {
     private Button btn;
     @FXML
     private Button cancelButton;
+    private int senderId;
+    private Stage dialog;
 
     /**
      * Initializes the controller class.
@@ -37,20 +42,27 @@ public class AjoutFeedbackController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
+    
+    public void setParams(int senderId, Stage dialog){
+        this.senderId = senderId;
+        this.dialog = dialog;
+    }
 
     @FXML
     private void ajoutFeed(ActionEvent event) throws SQLException {
         
             FeedbackService f = FeedbackService.getInstance();
-            Feedback f1 = new Feedback(content.getText());
+            Feedback f1 = new Feedback(senderId, content.getText(), false, null);
             f.create(f1);
-        
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Your feedback has been successfully submitted.", ButtonType.OK);
+            alert.show();
+            dialog.close();
     }
 
     @FXML
     private void closeWindow(ActionEvent event) {
-            Platform.exit();
+        dialog.close();
     }
     
     

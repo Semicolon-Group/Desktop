@@ -31,19 +31,19 @@ public class GetSignalContainerViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-        
-        
-           try {
-            Parent signalView = FXMLLoader.load(getClass().getResource("/view/GetSignalView.fxml"));
-            anchor.getChildren().add(signalView);
-        } catch (IOException ex) {
-            Logger.getLogger(GetSignalContainerViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        switchView("GetSignalView");
     }
     public void switchView(String view){
         try {
-            Parent signalView = FXMLLoader.load(getClass().getResource("/view/" + view + ".fxml"));
+            FXMLLoader loder = new FXMLLoader(getClass().getResource("/view/" + view + ".fxml"));
+            AnchorPane signalView = loder.load();
+            Initializable controller = loder.getController();
+            if(controller instanceof GetSignalViewController)
+                ((GetSignalViewController) controller).setContainer(this);
+            else
+                ((GetSignalDetailsViewController) controller).setContainer(this);
+            signalView.minWidthProperty().bind(anchor.widthProperty());
+            signalView.minHeightProperty().bind(anchor.heightProperty());
             anchor.getChildren().clear();
             anchor.getChildren().add(signalView);
         } catch (IOException ex) {

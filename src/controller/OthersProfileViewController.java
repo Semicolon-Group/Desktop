@@ -67,8 +67,8 @@ import services.NotificationService;
 import services.PhotoService;
 import services.SignalService;
 import util.N_SendMail;
+import util.SendSMS2;
 import util.Notification_N;
-import util.SendSMS;
 
 /**
  * FXML Controller class

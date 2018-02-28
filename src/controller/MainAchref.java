@@ -37,7 +37,7 @@ public class MainAchref extends Application {
     public static AjouterSignalContainerViewController container4;
     @Override
     public void start(Stage primaryStage) throws SQLException {
-//////
+////
 //        try {
 //            Parent root = FXMLLoader.
 //                    load(getClass().getResource("/view/ajoutFeedback.fxml"));
@@ -85,7 +85,7 @@ public class MainAchref extends Application {
 //        } catch (IOException ex) {
 //            System.out.println(ex.getMessage());
 //        }
-//        System.out.println(MemberService.getInstance().get(new Member(1)));
+//////        System.out.println(MemberService.getInstance().get(new Member(1)));
      try {
             FXMLLoader loader = new FXMLLoader();
             Parent root = loader.

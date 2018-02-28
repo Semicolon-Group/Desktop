@@ -54,7 +54,7 @@ public class Matching {
             return 0;
         
         float imp = 1;
-        if(A.getImportance() == Importance.UN_PEU_IMPORTANT)
+        if(A.getImportance() == Importance.SOMEWHAT_IMPORTANT)
             imp = 0.5f;
         for(Choice c : B.getSelectedChoices()){
             if(!A.getAcceptedChoices().contains(c))

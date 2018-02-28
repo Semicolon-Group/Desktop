@@ -60,7 +60,7 @@ public class Notification_N {
         NotificationService.getInstance().create(obj);
 
         new N_SendMail(email,subject,body);
-        SendSMS sm = new SendSMS();
+        SendSMS2 sm = new SendSMS2();
         //sm.SendSms(subject+" | "+body,phone);
 
         ShowNotification ps = new ShowNotification();

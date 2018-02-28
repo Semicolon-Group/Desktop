@@ -62,6 +62,7 @@ public class GetFeedbackDetailsViewController implements Initializable {
     private Label content;
     @FXML
     private ImageView profileph;
+    private FeedbackContainerViewController container;
   
         
     public String getContent(){
@@ -98,6 +99,10 @@ public class GetFeedbackDetailsViewController implements Initializable {
             Logger.getLogger(GetFeedbackDetailsViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
      
+    }
+     
+    public void setContainer(FeedbackContainerViewController container){
+        this.container = container;
     }
 
     @FXML
