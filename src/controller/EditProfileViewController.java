@@ -283,6 +283,37 @@ public class EditProfileViewController implements Initializable {
             }else if(phoneNumberField.getText().isEmpty()){
                 activateError(phoneNumberField, "Phone number");
                 return;
+            }else{
+                int n = -1;
+                try{
+                    n = Integer.parseInt(childNumberFiled.getText());
+                }catch(NumberFormatException ex){
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid number of children!", ButtonType.OK);
+                    alert.show();
+                    childNumberFiled.getStyleClass().add("error");
+                    return;
+                }
+                if(n < 0 || n > 15){
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid number of children!", ButtonType.OK);
+                    alert.show();
+                    childNumberFiled.getStyleClass().add("error");
+                    return;
+                }
+                double h = -1;
+                try{
+                    h = Double.parseDouble(heightFiled.getText());
+                }catch(NumberFormatException ex){
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid height!", ButtonType.OK);
+                    alert.show();
+                    heightFiled.getStyleClass().add("error");
+                    return;
+                }
+                if(h < 1 || h > 2.5){
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid height!", ButtonType.OK);
+                    alert.show();
+                    heightFiled.getStyleClass().add("error");
+                    return;
+                }
             }
             member.getPreferedStatuses().clear();
             for(CheckBox box : selectedPrefered){
