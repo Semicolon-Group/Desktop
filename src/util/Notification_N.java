@@ -63,8 +63,8 @@ public class Notification_N {
         SendSMS2 sm = new SendSMS2();
         //sm.SendSms(subject+" | "+body,phone);
 
-        ShowNotification ps = new ShowNotification();
-        ps.handleShowNotification();
+//        ShowNotification ps = new ShowNotification();
+//        ps.handleShowNotification();
 
     }
 
