@@ -15,58 +15,55 @@ public class Enumerations {
 	MEMBER
     }
     public enum BodyType{
-	PLUTOT_NE_PAS_DIRE,
-	MINCE,
-	SURPOID,
-	NORMAL,
-	FORME,
-	HERCULIEN,
-	GROS
+	RATHER_NOT_SAY,
+	THIN,
+	OVERWEIGHT,
+	AVERAGE,
+	FIT,
+	HERCULEAN,
+	CURVY
     }
     public enum MaritalStatus{
-	CELIBATAIRE,
-	MARRIE,
-	VEUF,
-	DIVORCE
+	SINGLE,
+	WIDOW,
+	DIVORCED
     }
     public enum Religion{
 	ISLAM,
-	JUDAISME,
-	CHRISTIANISME,
-	ATHEISME,
+	JUDAISM,
+	CHRISTIANISM,
+	ATHEISM,
 	AGNOSTICISM
     }
     public enum RelationType{
-	SERIEUSE,
-	AMITIE,
-	COURT_TERME
+	SERIOUS,
+	FRIENDSHIP,
+	CASUAL
     }
     public enum Importance{
 	INDIFFERENT,
-	UN_PEU_IMPORTANT,
+	SOMEWHAT_IMPORTANT,
 	IMPORTANT
     }
     public enum ReactionType{
 	LIKE,
-	SUPER_LIKE,
 	LAUGH,
         SMILE,
         LOVE,
         SCOWL
     }
     public enum SignalReason{
-	CONTENU_INAPPROPRIE,
-	RACISME,
-        Violence,
-        Harcélement,
-        Faux_Profil,
-        Autre
-        
+	INAPPROPRIATE_CONTENT,
+	RACISM,
+        VIOLENCE,
+        HARRASSMENT,
+        FALSE_PROFILE,
+        OTHER
     }
     public enum Proximity{
-	PROCHE,
+	CLOSE,
 	DISTANT,
-	PARTOUT
+	ANYWHERE
     }
     public enum LockedType{
 	ENABLED,
@@ -89,11 +86,11 @@ public class Enumerations {
     }
     public enum Topic{
 	RELIGION,
-	Relation,
+	RELATIONSHIP,
 	CULTURE,
 	SPORT,
 	GENERAL,
-        Mandatory,
+        MANDATORY,
     }
     public enum PhotoType{
         REGULAR,
@@ -101,9 +98,9 @@ public class Enumerations {
         COVER
     }
     public enum LastLogin{
-        UN_JOUR,
-        SEMAINE,
-        MOIS,
-        ANNEE
+        ONE_DAY,
+        WEEK,
+        MONTH,
+        YEAR
     }
 }

@@ -31,7 +31,7 @@ public class Filter {
     private List<Religion> religion;
     private List<MaritalStatus> maritalStatus;
     private double distance = -1;
-    private LastLogin lastLogin = LastLogin.ANNEE;
+    private LastLogin lastLogin = LastLogin.YEAR;
     private int smokes = -1;
     private int drinks = -1;
 

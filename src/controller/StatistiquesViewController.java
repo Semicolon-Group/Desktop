@@ -83,7 +83,7 @@ public class StatistiquesViewController implements Initializable {
         //defining the axes
         final NumberAxis xAxis = new NumberAxis();
         final NumberAxis yAxis = new NumberAxis();
-        xAxis.setLabel("Mois");
+        xAxis.setLabel("Month");
         //creating the chart
         final LineChart<Number, Number> lineChart
                 = new LineChart<Number, Number>(xAxis, yAxis);
@@ -176,10 +176,10 @@ public class StatistiquesViewController implements Initializable {
             counter = set.getInt("sex");
 
             switch (counter) {
-                case 0:
+                case 1:
                     hommes++;
                     break;
-                case 1:
+                case 0:
                     femmes++;
                     break;
             }

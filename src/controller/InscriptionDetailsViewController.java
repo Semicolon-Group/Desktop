@@ -205,6 +205,8 @@ public class InscriptionDetailsViewController implements Initializable {
         childrenNum.setTextFormatter(new TextFormatter<>(new NumberStringConverter()));
         minAge.setTextFormatter(new TextFormatter<>(new NumberStringConverter()));
         maxAge.setTextFormatter(new TextFormatter<>(new NumberStringConverter()));
+        phoneText.setTextFormatter(new TextFormatter<>(new NumberStringConverter()));
+        
 
         for (BodyType b : BodyType.values()) {
             bodyList.add(b.toString());

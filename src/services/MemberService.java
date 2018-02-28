@@ -282,13 +282,13 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
         req += " and (TIMESTAMPDIFF(year,birth_date,Sysdate()) BETWEEN " + F.getAgeMin() + " AND " + F.getAgeMax() + ") ";
         
         switch (F.getLastLogin()) {
-            case UN_JOUR:
+            case ONE_DAY:
                 req += "AND (TIMESTAMPDIFF(day,last_login,Sysdate()) = 0) ";
                 break;
-            case SEMAINE:
+            case WEEK:
                 req += "AND (TIMESTAMPDIFF(week,last_login,Sysdate()) = 0) ";
                 break;
-            case MOIS:
+            case MONTH:
                 req += "AND (TIMESTAMPDIFF(month,last_login,Sysdate()) = 0) ";
                 break;
             default:

@@ -63,17 +63,17 @@ public class AjouterSignalViewController implements Initializable {
         
         signal = new Signal();
         if(contenu.isSelected()){
-            signal.setReason(Enumerations.SignalReason.CONTENU_INAPPROPRIE);
+            signal.setReason(Enumerations.SignalReason.INAPPROPRIATE_CONTENT);
         }else if(violence.isSelected()){
-            signal.setReason(Enumerations.SignalReason.Violence);
+            signal.setReason(Enumerations.SignalReason.VIOLENCE);
         }else if(racisme.isSelected()){
-            signal.setReason(Enumerations.SignalReason.RACISME);
+            signal.setReason(Enumerations.SignalReason.RACISM);
         }else if(harcelement.isSelected()){
-            signal.setReason(Enumerations.SignalReason.Harcélement);
+            signal.setReason(Enumerations.SignalReason.HARRASSMENT);
         }else if(fauxprofil.isSelected()){
-            signal.setReason(Enumerations.SignalReason.Faux_Profil);
+            signal.setReason(Enumerations.SignalReason.FALSE_PROFILE);
         }else{
-            signal.setReason(Enumerations.SignalReason.Autre);
+            signal.setReason(Enumerations.SignalReason.OTHER);
         }
 //         Image img1 = new Image(UPLOAD_URL + sign.getUrlPhoto());
 //            signalPhoto.setImage(img1);
