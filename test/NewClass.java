@@ -1,14 +1,12 @@
 
+import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import org.apache.pdfbox.exceptions.COSVisitorException;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.JFreeChart;
-import org.jfree.data.general.DefaultPieDataset;
-import util.PDFPrinter;
-
-
+import java.nio.file.FileSystems;
+import java.util.Date;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -21,8 +19,8 @@ import util.PDFPrinter;
  */
 public class NewClass {
 
-    public static void main(String[] args) throws IOException, COSVisitorException{
-        DefaultPieDataset pieDataset = new DefaultPieDataset();
+    public static void main(String[] args) throws IOException{
+        /*DefaultPieDataset pieDataset = new DefaultPieDataset();
         pieDataset.setValue("Chrome", new Integer(42));
         pieDataset.setValue("Explorer", new Integer(24));
         pieDataset.setValue("Firefox", new Integer(24));
@@ -37,6 +35,36 @@ public class NewClass {
         );
         List<JFreeChart> charts = new ArrayList();
         charts.add(chart);
-        PDFPrinter.printPDF(charts);
-    }
-}
+        PDFPrinter.printPDF(charts);*/
+//        String absolutePath = FileSystems.getDefault().getPath("src/view/assets/img/chart.png").normalize().toAbsolutePath().toString();
+//        System.out.println(absolutePath);
+//        Date date = new Date();
+//        System.out.println("" + (date.getYear() + 1900) + "-" + date.getMonth() + 1 + "-" + date.getDate() + " " + date.getHours() + "-" + date.getMinutes() + "-" + date.getSeconds());
+//    File screenshot = new File("D:\\chart.png");
+//    PDDocument document = new PDDocument();
+//    PDPage page = new PDPage();
+//    document.addPage(page);
+//    PDImageXObject pdi = PDImageXObject.createFromFileByContent(screenshot ,document);
+//    PDPageContentStream contentStream = new PDPageContentStream(document, page);
+//    contentStream.drawImage(pdi,100,100);
+//    contentStream.close(); // do this before saving!
+//
+//    document.save("C:/Users/Elyes/Documents/sample.pdf");
+//    document.close();
+//    }
+//Document document = new Document();
+//    String input = "c:/temp/capture.png"; // .gif and .jpg are ok too!
+//    String output = "c:/temp/capture.pdf";
+//    try {
+//      FileOutputStream fos = new FileOutputStream(output);
+//      PdfWriter writer = PdfWriter.getInstance(document, fos);
+//      writer.open();
+//      document.open();
+//      document.add(Image.getInstance(input));
+//      document.close();
+//      writer.close();
+//    }
+//    catch (Exception e) {
+//      e.printStackTrace();
+//    }
+}}

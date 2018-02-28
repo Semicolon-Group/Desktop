@@ -33,7 +33,7 @@ public class Notification_N {
         String body = sender.getPseudo();
         switch (obj.getType()) {
             case REACTION:
-                if (obj.getPhotoId() != 0) {
+                if (obj.getPhotoId() == 0) {
                     body += " has reacted to your post.";
                 } else {
                     body += " has reacted to your photo.";

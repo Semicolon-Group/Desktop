@@ -6,6 +6,7 @@
 package services;
 
 import iservice.Create;
+import iservice.Delete;
 import iservice.Read;
 import iservice.Update;
 import java.sql.PreparedStatement;
@@ -22,7 +23,7 @@ import models.Notification;
  *
  * @author Elyes
  */
-public class NotificationService extends Service implements Create<Notification>, Update<Notification>, Read<Notification> {
+public class NotificationService extends Service implements Create<Notification>, Update<Notification>, Read<Notification>, Delete<Notification> {
 
     private static NotificationService notificationService;
 
@@ -107,5 +108,18 @@ public class NotificationService extends Service implements Create<Notification>
         ntfs.sort((a,b)->b.getDate().compareTo(a.getDate()));
 	return ntfs;
 
+    }
+
+    @Override
+    public void delete(Notification obj) throws SQLException {
+        String query = "delete from notification WHERE ";
+        if(obj.getPostId() != 0)
+            query += "post_id = " + obj.getPostId();
+        else if(obj.getPhotoId() != 0)
+            query += "photo_id = " + obj.getPhotoId();
+        else
+            return;
+	
+        CONNECTION.createStatement().executeUpdate(query);
     }
 }
