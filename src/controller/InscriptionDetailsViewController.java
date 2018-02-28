@@ -160,8 +160,6 @@ public class InscriptionDetailsViewController implements Initializable {
     
     private List<Address> addresses;
     private SuggestionProvider<Address> provider;
-    @FXML
-    private TextField cityField;
     
 
     public void setContainer(InscriptionContainerViewController container) {
@@ -324,6 +322,14 @@ public class InscriptionDetailsViewController implements Initializable {
                 valid = false;
             } else {
                 importanceLabel.setText("");
+            }
+            
+            if(country.getText().equals("")){
+                addressLabel.setText("Invalid address");
+                addressLabel.setVisible(true);
+                valid = false;
+            }else{
+                addressLabel.setText("");
             }
 
             if (!valid) {

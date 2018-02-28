@@ -7,7 +7,6 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -143,6 +142,5 @@
          </children>
       </HBox>
       <JFXTextField fx:id="phoneText" layoutX="338.0" layoutY="500.0" prefHeight="25.0" prefWidth="169.0" promptText="Enter your phone number" />
-      <TextField fx:id="cityField" layoutX="115.0" layoutY="51.0" />
    </children>
 </AnchorPane>
