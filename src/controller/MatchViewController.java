@@ -127,8 +127,7 @@ public class MatchViewController implements Initializable {
         sort.setValue("Match %");
 
         if (online.isGender()) {
-            divorced.setText("Divorcée");
-            widow.setText("Veuve");
+            widow.setText("Widow");
         }
         try {
             cards = Matching.getInstance().getMatches(online, f);
@@ -231,7 +230,7 @@ public class MatchViewController implements Initializable {
             f.getReligion().add(Enumerations.Religion.JUDAISM);
         }
         if (christ.isSelected()) {
-            f.getReligion().add(Enumerations.Religion.CHRISTIANISM);
+            f.getReligion().add(Enumerations.Religion.CHRISTIANITY);
         }
         if (atheis.isSelected()) {
             f.getReligion().add(Enumerations.Religion.ATHEISM);

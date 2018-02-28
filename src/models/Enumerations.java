@@ -31,7 +31,7 @@ public class Enumerations {
     public enum Religion{
 	ISLAM,
 	JUDAISM,
-	CHRISTIANISM,
+	CHRISTIANITY,
 	ATHEISM,
 	AGNOSTICISM
     }
