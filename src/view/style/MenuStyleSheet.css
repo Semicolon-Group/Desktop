@@ -13,6 +13,10 @@ and open the template in the editor.
     -fx-border-color: lightgray;
 }
 
+.menu_item.last:hover{
+    -fx-background-radius: 0 0 20 20;
+}
+
 .menu_item{
     -fx-cursor: hand;
     -fx-background-color: null;

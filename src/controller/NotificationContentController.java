@@ -99,7 +99,7 @@ public class NotificationContentController implements Initializable {
 
             n_date.setText(TimeDiff.getInstance(n.getDate(), new Timestamp(new java.util.Date().getTime())).getTimeDiffString());
 
-            Image img1 = new Image(MySoulMate.UPLOAD_URL + n.getUrlPhoto());
+            Image img1 = new Image(n.getUrlPhoto());
             Img.setImage(img1);
 
             Image icon1 = new Image(iconType(n.getType()));

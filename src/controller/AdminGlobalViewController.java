@@ -138,6 +138,7 @@ public class AdminGlobalViewController implements Initializable {
 
     @FXML
     private void showReportsContent(ActionEvent event) {
+        setMainContent("/view/GetSignalContainerView.fxml");
         membersBox.setId("");
         questionsBox.setId("");
         feedbacksBox.setId("");
@@ -147,6 +148,7 @@ public class AdminGlobalViewController implements Initializable {
 
     @FXML
     private void showFeedbacksContent(ActionEvent event) {
+        setMainContent("/view/FeedbackContainerView.fxml");
         membersBox.setId("");
         questionsBox.setId("");
         feedbacksBox.setId("selected");

@@ -33,7 +33,7 @@
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="1.0" stroke="#e5e5e5" strokeType="INSIDE" width="438.0" />
       <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" prefWidth="438.0" style="-fx-background-color: white;">
          <children>
-            <Button fx:id="postButton" mnemonicParsing="false" onMouseClicked="#postButtonClicked" prefHeight="25.0" prefWidth="59.0" style="-fx-background-color: #365899;" text="Post" textFill="WHITE">
+            <Button fx:id="postButton" mnemonicParsing="false" onMouseClicked="#postButtonClicked" prefHeight="25.0" prefWidth="59.0" style="-fx-background-color: #365899;" text="Share" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>

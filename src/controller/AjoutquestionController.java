@@ -39,8 +39,7 @@ import models.Question;
 import org.controlsfx.control.Notifications;
 import services.ChoiceService;
 import services.QuestionService;
-import util.SendSMS;
-
+import util.SendSMS2;
 
 /**
  * FXML Controller class
@@ -48,13 +47,14 @@ import util.SendSMS;
  * @author vaider
  */
 public class AjoutquestionController implements Initializable {
+
     @FXML
     private TextField txt_question;
     @FXML
-    private ComboBox<String> topicsBox;
+    private ComboBox<Topic> topicsBox;
     @FXML
     private Button bt_ajout;
-    ObservableList<String> topicsList = FXCollections.observableArrayList();
+    ObservableList<Topic> topicsList = FXCollections.observableArrayList();
     @FXML
     private Button bt_qst;
     private TextField txt_choix1;
@@ -67,61 +67,55 @@ public class AjoutquestionController implements Initializable {
     /**
      * Initializes the controller class.
      */
-    
-
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-        choiceBoxs=FXCollections.observableArrayList();
-        choiceBoxs.addListener((ListChangeListener)(c->onChoiceListChange()));
+
+        choiceBoxs = FXCollections.observableArrayList();
+        choiceBoxs.addListener((ListChangeListener) (c -> onChoiceListChange()));
         choiceBoxs.add(createChoiceBox());
         choiceBoxs.add(createChoiceBox());
-         for (Topic i : Topic.values()){
-            topicsList.add(i.toString());
+        for (Topic i : Topic.values()) {
+            topicsList.add(i);
         }
         topicsBox.setItems(topicsList);
-        
-        
+
     }
-    
-    private void onChoiceListChange(){
-        
-        choicesBox.getChildren().add(choiceBoxs.get(choiceBoxs.size()-1));
-        
+
+    private void onChoiceListChange() {
+        choicesBox.getChildren().add(choiceBoxs.get(choiceBoxs.size() - 1));
     }
 
     @FXML
     private void ajout(ActionEvent event) throws SQLException {
-       
-        Question question=new Question(txt_question.getText(),Topic.valueOf(topicsBox.getValue()));
-        QuestionService questionService= QuestionService.getInstance();
-        question=questionService.create(question);
-        
-        
-        ChoiceService choiceService=ChoiceService.getInstance();
-        
-            for(Pane n : choiceBoxs){
-                String c=((TextField)((HBox)n.getChildren().get(0)).getChildren().get(1)).getText();
+
+        Question question = new Question(txt_question.getText(), topicsBox.getValue());
+        QuestionService questionService = QuestionService.getInstance();
+        question = questionService.create(question);
+
+        ChoiceService choiceService = ChoiceService.getInstance();
+
+        for (Pane n : choiceBoxs) {
+            String c = ((TextField) ((HBox) n.getChildren().get(0)).getChildren().get(1)).getText();
+            if (!c.equals("")) {
                 choiceService.create(new Choice(0, question.getId(), c));
             }
-            
-             }
-    
-    private Pane createChoiceBox(){
-        Pane p=new Pane();
-        HBox hb=new HBox();
-        
-        
-        Label l=new Label("Choix numero "+(choiceBoxs.size()+1));
-        TextField field=new TextField();
+        }
+
+    }
+
+    private Pane createChoiceBox() {
+        Pane p = new Pane();
+        HBox hb = new HBox();
+
+        Label l = new Label("Choix numero " + (choiceBoxs.size() + 1));
+        TextField field = new TextField();
         hb.getChildren().clear();
         hb.getChildren().add(l);
         hb.getChildren().add(field);
-        
+
         p.getChildren().clear();
         p.getChildren().add(hb);
-        
+
         return p;
     }
 
@@ -133,10 +127,10 @@ public class AjoutquestionController implements Initializable {
 
     @FXML
     private void ajoutChoix(ActionEvent event) {
-        
-        Pane p=createChoiceBox();
+
+        Pane p = createChoiceBox();
         choiceBoxs.add(p);
-        
+
     }
-    
+
 }

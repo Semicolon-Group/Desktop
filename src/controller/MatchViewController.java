@@ -127,8 +127,7 @@ public class MatchViewController implements Initializable {
         sort.setValue("Match %");
 
         if (online.isGender()) {
-            divorced.setText("Divorcée");
-            widow.setText("Veuve");
+            widow.setText("Widow");
         }
         try {
             cards = Matching.getInstance().getMatches(online, f);
@@ -216,37 +215,37 @@ public class MatchViewController implements Initializable {
         tempF.setDrinks(f.getDrinks());
         f = tempF;
         if (mince.isSelected()) {
-            f.getBodyType().add(BodyType.MINCE);
+            f.getBodyType().add(BodyType.THIN);
         }
         if (forme.isSelected()) {
-            f.getBodyType().add(BodyType.FORME);
+            f.getBodyType().add(BodyType.FIT);
         }
         if (gros.isSelected()) {
-            f.getBodyType().add(BodyType.GROS);
+            f.getBodyType().add(BodyType.CURVY);
         }
         if (islam.isSelected()) {
             f.getReligion().add(Enumerations.Religion.ISLAM);
         }
         if (juda.isSelected()) {
-            f.getReligion().add(Enumerations.Religion.JUDAISME);
+            f.getReligion().add(Enumerations.Religion.JUDAISM);
         }
         if (christ.isSelected()) {
-            f.getReligion().add(Enumerations.Religion.CHRISTIANISME);
+            f.getReligion().add(Enumerations.Religion.CHRISTIANITY);
         }
         if (atheis.isSelected()) {
-            f.getReligion().add(Enumerations.Religion.ATHEISME);
+            f.getReligion().add(Enumerations.Religion.ATHEISM);
         }
         if (agnos.isSelected()) {
             f.getReligion().add(Enumerations.Religion.AGNOSTICISM);
         }
         if (single.isSelected()) {
-            f.getMaritalStatus().add(MaritalStatus.CELIBATAIRE);
+            f.getMaritalStatus().add(MaritalStatus.SINGLE);
         }
         if (divorced.isSelected()) {
-            f.getMaritalStatus().add(MaritalStatus.DIVORCE);
+            f.getMaritalStatus().add(MaritalStatus.DIVORCED);
         }
         if (widow.isSelected()) {
-            f.getMaritalStatus().add(MaritalStatus.VEUF);
+            f.getMaritalStatus().add(MaritalStatus.WIDOW);
         }
         if (!ageMin.getSelectionModel().isEmpty() && !ageMin.getValue().equals("")) {
             f.setAgeMin(Integer.parseInt(ageMin.getValue()));

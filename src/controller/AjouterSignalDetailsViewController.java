@@ -9,6 +9,7 @@ import static controller.MainAchref.container4;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -50,6 +51,7 @@ public class AjouterSignalDetailsViewController implements Initializable {
     private void envoyerSignal(ActionEvent event) throws SQLException {
         signal.setContent(content.getText());
         SignalService.getInstance().create(signal);
+         Platform.exit();
         
     }
 

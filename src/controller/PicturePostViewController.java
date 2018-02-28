@@ -37,8 +37,8 @@ import services.PhotoService;
 import services.ReactionService;
 import services.StatusPostService;
 import util.N_SendMail;
+import util.SendSMS2;
 import util.Notification_N;
-import util.SendSMS;
 
 /**
  * FXML Controller class

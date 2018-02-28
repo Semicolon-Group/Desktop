@@ -148,7 +148,7 @@ public class AuthentificationController implements Initializable {
                 }
 
             } catch (Exception e) {
-                System.out.println(e);
+                e.printStackTrace();
             }
             Stage stagex = (Stage) username.getScene().getWindow();
 
@@ -254,7 +254,7 @@ public class AuthentificationController implements Initializable {
 
     @FXML
     private void goInscri(MouseEvent event) throws IOException {
-        Parent globalPane = FXMLLoader.load(getClass().getResource("/view/InsView.fxml"));
+        Parent globalPane = FXMLLoader.load(getClass().getResource("/view/InscriptionContainerView.fxml"));
         Scene scene = new Scene(globalPane);
         mainStage.setScene(scene);
         mainStage.show();

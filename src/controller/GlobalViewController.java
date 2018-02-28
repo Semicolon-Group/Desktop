@@ -171,7 +171,7 @@ public class GlobalViewController implements Initializable {
         });
         accountPane.visibleProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue){
-                accountPane.setPrefHeight(600);
+                accountPane.setPrefHeight(218);
                 setContent("/view/AccountMenuView.fxml", accountContent);
                 accountIcon.getStyleClass().remove(accountIcon.getStyleClass().size()-1);
                 activeIcon(accountIcon, "account");

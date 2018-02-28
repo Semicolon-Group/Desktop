@@ -53,6 +53,12 @@ public class GetSignalDetailsViewController implements Initializable {
     private Label genderReceiver;
     @FXML
     private Label dateReceiver;
+    
+    private GetSignalContainerViewController container2;
+    
+    public void setContainer(GetSignalContainerViewController container2){
+        this.container2 = container2;
+    }
 
     /**
      * Initializes the controller class.
@@ -111,7 +117,6 @@ public class GetSignalDetailsViewController implements Initializable {
 
     @FXML
     private void back(ActionEvent event) {
-        
         container2.switchView("GetSignalView"); 
     }
     

@@ -31,13 +31,8 @@ public class InscriptionContainerViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-          try {
-            Parent feedView = FXMLLoader.load(getClass().getResource("/view/InsView.fxml"));
-            anchor.getChildren().add(feedView);
-        } catch (IOException ex) {
-            Logger.getLogger(InscriptionContainerViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        FXMLLoader loader = switchView("InsView");
+        ((InsViewController)loader.getController()).setContainer(this);
     }
     public FXMLLoader switchView(String view){
         try {

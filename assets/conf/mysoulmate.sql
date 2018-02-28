@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.6.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 26, 2018 at 05:06 PM
--- Server version: 10.1.30-MariaDB
--- PHP Version: 7.2.1
+-- Generation Time: Feb 28, 2018 at 02:52 PM
+-- Server version: 5.7.14
+-- PHP Version: 7.0.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -39,15 +37,15 @@ CREATE TABLE `accepted_choice` (
 
 INSERT INTO `accepted_choice` (`answer_id`, `choice_id`) VALUES
 (2, 1),
-(7, 1),
 (2, 2),
-(7, 2),
 (3, 4),
+(4, 7),
+(7, 1),
+(7, 2),
 (8, 4),
 (8, 5),
-(4, 7),
-(5, 10),
-(6, 13);
+(16, 7),
+(18, 1);
 
 -- --------------------------------------------------------
 
@@ -69,11 +67,12 @@ CREATE TABLE `address` (
 
 INSERT INTO `address` (`user_id`, `longitude`, `latitude`, `country`, `city`) VALUES
 (1, 11.1108, 35.2337, 'Tunisia', 'Chebba'),
-(2, 10.1647, 36.8665, NULL, 'Ariana'),
-(3, 13.405, 52.52, NULL, 'Berlin'),
-(4, -0.1278, 51.5074, NULL, 'London'),
-(5, 2.3522, 48.8566, NULL, 'Paris'),
-(6, 2.3522, 48.8566, NULL, 'Paris');
+(2, 10.2852532, 36.9173042, 'Tunisie', 'Gammarth'),
+(3, 10.3329494, 36.8625853, 'Tunisie', 'Carthage'),
+(4, 0, 0, 'dd', 'dd'),
+(5, 0, 0, 'dd', 'dd'),
+(7, 0, 0, 'dh', 'ds'),
+(8, 10.310501, 36.8964803, 'Tunisie', 'La Marsa');
 
 -- --------------------------------------------------------
 
@@ -95,18 +94,13 @@ CREATE TABLE `answer` (
 
 INSERT INTO `answer` (`id`, `importance`, `date`, `question_id`, `user_id`) VALUES
 (2, 2, NULL, 3, 1),
-(3, 2, NULL, 4, 1),
+(3, 2, '2018-02-01 00:00:00', 4, 1),
 (4, 2, NULL, 5, 1),
-(5, 2, NULL, 6, 1),
-(6, 2, NULL, 7, 1),
 (7, 2, NULL, 3, 2),
-(8, 2, NULL, 4, 2),
-(9, 2, NULL, 3, 5),
-(10, 2, NULL, 4, 3),
-(11, 2, NULL, 4, 4),
-(12, 2, NULL, 5, 4),
-(13, 2, NULL, 6, 4),
-(14, 2, NULL, 7, 4);
+(8, 2, '2018-02-01 00:00:00', 4, 2),
+(10, 2, '2018-02-07 00:00:00', 4, 3),
+(16, 0, '2018-02-26 20:03:57', 5, 2),
+(18, 1, '2018-02-27 13:28:01', 2, 2);
 
 -- --------------------------------------------------------
 
@@ -125,18 +119,13 @@ CREATE TABLE `answer_choice` (
 
 INSERT INTO `answer_choice` (`answer_id`, `choice_id`) VALUES
 (2, 1),
-(3, 4),
-(4, 7),
-(5, 10),
-(6, 13),
 (7, 2),
+(3, 4),
+(18, 4),
 (8, 5),
-(9, 2),
+(4, 7),
 (10, 7),
-(11, 4),
-(12, 7),
-(13, 10),
-(14, 14);
+(16, 8);
 
 -- --------------------------------------------------------
 
@@ -155,21 +144,15 @@ CREATE TABLE `choice` (
 --
 
 INSERT INTO `choice` (`id`, `question_id`, `choice`) VALUES
-(1, 3, 'hhh'),
+(1, 2, 'hhh'),
 (2, 3, 'lll'),
 (3, 3, 'iii'),
-(4, 4, 'kkk'),
+(4, 2, 'kkk'),
 (5, 4, 'ggg'),
 (6, 4, 'yyy'),
 (7, 5, 'uuu'),
 (8, 5, 'ttt'),
-(9, 5, 'rrr'),
-(10, 6, 'eee'),
-(11, 6, 'ooo'),
-(12, 6, 'ppp'),
-(13, 7, 'nnn'),
-(14, 7, 'bbb'),
-(15, 7, 'vvv');
+(9, 5, 'rrr');
 
 -- --------------------------------------------------------
 
@@ -221,8 +204,9 @@ CREATE TABLE `conversation` (
 --
 
 INSERT INTO `conversation` (`id`, `person1_id`, `person2_id`, `label`, `seen`, `seen_date`) VALUES
-(1, 1, 3, 'Sara', 0, '2018-02-15 00:00:00'),
-(2, 1, 3, 'New conversation', 0, '2018-02-21 14:15:27');
+(1, 2, 3, 'Sara', 0, '2018-02-28 12:20:30'),
+(2, 1, 2, 'New conversation', 0, '2018-02-27 16:26:54'),
+(3, 3, 1, 'New conversation', 0, '2018-02-27 16:28:58');
 
 -- --------------------------------------------------------
 
@@ -237,6 +221,13 @@ CREATE TABLE `feedback` (
   `sender_id` int(11) NOT NULL,
   `date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `feedback`
+--
+
+INSERT INTO `feedback` (`id`, `content`, `state`, `sender_id`, `date`) VALUES
+(3, 'Helloo', 1, 2, '2018-02-28 13:29:27');
 
 -- --------------------------------------------------------
 
@@ -259,9 +250,14 @@ CREATE TABLE `message` (
 --
 
 INSERT INTO `message` (`id`, `content`, `seen`, `seen_date`, `date`, `sender_id`, `receiver_id`) VALUES
-(1, 'hello', 1, '2018-02-21 19:01:20', '2018-02-19 00:00:00', 1, 3),
-(2, 'what\'s up?', 1, '2018-02-21 19:01:20', '2018-02-21 00:00:00', 3, 1),
-(3, 'Badis: fghf', 1, '2018-02-21 19:01:20', '2018-02-21 14:15:27', 1, 3);
+(1, 'hello', 1, '2018-02-28 12:22:55', '2018-02-19 00:00:00', 2, 3),
+(2, 'what\'s up?', 1, '2018-02-28 12:22:55', '2018-02-21 00:00:00', 3, 2),
+(3, 'Badis: fghf', 1, '2018-02-28 12:22:55', '2018-02-21 14:15:27', 2, 3),
+(4, 'kqsdlkjqsdq', 1, '2018-02-27 21:42:26', '2018-02-01 00:00:00', 1, 2),
+(5, 'hello', 1, '2018-02-28 12:22:55', '2018-02-27 16:25:42', 2, 3),
+(6, 'yoo', 1, '2018-02-27 21:42:26', '2018-02-27 16:26:54', 2, 1),
+(7, 'helloooooooooooo mADAAAFAAKA', 1, '2018-02-28 12:19:38', '2018-02-27 16:28:58', 3, 1),
+(8, 'YOOO', 1, '2018-02-28 12:22:55', '2018-02-28 12:20:30', 2, 3);
 
 -- --------------------------------------------------------
 
@@ -287,15 +283,8 @@ CREATE TABLE `notification` (
 --
 
 INSERT INTO `notification` (`id`, `content`, `date`, `icon`, `sender_id`, `receiver_id`, `photo_id`, `post_id`, `type`, `seen`) VALUES
-(1, '3mal like', '2018-02-21 00:00:00', NULL, 5, 1, 3, NULL, 2, 0),
-(2, 'b3ath message', '2018-02-21 00:00:00', NULL, 3, 1, 4, NULL, 0, 0),
-(3, 'has reacted to your photo.', '2018-02-25 14:45:13', NULL, 1, 5, 8, 0, 2, 0),
-(4, 'has reacted to your post.', '2018-02-25 14:49:20', NULL, 1, 3, 0, 0, 2, 0),
-(5, 'has reacted to your photo.', '2018-02-25 14:51:04', NULL, 1, 2, 7, 0, 2, 0),
-(6, 'has reacted to your post.', '2018-02-25 15:13:17', NULL, 1, 3, 0, 0, 2, 0),
-(7, 'has reacted to your photo.', '2018-02-26 15:31:53', NULL, 1, 5, 8, 0, 2, 0),
-(8, 'has reacted to your photo.', '2018-02-26 15:32:38', NULL, 1, 2, 7, 0, 2, 0),
-(9, 'has reacted to your photo.', '2018-02-26 15:32:42', NULL, 1, 2, 7, 0, 2, 0);
+(19, 'Pofper has liked your profile.', '2018-02-27 17:50:11', NULL, 2, 3, 0, 0, 1, 0),
+(20, 'ss has liked your profile.', '2018-02-28 15:43:36', NULL, 8, 2, 0, 0, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -316,13 +305,10 @@ CREATE TABLE `photo` (
 --
 
 INSERT INTO `photo` (`id`, `url`, `user_id`, `date`, `type`) VALUES
-(2, 'girl1.jpg', 2, '2018-02-16 05:00:01', 1),
-(3, 'girl2.jpg', 5, '2018-02-16 00:00:03', 1),
-(4, 'mens-hairstyles-18.jpg', 1, '2018-02-16 00:00:00', 1),
-(5, 'girl3.jpg', 4, '2018-02-15 00:00:00', 1),
-(6, 'girl4.jpg', 3, '2018-02-13 00:00:00', 1),
-(7, 'girl5.jpg', 2, '2018-02-16 00:00:01', 0),
-(8, 'girl6.jpg', 5, '2018-02-17 00:00:00', 0);
+(10, 'img_5a944f60c3f07.png', 2, '2018-02-26 19:18:09', 1),
+(12, 'img_5a9462e90b3bc.png', 2, '2018-02-26 20:41:29', 2),
+(15, 'img_5a954c5ee4cd2.png', 3, '2018-02-27 13:17:35', 1),
+(16, 'img_5a954c5ee4cd2.png', 1, '2018-02-08 00:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -342,9 +328,6 @@ CREATE TABLE `post` (
 --
 
 INSERT INTO `post` (`id`, `date`, `content`, `user_id`) VALUES
-(1, '2018-02-16 00:00:00', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mi justo, congue quis dolor et, rhoncus sollicitudin sapien. Donec sed massa at nunc ullamcorper pretium.', 3),
-(2, '2018-02-16 00:00:02', 'Aenean sit amet nibh vitae tellus semper sagittis. Quisque auctor libero vehicula libero ornare, in congue eros fringilla. Donec sollicitudin egestas enim, in ullamcorper tellus imperdiet ut. Donec vitae odio in lectus mollis facilisis quis at sem. Vivamus id augue tincidunt ', 4),
-(10, '2018-02-24 21:28:29', 'yahoo', 3),
 (11, '2018-02-24 21:34:51', 'i\'m here', 1),
 (12, '2018-02-25 16:02:49', 'lalala', 1);
 
@@ -386,6 +369,23 @@ CREATE TABLE `prefered_relation` (
   `relation` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `prefered_relation`
+--
+
+INSERT INTO `prefered_relation` (`user_id`, `relation`) VALUES
+(2, 0),
+(3, 1),
+(3, 2),
+(4, 0),
+(4, 2),
+(5, 0),
+(5, 1),
+(7, 0),
+(7, 1),
+(8, 0),
+(8, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -396,6 +396,27 @@ CREATE TABLE `prefered_status` (
   `user_id` int(11) NOT NULL,
   `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `prefered_status`
+--
+
+INSERT INTO `prefered_status` (`user_id`, `status`) VALUES
+(2, 1),
+(2, 2),
+(2, 3),
+(3, 0),
+(3, 1),
+(4, 0),
+(4, 1),
+(4, 2),
+(5, 0),
+(5, 1),
+(7, 0),
+(7, 1),
+(7, 2),
+(8, 0),
+(8, 1);
 
 -- --------------------------------------------------------
 
@@ -415,11 +436,9 @@ CREATE TABLE `question` (
 
 INSERT INTO `question` (`id`, `question`, `topic`) VALUES
 (2, 'Your favorite pet?', 4),
-(3, '', NULL),
-(4, '', NULL),
-(5, '', NULL),
-(6, '', NULL),
-(7, '', NULL);
+(3, 'Quest1', 1),
+(4, 'Quest2', 2),
+(5, 'Quest3', 5);
 
 -- --------------------------------------------------------
 
@@ -463,12 +482,13 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `pseudo`, `firstname`, `lastname`, `email`, `password`, `birth_date`, `gender`, `height`, `body_type`, `children_number`, `relegion`, `relegion_importance`, `smoker`, `drinker`, `min_age`, `max_age`, `phone`, `last_login`, `locked`, `ip`, `port`, `role`, `created_at`, `updated_at`, `about`, `civil_status`, `connected`) VALUES
-(1, 'John', 'John', 'Ackley', 'elyes.mansour@esprit.tn', 'll', '1993-12-12', 1, 1.78, 2, 0, 0, 1, 0, 0, 18, 32, 0, '2018-02-15 00:00:00', 0, NULL, 0, NULL, '2018-02-14 00:00:00', '2018-02-21 14:01:24', 'hello baby', 0, 0),
-(2, 'Ashley', NULL, NULL, NULL, 'll', '1997-01-05', 0, 1.75, 4, 0, 0, 1, 0, 0, 20, 25, 0, '2018-02-22 18:00:00', 0, NULL, NULL, NULL, '2018-02-14 00:00:00', '2018-02-15 00:00:00', 'I\'m so beautiful', 0, 0),
-(3, 'Sara', NULL, NULL, 'chebbaelyes@gmail.com', 'll', '2000-02-06', 0, 1.8, 6, NULL, 1, NULL, 0, 1, NULL, NULL, NULL, '2018-02-20 00:00:00', 0, NULL, NULL, NULL, NULL, NULL, '', 2, 0),
-(4, 'Zara', NULL, NULL, NULL, NULL, '1990-02-14', 0, 1.6, 4, NULL, 2, NULL, 1, 1, NULL, NULL, NULL, '2018-02-10 00:00:00', 0, NULL, NULL, NULL, NULL, NULL, '', 2, 0),
-(5, 'Emilia', NULL, NULL, NULL, NULL, '1995-02-07', 0, 1.7, 1, NULL, 3, NULL, 1, 0, NULL, NULL, NULL, '2018-01-01 00:00:00', 0, NULL, NULL, NULL, NULL, NULL, '', 3, 0),
-(6, 'Lila', NULL, NULL, NULL, NULL, '1993-02-20', 0, 1.73, 2, 0, 3, 1, NULL, NULL, NULL, NULL, NULL, '2018-02-25 00:00:00', 0, NULL, NULL, NULL, NULL, NULL, '', 0, 0);
+(1, 'John', 'John', 'Ackley', 'elyes.mansour@esprit.tn', 'll', '1993-12-12', 1, 1.78, 2, 0, 0, 1, 0, 0, 18, 32, 0, '2018-02-15 00:00:00', 0, '129.125.10.2', 0, 0, '2018-02-14 00:00:00', '2018-02-21 14:01:24', 'hello baby', 0, 0),
+(2, 'Pofper', 'Seif', 'Abdennadher', 'seif.abdennadher@esprit.tn', '123456', '1997-01-05', 1, 1.75, 4, 0, 0, 1, 0, 0, 20, 25, 53057885, '2018-02-28 13:29:34', 0, '127.0.0.1', 80, 1, '2018-02-14 00:00:00', '2018-02-28 15:51:17', 'I\'m so beautiful lalalala', 0, 1),
+(3, 'Zeineb', 'Zeineb', 'Guermazi', 'zeineb.guermazi@esprit.tn', '123457', '2000-02-06', 0, 1.8, 6, 0, 1, 2, 0, 1, 18, 23, 26983424, '2018-02-27 17:43:14', 0, '127.0.0.1', 80, 1, '2018-02-01 00:00:00', '2018-02-28 12:19:21', '', 2, 1),
+(4, 'sss', 'sss', 'ss', 'ss.dj@gm.com', '123458', '2018-02-01', 0, 1.75, 0, 0, 1, 0, 0, 0, 23, 18, 26053885, NULL, 0, NULL, 0, 1, '2018-02-28 14:55:24', '2018-02-28 15:36:54', 'jkhskjdhqsdkjhqk', 0, 1),
+(5, 'ggg', 'gg', 'gg', 'gg.c@gk.com', '1234', '2018-02-01', 0, 1.75, 1, 0, 0, 0, 0, 0, 23, 18, 26352325, NULL, 0, NULL, 0, 1, '2018-02-28 14:58:52', '2018-02-28 14:58:52', 'dqsdqsddss dfss', 0, 0),
+(7, 'uuu', 'uu', 'uu', 'uu.gh@gm.com', '1235', '2018-02-01', 0, 1.75, 1, 0, 0, 0, 0, 0, 23, 18, 26358236, NULL, 0, NULL, 0, 1, '2018-02-28 15:05:48', '2018-02-28 15:05:48', 'gfhjgg', 0, 0),
+(8, 'ss', 'ss', 'ss', 'ss@sj.com', 'ss', '2018-02-01', 0, 1.75, 1, 0, 2, 1, 0, 0, 23, 18, 25368325, '2018-02-28 15:44:33', 0, NULL, 0, 1, '2018-02-28 15:24:58', '2018-02-28 15:44:33', 'ggg', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -499,11 +519,8 @@ CREATE TABLE `user_like` (
 --
 
 INSERT INTO `user_like` (`sender_id`, `receiver_id`, `date`) VALUES
-(1, 2, '2018-02-25 14:50:54'),
-(1, 3, NULL),
-(1, 4, NULL),
-(1, 5, NULL),
-(3, 1, '2018-02-24 22:28:39');
+(2, 3, '2018-02-27 17:50:11'),
+(8, 2, '2018-02-28 15:43:35');
 
 -- --------------------------------------------------------
 
@@ -517,8 +534,16 @@ CREATE TABLE `user_signal` (
   `date` datetime DEFAULT NULL,
   `state` tinyint(1) DEFAULT NULL,
   `sender_id` int(11) DEFAULT NULL,
-  `receiver_id` int(11) DEFAULT NULL
+  `receiver_id` int(11) DEFAULT NULL,
+  `content` text
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `user_signal`
+--
+
+INSERT INTO `user_signal` (`id`, `reason`, `date`, `state`, `sender_id`, `receiver_id`, `content`) VALUES
+(1, 0, '2018-02-02 00:00:00', 1, 2, 3, 'exp');
 
 --
 -- Indexes for dumped tables
@@ -680,80 +705,67 @@ ALTER TABLE `user_signal`
 -- AUTO_INCREMENT for table `answer`
 --
 ALTER TABLE `answer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT for table `choice`
 --
 ALTER TABLE `choice`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
-
 --
 -- AUTO_INCREMENT for table `conversation`
 --
 ALTER TABLE `conversation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `feedback`
 --
 ALTER TABLE `feedback`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `message`
 --
 ALTER TABLE `message`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT for table `photo`
 --
 ALTER TABLE `photo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT for table `post_reaction`
 --
 ALTER TABLE `post_reaction`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
-
 --
 -- AUTO_INCREMENT for table `question`
 --
 ALTER TABLE `question`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `user_signal`
 --
 ALTER TABLE `user_signal`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- Constraints for dumped tables
 --
@@ -875,7 +887,6 @@ ALTER TABLE `user_like`
 ALTER TABLE `user_signal`
   ADD CONSTRAINT `signal_receiver` FOREIGN KEY (`receiver_id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `signal_sender` FOREIGN KEY (`sender_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

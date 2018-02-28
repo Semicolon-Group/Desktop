@@ -19,7 +19,7 @@ import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
  */
 public class NewClass {
 
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) throws IOException {
         /*DefaultPieDataset pieDataset = new DefaultPieDataset();
         pieDataset.setValue("Chrome", new Integer(42));
         pieDataset.setValue("Explorer", new Integer(24));
@@ -67,4 +67,6 @@ public class NewClass {
 //    catch (Exception e) {
 //      e.printStackTrace();
 //    }
-}}
+        System.out.println("24 539 942".replaceAll(",", ""));
+    }
+}

@@ -34,7 +34,7 @@ import util.FileUploader;
  */
 public class MySoulMate extends Application {
     
-    public static int MEMBER_ID=2;
+    public static int MEMBER_ID = 0;
     public static final String UPLOAD_URL = "http://localhost/mysoulmateuploads/images/";
     public static Stage mainStage;
     private static MySoulMate instance;
@@ -46,7 +46,7 @@ public class MySoulMate extends Application {
     
     @Override
     public void start(Stage primaryStage) throws IOException {
-        instance=this;
+        instance = this;
         mainStage = primaryStage;
         AnchorPane globalPane = FXMLLoader.load(getClass().getResource("/view/Authentification.fxml"));
         Scene scene = new Scene(globalPane);
@@ -56,6 +56,19 @@ public class MySoulMate extends Application {
         mainStage.show();
         loginWidth = globalPane.getWidth();
         loginHeight = globalPane.getHeight();
+        mainStage.setOnCloseRequest(e -> {
+            if(MEMBER_ID == 0)
+                return;
+            try {
+                Member member = MemberService.getInstance().get(new Member(MEMBER_ID));
+                member.setLastLogin(new Timestamp(new Date().getTime()));
+                member.setConnected(false);
+                MemberService.getInstance().update(member);
+                MEMBER_ID = 0;
+            } catch (SQLException ex) {
+                Logger.getLogger(MySoulMate.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
     }
     
     public void ChangeToHomeScene(){
@@ -114,6 +127,7 @@ public class MySoulMate extends Application {
         try {
             Member member = MemberService.getInstance().get(new Member(MEMBER_ID));
             member.setLastLogin(new Timestamp(new Date().getTime()));
+            member.setConnected(false);
             MemberService.getInstance().update(member);
             MEMBER_ID = 0;
             AnchorPane globalPane = FXMLLoader.load(getClass().getResource("/view/Authentification.fxml"));

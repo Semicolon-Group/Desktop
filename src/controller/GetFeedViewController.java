@@ -37,7 +37,7 @@ import services.FeedbackService;
 public class GetFeedViewController implements Initializable {
 
     @FXML
-    private TableColumn<Feedback,Integer > Sender;
+    private TableColumn<Feedback, Integer> Sender;
     @FXML
     private TableColumn<Feedback, Timestamp> Date;
     @FXML
@@ -45,57 +45,64 @@ public class GetFeedViewController implements Initializable {
     @FXML
     private TableView<Feedback> table;
     private ObservableList<Feedback> data;
-    
+
     public static Feedback f1;
+    private FeedbackContainerViewController container;
+    
     
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+    }
+    
+    public void setContainer(FeedbackContainerViewController container){
+        this.container = container;
+        afficher();
+    }
+
+    private void afficher(){
+
         try {
-            afficher();
+            data = FXCollections.observableArrayList(FeedbackService.getInstance().getFalse(null));
+            
+            Sender.setCellValueFactory(new PropertyValueFactory<>("senderName"));
+            Date.setCellValueFactory(new PropertyValueFactory<>("date"));
+            State.setCellValueFactory(new PropertyValueFactory<>("stateName"));
+            table.setItems(null);
+            table.setItems(data);
         } catch (SQLException ex) {
             Logger.getLogger(GetFeedViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }    
-    
-     private void afficher() throws SQLException {
-               
-        data= FXCollections.observableArrayList(FeedbackService.getInstance().getFalse(null));
-	
-        Sender.setCellValueFactory(new PropertyValueFactory<>("senderName"));
-        Date.setCellValueFactory(new PropertyValueFactory<>("date"));
-        State.setCellValueFactory(new PropertyValueFactory<>("stateName"));      
-        table.setItems(null);
-        table.setItems(data);
-        
+
     }
-     
-     
-          private void afficherboth() throws SQLException {       
-              
-        data= FXCollections.observableArrayList(FeedbackService.getInstance().getAll(null));
-	
-        Sender.setCellValueFactory(new PropertyValueFactory<>("senderName"));
-        Date.setCellValueFactory(new PropertyValueFactory<>("date"));
-        State.setCellValueFactory(new PropertyValueFactory<>("stateName"));
-        
-        table.setItems(null);
-        table.setItems(data);
-        
+
+    private void afficherboth(){
+        try {
+            data = FXCollections.observableArrayList(FeedbackService.getInstance().getAll(null));
+            
+            Sender.setCellValueFactory(new PropertyValueFactory<>("senderName"));
+            Date.setCellValueFactory(new PropertyValueFactory<>("date"));
+            State.setCellValueFactory(new PropertyValueFactory<>("stateName"));
+            
+            table.setItems(null);
+            table.setItems(data);
+        } catch (SQLException ex) {
+            Logger.getLogger(GetFeedViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
-    private void onMouseClick(MouseEvent event) throws IOException, SQLException {
-        
+    private void onMouseClick(MouseEvent event){
+
 //        GetFeedDetailsViewController.feed = 
 //       
-            FeedbackService feed = FeedbackService.getInstance();
-             f1 = (Feedback) table.getSelectionModel().getSelectedItem();
-                
-////        
-          container.switchView("GetFeedbackDetailsView");
+        FeedbackService feed = FeedbackService.getInstance();
+        f1 = (Feedback) table.getSelectionModel().getSelectedItem();
+
+////    
+        container.switchView("GetFeedbackDetailsView");
 //    }
     }
 }
