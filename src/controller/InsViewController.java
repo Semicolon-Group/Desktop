@@ -9,15 +9,22 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
+import com.restfb.Parameter;
 import com.restfb.Version;
 import com.restfb.scope.FacebookPermissions;
 import com.restfb.scope.ScopeBuilder;
 import com.restfb.types.User;
 import static controller.MainAchref.container3;
+import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.ZoneId;
 import static java.time.temporal.TemporalQueries.localDate;
 import java.util.Date;
@@ -28,6 +35,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -36,12 +46,15 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import javafx.util.Duration;
+import javax.imageio.ImageIO;
 import models.Email;
 import models.Member;
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import services.MemberService;
 import util.MailVerification;
 
 
@@ -223,12 +236,13 @@ public class InsViewController implements Initializable {
         //permission pour email
         ScopeBuilder scopeBuilder = new ScopeBuilder();
         scopeBuilder.addPermission(FacebookPermissions.EMAIL);
-        scopeBuilder.addPermission(FacebookPermissions.USER_LOCATION);
+       
         scopeBuilder.addPermission(FacebookPermissions.USER_BIRTHDAY);
+        scopeBuilder.addPermission(FacebookPermissions.PUBLIC_PROFILE);
         
 
        
-        FacebookClient client = new DefaultFacebookClient(Version.VERSION_2_6);
+        FacebookClient client = new DefaultFacebookClient(Version.LATEST);
         String loginDialogUrlString = client.getLoginDialogUrl(appId, domain, scopeBuilder);
 
         //chome driver
@@ -236,42 +250,78 @@ public class InsViewController implements Initializable {
         WebDriver driver = new ChromeDriver();
         driver.get(loginDialogUrlString);
 
-      
         while (true) {
+
             if (driver.getTitle().contains("White screen page")) {
                 String url = driver.getCurrentUrl();
-
-                if (url.contains("code=") && "".equals(code) ) {
+                if (url.contains("code=") && "".equals(code)) {
                     String[] parts = url.split("code=");
                     String part1 = parts[0];
                     String codeToken = parts[1];
                     code = codeToken;
                     System.out.println(codeToken);
 
-                     
-                      try {
-                         userAccessToken =  InsViewController.call_me(appId, domain, appSecretKey, codeToken);
-                       
-                         FacebookClient fbclient = new DefaultFacebookClient(userAccessToken);
-                         User user = fbclient.fetchObject("me",User.class);
-                         System.out.print("User Name = "+ user.getName());
-//                         System.out.println("User birthday "+user.getBirthday());
-//                         System.out.println("User email "+user.getEmail());
-//                         System.out.println("User location "+user.getLocation());
-//                         System.out.println("User id "+user.getId());
+                    try {
+                        userAccessToken = InsViewController.call_me(appId, domain, appSecretKey, codeToken);
 
-                         
-                         Firstname.setText(user.getFirstName());
-                         Last_name.setText(user.getLastName());
-//                         driver.quit();
-                      } catch (Exception e) {
+                        FacebookClient facebookClient
+                                = new DefaultFacebookClient(userAccessToken, appSecretKey, Version.LATEST);
+                        User user = facebookClient.fetchObject("me", User.class, Parameter.with("fields", "id,about,email,address,birthday,name,picture{url},first_name,last_name"));
+
+                        //System.out.print("ceci est l e user  nchalllaaaaaah lyoooooooooooum:" + user.getName() + user.getBirthday() + "wech tebi haw zeebi " + user.getEmail());
+
+                        
+                        
+                       
+                    //    f = new File("C:\\wamp64\\www\\pidev\\profileimages\\"+user.getEmail()+".png");
+                        //f = new File("C:\\wamp64\\www\\pidev\\"+imageName+".png");
+                      
+                        
+                        
+                        Member userToTreat = new Member();
+                        userToTreat.setLastname(user.getLastName());
+                        userToTreat.setFirstname(user.getFirstName());
+                       
+                        userToTreat.setEmail(user.getEmail());
+                        userToTreat.setPassword(user.getId());
+                      
+                        userToTreat.setBirthDate(java.sql.Date.valueOf(user.getBirthdayAsDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()));
+                        
+                        System.out.println(userToTreat.getFirstname());
+                        System.out.println(userToTreat.getLastname());
+                        System.out.println(userToTreat.getEmail());
+                        System.out.println(userToTreat.getBirthDate());
+                        System.out.println(userToTreat.getId());
+                        Firstname.setText(userToTreat.getFirstname());
+                        Last_name.setText(userToTreat.getLastname());
+                        emailTextField.setText(userToTreat.getEmail());
+//                       
+                        Parent page = FXMLLoader.load(getClass().getResource("InsView.fxml"));
+                        Scene scene = new Scene(page);
+                        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                        stage.hide();
+                        stage.setScene(scene);
+                        stage.show();
+                        
+                        driver.quit();
+                        return;
+
+                        
+                       
+
+                    } catch (Exception e) {
                         e.printStackTrace();
-                    }   
+                    }
+
                 }
+
             }
+
         }
+
     }
-   
+
+
     public static String call_me(String appId, String redirectUrl, String appSecret, String code) throws Exception {
         String url = "https://graph.facebook.com/v2.12/oauth/access_token?"+"client_id=" + appId+"&redirect_uri=" + redirectUrl+"&client_secret=" + appSecret+"&code=" + code;
         URL obj = new URL(url);

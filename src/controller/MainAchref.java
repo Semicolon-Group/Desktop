@@ -85,7 +85,7 @@ public class MainAchref extends Application {
 //        } catch (IOException ex) {
 //            System.out.println(ex.getMessage());
 //        }
-////        System.out.println(MemberService.getInstance().get(new Member(1)));
+//////        System.out.println(MemberService.getInstance().get(new Member(1)));
      try {
             FXMLLoader loader = new FXMLLoader();
             Parent root = loader.
