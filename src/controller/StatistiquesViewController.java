@@ -5,6 +5,7 @@
  */
 package controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
@@ -37,9 +38,13 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.Chart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart.Series;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import util.PDFPrinter;
 
 /**
  * FXML Controller class
@@ -53,9 +58,10 @@ public class StatistiquesViewController implements Initializable {
     @FXML
     private AnchorPane statgender = new AnchorPane();
     @FXML
-    private AnchorPane start2= new AnchorPane();
+    private AnchorPane start2 = new AnchorPane();
 
     private List<Chart> charts = new ArrayList<>();
+
     /**
      * Initializes the controller class.
      */
@@ -188,16 +194,14 @@ public class StatistiquesViewController implements Initializable {
         statgender.getChildren().add(pie);
         charts.add(pie);
     }
- 
+
     public void start2() throws SQLException {
-      
+
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();
-         xAxis.setLabel("Month");
-        final LineChart<String,Number> lineChart = 
-                
-                new LineChart<String,Number>(xAxis,yAxis);
-          MemberService ms = MemberService.getInstance();
+        xAxis.setLabel("Month");
+        final LineChart<String, Number> lineChart = new LineChart<String, Number>(xAxis, yAxis);
+        MemberService ms = MemberService.getInstance();
         ResultSet set1 = ms.getLike();
         int counter;
         int jan = 0, feb = 0, mar = 0, apr = 0, mai = 0, jun = 0, jul = 0, aug = 0, sep = 0, oct = 0, nov = 0, dec = 0;
@@ -244,7 +248,7 @@ public class StatistiquesViewController implements Initializable {
 
             }
         }
-          
+
         ResultSet set2 = ms.getBlock();
         int counter2;
         int jan2 = 0, feb2 = 0, mar2 = 0, apr2 = 0, mai2 = 0, jun2 = 0, jul2 = 0, aug2 = 0, sep2 = 0, oct2 = 0, nov2 = 0, dec2 = 0;
@@ -338,13 +342,12 @@ public class StatistiquesViewController implements Initializable {
 
             }
         }
-        
-       
+
         lineChart.setTitle("Likes ,blocks , signaux 2017");
-                          
+
         XYChart.Series series1 = new XYChart.Series();
         series1.setName("Likes");
-        
+
         series1.getData().add(new XYChart.Data("Jan", jan));
         series1.getData().add(new XYChart.Data("Feb", feb));
         series1.getData().add(new XYChart.Data("Mar", mar));
@@ -357,10 +360,10 @@ public class StatistiquesViewController implements Initializable {
         series1.getData().add(new XYChart.Data("Oct", oct));
         series1.getData().add(new XYChart.Data("Nov", nov));
         series1.getData().add(new XYChart.Data("Dec", dec));
-        
+
         XYChart.Series series2 = new XYChart.Series();
-         series2.setName("Blocks");
-        
+        series2.setName("Blocks");
+
         series2.getData().add(new XYChart.Data("Jan", jan2));
         series2.getData().add(new XYChart.Data("Feb", feb2));
         series2.getData().add(new XYChart.Data("Mar", mar2));
@@ -375,7 +378,7 @@ public class StatistiquesViewController implements Initializable {
         series2.getData().add(new XYChart.Data("Dec", dec2));
         XYChart.Series series3 = new XYChart.Series();
         series3.setName("Signaux");
-        
+
         series3.getData().add(new XYChart.Data("Jan", jan3));
         series3.getData().add(new XYChart.Data("Feb", feb3));
         series3.getData().add(new XYChart.Data("Mar", mar3));
@@ -388,15 +391,25 @@ public class StatistiquesViewController implements Initializable {
         series3.getData().add(new XYChart.Data("Oct", oct3));
         series3.getData().add(new XYChart.Data("Nov", nov3));
         series3.getData().add(new XYChart.Data("Dec", dec3));
-        
-        
+
         lineChart.getData().addAll(series1, series2, series3);
-       
-       start2.getChildren().add(lineChart);
+
+        start2.getChildren().add(lineChart);
+        charts.add(lineChart);
     }
 
     @FXML
     private void print(ActionEvent event) {
-        
+        try {
+            PDFPrinter.printPDF(charts);
+            AdminGlobalViewController.getInstance().setMainContent("/view/StatistiquesView.fxml");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Operation Successful !");
+            alert.setHeaderText("PDF saved correctly.");
+            alert.setContentText("A new file has been saved inside C:\\Users\\Public\\");
+            alert.showAndWait();
+        } catch (IOException ex) {
+            Logger.getLogger(StatistiquesViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

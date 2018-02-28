@@ -80,13 +80,13 @@ public class HomeViewController implements Initializable {
                 loader = new FXMLLoader();
                 PicturePostViewController ppc;
                 StatusPostViewController spc;
+                Image image;
                 if(p instanceof StatusPost){
                     loader.setLocation(getClass().getResource("/view/StatusPostView.fxml"));
                     root = loader.load();
                     loader.getLocation().openStream();
                     spc = (StatusPostViewController)loader.getController();
                     Photo photo = PhotoService.getInstance().get(new Photo(0,p.getOwnerId(),null,null,PhotoType.PROFILE));
-                    Image image;
                     if(photo == null){
                         image = new Image("/view/assets/icons/member.jpg");
                     }else{
@@ -103,7 +103,6 @@ public class HomeViewController implements Initializable {
                     loader.getLocation().openStream();
                     ppc = (PicturePostViewController)loader.getController();
                     Photo photo = PhotoService.getInstance().get(new Photo(0,p.getOwnerId(),null,null,PhotoType.PROFILE));
-                    Image image;
                     if(photo == null){
                         image = new Image("/view/assets/icons/member.jpg");
                     }else{
