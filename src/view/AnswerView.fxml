@@ -20,8 +20,8 @@
                      <children>
                         <GridPane HBox.hgrow="ALWAYS">
                           <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="761.8909871553792" minWidth="10.0" prefWidth="688.5818472163943" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="271.25456305890054" minWidth="0.0" prefWidth="144.872669334727" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="823.0" minWidth="10.0" prefWidth="823.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="271.25456305890054" minWidth="0.0" prefWidth="9.0" />
                           </columnConstraints>
                           <rowConstraints>
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -63,9 +63,9 @@
                                                 </HBox>
                                              </children>
                                           </HBox>
-                                          <Label fx:id="questionLabel" text="This is an exemple of a question?">
+                                          <Label fx:id="questionLabel" prefHeight="72.0" prefWidth="797.0" text="This is an exemple of a question?" wrapText="true">
                                              <font>
-                                                <Font name="System Bold" size="24.0" />
+                                                <Font name="System Bold" size="20.0" />
                                              </font>
                                              <VBox.margin>
                                                 <Insets left="10.0" />
@@ -99,7 +99,7 @@
                         <Insets left="60.0" />
                      </VBox.margin>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" layoutX="70.0" layoutY="74.0" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                  <HBox alignment="CENTER_LEFT" layoutX="70.0" layoutY="74.0" prefHeight="73.0" prefWidth="802.0" spacing="20.0">
                      <children>
                         <Label text="Accepted answers:">
                            <font>

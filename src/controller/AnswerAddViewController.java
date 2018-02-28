@@ -112,7 +112,8 @@ public class AnswerAddViewController implements Initializable {
     }
 
     private void populateObligatory() {
-        if (i == 14) {
+        selectedBoxs.clear();
+        if (i == 15) {
             finishBt.setVisible(true);
             populate();
             return;
@@ -180,6 +181,7 @@ public class AnswerAddViewController implements Initializable {
     }
 
     private void populate() {
+        selectedBoxs.clear();
         try {
             if (question == null) {
                 question = getRandomQuestion();

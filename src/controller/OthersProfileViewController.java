@@ -36,12 +36,15 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
@@ -407,18 +410,35 @@ public class OthersProfileViewController implements Initializable {
         dialog.setTitle("Report");
         dialog.setContentText("Select the reason of the report");
         dialog.showAndWait().ifPresent(reason -> {
-            try {
-                SignalService.getInstance().create(new Signal(MySoulMate.MEMBER_ID, userId, reason, false, null));
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to block this person?", ButtonType.YES, ButtonType.NO);
-                alert.showAndWait().ifPresent(response -> {
-                    hideSideMenu();
-                    if (response == ButtonType.YES) {
-                        createBlock();
-                    }
-                });
-            } catch (SQLException ex) {
-                util.Logger.writeLog(ex, OthersProfileViewController.class.getName(), null);
-            }
+            Alert alert1 = new Alert(Alert.AlertType.CONFIRMATION, "Please describe your problem.", ButtonType.FINISH);
+            TextArea textArea = new TextArea();
+            textArea.setWrapText(true);
+            textArea.setMaxWidth(Double.MAX_VALUE);
+            textArea.setMaxHeight(Double.MAX_VALUE);
+            GridPane.setVgrow(textArea, Priority.ALWAYS);
+            GridPane.setHgrow(textArea, Priority.ALWAYS);
+            Label label = new Label("Describe your problem in few words...");
+            GridPane expContent = new GridPane();
+            expContent.setMaxWidth(Double.MAX_VALUE);
+            expContent.add(label, 0, 0);
+            expContent.add(textArea, 0, 1);
+            alert1.getDialogPane().setExpandableContent(expContent);
+            alert1.showAndWait().ifPresent(res -> {
+                try {
+                    Signal s = new Signal(MySoulMate.MEMBER_ID, userId, reason, false, null);
+                    s.setContent(textArea.getText());
+                    SignalService.getInstance().create(s);
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to block this person?", ButtonType.YES, ButtonType.NO);
+                    alert.showAndWait().ifPresent(response -> {
+                        hideSideMenu();
+                        if (response == ButtonType.YES) {
+                            createBlock();
+                        }
+                    });
+                } catch (SQLException ex) {
+                    Logger.getLogger(OthersProfileViewController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            });
         });
     }
 

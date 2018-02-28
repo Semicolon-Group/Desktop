@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 28, 2018 at 02:52 PM
+-- Generation Time: Feb 28, 2018 at 10:50 PM
 -- Server version: 5.7.14
 -- PHP Version: 7.0.10
 
@@ -36,16 +36,213 @@ CREATE TABLE `accepted_choice` (
 --
 
 INSERT INTO `accepted_choice` (`answer_id`, `choice_id`) VALUES
-(2, 1),
-(2, 2),
-(3, 4),
-(4, 7),
-(7, 1),
-(7, 2),
-(8, 4),
-(8, 5),
-(16, 7),
-(18, 1);
+(38, 24),
+(39, 88),
+(40, 72),
+(40, 73),
+(41, 115),
+(41, 118),
+(42, 94),
+(42, 95),
+(43, 98),
+(43, 99),
+(44, 67),
+(44, 68),
+(44, 69),
+(45, 86),
+(45, 87),
+(46, 46),
+(46, 47),
+(46, 48),
+(46, 49),
+(47, 119),
+(47, 120),
+(48, 18),
+(48, 19),
+(49, 104),
+(49, 105),
+(50, 64),
+(50, 65),
+(51, 33),
+(51, 34),
+(52, 38),
+(52, 39),
+(53, 68),
+(54, 17),
+(54, 18),
+(55, 33),
+(56, 119),
+(56, 120),
+(57, 94),
+(57, 95),
+(58, 104),
+(58, 105),
+(59, 24),
+(59, 26),
+(60, 37),
+(60, 38),
+(61, 88),
+(62, 99),
+(63, 46),
+(63, 48),
+(63, 49),
+(64, 115),
+(64, 116),
+(65, 86),
+(66, 73),
+(67, 64),
+(68, 31),
+(69, 16),
+(70, 33),
+(71, 73),
+(72, 67),
+(72, 68),
+(72, 69),
+(73, 120),
+(74, 104),
+(75, 37),
+(75, 38),
+(76, 99),
+(77, 88),
+(78, 87),
+(79, 64),
+(80, 46),
+(80, 47),
+(81, 116),
+(81, 117),
+(82, 95),
+(83, 24),
+(83, 25),
+(83, 26),
+(84, 114),
+(85, 115),
+(85, 116),
+(86, 73),
+(87, 104),
+(88, 120),
+(89, 17),
+(90, 67),
+(90, 68),
+(90, 69),
+(91, 86),
+(91, 87),
+(92, 24),
+(92, 25),
+(93, 98),
+(93, 99),
+(94, 37),
+(94, 38),
+(94, 39),
+(95, 34),
+(96, 46),
+(96, 47),
+(96, 48),
+(97, 88),
+(97, 89),
+(98, 95),
+(99, 64),
+(99, 65),
+(100, 70),
+(100, 71),
+(101, 121),
+(101, 122),
+(101, 123),
+(102, 64),
+(102, 65),
+(103, 33),
+(103, 34),
+(104, 98),
+(104, 99),
+(105, 16),
+(105, 17),
+(105, 18),
+(105, 19),
+(106, 24),
+(106, 25),
+(106, 26),
+(107, 89),
+(108, 115),
+(108, 116),
+(108, 117),
+(109, 72),
+(109, 73),
+(110, 104),
+(110, 105),
+(111, 46),
+(112, 86),
+(112, 87),
+(113, 37),
+(113, 38),
+(113, 39),
+(114, 94),
+(114, 95),
+(115, 67),
+(115, 68),
+(115, 69),
+(116, 119),
+(116, 120),
+(117, 37),
+(117, 38),
+(118, 72),
+(118, 73),
+(119, 33),
+(119, 34),
+(120, 98),
+(121, 94),
+(121, 95),
+(122, 119),
+(122, 120),
+(123, 115),
+(123, 116),
+(123, 117),
+(124, 104),
+(124, 105),
+(125, 67),
+(125, 68),
+(126, 16),
+(126, 17),
+(126, 18),
+(127, 86),
+(127, 87),
+(128, 88),
+(128, 89),
+(129, 24),
+(129, 26),
+(129, 27),
+(130, 64),
+(130, 65),
+(131, 46),
+(131, 47),
+(131, 48),
+(132, 88),
+(133, 64),
+(133, 65),
+(134, 37),
+(134, 38),
+(135, 46),
+(135, 47),
+(136, 16),
+(136, 17),
+(137, 116),
+(137, 117),
+(138, 72),
+(138, 73),
+(139, 98),
+(140, 67),
+(140, 68),
+(140, 69),
+(141, 119),
+(141, 120),
+(142, 33),
+(142, 34),
+(143, 94),
+(143, 95),
+(144, 24),
+(144, 25),
+(144, 26),
+(145, 86),
+(145, 87),
+(146, 104);
 
 -- --------------------------------------------------------
 
@@ -66,13 +263,14 @@ CREATE TABLE `address` (
 --
 
 INSERT INTO `address` (`user_id`, `longitude`, `latitude`, `country`, `city`) VALUES
-(1, 11.1108, 35.2337, 'Tunisia', 'Chebba'),
-(2, 10.2852532, 36.9173042, 'Tunisie', 'Gammarth'),
-(3, 10.3329494, 36.8625853, 'Tunisie', 'Carthage'),
-(4, 0, 0, 'dd', 'dd'),
-(5, 0, 0, 'dd', 'dd'),
-(7, 0, 0, 'dh', 'ds'),
-(8, 10.310501, 36.8964803, 'Tunisie', 'La Marsa');
+(12, 10.310501, 36.8964803, 'Tunisie', 'La Marsa'),
+(13, 10.2319757, 36.7435003, 'Tunisie', 'Ben Arous'),
+(14, 10.1647233, 36.86653669999999, 'Tunisie', 'Ariana'),
+(15, 10.1647233, 36.84523469999999, 'Tunisie', 'El Menzah'),
+(16, 10.3329494, 36.8625853, 'Tunisie', 'Carthage'),
+(17, 10.1815316, 36.8064948, 'Tunisie', 'Tunis'),
+(18, 10.2852532, 36.8587639, 'Tunisie', 'Ain Zaghouan'),
+(19, 10.0863269, 36.8093284, 'Tunisie', 'Manouba');
 
 -- --------------------------------------------------------
 
@@ -93,14 +291,115 @@ CREATE TABLE `answer` (
 --
 
 INSERT INTO `answer` (`id`, `importance`, `date`, `question_id`, `user_id`) VALUES
-(2, 2, NULL, 3, 1),
-(3, 2, '2018-02-01 00:00:00', 4, 1),
-(4, 2, NULL, 5, 1),
-(7, 2, NULL, 3, 2),
-(8, 2, '2018-02-01 00:00:00', 4, 2),
-(10, 2, '2018-02-07 00:00:00', 4, 3),
-(16, 0, '2018-02-26 20:03:57', 5, 2),
-(18, 1, '2018-02-27 13:28:01', 2, 2);
+(38, 1, '2018-02-28 22:34:15', 11, 12),
+(39, 1, '2018-02-28 22:34:19', 34, 12),
+(40, 1, '2018-02-28 22:34:23', 27, 12),
+(41, 0, '2018-02-28 22:34:33', 46, 12),
+(42, 2, '2018-02-28 22:34:42', 37, 12),
+(43, 1, '2018-02-28 22:34:50', 39, 12),
+(44, 0, '2018-02-28 22:34:55', 25, 12),
+(45, 1, '2018-02-28 22:35:02', 33, 12),
+(46, 0, '2018-02-28 22:35:06', 19, 12),
+(47, 1, '2018-02-28 22:35:15', 47, 12),
+(48, 0, '2018-02-28 22:35:24', 8, 12),
+(49, 1, '2018-02-28 22:35:33', 41, 12),
+(50, 2, '2018-02-28 22:35:41', 24, 12),
+(51, 1, '2018-02-28 22:35:48', 14, 12),
+(52, 0, '2018-02-28 22:35:52', 16, 12),
+(53, 0, '2018-02-28 22:51:18', 25, 13),
+(54, 0, '2018-02-28 22:51:22', 8, 13),
+(55, 0, '2018-02-28 22:51:25', 14, 13),
+(56, 0, '2018-02-28 22:51:28', 47, 13),
+(57, 0, '2018-02-28 22:51:30', 37, 13),
+(58, 0, '2018-02-28 22:51:33', 41, 13),
+(59, 0, '2018-02-28 22:51:36', 11, 13),
+(60, 1, '2018-02-28 22:51:40', 16, 13),
+(61, 1, '2018-02-28 22:51:43', 34, 13),
+(62, 1, '2018-02-28 22:51:46', 39, 13),
+(63, 1, '2018-02-28 22:51:50', 19, 13),
+(64, 1, '2018-02-28 22:51:54', 46, 13),
+(65, 0, '2018-02-28 22:51:56', 33, 13),
+(66, 0, '2018-02-28 22:51:59', 27, 13),
+(67, 0, '2018-02-28 22:52:02', 24, 13),
+(68, 0, '2018-02-28 22:52:11', 13, 13),
+(69, 0, '2018-02-28 22:54:38', 8, 14),
+(70, 0, '2018-02-28 22:54:42', 14, 14),
+(71, 1, '2018-02-28 22:54:47', 27, 14),
+(72, 0, '2018-02-28 22:54:51', 25, 14),
+(73, 0, '2018-02-28 22:54:55', 47, 14),
+(74, 0, '2018-02-28 22:54:57', 41, 14),
+(75, 0, '2018-02-28 22:55:01', 16, 14),
+(76, 0, '2018-02-28 22:55:04', 39, 14),
+(77, 1, '2018-02-28 22:55:07', 34, 14),
+(78, 2, '2018-02-28 22:55:10', 33, 14),
+(79, 0, '2018-02-28 22:55:13', 24, 14),
+(80, 0, '2018-02-28 22:55:15', 19, 14),
+(81, 0, '2018-02-28 22:55:18', 46, 14),
+(82, 0, '2018-02-28 22:55:20', 37, 14),
+(83, 0, '2018-02-28 22:55:23', 11, 14),
+(84, 0, '2018-02-28 22:55:25', 45, 14),
+(85, 1, '2018-02-28 22:57:12', 46, 15),
+(86, 1, '2018-02-28 22:57:16', 27, 15),
+(87, 1, '2018-02-28 22:57:18', 41, 15),
+(88, 1, '2018-02-28 22:57:24', 47, 15),
+(89, 0, '2018-02-28 22:57:26', 8, 15),
+(90, 0, '2018-02-28 22:57:29', 25, 15),
+(91, 0, '2018-02-28 22:57:32', 33, 15),
+(92, 1, '2018-02-28 22:57:36', 11, 15),
+(93, 2, '2018-02-28 22:57:40', 39, 15),
+(94, 2, '2018-02-28 22:57:47', 16, 15),
+(95, 1, '2018-02-28 22:57:50', 14, 15),
+(96, 0, '2018-02-28 22:57:54', 19, 15),
+(97, 0, '2018-02-28 22:57:56', 34, 15),
+(98, 0, '2018-02-28 22:57:59', 37, 15),
+(99, 0, '2018-02-28 22:58:02', 24, 15),
+(100, 0, '2018-02-28 22:58:05', 26, 15),
+(101, 0, '2018-02-28 22:58:08', 48, 15),
+(102, 0, '2018-02-28 23:02:54', 24, 16),
+(103, 1, '2018-02-28 23:02:58', 14, 16),
+(104, 1, '2018-02-28 23:03:03', 39, 16),
+(105, 2, '2018-02-28 23:03:08', 8, 16),
+(106, 0, '2018-02-28 23:03:11', 11, 16),
+(107, 1, '2018-02-28 23:03:14', 34, 16),
+(108, 1, '2018-02-28 23:03:18', 46, 16),
+(109, 2, '2018-02-28 23:03:22', 27, 16),
+(110, 2, '2018-02-28 23:03:26', 41, 16),
+(111, 2, '2018-02-28 23:03:29', 19, 16),
+(112, 0, '2018-02-28 23:03:33', 33, 16),
+(113, 2, '2018-02-28 23:03:38', 16, 16),
+(114, 0, '2018-02-28 23:03:41', 37, 16),
+(115, 1, '2018-02-28 23:03:47', 25, 16),
+(116, 1, '2018-02-28 23:03:52', 47, 16),
+(117, 2, '2018-02-28 23:06:17', 16, 17),
+(118, 0, '2018-02-28 23:06:20', 27, 17),
+(119, 1, '2018-02-28 23:07:52', 14, 17),
+(120, 2, '2018-02-28 23:07:57', 39, 17),
+(121, 0, '2018-02-28 23:08:00', 37, 17),
+(122, 2, '2018-02-28 23:08:04', 47, 17),
+(123, 1, '2018-02-28 23:08:09', 46, 17),
+(124, 0, '2018-02-28 23:08:13', 41, 17),
+(125, 1, '2018-02-28 23:08:17', 25, 17),
+(126, 1, '2018-02-28 23:08:21', 8, 17),
+(127, 1, '2018-02-28 23:08:25', 33, 17),
+(128, 2, '2018-02-28 23:08:28', 34, 17),
+(129, 0, '2018-02-28 23:08:32', 11, 17),
+(130, 0, '2018-02-28 23:08:36', 24, 17),
+(131, 1, '2018-02-28 23:08:42', 19, 17),
+(132, 1, '2018-02-28 23:16:47', 34, 18),
+(133, 0, '2018-02-28 23:16:50', 24, 18),
+(134, 0, '2018-02-28 23:16:52', 16, 18),
+(135, 0, '2018-02-28 23:16:56', 19, 18),
+(136, 1, '2018-02-28 23:16:59', 8, 18),
+(137, 0, '2018-02-28 23:17:01', 46, 18),
+(138, 0, '2018-02-28 23:17:04', 27, 18),
+(139, 0, '2018-02-28 23:17:06', 39, 18),
+(140, 0, '2018-02-28 23:17:08', 25, 18),
+(141, 0, '2018-02-28 23:17:12', 47, 18),
+(142, 0, '2018-02-28 23:17:15', 14, 18),
+(143, 1, '2018-02-28 23:17:18', 37, 18),
+(144, 0, '2018-02-28 23:17:21', 11, 18),
+(145, 0, '2018-02-28 23:17:25', 33, 18),
+(146, 2, '2018-02-28 23:17:29', 41, 18);
 
 -- --------------------------------------------------------
 
@@ -118,14 +417,115 @@ CREATE TABLE `answer_choice` (
 --
 
 INSERT INTO `answer_choice` (`answer_id`, `choice_id`) VALUES
-(2, 1),
-(7, 2),
-(3, 4),
-(18, 4),
-(8, 5),
-(4, 7),
-(10, 7),
-(16, 8);
+(69, 17),
+(89, 17),
+(105, 17),
+(126, 17),
+(136, 17),
+(48, 19),
+(54, 19),
+(59, 24),
+(129, 24),
+(144, 24),
+(38, 25),
+(83, 25),
+(106, 25),
+(92, 26),
+(68, 30),
+(51, 33),
+(70, 33),
+(95, 33),
+(119, 33),
+(55, 34),
+(103, 34),
+(142, 34),
+(113, 37),
+(52, 38),
+(75, 38),
+(117, 38),
+(60, 39),
+(94, 39),
+(134, 39),
+(63, 47),
+(80, 47),
+(96, 47),
+(111, 47),
+(46, 48),
+(131, 48),
+(135, 49),
+(50, 64),
+(67, 65),
+(79, 65),
+(99, 65),
+(102, 65),
+(130, 65),
+(133, 65),
+(72, 67),
+(140, 67),
+(44, 68),
+(53, 68),
+(90, 68),
+(115, 68),
+(125, 68),
+(100, 70),
+(40, 72),
+(66, 72),
+(71, 72),
+(86, 72),
+(109, 72),
+(138, 72),
+(118, 73),
+(78, 86),
+(91, 86),
+(112, 86),
+(145, 86),
+(45, 87),
+(65, 87),
+(127, 87),
+(97, 88),
+(132, 88),
+(39, 89),
+(61, 89),
+(77, 89),
+(107, 89),
+(128, 89),
+(42, 94),
+(57, 94),
+(82, 94),
+(98, 94),
+(143, 94),
+(114, 95),
+(121, 95),
+(43, 98),
+(62, 98),
+(76, 98),
+(93, 98),
+(104, 98),
+(120, 98),
+(139, 99),
+(49, 104),
+(87, 104),
+(110, 104),
+(124, 104),
+(146, 104),
+(58, 105),
+(74, 105),
+(84, 113),
+(108, 115),
+(81, 116),
+(85, 116),
+(123, 116),
+(64, 117),
+(137, 117),
+(41, 118),
+(47, 119),
+(73, 119),
+(88, 119),
+(122, 119),
+(141, 119),
+(56, 120),
+(116, 120),
+(101, 122);
 
 -- --------------------------------------------------------
 
@@ -144,15 +544,113 @@ CREATE TABLE `choice` (
 --
 
 INSERT INTO `choice` (`id`, `question_id`, `choice`) VALUES
-(1, 2, 'hhh'),
-(2, 3, 'lll'),
-(3, 3, 'iii'),
-(4, 2, 'kkk'),
-(5, 4, 'ggg'),
-(6, 4, 'yyy'),
-(7, 5, 'uuu'),
-(8, 5, 'ttt'),
-(9, 5, 'rrr');
+(16, 8, 'Often'),
+(17, 8, 'Sometimes'),
+(18, 8, 'Rarely'),
+(19, 8, 'Never'),
+(20, 9, 'Yes'),
+(21, 9, 'No'),
+(22, 10, 'Kissing in Paris'),
+(23, 10, 'Kissing in a tent, in the woods'),
+(24, 11, 'Yes, I have a fulltime job'),
+(25, 11, 'No'),
+(26, 11, 'I have a part-time job'),
+(27, 11, 'I\'m a student'),
+(28, 12, 'Yes'),
+(29, 12, 'No'),
+(30, 13, 'es, it\'s not a problem for me'),
+(31, 13, 'Yes, if I thought the debt were justified'),
+(32, 13, 'No'),
+(33, 14, 'Yes'),
+(34, 14, 'No'),
+(37, 16, 'Yes'),
+(38, 16, 'No'),
+(39, 16, 'Rarely'),
+(40, 17, 'Liberal / Left-wing'),
+(41, 17, 'Centrist'),
+(42, 17, 'Conservative / Right-wing'),
+(43, 17, 'Other'),
+(44, 18, 'Yes'),
+(45, 18, 'No'),
+(46, 19, 'Extremely important'),
+(47, 19, 'Somewhat important'),
+(48, 19, 'Not very important'),
+(49, 19, 'Not important at all'),
+(50, 20, 'Carefree'),
+(51, 20, 'Intense'),
+(52, 21, 'One night'),
+(53, 21, 'A few months to a year'),
+(54, 21, 'Several years'),
+(55, 21, 'The rest of my life'),
+(56, 22, 'Yes, usually'),
+(57, 22, 'About half the time'),
+(58, 22, 'No, usually'),
+(59, 22, 'I don\'t know'),
+(60, 23, 'Very, very high'),
+(61, 23, 'Higher than average'),
+(62, 23, 'Average'),
+(63, 23, 'Below average'),
+(64, 24, 'Yes, absolutely !'),
+(65, 24, 'Not really'),
+(66, 24, 'No way !'),
+(67, 25, 'Very important'),
+(68, 25, 'Somewhat important'),
+(69, 25, 'Not important at all'),
+(70, 26, 'Passion'),
+(71, 26, 'Dedication'),
+(72, 27, 'Yes'),
+(73, 27, 'No'),
+(74, 28, 'Yes'),
+(75, 28, 'No'),
+(76, 29, 'Yes'),
+(77, 29, 'No'),
+(78, 29, 'Yes, to some extent'),
+(79, 30, 'Yes'),
+(80, 30, 'No'),
+(81, 31, 'Yes'),
+(82, 31, 'No'),
+(83, 32, 'Logical'),
+(84, 32, 'Social'),
+(85, 32, 'Artistic'),
+(86, 33, 'Yes'),
+(87, 33, 'No'),
+(88, 34, 'Yes'),
+(89, 34, 'No'),
+(90, 35, 'Yes'),
+(91, 35, 'No'),
+(92, 36, 'Yes'),
+(93, 36, 'No'),
+(94, 37, 'Yes'),
+(95, 37, 'No'),
+(96, 38, 'Good'),
+(97, 38, 'Bad'),
+(98, 39, 'Yes'),
+(99, 39, 'No'),
+(100, 40, 'Always'),
+(101, 40, 'Usually'),
+(102, 40, 'Rarely'),
+(103, 40, 'Never'),
+(104, 41, 'Yes'),
+(105, 41, 'No'),
+(110, 44, 'Always'),
+(111, 44, 'Sometimes, but I do my best not to be'),
+(112, 44, 'Never'),
+(113, 45, 'Yes'),
+(114, 45, 'No'),
+(115, 46, 'Love'),
+(116, 46, 'Wealth'),
+(117, 46, 'Expression'),
+(118, 46, 'Knowledge'),
+(119, 47, 'Yes'),
+(120, 47, 'No'),
+(121, 48, 'Split the bill'),
+(122, 48, 'Pay the whole bill'),
+(123, 48, 'Have them pay the whole bill'),
+(124, 48, 'It doesn\'t matter to me'),
+(129, 50, 'Universal'),
+(130, 50, 'Relative'),
+(131, 51, 'Yes'),
+(132, 51, 'No');
 
 -- --------------------------------------------------------
 
@@ -170,20 +668,6 @@ CREATE TABLE `comment` (
   `date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `comment`
---
-
-INSERT INTO `comment` (`id`, `sender_id`, `receiver_id`, `post_id`, `photo_id`, `content`, `date`) VALUES
-(1, 1, 3, 1, 0, 'nice post!', '2018-02-24 00:00:00'),
-(2, 3, 1, 1, 0, 'thanks !', '2018-02-24 00:00:01'),
-(17, 1, 3, 10, 0, 'nice one :*', '2018-02-24 21:29:23'),
-(18, 3, 1, 10, 0, '@John thank baby :kisses:', '2018-02-24 21:29:45'),
-(21, 3, 1, 10, 0, '@John gotcha :D', '2018-02-24 22:31:31'),
-(24, 3, 1, 10, 0, '@John fgfgd', '2018-02-25 12:58:09'),
-(25, 3, 1, 11, 0, 'lollll', '2018-02-25 13:12:20'),
-(26, 1, 3, 11, 0, '@Sara that\'s nice of you :D', '2018-02-25 14:44:42');
-
 -- --------------------------------------------------------
 
 --
@@ -199,15 +683,6 @@ CREATE TABLE `conversation` (
   `seen_date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `conversation`
---
-
-INSERT INTO `conversation` (`id`, `person1_id`, `person2_id`, `label`, `seen`, `seen_date`) VALUES
-(1, 2, 3, 'Sara', 0, '2018-02-28 12:20:30'),
-(2, 1, 2, 'New conversation', 0, '2018-02-27 16:26:54'),
-(3, 3, 1, 'New conversation', 0, '2018-02-27 16:28:58');
-
 -- --------------------------------------------------------
 
 --
@@ -221,13 +696,6 @@ CREATE TABLE `feedback` (
   `sender_id` int(11) NOT NULL,
   `date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `feedback`
---
-
-INSERT INTO `feedback` (`id`, `content`, `state`, `sender_id`, `date`) VALUES
-(3, 'Helloo', 1, 2, '2018-02-28 13:29:27');
 
 -- --------------------------------------------------------
 
@@ -244,20 +712,6 @@ CREATE TABLE `message` (
   `sender_id` int(11) DEFAULT NULL,
   `receiver_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `message`
---
-
-INSERT INTO `message` (`id`, `content`, `seen`, `seen_date`, `date`, `sender_id`, `receiver_id`) VALUES
-(1, 'hello', 1, '2018-02-28 12:22:55', '2018-02-19 00:00:00', 2, 3),
-(2, 'what\'s up?', 1, '2018-02-28 12:22:55', '2018-02-21 00:00:00', 3, 2),
-(3, 'Badis: fghf', 1, '2018-02-28 12:22:55', '2018-02-21 14:15:27', 2, 3),
-(4, 'kqsdlkjqsdq', 1, '2018-02-27 21:42:26', '2018-02-01 00:00:00', 1, 2),
-(5, 'hello', 1, '2018-02-28 12:22:55', '2018-02-27 16:25:42', 2, 3),
-(6, 'yoo', 1, '2018-02-27 21:42:26', '2018-02-27 16:26:54', 2, 1),
-(7, 'helloooooooooooo mADAAAFAAKA', 1, '2018-02-28 12:19:38', '2018-02-27 16:28:58', 3, 1),
-(8, 'YOOO', 1, '2018-02-28 12:22:55', '2018-02-28 12:20:30', 2, 3);
 
 -- --------------------------------------------------------
 
@@ -283,8 +737,11 @@ CREATE TABLE `notification` (
 --
 
 INSERT INTO `notification` (`id`, `content`, `date`, `icon`, `sender_id`, `receiver_id`, `photo_id`, `post_id`, `type`, `seen`) VALUES
-(19, 'Pofper has liked your profile.', '2018-02-27 17:50:11', NULL, 2, 3, 0, 0, 1, 0),
-(20, 'ss has liked your profile.', '2018-02-28 15:43:36', NULL, 8, 2, 0, 0, 1, 0);
+(20, 'Elyes has liked your profile.', '2018-02-28 23:09:04', NULL, 17, 15, 0, 0, 1, 0),
+(21, 'Elyes has liked your profile.', '2018-02-28 23:10:31', NULL, 17, 14, 0, 0, 1, 0),
+(22, 'Hamdi has liked your profile.', '2018-02-28 23:20:04', NULL, 18, 13, 0, 0, 1, 0),
+(23, 'Hamdi has liked your profile.', '2018-02-28 23:26:33', NULL, 18, 15, 0, 0, 1, 0),
+(24, 'Hamdi has liked your profile.', '2018-02-28 23:48:25', NULL, 18, 15, 0, 0, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -305,10 +762,17 @@ CREATE TABLE `photo` (
 --
 
 INSERT INTO `photo` (`id`, `url`, `user_id`, `date`, `type`) VALUES
-(10, 'img_5a944f60c3f07.png', 2, '2018-02-26 19:18:09', 1),
-(12, 'img_5a9462e90b3bc.png', 2, '2018-02-26 20:41:29', 2),
-(15, 'img_5a954c5ee4cd2.png', 3, '2018-02-27 13:17:35', 1),
-(16, 'img_5a954c5ee4cd2.png', 1, '2018-02-08 00:00:00', 1);
+(18, 'img_5a972277aa3b2.png', 12, '2018-02-28 22:43:20', 1),
+(19, 'img_5a9722b250bf7.png', 12, '2018-02-28 22:44:18', 2),
+(20, 'img_5a97249cd7e86.png', 13, '2018-02-28 22:52:29', 1),
+(21, 'img_5a9725775654a.png', 14, '2018-02-28 22:56:07', 1),
+(22, 'img_5a97275e586f9.png', 16, '2018-02-28 23:04:14', 1),
+(23, 'img_5a97276f1979e.png', 16, '2018-02-28 23:04:31', 0),
+(24, 'img_5a97289f60832.png', 17, '2018-02-28 23:09:35', 1),
+(25, 'img_5a9728b94c8eb.png', 17, '2018-02-28 23:10:01', 2),
+(27, 'img_5a972ae63925c.png', 18, '2018-02-28 23:19:18', 1),
+(28, 'img_5a972bc2a17bd.png', 15, '2018-02-28 23:22:59', 1),
+(29, 'img_5a972bd5bf3c6.png', 15, '2018-02-28 23:23:18', 0);
 
 -- --------------------------------------------------------
 
@@ -322,14 +786,6 @@ CREATE TABLE `post` (
   `content` text,
   `user_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `post`
---
-
-INSERT INTO `post` (`id`, `date`, `content`, `user_id`) VALUES
-(11, '2018-02-24 21:34:51', 'i\'m here', 1),
-(12, '2018-02-25 16:02:49', 'lalala', 1);
 
 -- --------------------------------------------------------
 
@@ -345,18 +801,6 @@ CREATE TABLE `post_reaction` (
   `answer_id` int(11) DEFAULT NULL,
   `reaction` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `post_reaction`
---
-
-INSERT INTO `post_reaction` (`id`, `user_id`, `post_id`, `photo_id`, `answer_id`, `reaction`) VALUES
-(21, 1, 2, 0, 0, 3),
-(23, 1, 1, 0, 0, 2),
-(24, 1, 0, 7, 0, 2),
-(25, 1, 0, 8, 0, 2),
-(26, 1, 10, 0, 0, 4),
-(27, 3, 11, 0, 0, 4);
 
 -- --------------------------------------------------------
 
@@ -374,17 +818,25 @@ CREATE TABLE `prefered_relation` (
 --
 
 INSERT INTO `prefered_relation` (`user_id`, `relation`) VALUES
-(2, 0),
-(3, 1),
-(3, 2),
-(4, 0),
-(4, 2),
-(5, 0),
-(5, 1),
-(7, 0),
-(7, 1),
-(8, 0),
-(8, 1);
+(12, 0),
+(12, 1),
+(13, 0),
+(13, 1),
+(14, 0),
+(14, 1),
+(15, 0),
+(15, 1),
+(15, 2),
+(16, 0),
+(16, 1),
+(16, 2),
+(17, 0),
+(17, 1),
+(17, 2),
+(18, 1),
+(18, 2),
+(19, 0),
+(19, 1);
 
 -- --------------------------------------------------------
 
@@ -402,21 +854,21 @@ CREATE TABLE `prefered_status` (
 --
 
 INSERT INTO `prefered_status` (`user_id`, `status`) VALUES
-(2, 1),
-(2, 2),
-(2, 3),
-(3, 0),
-(3, 1),
-(4, 0),
-(4, 1),
-(4, 2),
-(5, 0),
-(5, 1),
-(7, 0),
-(7, 1),
-(7, 2),
-(8, 0),
-(8, 1);
+(12, 0),
+(12, 2),
+(13, 0),
+(13, 1),
+(14, 0),
+(14, 1),
+(14, 2),
+(15, 0),
+(16, 1),
+(16, 2),
+(17, 0),
+(18, 0),
+(18, 1),
+(19, 0),
+(19, 2);
 
 -- --------------------------------------------------------
 
@@ -435,10 +887,46 @@ CREATE TABLE `question` (
 --
 
 INSERT INTO `question` (`id`, `question`, `topic`) VALUES
-(2, 'Your favorite pet?', 4),
-(3, 'Quest1', 1),
-(4, 'Quest2', 2),
-(5, 'Quest3', 5);
+(8, 'How frequently do you drink alcohol?', 5),
+(9, 'Could you date someone who was really messy?', 1),
+(10, 'Choose the better romantic activity', 1),
+(11, 'Are you currently employed?', 5),
+(12, 'Is jealousy healthy in a relationship?', 1),
+(13, 'Would you date someone who was in considerable debt?', 1),
+(14, 'Would you strongly prefer to date someone of your own skin color / racial background?', 5),
+(16, 'Do you smoke?', 5),
+(17, 'Which best describes your political beliefs?', 4),
+(18, 'Do you enjoy discussing politics?', 4),
+(19, 'How important is religion/God in your life?', 5),
+(20, 'Which word describes you better?', 4),
+(21, 'About how long do you want your next relationship to last?', 1),
+(22, 'Can you tell from someone’s online dating profile whether or not you’ll get along in real life?', 1),
+(23, 'Rate your self-confidence:', 4),
+(24, 'Are pets a neccessity in your life ?', 5),
+(25, 'How important is money/wealth for you in a match?', 5),
+(26, 'Which makes for a better relationship?', 1),
+(27, 'Do you enjoy intense intellectual conversations?', 5),
+(28, 'Do you follow movies/shows ?', 4),
+(29, 'Would you consider yourself a feminist?', 4),
+(30, 'Do spelling mistakes annoy you?', 4),
+(31, 'Do you often find yourself worrying about things that you have no control over?', 4),
+(32, 'Which of the following types of intelligence do you value most?', 1),
+(33, 'Do you take drugs ?', 5),
+(34, 'Are you either vegetarian or vegan?', 5),
+(35, 'Should religion be taught is schools ?', 2),
+(36, 'Do you believe in the woman\'s right for abortion ?', 2),
+(37, 'Do you ok with sex before marriage ?', 5),
+(38, 'If you don\'t do anything at all for an entire day, how does that make you feel?', 4),
+(39, 'Are you looking for marriage ?', 5),
+(40, 'How often are you open with your feelings?', 4),
+(41, 'Could you date someone who was really quiet?', 5),
+(44, 'Are you usually late for meetings ?', 4),
+(45, 'Are you a morning person ?', 4),
+(46, 'If you had to name your greatest motivation in life thus far, what would it be?', 5),
+(47, 'Do you think homosexuality is a sin?', 5),
+(48, 'It’s your first date. Do you ...', 1),
+(50, 'Do you believe morality is universal, or relative?', 2),
+(51, 'Do you read books ?', 4);
 
 -- --------------------------------------------------------
 
@@ -472,9 +960,9 @@ CREATE TABLE `user` (
   `role` tinyint(1) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  `about` text NOT NULL,
-  `civil_status` int(11) NOT NULL,
-  `connected` tinyint(1) NOT NULL
+  `about` text,
+  `civil_status` int(11) DEFAULT NULL,
+  `connected` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -482,13 +970,15 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `pseudo`, `firstname`, `lastname`, `email`, `password`, `birth_date`, `gender`, `height`, `body_type`, `children_number`, `relegion`, `relegion_importance`, `smoker`, `drinker`, `min_age`, `max_age`, `phone`, `last_login`, `locked`, `ip`, `port`, `role`, `created_at`, `updated_at`, `about`, `civil_status`, `connected`) VALUES
-(1, 'John', 'John', 'Ackley', 'elyes.mansour@esprit.tn', 'll', '1993-12-12', 1, 1.78, 2, 0, 0, 1, 0, 0, 18, 32, 0, '2018-02-15 00:00:00', 0, '129.125.10.2', 0, 0, '2018-02-14 00:00:00', '2018-02-21 14:01:24', 'hello baby', 0, 0),
-(2, 'Pofper', 'Seif', 'Abdennadher', 'seif.abdennadher@esprit.tn', '123456', '1997-01-05', 1, 1.75, 4, 0, 0, 1, 0, 0, 20, 25, 53057885, '2018-02-28 13:29:34', 0, '127.0.0.1', 80, 1, '2018-02-14 00:00:00', '2018-02-28 15:51:17', 'I\'m so beautiful lalalala', 0, 1),
-(3, 'Zeineb', 'Zeineb', 'Guermazi', 'zeineb.guermazi@esprit.tn', '123457', '2000-02-06', 0, 1.8, 6, 0, 1, 2, 0, 1, 18, 23, 26983424, '2018-02-27 17:43:14', 0, '127.0.0.1', 80, 1, '2018-02-01 00:00:00', '2018-02-28 12:19:21', '', 2, 1),
-(4, 'sss', 'sss', 'ss', 'ss.dj@gm.com', '123458', '2018-02-01', 0, 1.75, 0, 0, 1, 0, 0, 0, 23, 18, 26053885, NULL, 0, NULL, 0, 1, '2018-02-28 14:55:24', '2018-02-28 15:36:54', 'jkhskjdhqsdkjhqk', 0, 1),
-(5, 'ggg', 'gg', 'gg', 'gg.c@gk.com', '1234', '2018-02-01', 0, 1.75, 1, 0, 0, 0, 0, 0, 23, 18, 26352325, NULL, 0, NULL, 0, 1, '2018-02-28 14:58:52', '2018-02-28 14:58:52', 'dqsdqsddss dfss', 0, 0),
-(7, 'uuu', 'uu', 'uu', 'uu.gh@gm.com', '1235', '2018-02-01', 0, 1.75, 1, 0, 0, 0, 0, 0, 23, 18, 26358236, NULL, 0, NULL, 0, 1, '2018-02-28 15:05:48', '2018-02-28 15:05:48', 'gfhjgg', 0, 0),
-(8, 'ss', 'ss', 'ss', 'ss@sj.com', 'ss', '2018-02-01', 0, 1.75, 1, 0, 2, 1, 0, 0, 23, 18, 25368325, '2018-02-28 15:44:33', 0, NULL, 0, 1, '2018-02-28 15:24:58', '2018-02-28 15:44:33', 'ggg', 1, 1);
+(10, 'Admin', 'Malek', 'Guirat', 'mysoulmatePI@gmail.com', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(12, 'Bochra', 'Bochra', 'Khamessi', 'chebbaelyes@gmail.com', 'bochra', '1992-02-11', 0, 1.75, 4, 0, 0, 2, 1, 0, 30, 22, 53057885, '2018-02-28 22:49:15', 0, NULL, 0, 1, '2018-02-28 21:43:17', '2018-02-28 22:49:15', 'I\'m a simple girl.', 0, 0),
+(13, 'Eya', 'Eya', 'Mernissi', 'chebbaelyes@gmail.com', 'eya', '1996-05-15', 0, 1.8, 3, 0, 0, 0, 0, 1, 25, 20, 53057144, '2018-02-28 22:53:17', 0, NULL, 0, 1, '2018-02-28 21:48:23', '2018-02-28 22:53:17', 'I\'m a passionate girl that loves watching romantic movies and drinking hot chocolate .', 0, 0),
+(14, 'Ferdaous', 'Ferdaous', 'Zribi', 'chebbaelyes@gmail.com', 'ferdaous', '1975-09-08', 0, 1.7, 1, 1, 1, 1, 0, 0, 55, 40, 20582632, '2018-02-28 22:56:19', 0, NULL, 0, 1, '2018-02-28 21:52:01', '2018-02-28 22:56:19', 'I\'m a free spirit that loves being in music fests ,  I hate drama , and will love to stay up until 3 am talking about my favorite movies .', 1, 0),
+(15, 'Hanene', 'Hanene', 'Ben Fraj', 'chebbaelyes@gmail.com', 'hanene', '1990-06-12', 0, 1.75, 2, 0, 0, 2, 0, 0, 35, 30, 42758965, '2018-02-28 23:24:13', 0, NULL, 0, 1, '2018-02-28 21:55:39', '2018-02-28 23:24:13', 'I have mostly guy friends because I don’t get along with girls. Will love to dive into deep talks . Nerd by choice .', 0, 0),
+(16, 'Ines', 'Ines', 'El Khemiri', 'chebbaelyes@gmail.com', 'ines', '1985-09-24', 0, 1.87, 3, 0, 0, 0, 0, 1, 40, 30, 23658745, '2018-02-28 23:05:54', 0, NULL, 0, 1, '2018-02-28 21:58:48', '2018-02-28 23:05:54', 'I\'m the women that everybody takes for too perfect to reach , and everyone believes that i have a boyfriend so no one bothers flirting me , that\'s why i\'m on MySoulMate !', 1, 0),
+(17, 'Elyes', 'Elyes', 'Tlili', 'chebbaelyes@gmail.com', 'elyes', '1993-02-03', 1, 1.85, 5, 0, 0, 2, 1, 1, 25, 20, 25417215, '2018-02-28 23:14:02', 0, NULL, 0, 1, '2018-02-28 22:02:45', '2018-02-28 23:14:02', 'Loves video games and seeking to meet a girl that shares the same passion . Our perfect date will be spending a night with our Guild fighting bosses !', 0, 0),
+(18, 'Hamdi', 'Hamdi', 'Wessleti', 'chebbaelyes@gmail.com', 'hamdi', '1983-02-16', 1, 1.84, 2, 0, 0, 1, 0, 0, 35, 25, 52568471, '2018-02-28 23:49:41', 0, NULL, 0, 1, '2018-02-28 22:06:31', '2018-02-28 23:49:41', 'Here for the laughs , and mostly to meet new people from different entourages that i\'ve been stuck with my whole life .', 2, 0),
+(19, 'Ahmed', 'Ahmed', 'Ferchichi', 'chebbaelyes@gmail.com', 'ahmed', '1997-02-25', 1, 1.9, 5, 0, 0, 0, 1, 0, 23, 18, 26532547, NULL, 0, NULL, 0, 1, '2018-02-28 22:09:27', '2018-02-28 22:09:27', 'Heard about this amazing app so just checking it out . As for myself i like any girl that ain\'t a drama queen .', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -519,8 +1009,7 @@ CREATE TABLE `user_like` (
 --
 
 INSERT INTO `user_like` (`sender_id`, `receiver_id`, `date`) VALUES
-(2, 3, '2018-02-27 17:50:11'),
-(8, 2, '2018-02-28 15:43:35');
+(18, 15, '2018-02-28 23:48:25');
 
 -- --------------------------------------------------------
 
@@ -537,13 +1026,6 @@ CREATE TABLE `user_signal` (
   `receiver_id` int(11) DEFAULT NULL,
   `content` text
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `user_signal`
---
-
-INSERT INTO `user_signal` (`id`, `reason`, `date`, `state`, `sender_id`, `receiver_id`, `content`) VALUES
-(1, 0, '2018-02-02 00:00:00', 1, 2, 3, 'exp');
 
 --
 -- Indexes for dumped tables
@@ -672,8 +1154,7 @@ ALTER TABLE `question`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `pseudo` (`pseudo`),
-  ADD UNIQUE KEY `email` (`email`);
+  ADD UNIQUE KEY `pseudo` (`pseudo`);
 
 --
 -- Indexes for table `user_block`
@@ -705,17 +1186,17 @@ ALTER TABLE `user_signal`
 -- AUTO_INCREMENT for table `answer`
 --
 ALTER TABLE `answer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=147;
 --
 -- AUTO_INCREMENT for table `choice`
 --
 ALTER TABLE `choice`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=133;
 --
 -- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 --
 -- AUTO_INCREMENT for table `conversation`
 --
@@ -725,7 +1206,7 @@ ALTER TABLE `conversation`
 -- AUTO_INCREMENT for table `feedback`
 --
 ALTER TABLE `feedback`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `message`
 --
@@ -735,17 +1216,17 @@ ALTER TABLE `message`
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 --
 -- AUTO_INCREMENT for table `photo`
 --
 ALTER TABLE `photo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 --
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `post_reaction`
 --
@@ -755,17 +1236,17 @@ ALTER TABLE `post_reaction`
 -- AUTO_INCREMENT for table `question`
 --
 ALTER TABLE `question`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT for table `user_signal`
 --
 ALTER TABLE `user_signal`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- Constraints for dumped tables
 --
