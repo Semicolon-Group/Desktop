@@ -5,6 +5,7 @@
  */
 package models;
 
+import controller.MySoulMate;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.HashSet;
@@ -123,7 +124,10 @@ public class Notification {
     }
     
     public String getUrlPhoto() throws SQLException{
-        return  PhotoService.getInstance().get(new Photo(0,senderId,null,null,PhotoType.PROFILE)).getUrl();
+        Photo photo = PhotoService.getInstance().get(new Photo(0,senderId,null,null,PhotoType.PROFILE));
+        if(photo != null)
+            return MySoulMate.UPLOAD_URL+photo.getUrl();
+        return "/view/assets/icons/member.jpg";
     }
     
 //     public HashSet<Choice> getAnswer() throws SQLException{

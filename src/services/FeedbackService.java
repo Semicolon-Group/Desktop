@@ -42,7 +42,7 @@ public class FeedbackService extends Service implements Create<Feedback>,Update<
         PreparedStatement preparedStatement = CONNECTION.prepareStatement(query);
         preparedStatement.setString(1, obj.getContent());
         preparedStatement.setBoolean(2, false);
-        preparedStatement.setInt(3, 1);
+        preparedStatement.setInt(3, obj.getSenderId());
         preparedStatement.setTimestamp(4, new Timestamp(new Date().getTime()));
         preparedStatement.executeUpdate();
         return obj;

@@ -34,16 +34,20 @@ public class FeedbackContainerViewController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        try {
-            Parent feedView = FXMLLoader.load(getClass().getResource("/view/GetFeedView.fxml"));
-            anchor.getChildren().add(feedView);
-        } catch (IOException ex) {
-            Logger.getLogger(FeedbackContainerViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        switchView("GetFeedView");
     }
+    
     public void switchView(String view){
         try {
-            Parent feedView = FXMLLoader.load(getClass().getResource("/view/" + view + ".fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/" + view + ".fxml"));
+            AnchorPane feedView = loader.load();
+            Initializable controller = loader.getController();
+            if(controller instanceof GetFeedViewController)
+                ((GetFeedViewController) controller).setContainer(this);
+            else
+                ((GetFeedbackDetailsViewController)controller).setContainer(this);
+            feedView.minWidthProperty().bind(anchor.widthProperty());
+            feedView.minHeightProperty().bind(anchor.heightProperty());
             anchor.getChildren().clear();
             anchor.getChildren().add(feedView);
         } catch (IOException ex) {

@@ -166,7 +166,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
 
     @Override
     public Member get(Member obj) throws SQLException {
-        String condition = "Where role = 0";
+        String condition = "Where role = "+Enumerations.Role.MEMBER.ordinal();
         if (obj.getId() != 0) {
             condition += " and id = " + obj.getId();
         } else if (obj.getPseudo() != null) {
@@ -215,7 +215,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
     
     public Admin getAdmin(Admin obj) throws SQLException {
         if (obj.getPseudo() == null) return null;
-        String query = "Select * from user Where role=1 and pseudo = '" + obj.getPseudo() + "'";
+        String query = "Select * from user Where role = "+Enumerations.Role.ADMIN.ordinal()+" and pseudo = '" + obj.getPseudo() + "'";
         st = CONNECTION.createStatement();
         rs = st.executeQuery(query);
         if (rs.next()) {
@@ -277,9 +277,9 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
     }
 
     public Map<Member,Map.Entry<Double,Integer>> getFiltered(Filter F) throws SQLException {
-        String req = "SELECT *,TIMESTAMPDIFF(day,last_login,Sysdate()) as login FROM user WHERE ";
+        String req = "SELECT *,TIMESTAMPDIFF(day,last_login,Sysdate()) as login FROM user WHERE role = "+Enumerations.Role.MEMBER.ordinal();
         
-        req += "(TIMESTAMPDIFF(year,birth_date,Sysdate()) BETWEEN " + F.getAgeMin() + " AND " + F.getAgeMax() + ") ";
+        req += " and (TIMESTAMPDIFF(year,birth_date,Sysdate()) BETWEEN " + F.getAgeMin() + " AND " + F.getAgeMax() + ") ";
         
         switch (F.getLastLogin()) {
             case UN_JOUR:

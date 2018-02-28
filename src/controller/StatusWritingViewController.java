@@ -54,7 +54,11 @@ public class StatusWritingViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
-            photo.setImage(new Image(MySoulMate.UPLOAD_URL + PhotoService.getInstance().get(new Photo(online.getId(),PhotoType.PROFILE)).getUrl()));
+            Photo p = PhotoService.getInstance().get(new Photo(online.getId(),PhotoType.PROFILE));
+            String path = "/view/assets/icons/member.jpg";
+            if(p != null)
+                path = MySoulMate.UPLOAD_URL + p.getUrl();
+            photo.setImage(new Image(path));
         } catch (SQLException ex) {
             Logger.getLogger(StatusWritingViewController.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -103,7 +103,7 @@
                         </HBox>
                         <HBox alignment="CENTER" layoutX="40.0" layoutY="210.0" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
                            <children>
-                              <Label onMouseClicked="#confirmDesactivation" text="Deactivated my account" textFill="#c60a0a" underline="true" wrapText="true">
+                              <Label onMouseClicked="#confirmDesactivation" text="Deactivate my account" textFill="#c60a0a" underline="true" wrapText="true">
                                  <font>
                                     <Font name="System Bold" size="24.0" />
                                  </font>

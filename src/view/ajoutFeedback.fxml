@@ -17,7 +17,7 @@
                   <Font name="System Bold Italic" size="17.0" />
                </font>
             </Text>
-            <ImageView fitHeight="29.0" fitWidth="41.0" layoutX="6.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="29.0" fitWidth="41.0" layoutX="39.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@imagesFeed/icons8_Error_48px_1.png" />
                </image>

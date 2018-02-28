@@ -7,6 +7,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -50,7 +51,7 @@
       <Label fx:id="maxLabel" layoutX="471.0" layoutY="353.0" prefHeight="17.0" prefWidth="110.0" text="Label" textFill="#fb0808" visible="false" />
       <Label fx:id="relationLabel" layoutX="476.0" layoutY="348.0" prefHeight="17.0" prefWidth="106.0" text="Label" textFill="#fb0808" visible="false" />
       <Label fx:id="proximityLabel" layoutX="152.0" layoutY="398.0" prefHeight="9.0" prefWidth="127.0" text="Label" textFill="#fb0808" visible="false" />
-      <JFXTextField fx:id="country" layoutX="146.0" layoutY="91.0" prefHeight="25.0" prefWidth="71.0" promptText="Country" />
+      <JFXTextField fx:id="country" disable="true" layoutX="231.0" layoutY="89.0" prefHeight="30.0" prefWidth="84.0" promptText="Country" />
       <JFXTextField fx:id="childrenNum" layoutX="463.0" layoutY="208.0" />
       <JFXTextField fx:id="minAge" layoutX="464.0" layoutY="321.0" />
       <JFXTextField fx:id="maxAge" layoutX="464.0" layoutY="262.0" />
@@ -114,7 +115,7 @@
          <font>
             <Font name="System Bold" size="12.0" />
          </font></JFXTextArea>
-      <JFXTextField fx:id="city" layoutX="226.0" layoutY="89.0" prefHeight="27.0" prefWidth="71.0" promptText="City" />
+      <JFXTextField fx:id="city" layoutX="145.0" layoutY="89.0" onKeyReleased="#checkPlaces" prefHeight="27.0" prefWidth="71.0" promptText="City" />
       <HBox alignment="CENTER_RIGHT" layoutX="16.0" layoutY="513.0" prefHeight="100.0" prefWidth="335.0" spacing="20.0">
          <children>
             <Label prefHeight="119.0" prefWidth="106.0" text="Prefered Status">
@@ -142,5 +143,6 @@
          </children>
       </HBox>
       <JFXTextField fx:id="phoneText" layoutX="338.0" layoutY="500.0" prefHeight="25.0" prefWidth="169.0" promptText="Enter your phone number" />
+      <TextField fx:id="cityField" layoutX="115.0" layoutY="51.0" />
    </children>
 </AnchorPane>

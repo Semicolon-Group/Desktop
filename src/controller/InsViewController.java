@@ -107,6 +107,13 @@ public class InsViewController implements Initializable {
     @FXML
     private JFXTextField emailTextField;
     
+    private InscriptionContainerViewController container;
+    
+    
+    public void setContainer(InscriptionContainerViewController container){
+        this.container = container;
+    }
+    
    
 
     /**
@@ -201,14 +208,9 @@ public class InsViewController implements Initializable {
         m.setGender(male.isSelected());
         m.setBirthDate(java.sql.Date.valueOf(birth_date.getValue()));
         
-
-
-        FXMLLoader loader = container3.switchView("InscriptionDetailsView");
-        System.out.println(loader);
+        FXMLLoader loader = container.switchView("InscriptionDetailsView");
         ((InscriptionDetailsViewController)loader.getController()).setMember(m);
-        
-         
-            
+        ((InscriptionDetailsViewController)loader.getController()).setContainer(container);
     }
 
     @FXML
@@ -351,6 +353,11 @@ public class InsViewController implements Initializable {
         //System.out.println("result after Reading JSON Response");
         //System.out.println("origin- "+myResponse.getString("origin"));
 
+    }
+
+    @FXML
+    private void back(MouseEvent event) {
+        MySoulMate.getInstance().showAuthenticationView();
     }
 
 }
