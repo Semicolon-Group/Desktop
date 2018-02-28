@@ -29,7 +29,6 @@ public class ShowNotification {
                  .graphic(null)
                 .hideAfter(Duration.seconds(10))
                 .position(Pos.BOTTOM_RIGHT)
-                .darkStyle()
                 .graphic(graphic)
                 .onAction(new EventHandler<ActionEvent>(){
                 @Override
