@@ -45,6 +45,7 @@ public class AjoutFeedbackController implements Initializable {
             FeedbackService f = FeedbackService.getInstance();
             Feedback f1 = new Feedback(content.getText());
             f.create(f1);
+            Platform.exit();
         
     }
 
