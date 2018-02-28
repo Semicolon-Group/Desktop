@@ -148,7 +148,7 @@ public class AuthentificationController implements Initializable {
                 }
 
             } catch (Exception e) {
-                System.out.println(e);
+                e.printStackTrace();
             }
             Stage stagex = (Stage) username.getScene().getWindow();
 

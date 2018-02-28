@@ -520,7 +520,7 @@
                               <Font name="System Bold" size="30.0" />
                            </font>
                         </Label>
-                        <Button mnemonicParsing="false" onAction="#showFileChooser" prefHeight="43.0" prefWidth="103.0" styleClass="ok_button" text="Ajouter">
+                        <Button mnemonicParsing="false" onAction="#showFileChooser" prefHeight="43.0" prefWidth="103.0" styleClass="ok_button" text="Add">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
