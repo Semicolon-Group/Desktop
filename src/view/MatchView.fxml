@@ -14,7 +14,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<VBox minHeight="-Infinity" prefHeight="760.0" style="-fx-background-color: #E9EBEE;" stylesheets="@style/MatchViewStyle.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MatchViewController">
+<VBox minHeight="1040.0" style="-fx-background-color: #E9EBEE;" stylesheets="@style/MatchViewStyle.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MatchViewController">
    <children>
       <Region maxHeight="-Infinity" minHeight="-Infinity" prefHeight="45.0" prefWidth="200.0" />
       <HBox fx:id="filter" alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="230.0" prefWidth="1838.0">

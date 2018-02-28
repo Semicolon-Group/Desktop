@@ -27,12 +27,14 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import models.Comment;
 import models.Enumerations;
 import models.Enumerations.ReactionType;
 import models.Member;
 import models.Notification;
 import models.Reaction;
 import models.StatusPost;
+import services.CommentService;
 import services.MemberService;
 import services.NotificationService;
 import services.ReactionService;
@@ -271,6 +273,7 @@ public class StatusPostViewController implements Initializable {
             Notification n = new Notification();
             n.setPostId(postId);
             NotificationService.getInstance().delete(n);
+            CommentService.getInstance().delete(new Comment(0, 0, postId, 0, null, null));
             GlobalViewController.getInstance().setMainContent("/view/HomeView.fxml");
         } catch (SQLException ex) {
             Logger.getLogger(StatusPostViewController.class.getName()).log(Level.SEVERE, null, ex);

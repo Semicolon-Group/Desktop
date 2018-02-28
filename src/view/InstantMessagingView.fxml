@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="bg" fx:id="msgAnchore" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="750.0" prefWidth="1350.0" stylesheets="@../view/style/fazet.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.InstantMessagingViewController">
+<AnchorPane id="bg" fx:id="msgAnchore" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="1040.0" stylesheets="@../view/style/fazet.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.InstantMessagingViewController">
    <children>
       <HBox fx:id="profileImgPane" layoutX="235.0" layoutY="99.0" prefHeight="88.0" prefWidth="108.0" style="-fx-border-radius: 30 30 30 30;" AnchorPane.topAnchor="99.0">
          <children>

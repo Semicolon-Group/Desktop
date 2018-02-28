@@ -76,26 +76,28 @@ public class NotificationContentController implements Initializable {
     private ImageView Img;
     @FXML
     private VBox Action_element;
-    
+
     private int photoId;
     private int postId;
-   
+    private int senderId;
+    
+    private Notification n;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
     }
 
     public void fill(Notification n) {
-
+        this.n = n;
         try {
-            nameSender.setText(n.getSenderFName()+" "+n.getSenderLName());
+            nameSender.setText(n.getSenderFName() + " " + n.getSenderLName());
             Action.setText(n.getContent());
-            
-            n_date.setText(TimeDiff.getInstance(n.getDate(),new Timestamp(new java.util.Date().getTime())).getTimeDiffString());
+
+            n_date.setText(TimeDiff.getInstance(n.getDate(), new Timestamp(new java.util.Date().getTime())).getTimeDiffString());
 
             Image img1 = new Image(MySoulMate.UPLOAD_URL + n.getUrlPhoto());
             Img.setImage(img1);
@@ -106,24 +108,23 @@ public class NotificationContentController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(NotificationContentController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-           
+
     }
 
     public String iconType(NotificationType type) {
-            String path = "/view/assets/icons/";
-            if (type == MESSAGE) {
-                path += "Message.png";
-            } else if (type == LIKE) {
-                path += "Like.png";
-            } else if (type == REACTION) {
-                path += "Reaction.png";
-            } else if (type == SIGNAL) {
-                path += "Signal.png";
-            } else {
-                path += "Feedback.png";
-            }
-            return path;
+        String path = "/view/assets/icons/";
+        if (type == MESSAGE) {
+            path += "Message.png";
+        } else if (type == LIKE) {
+            path += "Like.png";
+        } else if (type == REACTION) {
+            path += "Reaction.png";
+        } else if (type == SIGNAL) {
+            path += "Signal.png";
+        } else {
+            path += "Feedback.png";
+        }
+        return path;
 
     }
 
@@ -133,49 +134,56 @@ public class NotificationContentController implements Initializable {
             /*
             * loader to handle SinglePostView
             * loader2 to handle post
-            */
+             */
+            if(postId == 0 && photoId == 0 && senderId == 0)
+                return;
             String path;
             Image photo = new Image(MySoulMate.UPLOAD_URL + PhotoService.getInstance()
-                    .get(new Photo(0,online.getId(),null,null,PhotoType.PROFILE)).getUrl());
-            FXMLLoader loader = GlobalViewController.getInstance().setMainContent("/view/SinglePostView.fxml");
+                    .get(new Photo(0, online.getId(), null, null, PhotoType.PROFILE)).getUrl());
             Parent p;
-            if(postId != 0){
+            if (postId != 0) {
+                FXMLLoader loader = GlobalViewController.getInstance().setMainContent("/view/SinglePostView.fxml");
                 path = "/view/StatusPostView.fxml";
                 FXMLLoader loader2 = new FXMLLoader(getClass().getResource(path));
                 p = loader2.load();
-                StatusPostViewController c = (StatusPostViewController)loader2.getController();
+                StatusPostViewController c = (StatusPostViewController) loader2.getController();
                 StatusPost post = StatusPostService.getInstance().get(new StatusPost(postId));
                 c.fill(photo, post.getContent(), online.getPseudo(),
-                    TimeDiff.getInstance(post.getDate(),new Timestamp(new java.util.Date().getTime())).getTimeDiffString(),
-                    postId);
-                ((SinglePostViewController)loader.getController()).fill(p);
-            }
-            else if(photoId != 0){
+                        TimeDiff.getInstance(post.getDate(), new Timestamp(new java.util.Date().getTime())).getTimeDiffString(),
+                        postId);
+                ((SinglePostViewController) loader.getController()).fill(p);
+            } else if (photoId != 0) {
+                FXMLLoader loader = GlobalViewController.getInstance().setMainContent("/view/SinglePostView.fxml");
                 path = "/view/PicturePostView.fxml";
                 FXMLLoader loader2 = new FXMLLoader(getClass().getResource(path));
                 p = loader2.load();
-                PicturePostViewController c = (PicturePostViewController)loader2.getController();
-                Photo picture = PhotoService.getInstance().get(new Photo(photoId,0,null));
-                c.fill(photo,online.getPseudo(),
-                    TimeDiff.getInstance(picture.getDate(),new Timestamp(new java.util.Date().getTime())).getTimeDiffString(),
-                    MySoulMate.UPLOAD_URL + picture.getUrl(),
-                    photoId);
-                ((SinglePostViewController)loader.getController()).fill(p);
+                PicturePostViewController c = (PicturePostViewController) loader2.getController();
+                Photo picture = PhotoService.getInstance().get(new Photo(photoId, 0, null));
+                c.fill(photo, online.getPseudo(),
+                        TimeDiff.getInstance(picture.getDate(), new Timestamp(new java.util.Date().getTime())).getTimeDiffString(),
+                        MySoulMate.UPLOAD_URL + picture.getUrl(),
+                        photoId);
+                ((SinglePostViewController) loader.getController()).fill(p);
+            }else if(n.getType() == LIKE){
+                FXMLLoader loader = GlobalViewController.getInstance().setMainContent("/view/OthersProfileView.fxml");
+                ((OthersProfileViewController) loader.getController()).setUserId(senderId);
             }
         } catch (SQLException | IOException ex) {
             Logger.getLogger(NotificationContentController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
+
     }
 
-            public void setPhotoId(int photoId) {
-                this.photoId = photoId;
-            }
+    public void setPhotoId(int photoId) {
+        this.photoId = photoId;
+    }
 
-            public void setPostId(int postId) {
-                this.postId = postId;
-            }
-    
-    
+    public void setPostId(int postId) {
+        this.postId = postId;
+    }
+
+    void setSenderId(int senderId) {
+        this.senderId = senderId;
+    }
+
 }

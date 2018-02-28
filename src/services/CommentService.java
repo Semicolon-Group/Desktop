@@ -88,7 +88,16 @@ public class CommentService extends Service implements Create<Comment>, Read<Com
 
     @Override
     public void delete(Comment obj) throws SQLException {
-        String req = "DELETE FROM `comment` WHERE `id` = " + obj.getId();
+        String req = "DELETE FROM `comment` WHERE ";
+        if(obj.getId() != 0){
+            req+="id = " + obj.getId();
+        }else if(obj.getPostId() != 0){
+            req+="post_id = "+obj.getPostId();
+        }else if(obj.getPostId() != 0){
+            req+="photo_id = "+obj.getPhotoId();
+        }else{
+            return;
+        }
         CONNECTION.createStatement().executeUpdate(req);
     }
 }
