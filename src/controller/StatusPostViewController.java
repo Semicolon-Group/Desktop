@@ -27,18 +27,21 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import models.Comment;
 import models.Enumerations;
 import models.Enumerations.ReactionType;
 import models.Member;
 import models.Notification;
 import models.Reaction;
 import models.StatusPost;
+import services.CommentService;
 import services.MemberService;
 import services.NotificationService;
 import services.ReactionService;
 import services.StatusPostService;
 import util.N_SendMail;
 import util.SendSMS2;
+import util.Notification_N;
 
 /**
  * FXML Controller class
@@ -149,16 +152,10 @@ public class StatusPostViewController implements Initializable {
                 if (selectedReaction != null)
                     selectedReaction.setOpacity(0.4);
                 selectedReaction = smile;
-                NotificationService.getInstance().create(new Notification(online.getId(),
+                Notification_N.sendNotifications(new Notification(online.getId(),
                         ownerId,
                         Enumerations.NotificationType.REACTION,
                         "has reacted to your post.", new Timestamp(new Date().getTime()), null, postId, 0, false));
-                new N_SendMail(MemberService.getInstance().get(new Member(ownerId)).getEmail(),"MySoulMate | Notification",
-                                online.getPseudo() + " has reacted to your post. Login to see more details.");
-                SendSMS2 sm = new SendSMS2();
-                /*sm.SendSms("MySoulmate | " + online.getPseudo() + " has reacted to your post.",
-                        "" + MemberService.getInstance().get(new Member(ownerId)).getPhone());*/
-                
             }
         } catch (SQLException ex) {
             Logger.getLogger(PicturePostViewController.class.getName()).log(Level.SEVERE, null, ex);
@@ -182,14 +179,10 @@ public class StatusPostViewController implements Initializable {
                 if (selectedReaction != null)
                     selectedReaction.setOpacity(0.4);
                 selectedReaction = love;
-                NotificationService.getInstance().create(new Notification(online.getId(),
+                Notification_N.sendNotifications(new Notification(online.getId(),
                         ownerId,
                         Enumerations.NotificationType.REACTION,
                         "has reacted to your post.", new Timestamp(new Date().getTime()), null, postId, 0, false));
-                new N_SendMail(MemberService.getInstance().get(new Member(ownerId)).getEmail(),"MySoulMate | Notification",
-                                online.getPseudo() + " has reacted to your post. Login to see more details.");
-                SendSMS2 sm = new SendSMS2();
-                //sm.SendSms("MySoulmate\\n" + online.getPseudo() + " has reacted to your post.", "24");
             }
         } catch (SQLException ex) {
             Logger.getLogger(PicturePostViewController.class.getName()).log(Level.SEVERE, null, ex);
@@ -213,14 +206,10 @@ public class StatusPostViewController implements Initializable {
                 if (selectedReaction != null)
                     selectedReaction.setOpacity(0.4);
                 selectedReaction = laugh;
-                NotificationService.getInstance().create(new Notification(online.getId(),
+                Notification_N.sendNotifications(new Notification(online.getId(),
                         ownerId,
                         Enumerations.NotificationType.REACTION,
                         "has reacted to your post.", new Timestamp(new Date().getTime()), null, postId, 0, false));
-                new N_SendMail(MemberService.getInstance().get(new Member(ownerId)).getEmail(),"MySoulMate | Notification",
-                                online.getPseudo() + " has reacted to your post. Login to see more details.");
-                SendSMS2 sm = new SendSMS2();
-                //sm.SendSms("MySoulmate\\n" + online.getPseudo() + " has reacted to your post.", "24");
             }
         } catch (SQLException ex) {
             Logger.getLogger(PicturePostViewController.class.getName()).log(Level.SEVERE, null, ex);
@@ -244,14 +233,10 @@ public class StatusPostViewController implements Initializable {
                 if (selectedReaction != null)
                     selectedReaction.setOpacity(0.4);
                 selectedReaction = scowl;
-                NotificationService.getInstance().create(new Notification(online.getId(),
+                Notification_N.sendNotifications(new Notification(online.getId(),
                         ownerId,
                         Enumerations.NotificationType.REACTION,
                         "has reacted to your post.", new Timestamp(new Date().getTime()), null, postId, 0, false));
-                new N_SendMail(MemberService.getInstance().get(new Member(ownerId)).getEmail(),"MySoulMate | Notification",
-                                online.getPseudo() + " has reacted to your post. Login to see more details.");
-                SendSMS2 sm = new SendSMS2();
-                //sm.SendSms("MySoulmate\\n" + online.getPseudo() + " has reacted to your post.", "24");
             }
         } catch (SQLException ex) {
             Logger.getLogger(PicturePostViewController.class.getName()).log(Level.SEVERE, null, ex);
@@ -284,7 +269,11 @@ public class StatusPostViewController implements Initializable {
     private void onDeleteClick(MouseEvent event) {
         try {
             StatusPostService.getInstance().delete(new StatusPost(postId));
-            HomeViewController.getInstance().fill();
+            Notification n = new Notification();
+            n.setPostId(postId);
+            NotificationService.getInstance().delete(n);
+            CommentService.getInstance().delete(new Comment(0, 0, postId, 0, null, null));
+            GlobalViewController.getInstance().setMainContent("/view/HomeView.fxml");
         } catch (SQLException ex) {
             Logger.getLogger(StatusPostViewController.class.getName()).log(Level.SEVERE, null, ex);
         }

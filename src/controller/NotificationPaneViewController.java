@@ -48,6 +48,7 @@ public class NotificationPaneViewController implements Initializable {
                 c.fill(n);
                 c.setPhotoId(n.getPhotoId());
                 c.setPostId(n.getPostId());
+                c.setSenderId(n.getSenderId());
                 NotificationsBox.getChildren().add(notif);
             }
         } catch (SQLException ex) {

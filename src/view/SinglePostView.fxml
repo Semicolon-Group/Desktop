@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" fx:id="anchor" prefWidth="1838.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HomeViewController">
+<AnchorPane id="AnchorPane" fx:id="anchor" prefWidth="1838.0" style="-fx-background-color: #E9EBEE;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SinglePostViewController">
    <children>
-      <VBox minHeight="1040.0" prefWidth="600.0" style="-fx-background-color: #E9EBEE;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox minHeight="-Infinity" prefHeight="760.0" prefWidth="600.0" style="-fx-background-color: #E9EBEE;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Region maxHeight="-Infinity" minHeight="-Infinity" prefHeight="45.0" prefWidth="1838.0" />
             <StackPane alignment="TOP_LEFT" prefHeight="484.0" prefWidth="1838.0">
