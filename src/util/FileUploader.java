@@ -22,7 +22,6 @@ public class FileUploader {
             httpUrlConnection.setDoOutput(true);
             httpUrlConnection.setRequestMethod("POST");
             OutputStream os = httpUrlConnection.getOutputStream();
-            Thread.sleep(1000);
             BufferedInputStream fis = new BufferedInputStream(new FileInputStream(path));
             
             int totalByte = fis.available();
@@ -46,8 +45,8 @@ public class FileUploader {
             in.close();
             fis.close();
             return returnedPath;
-        } catch (InterruptedException ex) {
-            Logger.getLogger(FileUploader.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (InterruptedException ex) {
+//            Logger.getLogger(FileUploader.class.getName()).log(Level.SEVERE, null, ex);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(FileUploader.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
