@@ -25,6 +25,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -66,6 +67,7 @@ public class QuestionController extends Service implements Initializable {
     @FXML
     private TextField txt_id;
     
+    
     @Override
     public void initialize(URL url, ResourceBundle rb)  {
         txt_id.setVisible(false);
@@ -94,33 +96,20 @@ public class QuestionController extends Service implements Initializable {
         table.setItems(data);
         
 
-    }    
+         
     
     
-
+                }
     @FXML
     private void movetoajoutquestion(ActionEvent event) throws IOException {
-        bt_ajout.getScene().setRoot(FXMLLoader.load(getClass().getResource("/view/AjoutQuestion.fxml")));
-        
+        AdminGlobalViewController.getInstance().setMainContent("/view/AjoutQuestion.fxml");
     }
 
     @FXML
     private void SupprimerAction(ActionEvent event) throws SQLException {
         QuestionService qs=QuestionService.getInstance();
         qs.deleteq(Integer.parseInt(txt_id.getText()));
-        Parent PageParent = null;
-        try {
-            PageParent = FXMLLoader.load(getClass().getResource("/view/Question.fxml"));
-        } catch (IOException ex) {
-            Logger.getLogger(QuestionController.class.getName()).log(Level.SEVERE, null, ex);
-            
-        }
-        Scene PageScene = new Scene(PageParent);
-
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(PageScene);
-        window.show();
-
+        AdminGlobalViewController.getInstance().setMainContent("/view/Question.fxml");
     }
 
     @FXML

@@ -14,7 +14,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<VBox style="-fx-background-color: #E9EBEE;" stylesheets="@style/MatchViewStyle.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MatchViewController">
+<VBox minHeight="1040.0" style="-fx-background-color: #E9EBEE;" stylesheets="@style/MatchViewStyle.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MatchViewController">
    <children>
       <Region maxHeight="-Infinity" minHeight="-Infinity" prefHeight="45.0" prefWidth="200.0" />
       <HBox fx:id="filter" alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="230.0" prefWidth="1838.0">
@@ -31,7 +31,7 @@
                      </font>
                   </Label>
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="1.0" layoutX="120.0" layoutY="49.0" stroke="BLACK" strokeType="INSIDE" width="10.0" />
-                  <Label layoutX="25.0" layoutY="87.0" text="Taille">
+                  <Label layoutX="25.0" layoutY="87.0" text="Height">
                      <font>
                         <Font size="17.0" />
                      </font>
@@ -40,14 +40,14 @@
                   <ComboBox fx:id="heightMin" layoutX="25.0" layoutY="117.0" prefHeight="25.0" prefWidth="85.0" promptText="Min" style="-fx-background-color: white; -fx-border-color: gray;" />
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="1.0" layoutX="120.0" layoutY="129.0" stroke="BLACK" strokeType="INSIDE" width="10.0" />
                   <ComboBox fx:id="heightMax" layoutX="140.0" layoutY="117.0" prefHeight="25.0" prefWidth="85.0" promptText="Max" style="-fx-border-color: gray; -fx-background-color: white;" />
-                  <Label layoutX="255.0" layoutY="7.0" text="Corps">
+                  <Label layoutX="255.0" layoutY="7.0" text="Body Type">
                      <font>
                         <Font size="17.0" />
                      </font>
                   </Label>
-                  <CheckBox fx:id="mince" layoutX="255.0" layoutY="42.0" mnemonicParsing="false" text="Mince" />
-                  <CheckBox fx:id="forme" layoutX="255.0" layoutY="80.0" mnemonicParsing="false" text="En Forme" />
-                  <CheckBox fx:id="gros" layoutX="254.0" layoutY="121.0" mnemonicParsing="false" text="Gros" />
+                  <CheckBox fx:id="mince" layoutX="255.0" layoutY="42.0" mnemonicParsing="false" text="Thin" />
+                  <CheckBox fx:id="forme" layoutX="255.0" layoutY="80.0" mnemonicParsing="false" text="Fit" />
+                  <CheckBox fx:id="gros" layoutX="254.0" layoutY="121.0" mnemonicParsing="false" text="Curvy" />
                   <Label layoutX="350.0" layoutY="7.0" text="Religion">
                      <font>
                         <Font size="17.0" />
@@ -56,20 +56,20 @@
                   <VBox layoutX="350.0" layoutY="41.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="103.0" prefWidth="100.0" spacing="3.0">
                      <children>
                         <CheckBox fx:id="islam" mnemonicParsing="false" text="Islam" />
-                        <CheckBox fx:id="christ" mnemonicParsing="false" text="Christianisme" />
-                        <CheckBox fx:id="juda" mnemonicParsing="false" text="Judaisme" />
-                        <CheckBox fx:id="agnos" mnemonicParsing="false" text="Agnosticisme" />
-                        <CheckBox fx:id="atheis" mnemonicParsing="false" text="Atheisme" />
+                        <CheckBox fx:id="christ" mnemonicParsing="false" text="Christianity" />
+                        <CheckBox fx:id="juda" mnemonicParsing="false" text="Judaism" />
+                        <CheckBox fx:id="agnos" mnemonicParsing="false" text="Agnosticism" />
+                        <CheckBox fx:id="atheis" mnemonicParsing="false" text="Atheism" />
                      </children>
                   </VBox>
-                  <Label layoutX="458.0" layoutY="7.0" text="Statut Civil">
+                  <Label layoutX="458.0" layoutY="7.0" text="Marital Status">
                      <font>
                         <Font size="17.0" />
                      </font>
                   </Label>
-                  <CheckBox fx:id="single" layoutX="458.0" layoutY="42.0" mnemonicParsing="false" text="Célibataire" />
-                  <CheckBox fx:id="divorced" accessibleRole="COMBO_BOX" layoutX="458.0" layoutY="80.0" mnemonicParsing="false" text="Divorcé" />
-                  <CheckBox fx:id="widow" layoutX="458.0" layoutY="121.0" mnemonicParsing="false" text="Veuf" />
+                  <CheckBox fx:id="single" layoutX="458.0" layoutY="42.0" mnemonicParsing="false" text="Single" />
+                  <CheckBox fx:id="divorced" accessibleRole="COMBO_BOX" layoutX="458.0" layoutY="80.0" mnemonicParsing="false" text="Divorced" />
+                  <CheckBox fx:id="widow" layoutX="458.0" layoutY="121.0" mnemonicParsing="false" text="Widower" />
                   <ComboBox fx:id="distance" layoutX="579.0" layoutY="38.0" prefHeight="25.0" prefWidth="106.0" promptText="Max" style="-fx-background-color: white; -fx-border-color: gray;" />
                   <Label layoutX="579.0" layoutY="7.0" text="Distance">
                      <font>
@@ -77,24 +77,24 @@
                      </font>
                   </Label>
                   <ComboBox fx:id="login" layoutX="579.0" layoutY="117.0" prefHeight="25.0" prefWidth="106.0" promptText="Max" style="-fx-background-color: white; -fx-border-color: gray;" />
-                  <Label layoutX="579.0" layoutY="87.0" text="Connecté il ya">
+                  <Label layoutX="579.0" layoutY="87.0" text="Last Login">
                      <font>
                         <Font size="17.0" />
                      </font>
                   </Label>
-                  <Label layoutX="717.0" layoutY="7.0" text="Fume">
+                  <Label layoutX="717.0" layoutY="7.0" text="Smokes">
                      <font>
                         <Font size="17.0" />
                      </font>
                   </Label>
-                  <Label layoutX="716.0" layoutY="87.0" text="Alchool">
+                  <Label layoutX="716.0" layoutY="87.0" text="Drinks">
                      <font>
                         <Font size="17.0" />
                      </font>
                   </Label>
                   <HBox fx:id="smokeYes" alignment="CENTER" layoutX="717.0" layoutY="38.0" onMouseClicked="#onSmokeYesClick" prefHeight="27.0" prefWidth="65.0" style="-fx-border-color: gray;">
                      <children>
-                        <Label text="Oui">
+                        <Label text="Yes">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -106,7 +106,7 @@
                   </HBox>
                   <HBox fx:id="smokeNo" alignment="CENTER" layoutX="781.0" layoutY="38.0" onMouseClicked="#onSmokeNoClick" prefHeight="27.0" prefWidth="65.0" style="-fx-border-color: gray;">
                      <children>
-                        <Label text="Non" />
+                        <Label text="No" />
                      </children>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -114,7 +114,7 @@
                   </HBox>
                   <HBox fx:id="drinkYes" alignment="CENTER" layoutX="717.0" layoutY="117.0" onMouseClicked="#onDrinkYesClick" prefHeight="27.0" prefWidth="65.0" style="-fx-border-color: gray;">
                      <children>
-                        <Label text="Oui" />
+                        <Label text="Yes" />
                      </children>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -122,7 +122,7 @@
                   </HBox>
                   <HBox fx:id="drinkNo" alignment="CENTER" layoutX="781.0" layoutY="117.0" onMouseClicked="#onDrinkNoClick" prefHeight="27.0" prefWidth="65.0" style="-fx-border-color: gray;">
                      <children>
-                        <Label text="Non" />
+                        <Label text="No" />
                      </children>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -130,7 +130,7 @@
                   </HBox>
                   <HBox alignment="CENTER" layoutX="326.0" layoutY="174.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#onSearchButtonClick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-radius: 7;" styleClass="searchButton">
                      <children>
-                        <Label text="Chercher" textFill="WHITE">
+                        <Label text="Search" textFill="WHITE">
                            <font>
                               <Font size="17.0" />
                            </font>
@@ -142,7 +142,7 @@
                   </HBox>
                   <HBox alignment="CENTER" layoutX="455.0" layoutY="174.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#onCancelButtonClick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-radius: 7; -fx-border-color: gray; -fx-border-radius: 7;" styleClass="cancelButton">
                      <children>
-                        <Label text="Annuler">
+                        <Label text="Reset">
                            <font>
                               <Font size="17.0" />
                            </font>
@@ -162,7 +162,7 @@
          <children>
             <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="880.0" spacing="10.0">
                <children>
-                  <Label text="Trier par" textFill="#949aa6" />
+                  <Label text="Sort by" textFill="#949aa6" />
                   <ComboBox fx:id="sort" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="27.0" prefWidth="125.0" style="-fx-background-color: white; -fx-border-color: gray;" />
                </children>
             </HBox>

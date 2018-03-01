@@ -76,4 +76,21 @@ public class AccountMenuViewController implements Initializable {
     private void logout(ActionEvent event) {
         MySoulMate.getInstance().logOut();
     }
+
+    @FXML
+    private void showAddFeedback(ActionEvent event) {
+        try {
+            final Stage dialog = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ajoutFeedback.fxml"));
+            AnchorPane pane = loader.load();
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.initOwner(MySoulMate.mainStage);
+            Scene dialogScene = new Scene(pane, 500, 320);
+            ((AjoutFeedbackController)loader.getController()).setParams(MySoulMate.MEMBER_ID, dialog);
+            dialog.setScene(dialogScene);
+            dialog.show();
+        } catch (IOException ex) {
+            Logger.getLogger(AccountMenuViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

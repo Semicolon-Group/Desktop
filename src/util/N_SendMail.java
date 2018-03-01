@@ -18,13 +18,8 @@ import models.Notification;
  * @author vaider
  */
 public class N_SendMail {
-     private String user = "testmailesprit69@gmail.com";
-    private String password = "testmailesprit69@";
-    Member m=new Member();
-    Notification n=new Notification();
-    private String to= m.getEmail();
-    private String sub="Email notification";
-    private String msg="Salut"+ m.getFirstname()+"vous êtes notifié";
+     private String user = "mysoulmatePI@gmail.com";
+    private String password = "mysoulmatePI*";
 
     public N_SendMail(String to, String sub, String msg) {
 
@@ -47,7 +42,7 @@ public class N_SendMail {
 
         try {
             MimeMessage msgg = new MimeMessage(session);
-            msgg.setFrom(new InternetAddress("testmailesprit69@gmail.com"));
+            msgg.setFrom(new InternetAddress(user));
             msgg.setRecipients(javax.mail.Message.RecipientType.TO, InternetAddress.parse(to));
             msgg.setSubject(sub);
             msgg.setText(msg);

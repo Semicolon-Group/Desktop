@@ -94,7 +94,7 @@ public class OthersAnswerViewController implements Initializable {
             Question q = QuestionService.getInstance().get(new Question(answer.getQuestionId()));
             dialog.initModality(Modality.APPLICATION_MODAL);
             dialog.initOwner(MySoulMate.mainStage);
-            Scene dialogScene = new Scene(pane, 752, 400);
+            Scene dialogScene = new Scene(pane, 1066, 465);
             dialog.setScene(dialogScene);
             ((AnswerAddViewController) loader.getController()).setParams(
                     MySoulMate.MEMBER_ID,

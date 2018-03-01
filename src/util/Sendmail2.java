@@ -88,8 +88,8 @@ public class Sendmail2 {
         // SMTP info
         String host = "smtp.gmail.com";
         String port = "465";
-        String mailFrom = "testmailesprit69@gmail.com";
-        String password = "testmailesprit69@";
+        String mailFrom = "mysoulmatePI@gmail.com";
+        String password = "mysoulmatePI*";
 
         // message info
         String mailTo = null ;
@@ -101,13 +101,11 @@ public class Sendmail2 {
         attachFiles[0] = "C:\\Users\\badis\\Desktop\\jihene\\1.jpg";
 
         try {
-            sendEmailWithAttachments("smtp.gmail.com" , "465" ,"testmailesprit69@gmail.com" , "testmailesprit69@" , 
+            sendEmailWithAttachments("smtp.gmail.com" , "465" ,mailFrom , password , 
                     mailTo , "New email with attachments" ,"I have some attachments for you." , attachFiles ) ;
             sendEmailWithAttachments(host, port, mailFrom, password, mailTo,
                     subject, message, attachFiles);
-            System.out.println("Email sent.");
         } catch (Exception ex) {
-            System.out.println("Could not send email.");
             ex.printStackTrace();
         }
     }

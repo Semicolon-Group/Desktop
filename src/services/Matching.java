@@ -54,7 +54,7 @@ public class Matching {
             return 0;
         
         float imp = 1;
-        if(A.getImportance() == Importance.UN_PEU_IMPORTANT)
+        if(A.getImportance() == Importance.SOMEWHAT_IMPORTANT)
             imp = 0.5f;
         for(Choice c : B.getSelectedChoices()){
             if(!A.getAcceptedChoices().contains(c))
@@ -108,9 +108,12 @@ public class Matching {
             card.setDistance(map.get(m).getKey());
             card.setPseudo(m.getPseudo());
             Photo ph = PhotoService.getInstance().get(new Photo(0, m.getId(), null, null, PhotoType.PROFILE));
-            if(ph == null)
+            if(ph == null){
                 ph = new Photo(0, m.getId(), "/view/assets/icons/member.jpg");
-            card.setPhotoUrl(MySoulMate.UPLOAD_URL + ph.getUrl());
+                card.setPhotoUrl(ph.getUrl());
+            }else{
+                card.setPhotoUrl(MySoulMate.UPLOAD_URL + ph.getUrl());
+            }
             
             List<Answer> A = AnswerService.getInstance().getAll(new Answer(0, null, null, M.getId()));
             List<Answer> B = AnswerService.getInstance().getAll(new Answer(0, null, null, m.getId()));

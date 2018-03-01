@@ -67,7 +67,12 @@ public class HomeViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        fill();
+    }
+    
+    public void fill(){
         try {
+            feed.getChildren().clear();
             FXMLLoader loader = new FXMLLoader();
             Parent root = loader.load(getClass().getResource("/view/StatusWritingView.fxml"));
             feed.getChildren().add(root);
@@ -75,12 +80,19 @@ public class HomeViewController implements Initializable {
                 loader = new FXMLLoader();
                 PicturePostViewController ppc;
                 StatusPostViewController spc;
+                Image image;
                 if(p instanceof StatusPost){
                     loader.setLocation(getClass().getResource("/view/StatusPostView.fxml"));
                     root = loader.load();
                     loader.getLocation().openStream();
                     spc = (StatusPostViewController)loader.getController();
-                    spc.fill(new Image(MySoulMate.UPLOAD_URL + PhotoService.getInstance().get(new Photo(0,p.getOwnerId(),null,null,PhotoType.PROFILE)).getUrl()),
+                    Photo photo = PhotoService.getInstance().get(new Photo(0,p.getOwnerId(),null,null,PhotoType.PROFILE));
+                    if(photo == null){
+                        image = new Image("/view/assets/icons/member.jpg");
+                    }else{
+                        image = new Image(MySoulMate.UPLOAD_URL + photo.getUrl());
+                    }
+                    spc.fill(image,
                         ((StatusPost)p).getContent(), MemberService.getInstance().get(new Member(p.getOwnerId())).getPseudo(),
                         TimeDiff.getInstance(p.getDate(),new Timestamp(new java.util.Date().getTime())).getTimeDiffString(),
                         p.getId());
@@ -90,7 +102,13 @@ public class HomeViewController implements Initializable {
                     root = loader.load();
                     loader.getLocation().openStream();
                     ppc = (PicturePostViewController)loader.getController();
-                    ppc.fill(new Image(MySoulMate.UPLOAD_URL + PhotoService.getInstance().get(new Photo(0,p.getOwnerId(),null,null,PhotoType.PROFILE)).getUrl()),
+                    Photo photo = PhotoService.getInstance().get(new Photo(0,p.getOwnerId(),null,null,PhotoType.PROFILE));
+                    if(photo == null){
+                        image = new Image("/view/assets/icons/member.jpg");
+                    }else{
+                        image = new Image(MySoulMate.UPLOAD_URL + photo.getUrl());
+                    }
+                    ppc.fill(image,
                         MemberService.getInstance().get(new Member(p.getOwnerId())).getPseudo(),
                         TimeDiff.getInstance(p.getDate(),new Timestamp(new java.util.Date().getTime())).getTimeDiffString(),
                         MySoulMate.UPLOAD_URL + ((PicturePost)p).getUrl(), ((PicturePost)p).getPhotoId());

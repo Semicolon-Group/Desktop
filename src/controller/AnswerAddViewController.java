@@ -104,7 +104,7 @@ public class AnswerAddViewController implements Initializable {
     public void setParams(int userId, Stage dialog) {
         this.userId = userId;
         this.dialog = dialog;
-        finishBt.setVisible(true);
+        finishBt.setVisible(false);
         dialog.initStyle(StageStyle.TRANSPARENT);
         dialog.getScene().setFill(Color.TRANSPARENT);
         i=0;
@@ -112,7 +112,8 @@ public class AnswerAddViewController implements Initializable {
     }
 
     private void populateObligatory() {
-        if (i == 14) {
+        selectedBoxs.clear();
+        if (i == 15) {
             finishBt.setVisible(true);
             populate();
             return;
@@ -162,7 +163,7 @@ public class AnswerAddViewController implements Initializable {
     private Question getRandomObligatoryQuestion() {
         try {
             List<Answer> answers = AnswerService.getInstance().getAll(new Answer(0, null, null, userId));
-            List<Question> questions = QuestionService.getInstance().getAll(new Question(null, Enumerations.Topic.Mandatory));
+            List<Question> questions = QuestionService.getInstance().getAll(new Question(null, Enumerations.Topic.MANDATORY));
             List<Question> answeredQuestions = new ArrayList<>();
             for (Answer answer : answers) {
                 answeredQuestions.add(questions.stream().filter(q -> q.getId() == answer.getQuestionId()).findFirst().orElse(null));
@@ -180,6 +181,7 @@ public class AnswerAddViewController implements Initializable {
     }
 
     private void populate() {
+        selectedBoxs.clear();
         try {
             if (question == null) {
                 question = getRandomQuestion();

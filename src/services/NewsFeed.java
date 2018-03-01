@@ -36,10 +36,11 @@ public class NewsFeed {
     }
     
     private NewsFeed(){
-        feed = new TreeSet<Post>((a,b) -> b.getDate().compareTo(a.getDate()));
+        
     }
     
     public Set<Post> getFeed(final Member M) throws SQLException{
+        feed = new TreeSet<Post>((a,b) -> b.getDate().compareTo(a.getDate()));
         /*
         * Extracting list of members liked.
         */

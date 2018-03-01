@@ -37,7 +37,8 @@ import services.PhotoService;
 import services.ReactionService;
 import services.StatusPostService;
 import util.N_SendMail;
-import util.SendSMS;
+import util.SendSMS2;
+import util.Notification_N;
 
 /**
  * FXML Controller class
@@ -71,6 +72,10 @@ public class PicturePostViewController implements Initializable {
     private Reaction r;
     @FXML
     private VBox container;
+    @FXML
+    private ImageView delete;
+    @FXML
+    private HBox reactions;
 
     /**
      * Initializes the controller class.
@@ -88,6 +93,10 @@ public class PicturePostViewController implements Initializable {
         this.photoId = photoId;
         try {
             ownerId = PhotoService.getInstance().get(new Photo(photoId,0,null)).getUserId();
+            if (ownerId == online.getId()){
+                reactions.setVisible(false);
+                delete.setVisible(true);
+            }
             r = ReactionService.getInstance().get(new Reaction(online.getId(),0,photoId,0,null));
             if(r != null) switch (r.getReactionType()) {
                 case SMILE:
@@ -140,14 +149,10 @@ public class PicturePostViewController implements Initializable {
                 if (selectedReaction != null)
                     selectedReaction.setOpacity(0.4);
                 selectedReaction = smile;
-                NotificationService.getInstance().create(new Notification(online.getId(),
+                Notification_N.sendNotifications(new Notification(online.getId(),
                         ownerId,
                         Enumerations.NotificationType.REACTION,
                         "has reacted to your photo.", new Timestamp(new Date().getTime()), null, 0, photoId, false));
-                new N_SendMail(MemberService.getInstance().get(new Member(ownerId)).getEmail(),"MySoulMate | Notification",
-                                online.getPseudo() + " has reacted to your photo. Login to see more details.");
-                SendSMS sm = new SendSMS();
-                //sm.SendSms("MySoulmate\\n" + online.getPseudo() + " has reacted to your photo.", "24");
             }
         } catch (SQLException ex) {
             Logger.getLogger(PicturePostViewController.class.getName()).log(Level.SEVERE, null, ex);
@@ -171,14 +176,10 @@ public class PicturePostViewController implements Initializable {
                 if (selectedReaction != null)
                     selectedReaction.setOpacity(0.4);
                 selectedReaction = love;
-                NotificationService.getInstance().create(new Notification(online.getId(),
+                Notification_N.sendNotifications(new Notification(online.getId(),
                         ownerId,
                         Enumerations.NotificationType.REACTION,
                         "has reacted to your photo.", new Timestamp(new Date().getTime()), null, 0, photoId, false));
-                new N_SendMail(MemberService.getInstance().get(new Member(ownerId)).getEmail(),"MySoulMate | Notification",
-                                online.getPseudo() + " has reacted to your photo. Login to see more details.");
-                SendSMS sm = new SendSMS();
-                //sm.SendSms("MySoulmate\\n" + online.getPseudo() + " has reacted to your photo.", "24");
             }
         } catch (SQLException ex) {
             Logger.getLogger(PicturePostViewController.class.getName()).log(Level.SEVERE, null, ex);
@@ -202,14 +203,10 @@ public class PicturePostViewController implements Initializable {
                 if (selectedReaction != null)
                     selectedReaction.setOpacity(0.4);
                 selectedReaction = laugh;
-                NotificationService.getInstance().create(new Notification(online.getId(),
+                Notification_N.sendNotifications(new Notification(online.getId(),
                         ownerId,
                         Enumerations.NotificationType.REACTION,
                         "has reacted to your photo.", new Timestamp(new Date().getTime()), null, 0, photoId, false));
-                new N_SendMail(MemberService.getInstance().get(new Member(ownerId)).getEmail(),"MySoulMate | Notification",
-                                online.getPseudo() + " has reacted to your photo. Login to see more details.");
-                SendSMS sm = new SendSMS();
-                //sm.SendSms("MySoulmate\\n" + online.getPseudo() + " has reacted to your photo.", "24539942");
             }
         } catch (SQLException ex) {
             Logger.getLogger(PicturePostViewController.class.getName()).log(Level.SEVERE, null, ex);
@@ -233,14 +230,10 @@ public class PicturePostViewController implements Initializable {
                 if (selectedReaction != null)
                     selectedReaction.setOpacity(0.4);
                 selectedReaction = scowl;
-                NotificationService.getInstance().create(new Notification(online.getId(),
+                Notification_N.sendNotifications(new Notification(online.getId(),
                         ownerId,
                         Enumerations.NotificationType.REACTION,
                         "has reacted to your photo.", new Timestamp(new Date().getTime()), null, 0, photoId, false));
-                new N_SendMail(MemberService.getInstance().get(new Member(ownerId)).getEmail(),"MySoulMate | Notification",
-                                online.getPseudo() + " has reacted to your photo. Login to see more details.");
-                SendSMS sm = new SendSMS();
-                //sm.SendSms("MySoulmate\\n" + online.getPseudo() + " has reacted to your photo.", "24");
             }
         } catch (SQLException ex) {
             Logger.getLogger(PicturePostViewController.class.getName()).log(Level.SEVERE, null, ex);
@@ -264,6 +257,19 @@ public class PicturePostViewController implements Initializable {
             FXMLLoader loader = GlobalViewController.getInstance().setMainContent("/view/OthersProfileView.fxml");
             ((OthersProfileViewController)loader.getController()).setUserId(PhotoService.getInstance()
                     .get(new Photo(photoId,0,null)).getUserId());
+        } catch (SQLException ex) {
+            Logger.getLogger(StatusPostViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void onDeleteClick(MouseEvent event) {
+        try {
+            PhotoService.getInstance().delete(new Photo(photoId,0,null));
+            Notification n = new Notification();
+            n.setPhotoId(photoId);
+            NotificationService.getInstance().delete(n);
+            GlobalViewController.getInstance().setMainContent("/view/HomeView.fxml");
         } catch (SQLException ex) {
             Logger.getLogger(StatusPostViewController.class.getName()).log(Level.SEVERE, null, ex);
         }

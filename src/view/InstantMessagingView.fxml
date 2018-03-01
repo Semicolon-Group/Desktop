@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXColorPicker?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -15,44 +14,35 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="bg" fx:id="msgAnchore" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="800.0" prefWidth="1350.0" stylesheets="@../view/style/fazet.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.InstantMessagingViewController">
+<AnchorPane id="bg" fx:id="msgAnchore" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="1040.0" stylesheets="@../view/style/fazet.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.InstantMessagingViewController">
    <children>
-      <HBox layoutX="467.0" layoutY="78.0" prefHeight="88.0" prefWidth="67.0" style="-fx-border-radius: 30 30 30 30;" AnchorPane.topAnchor="78.0">
+      <HBox fx:id="profileImgPane" layoutX="235.0" layoutY="99.0" prefHeight="88.0" prefWidth="108.0" style="-fx-border-radius: 30 30 30 30;" AnchorPane.topAnchor="99.0">
          <children>
-            <ImageView fitHeight="88.0" fitWidth="112.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="profileImage" fitHeight="88.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../view/assets/soul-1.png" />
                </image>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
             </ImageView>
          </children>
       </HBox>
-      <Label id="nom" fx:id="nom" layoutX="555.0" layoutY="100.0" prefHeight="17.0" prefWidth="150.0" AnchorPane.topAnchor="100.0" />
-      <Label fx:id="age" layoutX="555.0" layoutY="138.0" prefHeight="17.0" prefWidth="150.0" AnchorPane.topAnchor="138.0" />
-      <Label fx:id="status" layoutX="555.0" layoutY="119.0" prefHeight="17.0" prefWidth="150.0" text="s" AnchorPane.topAnchor="119.0" />
-      <Label fx:id="typing" layoutX="459.0" layoutY="171.0" prefHeight="26.0" prefWidth="96.0" AnchorPane.topAnchor="171.0" />
-      <ScrollPane id="msg" fx:id="convs" hbarPolicy="NEVER" layoutX="110.0" layoutY="146.0" prefHeight="391.0" prefWidth="230.0" AnchorPane.bottomAnchor="98.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="200.0">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-         <opaqueInsets>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </opaqueInsets>
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding>
-      </ScrollPane>
-      <ScrollPane id="msg" fitToHeight="true" focusTraversable="false" hbarPolicy="NEVER" layoutX="277.0" layoutY="136.0" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" onDragDetected="#goReceive" prefHeight="401.0" prefWidth="708.0" vvalue="1.0" AnchorPane.bottomAnchor="98.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="200.0" fx:id="x">
+      <Label id="recu" fx:id="nom" alignment="CENTER" contentDisplay="CENTER" layoutX="343.0" layoutY="100.0" prefHeight="17.0" prefWidth="150.0" AnchorPane.topAnchor="100.0">
+         <font>
+            <Font size="17.0" />
+         </font></Label>
+      <Label id="recu" fx:id="status" alignment="CENTER" contentDisplay="CENTER" layoutX="343.0" layoutY="144.0" prefHeight="25.0" prefWidth="150.0" AnchorPane.topAnchor="144.0">
+         <font>
+            <Font size="17.0" />
+         </font></Label>
+      <Label fx:id="typing" alignment="CENTER" contentDisplay="CENTER" layoutX="235.0" layoutY="188.0" prefHeight="26.0" prefWidth="108.0" AnchorPane.topAnchor="188.0" />
+      <ScrollPane id="msg" fitToHeight="true" focusTraversable="false" hbarPolicy="NEVER" layoutX="200.0" layoutY="220.0" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" onDragDetected="#goReceive" vvalue="1.0" AnchorPane.bottomAnchor="88.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="298.0" AnchorPane.topAnchor="220.0" fx:id="x">
          <content>
-            <HBox fx:id="wrap" prefHeight="486.0" prefWidth="901.0">
-               <children>
-                  <VBox fx:id="recu" prefHeight="486.0" prefWidth="461.0" />
-                  <VBox fx:id="envoye" nodeOrientation="RIGHT_TO_LEFT" prefHeight="486.0" prefWidth="440.0" />
-               </children>
-            </HBox>
+            <VBox alignment="CENTER" prefHeight="494.0" prefWidth="905.0" />
          </content>
       </ScrollPane>
-      <HBox alignment="BOTTOM_CENTER" layoutX="277.0" layoutY="676.0" maxHeight="-Infinity" prefHeight="55.0" prefWidth="708.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="25.0">
+      <HBox alignment="BOTTOM_CENTER" layoutX="200.0" layoutY="677.0" maxHeight="-Infinity" prefHeight="55.0" prefWidth="708.0" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="298.0">
          <children>
             <TextArea id="msg" fx:id="inputmsg" onInputMethodTextChanged="#isWriting" prefHeight="55.0" prefWidth="662.0">
                <HBox.margin>
@@ -86,6 +76,5 @@
             <Insets />
          </opaqueInsets>
       </HBox>
-      <JFXColorPicker id="msg" fx:id="colorpicker" layoutX="1206.0" layoutY="154.0" onAction="#goColor" prefHeight="33.0" prefWidth="97.0" />
    </children>
 </AnchorPane>

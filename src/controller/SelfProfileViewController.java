@@ -69,6 +69,7 @@ import services.LikeService;
 import services.Matching;
 import services.MemberService;
 import services.PhotoService;
+import util.FaceDetection;
 import util.FileUploader;
 
 /**
@@ -205,7 +206,7 @@ public class SelfProfileViewController implements Initializable {
             dialog.initOwner(MySoulMate.mainStage);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AnswerAddView.fxml"));
             Pane content = loader.load();
-            Scene dialogScene = new Scene(content, 752, 400);
+            Scene dialogScene = new Scene(content, 1066, 465);
             dialog.setScene(dialogScene);
             ((AnswerAddViewController)loader.getController()).setParams(MySoulMate.MEMBER_ID, this, dialog);
             dialog.show();
@@ -280,7 +281,7 @@ public class SelfProfileViewController implements Initializable {
             ageLabel.setText(age);
             addressLabel.setText(member.getAddress().getCity()+", "+member.getAddress().getCountry());
             genderLabel.setText(member.isGender()?"Male":"Female");
-            bdLabel.setText(new SimpleDateFormat("dd MMMM yyyy", Locale.FRANCE).format(member.getBirthDate()));
+            bdLabel.setText(new SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH).format(member.getBirthDate()));
             heightLabel.setText(member.getHeight()+"");
             bodyTypeLabel.setText(member.getBodyType().name().substring(0, 1) + member.getBodyType().name().substring(1).toLowerCase());
             smokerLabel.setText(member.isSmoker()?"Yes":"No");
@@ -289,7 +290,7 @@ public class SelfProfileViewController implements Initializable {
             childNumLabel.setText(member.getChildrenNumber()+"");
             aboutText.setText(member.getAbout());
             civilStatusLabel.setText(member.getMaritalStatus().name().substring(0, 1) + member.getMaritalStatus().name().substring(1).toLowerCase());
-            createdAtLabel.setText(new SimpleDateFormat("dd MMMM yyyy", Locale.FRANCE).format(member.getCreatedAt()));
+            createdAtLabel.setText(new SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH).format(member.getCreatedAt()));
             String relationsString = "";
             for(Enumerations.RelationType type : member.getPreferedRelations()){
                 relationsString+=type.name().toLowerCase()+", ";
@@ -367,7 +368,22 @@ public class SelfProfileViewController implements Initializable {
         chooser.setTitle("Select a photo");
         File photo = chooser.showOpenDialog(MySoulMate.mainStage);
         if(photo == null) return;
-        uploadPhoto(photo);
+        try {
+            Member member = MemberService.getInstance().get(new Member(MySoulMate.MEMBER_ID));
+            String path = photo.getAbsolutePath().replace("/", "\\");
+            double confidence = FaceDetection.getMaleConfidence(path);
+            if(confidence >= 0.8 && !member.isGender()){
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Please insert a true photo of you!", ButtonType.OK);
+                alert.show();
+            }else if(confidence <= 0.2 && member.isGender()){
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Please insert a true photo of you!", ButtonType.OK);
+                alert.show();
+            }else{
+                uploadPhoto(photo);
+            }
+        } catch (Exception ex) {
+            uploadPhoto(photo);
+        }
     }
     
     private void uploadPhoto(File photo){

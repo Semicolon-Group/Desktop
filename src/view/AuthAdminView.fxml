@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AuthAdminViewController">
+   <children>
+      <VBox layoutX="16.0" layoutY="87.0" prefHeight="368.0" prefWidth="781.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="49.0" prefWidth="266.0" text="Admin Login">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="199.0" prefWidth="800.0">
+               <children>
+                  <VBox prefHeight="199.0" prefWidth="811.0">
+                     <children>
+                        <JFXTextField fx:id="username" focusColor="#e74c3c" maxWidth="800.0" minWidth="800.0" prefHeight="100.0" prefWidth="800.0" promptText="Pseudo">
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </JFXTextField>
+                        <JFXPasswordField fx:id="pw" focusColor="#e74c3c" maxWidth="800.0" minWidth="800.0" prefHeight="100.0" prefWidth="800.0" promptText="Mot de passe">
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </JFXPasswordField>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#goAuthentification" prefHeight="58.0" prefWidth="251.0" ripplerFill="#e74c3c" style="-fx-border-color: #e74c3c;" text="Login" textAlignment="CENTER">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <Label fx:id="cls" alignment="CENTER" layoutX="737.0" layoutY="13.0" onMouseClicked="#goClose" prefHeight="67.0" prefWidth="52.0" text="X" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Label>
+      <Label layoutX="24.0" layoutY="23.0" onMouseClicked="#backToLogin" prefHeight="43.0" prefWidth="188.0" text="Back to member login" textFill="#158bcf" underline="true">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Label>
+   </children>
+</AnchorPane>

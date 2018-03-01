@@ -11,6 +11,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -33,6 +34,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.InputMethodEvent;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
@@ -113,6 +115,8 @@ public class EditProfileViewController implements Initializable {
     
     private List<CheckBox> selectedPrefered = new ArrayList<>();
     private List<CheckBox> selectedRelations = new ArrayList<>();
+    @FXML
+    private TextField phoneNumberField;
 
     /**
      * Initializes the controller class.
@@ -121,6 +125,14 @@ public class EditProfileViewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         heightFiled.setTextFormatter(new TextFormatter<>(new NumberStringConverter()));
         childNumberFiled.setTextFormatter(new TextFormatter<>(new NumberStringConverter()));
+        phoneNumberField.setTextFormatter(new TextFormatter<>(new NumberStringConverter()));
+        cityField.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if(!newValue && !addresses.stream().anyMatch(a -> a.getCity().equals(cityField.getText())))
+                    countryField.setText("");
+            }
+        });
         addresses = new ArrayList<>();
         provider = SuggestionProvider.create(addresses);
         AutoCompletionTextFieldBinding actfb = new AutoCompletionTextFieldBinding<>(cityField, provider);
@@ -146,6 +158,8 @@ public class EditProfileViewController implements Initializable {
         cityField.getStyleClass().remove("error");
         addresses.clear();
         addresses.addAll(GooglePlacesAPI.autoCompleteAddress(cityField.getText()));
+        if(addresses.isEmpty())
+            countryField.setText("");
         provider.clearSuggestions();
         provider.addPossibleSuggestions(addresses);
     }
@@ -224,6 +238,7 @@ public class EditProfileViewController implements Initializable {
         civicStateBox.getItems().setAll(Enumerations.MaritalStatus.values());
         civicStateBox.getSelectionModel().select(member.getMaritalStatus());
         childNumberFiled.setText(member.getChildrenNumber()+"");
+        phoneNumberField.setText(member.getPhone()+"");
     }
 
     @FXML
@@ -238,11 +253,21 @@ public class EditProfileViewController implements Initializable {
             }else if(birthdayPicker.getValue() == null){
                 activateError(birthdayPicker, "Birthdate");
                 return;
+            }else if(((new Date()).getYear() - java.sql.Date.valueOf(birthdayPicker.getValue()).getYear()) < 18){
+                birthdayPicker.getStyleClass().add("error");
+                Alert alert = new Alert(Alert.AlertType.ERROR, "You must at least 18 years old!", ButtonType.OK);
+                alert.show();
+                return;
             }else if(heightFiled.getText().isEmpty()){
                 activateError(heightFiled, "Height");
                 return;
             }else if(cityField.getText().isEmpty()){
                 activateError(cityField, "Address");
+                return;
+            }else if(countryField.getText().isEmpty()){
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid address!", ButtonType.OK);
+                alert.show();
+                cityField.getStyleClass().add("error");
                 return;
             }else if(childNumberFiled.getText().isEmpty()){
                 activateError(childNumberFiled, "Number of children");
@@ -255,6 +280,40 @@ public class EditProfileViewController implements Initializable {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "At least one prefered marital status needs to be selected!", ButtonType.OK);
                 alert.show();
                 return;
+            }else if(phoneNumberField.getText().isEmpty()){
+                activateError(phoneNumberField, "Phone number");
+                return;
+            }else{
+                int n = -1;
+                try{
+                    n = Integer.parseInt(childNumberFiled.getText());
+                }catch(NumberFormatException ex){
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid number of children!", ButtonType.OK);
+                    alert.show();
+                    childNumberFiled.getStyleClass().add("error");
+                    return;
+                }
+                if(n < 0 || n > 15){
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid number of children!", ButtonType.OK);
+                    alert.show();
+                    childNumberFiled.getStyleClass().add("error");
+                    return;
+                }
+                double h = -1;
+                try{
+                    h = Double.parseDouble(heightFiled.getText());
+                }catch(NumberFormatException ex){
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid height!", ButtonType.OK);
+                    alert.show();
+                    heightFiled.getStyleClass().add("error");
+                    return;
+                }
+                if(h < 1 || h > 2.5){
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid height!", ButtonType.OK);
+                    alert.show();
+                    heightFiled.getStyleClass().add("error");
+                    return;
+                }
             }
             member.getPreferedStatuses().clear();
             for(CheckBox box : selectedPrefered){
@@ -264,6 +323,7 @@ public class EditProfileViewController implements Initializable {
             for(CheckBox box: selectedRelations){
                 member.getPreferedRelations().add(Enumerations.RelationType.values()[Integer.parseInt(box.getId())]);
             }
+            member.setPhone(Integer.parseInt(phoneNumberField.getText().replace(",", "")));
             member.setFirstname(firstNameField.getText());
             member.setLastname(lastnameField.getText());
             if(maleRadio.isSelected()) member.setGender(true); else member.setGender(false);
