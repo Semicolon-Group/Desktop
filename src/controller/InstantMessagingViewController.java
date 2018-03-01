@@ -489,7 +489,7 @@ public class InstantMessagingViewController implements Initializable {
 
     @FXML
     private void goToOther(MouseEvent event) {
-         FXMLLoader loader = GlobalViewController.getInstance().setMainContent("/view/InstantMessagingView.fxml");
+         FXMLLoader loader = GlobalViewController.getInstance().setMainContent("/view/OthersProfileView.fxml");
         ((OthersProfileViewController)loader.getController()).setUserId(receiverId);
     }
 }
