@@ -234,7 +234,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
     
     @Override
     public List<Member> getAll(Member obj) throws SQLException {
-        String query = "select * from user";
+        String query = "select * from user where role = " + Role.MEMBER.ordinal();
         ResultSet rs = CONNECTION.createStatement().executeQuery(query);
         List<Member> mmbrs = new ArrayList<>();
         while (rs.next()) {

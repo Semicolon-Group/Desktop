@@ -20,8 +20,8 @@ import javax.mail.Transport;
  */
 public class SendMail {
 
-    private String user = "testmailesprit69@gmail.com";
-    private String password = "testmailesprit69@";
+    private String user = "mysoulmatePI@gmail.com";
+    private String password = "mysoulmatePI*";
 
     public SendMail(String to, String sub, String msg) {
 //        Properties prop = new Properties();
@@ -49,7 +49,7 @@ public class SendMail {
 
         try {
             MimeMessage msgg = new MimeMessage(session);
-            msgg.setFrom(new InternetAddress("testmailesprit69@gmail.com"));
+            msgg.setFrom(new InternetAddress(user));
             msgg.setRecipients(javax.mail.Message.RecipientType.TO, InternetAddress.parse(to));
             msgg.setSubject(sub);
             msgg.setText(msg);
