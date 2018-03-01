@@ -141,8 +141,6 @@ public class OthersProfileViewController implements Initializable {
     @FXML
     private VBox answersVBox;
     @FXML
-    private VBox likesVBox;
-    @FXML
     private Button meetButton;
     @FXML
     private Label prefRelationsLabel;
@@ -157,25 +155,6 @@ public class OthersProfileViewController implements Initializable {
         controller = GlobalViewController.getInstance();
         photosVBox.fillWidthProperty().bind(photoScrollPane.fitToWidthProperty());
         members = new ArrayList<>();
-    }
-
-    private void makeMemberLikePane() {
-        try {
-            List<Like> likes = LikeService.getInstance().getAll(new Like(userId, 0, null)).stream().limit(6)
-                    .collect(Collectors.toList());
-            likesVBox.getChildren().clear();
-            for (Like like : likes) {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/LikedUserView.fxml"));
-                AnchorPane likedUserPane = loader.load();
-                ((LikedUserViewController) loader.getController()).setLike(like);
-                ((LikedUserViewController) loader.getController()).setController(controller);
-                likesVBox.getChildren().add(likedUserPane);
-            }
-        } catch (SQLException ex) {
-            util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), null);
-        } catch (IOException ex) {
-            util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), null);
-        }
     }
 
     public void makeAnswersPane() {
@@ -224,7 +203,6 @@ public class OthersProfileViewController implements Initializable {
     public void setUserId(int userId) {
         this.userId = userId;
         populate();
-        makeMemberLikePane();
         makeAnswersPane();
     }
 

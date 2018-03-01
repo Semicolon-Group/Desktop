@@ -97,7 +97,7 @@ public class InstantMessagingViewController implements Initializable {
 
     int i = 0;
 
-    boolean isServer = false;
+    boolean isServer = true;
     Label ntapi = new Label();
 
     NetworkConnection connection = isServer ? createServer() : createClient();
@@ -118,6 +118,8 @@ public class InstantMessagingViewController implements Initializable {
     private VBox cons;
 
     private HBox wrap;
+    @FXML
+    private VBox messagesVbox;
 
     public void setReceiverId(int id) {
         Member receiver = new Member();
@@ -199,7 +201,7 @@ public class InstantMessagingViewController implements Initializable {
                     textField[i].setTranslateX(20);
                     textField[i].getStyleClass().add("typing");
                     textField[i].setAlignment(Pos.CENTER);
-
+                    wrap.setMaxWidth(messagesVbox.getMaxWidth());
                     wrap.getChildren().add(textField[i]);
                     content2.getChildren().add(wrap);
                     i = i + 1;
@@ -233,7 +235,7 @@ public class InstantMessagingViewController implements Initializable {
                     textField[i].setTranslateX(20);
                     textField[i].getStyleClass().add("typing");
                     textField[i].setAlignment(Pos.CENTER);
-
+ wrap.setMaxWidth(messagesVbox.getMaxWidth());
                     wrap.getChildren().add(textField[i]);
                     content2.getChildren().add(wrap);
                     i = i + 1;
@@ -257,7 +259,7 @@ public class InstantMessagingViewController implements Initializable {
                 textField[i].setText(" " + e.getContent() + " \n");
                 wrap = new HBox();
                 wrap.setAlignment(Pos.TOP_LEFT);
-                textField[i].setTranslateX(-730);
+                textField[i].setTranslateX(-600);
                 textField[i].getStyleClass().add("recu");
                 textField[i].setAlignment(Pos.CENTER);
                 wrap.getChildren().add(textField[i]);
@@ -382,10 +384,10 @@ public class InstantMessagingViewController implements Initializable {
 
         textField[i].getStyleClass().add("recu");
         textField[i].setAlignment(Pos.CENTER_LEFT);
-        textField[i].setTranslateX(-730);
-
+        textField[i].setTranslateX(-650);
+         wrap.setMaxWidth(messagesVbox.getMaxWidth());
         wrap.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
-        wrap.setAlignment(Pos.CENTER_LEFT);
+        wrap.setAlignment(Pos.TOP_LEFT);
         wrap.getChildren().add(textField[i]);
         content2.getChildren().add(wrap);
         content2.setPrefHeight(content2.getPrefHeight() + textField[i].getPrefHeight());
@@ -483,5 +485,11 @@ public class InstantMessagingViewController implements Initializable {
             }
         } catch (Exception e) {
         }
+    }
+
+    @FXML
+    private void goToOther(MouseEvent event) {
+         FXMLLoader loader = GlobalViewController.getInstance().setMainContent("/view/InstantMessagingView.fxml");
+        ((OthersProfileViewController)loader.getController()).setUserId(receiverId);
     }
 }
