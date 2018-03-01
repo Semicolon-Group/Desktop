@@ -273,7 +273,7 @@ public class SelfProfileViewController implements Initializable {
     private void populateFields(){
         try {
             List<MatchCard> cards = Matching.getInstance().getMatches(new Member(MySoulMate.MEMBER_ID), new Filter());
-            matchPercentageLabel.setText((cards!=null && cards.size()!=0)?cards.get(cards.size()-1).getMatch()+"%":"0%");
+            matchPercentageLabel.setText((cards!=null && cards.size()!=0)?cards.get(0).getMatch()+"%":"0%");
             MemberService memberService = MemberService.getInstance();
             Member member = memberService.get(new Member(MySoulMate.MEMBER_ID));
             nameLabel.setText(member.getFirstname()+" "+member.getLastname());
