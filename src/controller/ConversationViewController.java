@@ -81,7 +81,7 @@ public class ConversationViewController implements Initializable {
                     String seen = e.isSeen() ? e.getSeenDate().toString() : "no";
                     Button bc = new Button();
                     bc.setMinWidth(407);
-                    bc.setText(" " + e.getLabel() + "\n " + m.getPseudo() + " \n Seen :" + e.getSeenDate().toString());
+                    bc.setText(" " + e.getLabel() + "\n " + m.getPseudo() + " \n Seen :" +seen);
                     bc.getStyleClass().add("recu");
                     String isConnected = m.isConnected() ? "Online" : "Offline";
                     bc.setAlignment(Pos.CENTER);

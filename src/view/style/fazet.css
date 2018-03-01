@@ -34,6 +34,17 @@
 .recu:hover{
     -fx-background-color : #e74c3c;
 }
+.recumsg 
+{
+        -fx-text-fill: #fff ;
+    -fx-background-color :   #e74c3c ; 
+   
+    -fx-border-width : 0.5 ;
+    -fx-font-size : 20 px ; 
+    -fx-border-radius : 30 30 30 30 ; 
+    -fx-background-radius : 30 30 30 30 ;
+    
+}
 
 #button:hover {
     -fx-text-fill:  #e74c3c ;

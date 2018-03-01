@@ -9,6 +9,7 @@ import com.jfoenix.controls.JFXColorPicker;
 import static controller.GlobalViewController.online;
 import javafx.scene.Parent;
 import java.io.IOException;
+import java.net.Socket;
 import java.net.URL;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -97,7 +98,7 @@ public class InstantMessagingViewController implements Initializable {
 
     int i = 0;
 
-    boolean isServer = false;
+    boolean isServer = true;
     Label ntapi = new Label();
 
     NetworkConnection connection = isServer ? createServer() : createClient();
@@ -118,10 +119,14 @@ public class InstantMessagingViewController implements Initializable {
     private VBox cons;
 
     private HBox wrap;
+    private ImageView yekteb;
+    @FXML
+    private VBox msget;
 
     public void setReceiverId(int id) {
         Member receiver = new Member();
         this.receiverId = id;
+        
 
         try {
             try {
@@ -130,13 +135,15 @@ public class InstantMessagingViewController implements Initializable {
                 Logger.getLogger(GlobalViewController.class.getName()).log(Level.SEVERE, null, ex);
             }
             Member m = MemberService.getInstance().get(new Member(receiverId));
-            nom.setText(m.getPseudo());
+            nom.setText(m.getFirstname());
             nom.getStyleClass().add("typing");
             String conn = m.isConnected() ? "Online" : "Offline";
             status.setText(conn);
             status.getStyleClass().add("typing");
             receiver = MemberService.getInstance().get(new Member(receiverId));
             profileImage.setImage(new Image(MySoulMate.UPLOAD_URL + PhotoService.getInstance().get(new Photo(receiver.getId(), Enumerations.PhotoType.PROFILE)).getUrl()));
+            typing.getStyleClass().add("typing");
+            typing.setVisible(false);
 
             init();
             getHisotrique();
@@ -154,13 +161,32 @@ public class InstantMessagingViewController implements Initializable {
         } catch (Exception ex) {
             Logger.getLogger(InstantMessagingViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
+          ConversationService cs = ConversationService.getInstance();
+        Conversation c = new Conversation();
+        c.setPerson1Id(MySoulMate.MEMBER_ID);
+        c.setPerson2Id(receiverId);
+        try {
+            if ((cs.get(c)) != null) {
+                
+                
+                c.setSeen(true);
+                c.setSeenDate(new Timestamp(System.currentTimeMillis()));
+                cs.update(c);
+                System.out.println("update 3al da5la");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(InstantMessagingViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+      
 
     }
+
 
     private void clearContent(Pane container) {
         container.getChildren().clear();
@@ -187,11 +213,13 @@ public class InstantMessagingViewController implements Initializable {
                     return;
                 }
                 if ((data.toString()).equals(t)) {
+
                     typing.setText("Is typing");
-                    typing.getStyleClass().add("typing");
+                    typing.setVisible(true);
 
                 } else {
-                    typing.setText("");
+
+                    typing.setVisible(false);
                     textField[i] = new Label();
                     textField[i].setMaxWidth(350);
                     textField[i].setWrapText(true);
@@ -204,6 +232,7 @@ public class InstantMessagingViewController implements Initializable {
                     content2.getChildren().add(wrap);
                     i = i + 1;
                     x.setContent(content2);
+                    x.setVvalue(1.0d);
                 }
             });
         });
@@ -216,16 +245,19 @@ public class InstantMessagingViewController implements Initializable {
                 String c = "Stopped";
 
                 wrap = new HBox();
-
                 if (data == null) {
                     return;
                 }
                 if ((data.toString()).equals(t)) {
+
                     typing.setText("Is typing");
-                    typing.getStyleClass().add("typing");
+
+                    typing.setVisible(true);
 
                 } else {
-                    typing.setText("");
+
+                    typing.setVisible(false);
+
                     textField[i] = new Label();
                     textField[i].setMaxWidth(350);
                     textField[i].setWrapText(true);
@@ -238,6 +270,7 @@ public class InstantMessagingViewController implements Initializable {
                     content2.getChildren().add(wrap);
                     i = i + 1;
                     x.setContent(content2);
+                    x.setVvalue(1.0d);
                 }
             });
         });
@@ -256,9 +289,10 @@ public class InstantMessagingViewController implements Initializable {
                 textField[i] = new Label();
                 textField[i].setText(" " + e.getContent() + " \n");
                 wrap = new HBox();
+                wrap.setPrefWidth(msget.getPrefWidth()-80);
                 wrap.setAlignment(Pos.TOP_LEFT);
-                textField[i].setTranslateX(-730);
-                textField[i].getStyleClass().add("recu");
+//                textField[i].setTranslateX(-350);
+                textField[i].getStyleClass().add("recumsg");
                 textField[i].setAlignment(Pos.CENTER);
                 wrap.getChildren().add(textField[i]);
                 wrap.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
@@ -272,6 +306,9 @@ public class InstantMessagingViewController implements Initializable {
                 textField[i] = new Label();
                 textField[i].setText(" " + e.getContent() + " \n");
                 wrap = new HBox();
+                                wrap.setPrefWidth(msget.getPrefWidth()-80);
+
+                wrap.setAlignment(Pos.TOP_LEFT);
                 textField[i].setTranslateX(20);
                 textField[i].getStyleClass().add("typing");
                 textField[i].setAlignment(Pos.CENTER);
@@ -320,7 +357,7 @@ public class InstantMessagingViewController implements Initializable {
                     String seen = e.isSeen() ? e.getSeenDate().toString() : "no";
                     Button bc = new Button();
                     bc.setText(" " + e.getLabel() + "\n " + m.getPseudo() + " \n Seen :" + e.getSeenDate().toString());
-                    bc.getStyleClass().add("recu");
+                    bc.getStyleClass().add("recumsg");
                     String isConnected = m.isConnected() ? "Online" : "Offline";
                     bc.setAlignment(Pos.CENTER);
                     bc.setPrefWidth(cons.getMinWidth());
@@ -373,19 +410,22 @@ public class InstantMessagingViewController implements Initializable {
 
         textField[i] = new Label();
 
-        textField[i].setMaxWidth((primaryScreenBounds.getWidth() / 2) - 30);
+        textField[i].setMaxWidth(500);
 
         textField[i].setWrapText(true);
         textField[i].setText(" " + message + " \n");
 
         wrap = new HBox();
-
-        textField[i].getStyleClass().add("recu");
-        textField[i].setAlignment(Pos.CENTER_LEFT);
-        textField[i].setTranslateX(-730);
+        wrap.setSpacing(5);
+         wrap.setPrefWidth(msget.getPrefWidth()-80);
+         
+        wrap.setAlignment(Pos.TOP_LEFT);
+        textField[i].getStyleClass().add("recumsg");
+        textField[i].setAlignment(Pos.CENTER);
+//        textField[i].setTranslateX(-350);
 
         wrap.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
-        wrap.setAlignment(Pos.CENTER_LEFT);
+
         wrap.getChildren().add(textField[i]);
         content2.getChildren().add(wrap);
         content2.setPrefHeight(content2.getPrefHeight() + textField[i].getPrefHeight());
@@ -401,6 +441,7 @@ public class InstantMessagingViewController implements Initializable {
         msg.setContent(message);
         try {
             connection.send((message.toString()));
+            x.setVvalue(1.0d);
         } catch (Exception e) {
 
         }
@@ -426,6 +467,7 @@ public class InstantMessagingViewController implements Initializable {
                 c.setSeen(false);
                 c.setSeenDate(null);
                 cs.update(c);
+                System.out.println("update");
 
             } else {
 
@@ -450,6 +492,7 @@ public class InstantMessagingViewController implements Initializable {
     private void goReceive(MouseEvent event) {
     }
 
+    @FXML
     private void isWriting(KeyEvent event) {
 
         String message = "Is typing";
@@ -463,8 +506,15 @@ public class InstantMessagingViewController implements Initializable {
 
     }
 
-    @FXML
     private void isWriting(InputMethodEvent event) {
+        String message = "Is typing";
+        try {
+
+            connection.send((message.toString()));
+
+        } catch (Exception e) {
+
+        }
     }
 
     @FXML
@@ -483,5 +533,11 @@ public class InstantMessagingViewController implements Initializable {
             }
         } catch (Exception e) {
         }
+    }
+
+    @FXML
+    private void goprofile(MouseEvent event) {
+        FXMLLoader loader = GlobalViewController.getInstance().setMainContent("/view/OthersProfileView.fxml");
+        ((OthersProfileViewController)loader.getController()).setUserId(receiverId);
     }
 }
