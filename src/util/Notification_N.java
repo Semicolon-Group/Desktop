@@ -61,7 +61,7 @@ public class Notification_N {
 
         new N_SendMail(email,subject,body);
         SendSMS2 sm = new SendSMS2();
-        //sm.SendSms(subject+" | "+body,phone);
+//        sm.SendSms(subject+" | "+body,phone);
 
         ShowNotification ps = new ShowNotification();
         ps.handleShowNotification();
