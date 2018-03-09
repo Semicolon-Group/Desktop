@@ -51,11 +51,11 @@ public class BlockService extends Service implements Create<Block>,Delete<Block>
     public void delete(Block obj) throws SQLException {
         String query = "delete from user_block where ";
         if (obj.getSenderId() != 0 && obj.getReceiverId() != 0) {
-            query += "sender_id = " + obj.getSenderId() + " and receiver_id = " + obj.getReceiverId();
+            query += "block_sender_id = " + obj.getSenderId() + " and block_receiver_id = " + obj.getReceiverId();
         } else if (obj.getSenderId() != 0) {
-            query += "sender_id = " + obj.getSenderId();
+            query += "block_sender_id = " + obj.getSenderId();
         } else if (obj.getReceiverId() != 0) {
-            query += "receiver_id = " + obj.getReceiverId();
+            query += "block_receiver_id = " + obj.getReceiverId();
         } else {
             return;
         }
@@ -64,12 +64,12 @@ public class BlockService extends Service implements Create<Block>,Delete<Block>
 
     @Override
     public Block get(Block obj) throws SQLException {
-        String query = "select * from user_block where sender_id = " + obj.getSenderId() + " and receiver_id = "
+        String query = "select * from user_block where block_sender_id = " + obj.getSenderId() + " and block_receiver_id = "
                 + obj.getReceiverId();
         ResultSet rs = CONNECTION.createStatement().executeQuery(query);
         rs.next();
-        obj.setSenderId(rs.getInt("sender_id"));
-        obj.setReceiverId(rs.getInt("receiver_id"));
+        obj.setSenderId(rs.getInt("block_sender_id"));
+        obj.setReceiverId(rs.getInt("block_receiver_id"));
         obj.setDate(rs.getTimestamp("date"));
         return obj;
     }
@@ -78,16 +78,16 @@ public class BlockService extends Service implements Create<Block>,Delete<Block>
     public List<Block> getAll(Block obj) throws SQLException {
         String query = "select * from user_block";
         if (obj.getSenderId() != 0 && obj.getReceiverId() != 0) {
-            query += " where sender_id = " + obj.getSenderId() + " and receiver_id = " + obj.getReceiverId();
+            query += " where block_sender_id = " + obj.getSenderId() + " and block_receiver_id = " + obj.getReceiverId();
         } else if (obj.getSenderId() != 0) {
-            query += " where sender_id = " + obj.getSenderId();
+            query += " where block_sender_id = " + obj.getSenderId();
         } else if (obj.getReceiverId() != 0) {
-            query += " where receiver_id = " + obj.getReceiverId();
+            query += " where block_receiver_id = " + obj.getReceiverId();
         }
         ResultSet rs = CONNECTION.createStatement().executeQuery(query);
         List<Block> blocks = new ArrayList<>();
         while (rs.next()) {
-            blocks.add(new Block(rs.getInt("receiver_id"), rs.getInt("receiver_id"), rs.getTimestamp("date")));
+            blocks.add(new Block(rs.getInt("block_sender_id"), rs.getInt("block_receiver_id"), rs.getTimestamp("date")));
         }
         return blocks;
     }

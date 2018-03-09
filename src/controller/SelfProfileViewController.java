@@ -172,7 +172,7 @@ public class SelfProfileViewController implements Initializable {
     public void makeAnswersPane(){
         try {
             answersVBox.getChildren().clear();
-            answers = AnswerService.getInstance().getAll(new Answer(0, null, null, MySoulMate.MEMBER_ID));
+            answers = AnswerService.getInstance().getAll(new Answer(0, null, null, MySoulMate.MEMBER_ID, null));
             for(Answer answer: answers){
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AnswerView.fxml"));
                 AnchorPane pane = loader.load();

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import models.Answer;
 import models.AnswerPost;
+import models.Choice;
 import models.Enumerations;
 import models.Enumerations.Importance;
 import models.Enumerations.PostType;
@@ -47,7 +48,15 @@ public class AnswerPostService extends Service implements Read<AnswerPost>{
 	ResultSet rs = pst.executeQuery();
 	List<AnswerPost> list = new ArrayList();
 	while(rs.next()){
-	    list.add(new AnswerPost(new Answer(rs.getInt("id"), rs.getInt("question_id"), rs.getTimestamp("date"), Importance.values()[rs.getInt("importance")], rs.getInt("user_id")), 0, obj.getOwnerId(), rs.getTimestamp("date")));
+            Answer answer = new Answer(
+                    rs.getInt("id"),
+                    rs.getInt("question_id"),
+                    rs.getTimestamp("date"),
+                    Importance.values()[rs.getInt("importance")],
+                    rs.getInt("user_id"),
+                    ChoiceService.getInstance().get(new Choice(rs.getInt("selected_choice_id")))
+            );
+	    list.add(new AnswerPost(answer, 0, obj.getOwnerId(), rs.getTimestamp("date")));
 	}
 	return list;
     }

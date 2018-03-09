@@ -160,7 +160,7 @@ public class OthersProfileViewController implements Initializable {
     public void makeAnswersPane() {
         try {
             answersVBox.getChildren().clear();
-            List<Answer> answers = AnswerService.getInstance().getAll(new Answer(0, null, null, userId));
+            List<Answer> answers = AnswerService.getInstance().getAll(new Answer(0, null, null, userId, null));
             for (Answer answer : answers) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/OthersAnswerView.fxml"));
                 AnchorPane pane = loader.load();
@@ -424,8 +424,8 @@ public class OthersProfileViewController implements Initializable {
     private void showSug(ActionEvent event) {
         try {
             FXMLLoader loader = GlobalViewController.getInstance().setMainContent("/view/RecommandationView.fxml");
-            Address selfAddress = AddressService.getInstance().get(new Address(MySoulMate.MEMBER_ID));
-            Address othersAddress = AddressService.getInstance().get(new Address(userId));
+            Address selfAddress = MemberService.getInstance().get(new Member(MySoulMate.MEMBER_ID)).getAddress();
+            Address othersAddress = MemberService.getInstance().get(new Member(userId)).getAddress();
             Address centerAddress = new Address(
                     (selfAddress.getLongitude() + othersAddress.getLongitude()) / 2,
                     (selfAddress.getLatitude() + othersAddress.getLatitude()) / 2,

@@ -68,10 +68,7 @@ public class AnswerViewController implements Initializable {
         try {
             Question question = QuestionService.getInstance().get(new Question(answer.getQuestionId()));
             questionLabel.setText(question.getQuestion());
-            String selectedChoices ="";
-            for(Choice choice : answer.getSelectedChoices()){
-                selectedChoices+=choice.getChoice()+", ";
-            }
+            String selectedChoices = answer.getSelectedChoice().getChoice();
             answerLabel.setText(selectedChoices.length()!=0?selectedChoices.substring(0, selectedChoices.length()-2):"");
             String acceptedChoices="";
             for(Choice choice:answer.getAcceptedChoices()){

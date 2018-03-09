@@ -254,7 +254,7 @@ public class GlobalViewController implements Initializable {
         try {
             FXMLLoader loader = setContent("/view/RecommandationView.fxml", content);
             ((RecommandationViewController) loader.getController()).setAddress(
-                    AddressService.getInstance().get(new Address(MySoulMate.MEMBER_ID))
+                MemberService.getInstance().get(new Member(MySoulMate.MEMBER_ID)).getAddress()
             );
             homeBox.setId("");
             matchBox.setId("");

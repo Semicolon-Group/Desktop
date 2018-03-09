@@ -24,7 +24,7 @@ import models.Enumerations;
  *
  * @author Elyes
  */
-public class AnswerService extends Service implements Create<Answer>,Delete<Answer>,Read<Answer>,Update<Answer>{
+public class AnswerService extends Service implements Create<Answer>,Read<Answer>{
     
     private static AnswerService answerService;
     
@@ -41,12 +41,13 @@ public class AnswerService extends Service implements Create<Answer>,Delete<Answ
 
     @Override
     public Answer create(Answer obj) throws SQLException {
-        String query = "INSERT INTO answer(importance, date, question_id, user_id) VALUES (?,?,?,?)";
+        String query = "INSERT INTO answer(importance, date, question_id, user_id, selected_choice_id) VALUES (?,?,?,?,?)";
         PreparedStatement prepare = CONNECTION.prepareStatement(query);
         prepare.setInt(1, obj.getImportance().ordinal());
         prepare.setTimestamp(2, new Timestamp(new Date().getTime()));
         prepare.setInt(3, obj.getQuestionId());
         prepare.setInt(4, obj.getMemberId());
+        prepare.setInt(5, obj.getSelectedChoice().getId());
         prepare.executeUpdate();
         
         query = "SELECT MAX(id) last_row FROM answer";
@@ -55,14 +56,7 @@ public class AnswerService extends Service implements Create<Answer>,Delete<Answ
         obj.setId(rs.getInt("last_row"));
         
         insertAcceptedChoices(obj);
-        insertSelectedChoices(obj);
         return obj;
-    }
-
-    @Override
-    public void delete(Answer obj) throws SQLException {
-        String query = "delete from answer where id = "+obj.getId();
-        CONNECTION.createStatement().executeUpdate(query);
     }
 
     @Override
@@ -74,9 +68,9 @@ public class AnswerService extends Service implements Create<Answer>,Delete<Answ
         obj.setImportance(Enumerations.Importance.values()[rs.getInt("importance")]);
         obj.setMemberId(rs.getInt("user_id"));
         obj.setQuestionId(rs.getInt("question_id"));
+        obj.setSelectedChoice(ChoiceService.getInstance().get(new Choice(rs.getInt("selected_choice_id"))));
         
         getAcceptedChoices(obj);
-        getSelectedChoices(obj);
         return obj;
     }
 
@@ -91,26 +85,12 @@ public class AnswerService extends Service implements Create<Answer>,Delete<Answ
             answer.setImportance(Enumerations.Importance.values()[rs.getInt("importance")]);
             answer.setMemberId(rs.getInt("user_id"));
             answer.setQuestionId(rs.getInt("question_id"));
+            answer.setSelectedChoice(ChoiceService.getInstance().get(new Choice(rs.getInt("selected_choice_id"))));
             
             getAcceptedChoices(answer);
-            getSelectedChoices(answer);
             answers.add(answer);
         }
         return answers;
-    }
-
-    @Override
-    public void update(Answer obj) throws SQLException {
-        String query = "update answer set importance=? where id = ?";
-        PreparedStatement prepare = CONNECTION.prepareStatement(query);
-        prepare.setInt(1, obj.getImportance().ordinal());
-        prepare.setInt(2, obj.getId());
-        prepare.executeUpdate();
-        
-        deleteAcceptedChoices(obj);
-        deleteSelectedChoices(obj);
-        insertAcceptedChoices(obj);
-        insertSelectedChoices(obj);
     }
 
     private void insertAcceptedChoices(Answer answer){
@@ -134,37 +114,4 @@ public class AnswerService extends Service implements Create<Answer>,Delete<Answ
             answer.getAcceptedChoices().add(ChoiceService.getInstance().get(new Choice(rs.getInt("choice_id"))));
         }
     }
-    
-    private void deleteAcceptedChoices(Answer answer) throws SQLException{
-        String query = "delete from accepted_choice where answer_id  = "+answer.getId();
-        CONNECTION.createStatement().executeUpdate(query);
-    }
-    
-    private void insertSelectedChoices(Answer answer){
-        answer.getSelectedChoices().forEach(sc -> {
-            try {
-                String qry = "insert into answer_choice values(?,?)";
-                PreparedStatement pst = CONNECTION.prepareStatement(qry);
-                pst.setInt(1, answer.getId());
-                pst.setInt(2, sc.getId());
-                pst.executeUpdate();
-            } catch (SQLException ex) {
-                util.Logger.writeLog(ex, AnswerService.class.getName(), null);
-            }
-        });
-    }
-    
-    private void deleteSelectedChoices(Answer answer) throws SQLException{
-        String query = "delete from answer_choice where answer_id  = "+answer.getId();
-        CONNECTION.createStatement().executeUpdate(query);
-    }
-    
-    private void getSelectedChoices(Answer answer) throws SQLException{
-        String query = "select * from answer_choice where answer_id  = "+answer.getId();
-        ResultSet rs = CONNECTION.createStatement().executeQuery(query);
-        while(rs.next()){
-            answer.getSelectedChoices().add(ChoiceService.getInstance().get(new Choice(rs.getInt("choice_id"))));
-        }
-    }
-    
 }

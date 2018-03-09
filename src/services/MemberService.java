@@ -55,10 +55,12 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
 
     @Override
     public Member create(Member obj) throws SQLException {
+        obj.setAddress(AddressService.getInstance().create(obj.getAddress()));
+        
         String query = "insert into user (pseudo, firstname, lastname, email,password,birth_date,gender,height,"
                 + "body_type,children_number,relegion,relegion_importance,smoker,drinker,min_age,max_age,"
-                + "phone,last_login,locked,ip,port,role,created_at,updated_at,about,civil_status,connected)"
-                + " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                + "phone,last_login,locked,ip,port,role,created_at,updated_at,about,civil_status,connected,address_id)"
+                + " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement preparedStatement = CONNECTION.prepareStatement(query);
         preparedStatement.setString(1, obj.getPseudo());
         preparedStatement.setString(2, obj.getFirstname());
@@ -87,6 +89,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
         preparedStatement.setString(25, obj.getAbout());
         preparedStatement.setInt(26, obj.getMaritalStatus().ordinal());
         preparedStatement.setBoolean(27, obj.isConnected());
+        preparedStatement.setInt(28, obj.getAddress().getId());
         preparedStatement.executeUpdate();
 
         String req = "SELECT MAX(id) max from user";
@@ -94,8 +97,6 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
         rs.next();
         
         obj.setId(rs.getInt("max"));
-        obj.getAddress().setUserId(obj.getId());
-        AddressService.getInstance().create(obj.getAddress());
         insertPreferedRelations(obj);
         insertPreferedStatus(obj);
         
@@ -205,7 +206,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
             obj.setMaritalStatus(Enumerations.MaritalStatus.values()[rs.getInt("civil_status")]);
             obj.setConnected(rs.getBoolean("connected"));
             obj.setCreatedAt(rs.getTimestamp("created_at"));
-            obj.setAddress(AddressService.getInstance().get(new Address(obj.getId())));
+            obj.setAddress(AddressService.getInstance().get(new Address(rs.getInt("address_id"))));
             obj = getPreferedRelations(obj);
             obj = getPreferedStatus(obj);
             return obj;
@@ -267,7 +268,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
             mbr.setMaritalStatus(Enumerations.MaritalStatus.values()[rs.getInt("civil_status")]);
             mbr.setConnected(rs.getBoolean("connected"));
             mbr.setCreatedAt(rs.getTimestamp("created_at"));
-            mbr.setAddress(AddressService.getInstance().get(new Address(mbr.getId())));
+            mbr.setAddress(AddressService.getInstance().get(new Address(rs.getInt("address_id"))));
             mbr = getPreferedRelations(mbr);
             mbr = getPreferedStatus(mbr);
             
@@ -337,7 +338,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
         while (rs.next()) {
             Member mbr = new Member();
             mbr.setId(rs.getInt("id"));
-            mbr.setAddress(AddressService.getInstance().get(new Address(mbr.getId())));
+            mbr.setAddress(AddressService.getInstance().get(new Address(rs.getInt("address_id"))));
             
             Double distance = getDistance(online.getAddress(), mbr.getAddress());
             if(F.getDistance() != -1){

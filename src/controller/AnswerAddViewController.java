@@ -162,7 +162,7 @@ public class AnswerAddViewController implements Initializable {
 
     private Question getRandomObligatoryQuestion() {
         try {
-            List<Answer> answers = AnswerService.getInstance().getAll(new Answer(0, null, null, userId));
+            List<Answer> answers = AnswerService.getInstance().getAll(new Answer(0, null, null, userId, null));
             List<Question> questions = QuestionService.getInstance().getAll(new Question(null, Enumerations.Topic.MANDATORY));
             List<Question> answeredQuestions = new ArrayList<>();
             for (Answer answer : answers) {
@@ -227,7 +227,7 @@ public class AnswerAddViewController implements Initializable {
 
     private Question getRandomQuestion() {
         try {
-            List<Answer> answers = AnswerService.getInstance().getAll(new Answer(0, null, null, userId));
+            List<Answer> answers = AnswerService.getInstance().getAll(new Answer(0, null, null, userId, null));
             List<Question> questions = QuestionService.getInstance().getAll(new Question());
             List<Question> answeredQuestions = new ArrayList<>();
             for (Answer answer : answers) {
@@ -258,8 +258,13 @@ public class AnswerAddViewController implements Initializable {
                 alert.show();
                 return;
             }
-            Answer answer = new Answer(question.getId(), null, importanceCombo.getValue(), userId);
-            answer.getSelectedChoices().add(ChoiceService.getInstance().get(new Choice(Integer.parseInt(radio.getId()))));
+            Answer answer = new Answer(
+                    question.getId(),
+                    null,
+                    importanceCombo.getValue(),
+                    userId,
+                    ChoiceService.getInstance().get(new Choice(Integer.parseInt(radio.getId())))
+            );
             for (CheckBox cb : selectedBoxs) {
                 answer.getAcceptedChoices().add(ChoiceService.getInstance().get(new Choice(Integer.parseInt(cb.getId()))));
             }
