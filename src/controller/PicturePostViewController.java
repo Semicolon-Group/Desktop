@@ -92,7 +92,7 @@ public class PicturePostViewController implements Initializable {
         this.picture.setImage(new Image(picture));
         this.photoId = photoId;
         try {
-            ownerId = PhotoService.getInstance().get(new Photo(photoId,0,null)).getUserId();
+            ownerId = PhotoService.getInstance().getPhoto(photoId).getUserId();
             if (ownerId == online.getId()){
                 reactions.setVisible(false);
                 delete.setVisible(true);
@@ -122,7 +122,7 @@ public class PicturePostViewController implements Initializable {
             Parent p = loader.load();
             CommentBoxViewController c = (CommentBoxViewController)loader.getController();
             c.setPhotoId(photoId);
-            c.setOwnerId(PhotoService.getInstance().get(new Photo(photoId,0,null)).getUserId());
+            c.setOwnerId(PhotoService.getInstance().getPhoto(photoId).getUserId());
             c.fill();
             container.getChildren().add(p);
         } catch (SQLException ex) {
@@ -242,30 +242,22 @@ public class PicturePostViewController implements Initializable {
 
     @FXML
     private void onPseudoClick(MouseEvent event) {
-        try {
-            FXMLLoader loader = GlobalViewController.getInstance().setMainContent("/view/OthersProfileView.fxml");
-            ((OthersProfileViewController)loader.getController()).setUserId(PhotoService.getInstance()
-                    .get(new Photo(photoId,0,null)).getUserId());
-        } catch (SQLException ex) {
-            Logger.getLogger(StatusPostViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        FXMLLoader loader = GlobalViewController.getInstance().setMainContent("/view/OthersProfileView.fxml");
+        ((OthersProfileViewController)loader.getController()).setUserId(PhotoService.getInstance()
+                .getPhoto(photoId).getUserId());
     }
 
     @FXML
     private void onPhotoClick(MouseEvent event) {
-        try {
-            FXMLLoader loader = GlobalViewController.getInstance().setMainContent("/view/OthersProfileView.fxml");
-            ((OthersProfileViewController)loader.getController()).setUserId(PhotoService.getInstance()
-                    .get(new Photo(photoId,0,null)).getUserId());
-        } catch (SQLException ex) {
-            Logger.getLogger(StatusPostViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        FXMLLoader loader = GlobalViewController.getInstance().setMainContent("/view/OthersProfileView.fxml");
+        ((OthersProfileViewController)loader.getController()).setUserId(PhotoService.getInstance()
+                .getPhoto(photoId).getUserId());
     }
 
     @FXML
     private void onDeleteClick(MouseEvent event) {
         try {
-            PhotoService.getInstance().delete(new Photo(photoId,0,null));
+            PhotoService.getInstance().deletePhoto(photoId);
             Notification n = new Notification();
             n.setPhotoId(photoId);
             NotificationService.getInstance().delete(n);

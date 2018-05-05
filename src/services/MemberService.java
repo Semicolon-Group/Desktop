@@ -57,7 +57,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
     public Member create(Member obj) throws SQLException {
         obj.setAddress(AddressService.getInstance().create(obj.getAddress()));
         
-        String query = "insert into user (pseudo, firstname, lastname, email,password,birth_date,gender,height,"
+        String query = "insert into user (username, firstname, lastname, email,password,birth_date,gender,height,"
                 + "body_type,children_number,relegion,relegion_importance,smoker,drinker,min_age,max_age,"
                 + "phone,last_login,locked,ip,port,role,created_at,updated_at,about,civil_status,connected,address_id)"
                 + " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -116,7 +116,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
 
     @Override
     public void update(Member obj) throws SQLException {
-        String query = "UPDATE user SET pseudo=?, firstname=?, lastname=?,"
+        String query = "UPDATE user SET username=?, firstname=?, lastname=?,"
                 + "email=?, password=?, birth_date=?, gender=?, height=?,"
                 + "body_type=?, children_number=?, relegion=?, relegion_importance=?,"
                 + "smoker=?, drinker=?, min_age=?, max_age=?, phone=?,"
@@ -167,21 +167,22 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
 
     @Override
     public Member get(Member obj) throws SQLException {
-        String condition = "Where role = "+Enumerations.Role.MEMBER.ordinal();
+        String condition = "Where roles = 'a:1:{i:0;s:0:\"\";}'";
         if (obj.getId() != 0) {
             condition += " and id = " + obj.getId();
         } else if (obj.getPseudo() != null) {
-            condition += " and pseudo = '" + obj.getPseudo() + "'";
+            condition += " and username = '" + obj.getPseudo() + "'";
         } else if (obj.getEmail() != null) {
             condition += " and email = '" + obj.getEmail() + "'";
         }
         String req = "Select * from user " + condition;
+        System.out.println(req);
         st = CONNECTION.createStatement();
         rs = st.executeQuery(req);
 
         if (rs.next()) {
             obj.setId(rs.getInt("id"));
-            obj.setPseudo(rs.getString("pseudo"));
+            obj.setPseudo(rs.getString("username"));
             obj.setFirstname(rs.getString("firstname"));
             obj.setLastname(rs.getString("lastname"));
             obj.setEmail(rs.getString("email"));
@@ -216,12 +217,12 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
     
     public Admin getAdmin(Admin obj) throws SQLException {
         if (obj.getPseudo() == null) return null;
-        String query = "Select * from user Where role = "+Enumerations.Role.ADMIN.ordinal()+" and pseudo = '" + obj.getPseudo() + "'";
+        String query = "Select * from user Where role = "+Enumerations.Role.ADMIN.ordinal()+" and username = '" + obj.getPseudo() + "'";
         st = CONNECTION.createStatement();
         rs = st.executeQuery(query);
         if (rs.next()) {
             obj.setId(rs.getInt("id"));
-            obj.setPseudo(rs.getString("pseudo"));
+            obj.setPseudo(rs.getString("username"));
             obj.setFirstname(rs.getString("firstname"));
             obj.setLastname(rs.getString("lastname"));
             obj.setEmail(rs.getString("email"));
@@ -243,7 +244,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
             Member mbr = new Member();
 
             mbr.setId(rs.getInt("id"));
-            mbr.setPseudo(rs.getString("pseudo"));
+            mbr.setPseudo(rs.getString("username"));
             mbr.setFirstname(rs.getString("firstname"));
             mbr.setLastname(rs.getString("lastname"));
             mbr.setEmail(rs.getString("Email"));
@@ -348,7 +349,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
             }
             Integer login = rs.getInt("login");
             
-            mbr.setPseudo(rs.getString("pseudo"));
+            mbr.setPseudo(rs.getString("username"));
             mbr.setFirstname(rs.getString("firstname"));
             mbr.setLastname(rs.getString("lastname"));
             mbr.setEmail(rs.getString("Email"));
@@ -392,7 +393,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
     private void insertPreferedRelations(Member member) throws SQLException{
         String query ="";
         for(Enumerations.RelationType type : member.getPreferedRelations()){
-            query = "insert into prefered_relation values(?,?)";
+            query = "insert into prefered_relation(user_id, relation) values(?,?)";
             PreparedStatement prepare = CONNECTION.prepareStatement(query);
             prepare.setInt(1, member.getId());
             prepare.setInt(2, type.ordinal());
@@ -418,7 +419,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
     private void insertPreferedStatus(Member member) throws SQLException{
         String query ="";
         for(Enumerations.MaritalStatus status : member.getPreferedStatuses()){
-            query = "insert into prefered_status values(?,?)";
+            query = "insert into prefered_status(user_id, status) values(?,?)";
             PreparedStatement prepare = CONNECTION.prepareStatement(query);
             prepare.setInt(1, member.getId());
             prepare.setInt(2, status.ordinal());

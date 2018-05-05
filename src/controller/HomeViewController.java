@@ -86,11 +86,11 @@ public class HomeViewController implements Initializable {
                     root = loader.load();
                     loader.getLocation().openStream();
                     spc = (StatusPostViewController)loader.getController();
-                    Photo photo = PhotoService.getInstance().get(new Photo(0,p.getOwnerId(),null,null,PhotoType.PROFILE));
+                    Photo photo = PhotoService.getInstance().getProfilePhoto(p.getOwnerId());
                     if(photo == null){
                         image = new Image("/view/assets/icons/member.jpg");
                     }else{
-                        image = new Image(MySoulMate.UPLOAD_URL + photo.getUrl());
+                        image = new Image(photo.getPhotoUri());
                     }
                     spc.fill(image,
                         ((StatusPost)p).getContent(), MemberService.getInstance().get(new Member(p.getOwnerId())).getPseudo(),
@@ -102,11 +102,11 @@ public class HomeViewController implements Initializable {
                     root = loader.load();
                     loader.getLocation().openStream();
                     ppc = (PicturePostViewController)loader.getController();
-                    Photo photo = PhotoService.getInstance().get(new Photo(0,p.getOwnerId(),null,null,PhotoType.PROFILE));
+                    Photo photo = PhotoService.getInstance().getProfilePhoto(p.getOwnerId());
                     if(photo == null){
                         image = new Image("/view/assets/icons/member.jpg");
                     }else{
-                        image = new Image(MySoulMate.UPLOAD_URL + photo.getUrl());
+                        image = new Image(photo.getPhotoUri());
                     }
                     ppc.fill(image,
                         MemberService.getInstance().get(new Member(p.getOwnerId())).getPseudo(),

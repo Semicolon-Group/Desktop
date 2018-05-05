@@ -138,7 +138,7 @@ public class InstantMessagingViewController implements Initializable {
             status.setText(conn);
             status.getStyleClass().add("typing");
             receiver = MemberService.getInstance().get(new Member(receiverId));
-            profileImage.setImage(new Image(MySoulMate.UPLOAD_URL + PhotoService.getInstance().get(new Photo(receiver.getId(), Enumerations.PhotoType.PROFILE)).getUrl()));
+            profileImage.setImage(new Image(PhotoService.getInstance().getProfilePhoto(receiver.getId()).getPhotoUri()));
 
             init();
             getHisotrique();

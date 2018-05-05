@@ -26,6 +26,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import models.Member;
 import services.MemberService;
+import services.PhotoService;
 import util.FileUploader;
 
 /**

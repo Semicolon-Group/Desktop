@@ -11,22 +11,22 @@ import java.util.Date;
 import services.MemberService;
 import services.PhotoService;
 
-
 /**
  *
  * @author Elyes
  */
 public class Feedback {
+
     private int id;
     private int senderId;
     private String content;
     private boolean state;
     private Timestamp date;
-    
+
     public Feedback() {
     }
-    
-    public Feedback(int id){
+
+    public Feedback(int id) {
         this.id = id;
     }
 
@@ -40,76 +40,78 @@ public class Feedback {
     }
 
     public Feedback(int id, int senderId, String content, boolean state, Timestamp date) {
-	this.id = id;
-	this.senderId = senderId;
-	this.content = content;
-	this.state = state;
+        this.id = id;
+        this.senderId = senderId;
+        this.content = content;
+        this.state = state;
         this.date = date;
     }
 
     public Feedback(int senderId, String content, boolean state, Timestamp date) {
-	this.senderId = senderId;
-	this.content = content;
-	this.state = state;
+        this.senderId = senderId;
+        this.content = content;
+        this.state = state;
         this.date = date;
     }
 
     public int getId() {
-	return id;
+        return id;
     }
 
     public void setId(int id) {
-	this.id = id;
+        this.id = id;
     }
 
-    public String getSenderName() throws SQLException{
-        return MemberService.getInstance().get(new Member(senderId)).getFirstname() +" "+ MemberService.getInstance().get(new Member(senderId)).getLastname();
+    public String getSenderName() throws SQLException {
+        return MemberService.getInstance().get(new Member(senderId)).getFirstname() + " " + MemberService.getInstance().get(new Member(senderId)).getLastname();
     }
+
     public boolean getGender() throws SQLException {
-        return MemberService.getInstance().get(new Member(senderId)).isGender();    
+        return MemberService.getInstance().get(new Member(senderId)).isGender();
     }
-    public java.sql.Date getBirthDate () throws SQLException{
+
+    public java.sql.Date getBirthDate() throws SQLException {
         return MemberService.getInstance().get(new Member(senderId)).getBirthDate();
     }
-       public String getUrlPhoto() throws SQLException{
-        return  PhotoService.getInstance().get(new Photo(senderId,Enumerations.PhotoType.PROFILE)).getUrl();
+
+    public String getUrlPhoto() throws SQLException {
+        return PhotoService.getInstance().getProfilePhoto(senderId).getPhotoUri();
     }
- 
-    
+
     public int getSenderId() {
-	return senderId;
+        return senderId;
     }
 
     public void setSenderId(int senderId) {
-	this.senderId = senderId;
+        this.senderId = senderId;
     }
 
     public String getContent() {
-	return content;
+        return content;
     }
 
     public void setContent(String content) {
-	this.content = content;
+        this.content = content;
     }
 
     public boolean isState() {
-	return state;
+        return state;
     }
-    
-    public String getStateName(){
+
+    public String getStateName() {
         return state ? "Consulted" : "Non-Consulted";
     }
-    
+
     public void setState(boolean state) {
-	this.state = state;
+        this.state = state;
     }
-    
-    public Timestamp getDate(){
+
+    public Timestamp getDate() {
         return this.date;
     }
-    
-    public void setDate(Timestamp date){
+
+    public void setDate(Timestamp date) {
         this.date = date;
     }
-    
+
 }

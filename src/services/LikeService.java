@@ -38,7 +38,7 @@ public class LikeService extends Service implements Create<Like>,Delete<Like>,Re
 
     @Override
     public Like create(Like obj) throws SQLException {
-        String query = "insert into user_like values(?,?,?)";
+        String query = "insert into user_like(like_sender_id, like_receiver_id, date) values(?,?,?)";
         PreparedStatement preparedStatement = CONNECTION.prepareStatement(query);
         preparedStatement.setInt(1, obj.getSenderId());
         preparedStatement.setInt(2, obj.getReceiverId());

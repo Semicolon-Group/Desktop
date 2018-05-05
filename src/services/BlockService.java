@@ -38,7 +38,7 @@ public class BlockService extends Service implements Create<Block>,Delete<Block>
 
     @Override
     public Block create(Block obj) throws SQLException {
-        String query = "insert into user_block values(?,?,?)";
+        String query = "insert into user_block(block_sender_id, block_receiver_id, date) values(?,?,?)";
         PreparedStatement preparedStatement = CONNECTION.prepareStatement(query);
         preparedStatement.setInt(1, obj.getSenderId());
         preparedStatement.setInt(2, obj.getReceiverId());
