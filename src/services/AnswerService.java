@@ -98,8 +98,8 @@ public class AnswerService extends Service implements Create<Answer>,Read<Answer
             try {
                 String qry = "insert into accepted_choice values(?,?)";
                 PreparedStatement pst = CONNECTION.prepareStatement(qry);
-                pst.setInt(1, answer.getId());
-                pst.setInt(2, ac.getId());
+                pst.setInt(1, ac.getId());
+                pst.setInt(2, answer.getId());
                 pst.executeUpdate();
             } catch (SQLException ex) {
                 util.Logger.writeLog(ex, AnswerService.class.getName(), null);

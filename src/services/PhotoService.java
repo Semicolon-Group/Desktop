@@ -7,34 +7,19 @@ package services;
 
 import com.semicolon.javavichuploaderapi.Uploader;
 import controller.MySoulMate;
-import iservice.Create;
-import iservice.Delete;
-import iservice.Read;
-import iservice.Update;
-import java.io.CharArrayReader;
 import java.io.IOException;
 import java.io.StringReader;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.Enumerations;
-import models.Enumerations.PhotoType;
-import models.Member;
 import models.Photo;
-import org.apache.http.conn.ConnectionRequest;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import util.FileUploader;
 import util.HTTPConnector;
 
 /**

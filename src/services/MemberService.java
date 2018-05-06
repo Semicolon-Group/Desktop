@@ -97,8 +97,6 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
         rs.next();
         
         obj.setId(rs.getInt("max"));
-        insertPreferedRelations(obj);
-        insertPreferedStatus(obj);
         
         obj = get(obj);
         return obj;
@@ -150,21 +148,8 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
         prepare.setInt(26, obj.getId());
         prepare.executeUpdate();
         AddressService.getInstance().update(obj.getAddress());
-        deletePreferedRelations(obj.getId());
-        insertPreferedRelations(obj);
-        deletePreferedStatus(obj.getId());
-        insertPreferedStatus(obj);
     }
     
-    private Member getPreferedStatus(Member member) throws SQLException{
-        String query = "SELECT * FROM prefered_status where user_id = "+member.getId();
-        ResultSet rs = CONNECTION.createStatement().executeQuery(query);
-        while(rs.next()){
-            member.getPreferedStatuses().add(Enumerations.MaritalStatus.values()[rs.getInt("status")]);
-        }
-        return member;
-    }
-
     @Override
     public Member get(Member obj) throws SQLException {
         String condition = "Where roles = 'a:1:{i:0;s:0:\"\";}'";
@@ -176,7 +161,6 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
             condition += " and email = '" + obj.getEmail() + "'";
         }
         String req = "Select * from user " + condition;
-        System.out.println(req);
         st = CONNECTION.createStatement();
         rs = st.executeQuery(req);
 
@@ -208,8 +192,6 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
             obj.setConnected(rs.getBoolean("connected"));
             obj.setCreatedAt(rs.getTimestamp("created_at"));
             obj.setAddress(AddressService.getInstance().get(new Address(rs.getInt("address_id"))));
-            obj = getPreferedRelations(obj);
-            obj = getPreferedStatus(obj);
             return obj;
         }
         return null;
@@ -270,8 +252,6 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
             mbr.setConnected(rs.getBoolean("connected"));
             mbr.setCreatedAt(rs.getTimestamp("created_at"));
             mbr.setAddress(AddressService.getInstance().get(new Address(rs.getInt("address_id"))));
-            mbr = getPreferedRelations(mbr);
-            mbr = getPreferedStatus(mbr);
             
             mmbrs.add(mbr);
         }
@@ -374,8 +354,6 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
             mbr.setMaritalStatus(Enumerations.MaritalStatus.values()[rs.getInt("civil_status")]);
             mbr.setConnected(rs.getBoolean("connected"));
             mbr.setCreatedAt(rs.getTimestamp("created_at"));
-            mbr = getPreferedRelations(mbr);
-            mbr = getPreferedStatus(mbr);
             
             mmbrs.put(mbr,new AbstractMap.SimpleEntry(distance,login));
         }
@@ -383,7 +361,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
     }
     
     
-    
+    /*
     //Prefered relations CRUD
     private void deletePreferedRelations(int userId) throws SQLException{
         String query = "delete from prefered_relation where user_id = "+userId;
@@ -426,6 +404,16 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
             prepare.executeUpdate();
         }
     }
+    
+    private Member getPreferedStatus(Member member) throws SQLException{
+        String query = "SELECT * FROM prefered_status where user_id = "+member.getId();
+        ResultSet rs = CONNECTION.createStatement().executeQuery(query);
+        while(rs.next()){
+            member.getPreferedStatuses().add(Enumerations.MaritalStatus.values()[rs.getInt("status")]);
+        }
+        return member;
+    }
+    */    
 
     public ResultSet getStats() throws SQLException {
         PreparedStatement stat = CONNECTION.prepareStatement("select concat(MONTH(created_at)) as created from user");
