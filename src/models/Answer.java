@@ -20,36 +20,34 @@ public class Answer {
     private Timestamp date;
     private Importance importance;
     private int memberId;
-    private HashSet<Choice> selectedChoices;
+    private Choice selectedChoice;
     private HashSet<Choice> acceptedChoices;
     
     public Answer() {
-        selectedChoices = new HashSet<>();
         acceptedChoices = new HashSet<>();
     }
     
     public Answer(int id){
         this.id = id;
-        selectedChoices = new HashSet<>();
         acceptedChoices = new HashSet<>();
     }
 
-    public Answer(int questionId, Timestamp date, Importance importance, int memberId) {
+    public Answer(int questionId, Timestamp date, Importance importance, int memberId, Choice selectedChoice) {
 	this.questionId = questionId;
 	this.date = date;
 	this.importance = importance;
 	this.memberId = memberId;
-        selectedChoices = new HashSet<>();
+        this.selectedChoice = selectedChoice;
         acceptedChoices = new HashSet<>();
     }
 
-    public Answer(int id, int questionId, Timestamp date, Importance importance, int memberId) {
+    public Answer(int id, int questionId, Timestamp date, Importance importance, int memberId, Choice selectedChoice) {
 	this.id = id;
 	this.questionId = questionId;
 	this.date = date;
 	this.importance = importance;
 	this.memberId = memberId;
-        selectedChoices = new HashSet<>();
+        this.selectedChoice = selectedChoice;
         acceptedChoices = new HashSet<>();
     }
 
@@ -93,8 +91,12 @@ public class Answer {
 	this.memberId = memberId;
     }
 
-    public HashSet<Choice> getSelectedChoices() {
-        return selectedChoices;
+    public Choice getSelectedChoice() {
+        return selectedChoice;
+    }
+    
+    public void setSelectedChoice(Choice selectedChoice){
+        this.selectedChoice = selectedChoice;
     }
 
     public HashSet<Choice> getAcceptedChoices() {
@@ -128,7 +130,7 @@ public class Answer {
 
     @Override
     public String toString() {
-        return "Answer{" + "id=" + id + ", questionId=" + questionId + ", date=" + date + ", importance=" + importance + ", memberId=" + memberId + ", selectedChoices=" + selectedChoices + ", acceptedChoices=" + acceptedChoices + "}\n";
+        return "Answer{" + "id=" + id + ", questionId=" + questionId + ", date=" + date + ", importance=" + importance + ", memberId=" + memberId + ", selectedChoices=" + selectedChoice + ", acceptedChoices=" + acceptedChoices + "}\n";
     }
     
 }

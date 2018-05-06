@@ -42,10 +42,12 @@ public class Matching {
     private int getMatch(Answer A, Answer B){
         if(A.getImportance() == Importance.INDIFFERENT)
             return 1;
-        for(Choice c : B.getSelectedChoices()){
-            if(A.getAcceptedChoices().contains(c))
-                return 1;
-        }
+        if(A.getAcceptedChoices().contains(B.getSelectedChoice()))
+            return 1;
+//        for(Choice c : B.getSelectedChoices()){
+//            if(A.getAcceptedChoices().contains(c))
+//                return 1;
+//        }
         return 0;
     }
     
@@ -56,10 +58,12 @@ public class Matching {
         float imp = 1;
         if(A.getImportance() == Importance.SOMEWHAT_IMPORTANT)
             imp = 0.5f;
-        for(Choice c : B.getSelectedChoices()){
-            if(!A.getAcceptedChoices().contains(c))
-                return imp;
-        }
+        if(!A.getAcceptedChoices().contains(B.getSelectedChoice()))
+            return imp;
+//        for(Choice c : B.getSelectedChoices()){
+//            if(!A.getAcceptedChoices().contains(c))
+//                return imp;
+//        }
         
         return 0;
     }
@@ -107,16 +111,16 @@ public class Matching {
             card.setLastLogin(map.get(m).getValue());
             card.setDistance(map.get(m).getKey());
             card.setPseudo(m.getPseudo());
-            Photo ph = PhotoService.getInstance().get(new Photo(0, m.getId(), null, null, PhotoType.PROFILE));
+            /*Photo ph = PhotoService.getInstance().get(new Photo(0, m.getId(), null, null, PhotoType.PROFILE));
             if(ph == null){
                 ph = new Photo(0, m.getId(), "/view/assets/icons/member.jpg");
                 card.setPhotoUrl(ph.getUrl());
             }else{
                 card.setPhotoUrl(MySoulMate.UPLOAD_URL + ph.getUrl());
-            }
+            }*/
             
-            List<Answer> A = AnswerService.getInstance().getAll(new Answer(0, null, null, M.getId()));
-            List<Answer> B = AnswerService.getInstance().getAll(new Answer(0, null, null, m.getId()));
+            List<Answer> A = AnswerService.getInstance().getAll(new Answer(0, null, null, M.getId(), null));
+            List<Answer> B = AnswerService.getInstance().getAll(new Answer(0, null, null, m.getId(), null));
             card.setMatch(getMatchTotal(A,B));
             card.setEnemy(getEnemyTotal(A,B));
             

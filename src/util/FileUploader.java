@@ -21,7 +21,7 @@ public class FileUploader {
             HttpURLConnection httpUrlConnection = (HttpURLConnection)new URL(ScriptsURL+"upload.php").openConnection();
             httpUrlConnection.setDoOutput(true);
             httpUrlConnection.setRequestMethod("POST");
-            httpUrlConnection.setRequestProperty("Content-type","multipart/form-data");
+            //httpUrlConnection.setRequestProperty("Content-type","multipart/form-data");
             OutputStream os = httpUrlConnection.getOutputStream();
             BufferedInputStream fis = new BufferedInputStream(new FileInputStream(path));
             

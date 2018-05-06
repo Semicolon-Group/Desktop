@@ -78,12 +78,12 @@ public class GetFeedbackDetailsViewController implements Initializable {
         try {
             feed1 = FeedbackService.getInstance();
             feed1.update(f1);
-            Photo photoObj = PhotoService.getInstance().get(new Photo(0, f1.getSenderId(), null , null, Enumerations.PhotoType.PROFILE));
+            Photo photoObj = PhotoService.getInstance().getProfilePhoto(f1.getSenderId());
             String photoPath="";
             if (photoObj==null){
                 photoPath="/view/assets/icons/member.jpg";}
             else{
-                photoPath =MySoulMate.UPLOAD_URL+photoObj.getUrl();
+                photoPath = photoObj.getPhotoUri();
             }
             profileph.setImage(new Image(photoPath));
             

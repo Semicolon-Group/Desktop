@@ -54,7 +54,7 @@ public class ReactionService extends Service implements Create<Reaction>, Read<R
 	ResultSet rs = pst.executeQuery();
 	if(rs.next()){
             return new Reaction(rs.getInt("user_id"), rs.getInt("post_id"), 
-                    rs.getInt("photo_id"), rs.getInt("answer_id"), ReactionType.values()[rs.getInt("reaction")]);
+                    rs.getInt("photo_id"), 0, ReactionType.values()[rs.getInt("reaction")]);
         }
 	return null;
     }
@@ -72,7 +72,7 @@ public class ReactionService extends Service implements Create<Reaction>, Read<R
 	List<Reaction> list = new ArrayList();
 	while(rs.next()){
 	    list.add(new Reaction(rs.getInt("user_id"), rs.getInt("post_id"), 
-                    rs.getInt("photo_id"), rs.getInt("answer_id"), ReactionType.values()[rs.getInt("reaction")]));
+                    rs.getInt("photo_id"), 0, ReactionType.values()[rs.getInt("reaction")]));
 	}
 	return list;
     }

@@ -67,13 +67,13 @@ public class LikedUserViewController implements Initializable {
     private void populate(){
         try {
             member = MemberService.getInstance().get(new Member(like.getReceiverId()));
-            Photo photo = PhotoService.getInstance().get(new Photo(0, member.getId(), null, null, PhotoType.PROFILE));
+            Photo photo = PhotoService.getInstance().getProfilePhoto(member.getId());
             
             String photoPath="";
             if(photo == null){
                 photoPath = "/view/assets/icons/member.jpg";
             }else{
-                photoPath = MySoulMate.UPLOAD_URL+photo.getUrl();
+                photoPath = photo.getPhotoUri();
             }
             memberImage.setImage(new Image(photoPath));
             memberName.setText(member.getFirstname()+" "+member.getLastname());

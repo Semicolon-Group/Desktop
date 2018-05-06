@@ -70,7 +70,7 @@ public class OthersAnswerViewController implements Initializable {
     @FXML
     private void addAnswer(MouseEvent event) {
         try {
-            List<Answer> answers = AnswerService.getInstance().getAll(new Answer(0, null, null, MySoulMate.MEMBER_ID));
+            List<Answer> answers = AnswerService.getInstance().getAll(new Answer(0, null, null, MySoulMate.MEMBER_ID, null));
             if(answers.stream().anyMatch(a -> a.getQuestionId() == answer.getQuestionId())){
                 Alert alert = new Alert(Alert.AlertType.ERROR, "You have already answered this question!", ButtonType.OK);
                 alert.show();

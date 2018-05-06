@@ -65,16 +65,12 @@ public class ImageViewController implements Initializable {
     }
     
     public void setParams(ImageView image, SelfProfileViewController controller){
-        try {
-            this.image = image;
-            this.owner = true;
-            this.controller = controller;
-            photo = PhotoService.getInstance().get(new Photo(Integer.parseInt(image.getId()), 0, null));
-            imageContainer.setImage(image.getImage());
-            GlobalViewController.getInstance().lockScrollToTop();
-        } catch (SQLException ex) {
-            Logger.getLogger(ImageViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        this.image = image;
+        this.owner = true;
+        this.controller = controller;
+        photo = PhotoService.getInstance().getPhoto(Integer.parseInt(image.getId()));
+        imageContainer.setImage(image.getImage());
+        GlobalViewController.getInstance().lockScrollToTop();
     }
 
     @FXML
@@ -97,36 +93,16 @@ public class ImageViewController implements Initializable {
 
     @FXML
     private void setImageAsCover(ActionEvent event) {
-        try {
-            Photo coverPhoto = PhotoService.getInstance().get(new Photo(photo.getUserId(), Enumerations.PhotoType.COVER));
-            if(coverPhoto != null){
-                coverPhoto.setType(Enumerations.PhotoType.REGULAR);
-                PhotoService.getInstance().update(coverPhoto);
-            }
-            photo.setType(Enumerations.PhotoType.COVER);
-            PhotoService.getInstance().update(photo);
-            buttonsPane.setVisible(false);
-            controller.updatePictures();
-        } catch (SQLException ex) {
-            Logger.getLogger(ImageViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        PhotoService.getInstance().setAsCoverPhoto(photo.getId());
+        buttonsPane.setVisible(false);
+        controller.updatePictures();
     }
 
     @FXML
     private void setImageAsProfile(ActionEvent event) {
-        try {
-            Photo profilePhoto = PhotoService.getInstance().get(new Photo(photo.getUserId(), Enumerations.PhotoType.PROFILE));
-            if(profilePhoto != null){
-                profilePhoto.setType(Enumerations.PhotoType.REGULAR);
-                PhotoService.getInstance().update(profilePhoto);
-            }
-            photo.setType(Enumerations.PhotoType.PROFILE);
-            PhotoService.getInstance().update(photo);
-            buttonsPane.setVisible(false);
-            controller.updatePictures();
-        } catch (SQLException ex) {
-            Logger.getLogger(ImageViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        PhotoService.getInstance().setAsProfilePhoto(photo.getId());
+        buttonsPane.setVisible(false);
+        controller.updatePictures();
     }
     
 }

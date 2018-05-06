@@ -262,15 +262,6 @@
                                           </HBox>
                                           <HBox layoutX="10.0" layoutY="310.0" prefHeight="100.0" prefWidth="367.0">
                                              <children>
-                                                <VBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="268.0">
-                                                   <children>
-                                                      <Label prefHeight="37.0" prefWidth="252.0" text="Prefered relations:">
-                                                         <font>
-                                                            <Font name="System Bold" size="24.0" />
-                                                         </font>
-                                                      </Label>
-                                                   </children>
-                                                </VBox>
                                                 <VBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="196.0">
                                                    <children>
                                                       <Label fx:id="prefRelationsLabel" prefHeight="36.0" prefWidth="196.0" text="Label">
@@ -284,15 +275,6 @@
                                           </HBox>
                                           <HBox layoutX="10.0" layoutY="410.0" prefHeight="100.0" prefWidth="367.0">
                                              <children>
-                                                <VBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="268.0">
-                                                   <children>
-                                                      <Label prefHeight="75.0" prefWidth="257.0" text="Prefered marital statuses:" wrapText="true">
-                                                         <font>
-                                                            <Font name="System Bold" size="24.0" />
-                                                         </font>
-                                                      </Label>
-                                                   </children>
-                                                </VBox>
                                                 <VBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="196.0">
                                                    <children>
                                                       <Label fx:id="prefStatusLabel" prefHeight="36.0" prefWidth="196.0" text="Label">

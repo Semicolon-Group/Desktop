@@ -16,6 +16,7 @@ import services.PhotoService;
  * @author Elyes
  */
 public class Signal {
+
     private int id;
     private int senderId;
     private int receiverId;
@@ -26,14 +27,14 @@ public class Signal {
 
     public Signal() {
     }
-    
-    public Signal(int id){
+
+    public Signal(int id) {
         this.id = id;
     }
 
     public Signal(SignalReason reason, String content) {
         this.reason = reason;
-        this.content= content;
+        this.content = content;
     }
 
     public String getContent() {
@@ -43,104 +44,111 @@ public class Signal {
     public void setContent(String content) {
         this.content = content;
     }
-    
-    
-    
+
     public Signal(int senderId, int receiverId, SignalReason reason, boolean state, Timestamp date) {
-	this.senderId = senderId;
-	this.receiverId = receiverId;
-	this.reason = reason;
-	this.state = state;
-	this.date = date;
+        this.senderId = senderId;
+        this.receiverId = receiverId;
+        this.reason = reason;
+        this.state = state;
+        this.date = date;
     }
 
     public Signal(int id, int senderId, int receiverId, SignalReason reason, boolean state, Timestamp date) {
-	this.id = id;
-	this.senderId = senderId;
-	this.receiverId = receiverId;
-	this.reason = reason;
-	this.state = state;
-	this.date = date;
+        this.id = id;
+        this.senderId = senderId;
+        this.receiverId = receiverId;
+        this.reason = reason;
+        this.state = state;
+        this.date = date;
     }
 
     public int getId() {
-	return id;
+        return id;
     }
 
     public void setId(int id) {
-	this.id = id;
+        this.id = id;
     }
 
     public int getSenderId() {
-	return senderId;
+        return senderId;
     }
 
     public void setSenderId(int senderId) {
-	this.senderId = senderId;
+        this.senderId = senderId;
     }
 
     public int getReceiverId() {
-	return receiverId;
+        return receiverId;
     }
 
     public void setReceiver(int receiverId) {
-	this.receiverId = receiverId;
+        this.receiverId = receiverId;
     }
 
     public SignalReason getReason() {
-	return reason;
+        return reason;
     }
 
     public void setReason(SignalReason reason) {
-	this.reason = reason;
+        this.reason = reason;
     }
 
     public boolean isState() {
-	return state;
+        return state;
     }
 
     public void setState(boolean state) {
-	this.state = state;
+        this.state = state;
     }
 
     public Timestamp getDate() {
-	return date;
+        return date;
     }
 
     public void setDate(Timestamp date) {
-	this.date = date;
+        this.date = date;
     }
-    public String getSenderName() throws SQLException{
-        return MemberService.getInstance().get(new Member(senderId)).getFirstname() +" "+MemberService.getInstance().get(new Member(senderId)).getLastname();
+
+    public String getSenderName() throws SQLException {
+        return MemberService.getInstance().get(new Member(senderId)).getFirstname() + " " + MemberService.getInstance().get(new Member(senderId)).getLastname();
     }
-    public String getReceiverName() throws SQLException{
-        return MemberService.getInstance().get(new Member(receiverId)).getFirstname()+" "+MemberService.getInstance().get(new Member(receiverId)).getLastname();
+
+    public String getReceiverName() throws SQLException {
+        return MemberService.getInstance().get(new Member(receiverId)).getFirstname() + " " + MemberService.getInstance().get(new Member(receiverId)).getLastname();
     }
-    public String getStateName(){
+
+    public String getStateName() {
         return state ? "Consulted" : "Non-Consulted";
     }
+
     public boolean getGenderSender() throws SQLException {
-        return MemberService.getInstance().get(new Member(senderId)).isGender();    
+        return MemberService.getInstance().get(new Member(senderId)).isGender();
     }
+
     public boolean getGenderReceiver() throws SQLException {
-        return MemberService.getInstance().get(new Member(receiverId)).isGender();    
+        return MemberService.getInstance().get(new Member(receiverId)).isGender();
     }
-    public java.sql.Date getBirthDateSender () throws SQLException{
+
+    public java.sql.Date getBirthDateSender() throws SQLException {
         return MemberService.getInstance().get(new Member(senderId)).getBirthDate();
     }
-     public java.sql.Date getBirthDateReceiver () throws SQLException{
+
+    public java.sql.Date getBirthDateReceiver() throws SQLException {
         return MemberService.getInstance().get(new Member(receiverId)).getBirthDate();
     }
-       public String getUrlPhotoSender() throws SQLException{
-        return  PhotoService.getInstance().get(new Photo(senderId,Enumerations.PhotoType.PROFILE)).getUrl();
+
+    public String getUrlPhotoSender() throws SQLException {
+        return PhotoService.getInstance().getProfilePhoto(senderId).getPhotoUri();
     }
-     public String getUrlPhotoReceiver() throws SQLException{
-        return  PhotoService.getInstance().get(new Photo(receiverId,Enumerations.PhotoType.PROFILE)).getUrl();
+
+    public String getUrlPhotoReceiver() throws SQLException {
+        return PhotoService.getInstance().getProfilePhoto(receiverId).getPhotoUri();
     }
-    
+
     @Override
     public String toString() {
-	return "Signal{" + "id=" + id + ", senderId=" + senderId + ", receiverId=" + receiverId + ", reason=" + reason + ", state=" + state + ", date=" + date + '}';
+        return "Signal{" + "id=" + id + ", senderId=" + senderId + ", receiverId=" + receiverId + ", reason=" + reason + ", state=" + state + ", date=" + date + '}';
     }
-    
+
 }
