@@ -101,7 +101,7 @@ public class InstantMessagingViewController implements Initializable {
 
     int i = 0;
 
-    boolean isServer = true;
+    boolean isServer =false;
     Label ntapi = new Label();
 
     NetworkConnection connection = isServer ? createServer() : createClient();
@@ -143,8 +143,9 @@ public class InstantMessagingViewController implements Initializable {
             String conn = m.isConnected() ? "Online" : "Offline";
             status.setText(conn);
             status.getStyleClass().add("typing");
+
             receiver = MemberService.getInstance().get(new Member(receiverId));
-            profileImage.setImage(new Image(MySoulMate.UPLOAD_URL + PhotoService.getInstance().get(new Photo(receiver.getId(), Enumerations.PhotoType.PROFILE)).getUrl()));
+//            profileImage.setImage(new Image(MySoulMate.UPLOAD_URL + PhotoService.getInstance().get(new Photo(receiver.getId(), Enumerations.PhotoType.PROFILE)).getUrl()));
             typing.getStyleClass().add("typing");
             typing.setVisible(false);
 
@@ -162,22 +163,6 @@ public class InstantMessagingViewController implements Initializable {
             box.setStyle("-fx-font-size : 15 px ; -fx-text-fill : #fff ;");
             inputmsg.setStyle("-fx-font-size : 20 px ;");
         } catch (Exception ex) {
-            Logger.getLogger(InstantMessagingViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-          ConversationService cs = ConversationService.getInstance();
-        Conversation c = new Conversation();
-        c.setPerson1Id(MySoulMate.MEMBER_ID);
-        c.setPerson2Id(receiverId);
-        try {
-            if ((cs.get(c)) != null) {
-                
-                
-                c.setSeen(true);
-                c.setSeenDate(new Timestamp(System.currentTimeMillis()));
-                cs.update(c);
-                System.out.println("update 3al da5la");
-            }
-        } catch (SQLException ex) {
             Logger.getLogger(InstantMessagingViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -276,16 +261,25 @@ public class InstantMessagingViewController implements Initializable {
             });
         });
     }
-
+    int thread ; 
     public Parent getHisotrique() throws SQLException {
 
         msg = new Message();
         msg.setSenderId(online.getId());
         msg.setReceiverId(this.receiverId);
 
-        List<Message> messages = MessageService.getInstance().getAll(msg);
+        List<Message> ff = MessageService.getInstance().getAllMessagesD(msg);
+        ff.forEach(e->{
+            String thrd = e.getContent();
+            thread = Integer.parseInt(thrd);
+        
+        
+        });
+        System.out.println("thrad id : "+thread);
+        List<Message> messages = MessageService.getInstance().getAllMessages(thread);
+        System.out.println(messages);
         messages.forEach(e -> {
-            if (e.getSenderId() == msg.getSenderId() && e.getReceiverId() == msg.getReceiverId()) {
+            if (e.getSenderId() == MySoulMate.MEMBER_ID) {
 
                 textField[i] = new Label();
                 textField[i].setText(" " + e.getContent() + " \n");
@@ -303,7 +297,7 @@ public class InstantMessagingViewController implements Initializable {
                 x.setContent(content2);
                 x.setVvalue(1.0d);
 
-            } else if (e.getSenderId() == msg.getReceiverId() && e.getReceiverId() == msg.getSenderId()) {
+            } else {
                 textField[i] = new Label();
                 textField[i].setText(" " + e.getContent() + " \n");
                 wrap = new HBox();
@@ -332,75 +326,6 @@ public class InstantMessagingViewController implements Initializable {
         x.setVvalue(1.0d);
         return x;
     }
-
-//    private Parent goConversations() throws SQLException {
-//
-//        ConversationService cs = ConversationService.getInstance();
-//        MemberService ms = MemberService.getInstance();
-//
-//        try {
-//            Conversation c = new Conversation();
-//            cons = new VBox();
-//            c.setPerson1Id(MySoulMate.MEMBER_ID);
-//
-//            List<Conversation> convers = cs.getAll(c);
-//            convers.forEach(e -> {
-//
-//                try {
-//                    Member m = new Member();
-//                    m.setId(e.getPerson1Id() == MySoulMate.MEMBER_ID ? e.getPerson2Id() : e.getPerson1Id());
-//                    m = ms.get(m);
-//
-//                    Timestamp timestamp = e.getSeenDate();
-//
-//                    String x = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(timestamp);
-//                    String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(e.getSeenDate());
-//                    String seen = e.isSeen() ? e.getSeenDate().toString() : "no";
-//                    Button bc = new Button();
-//                    bc.setText(" " + e.getLabel() + "\n " + m.getPseudo() + " \n Seen :" + e.getSeenDate().toString());
-//                    bc.getStyleClass().add("recumsg");
-//                    String isConnected = m.isConnected() ? "Online" : "Offline";
-//                    bc.setAlignment(Pos.CENTER);
-//                    bc.setPrefWidth(cons.getMinWidth());
-//                    bc.setId(e.getId() + "");
-//                    bc.setOnAction(new EventHandler<ActionEvent>() {
-//                        @Override
-//                        public void handle(ActionEvent event) {
-//                            try {
-//                                Button b = (Button) event.getTarget();
-//                                int conversationId = Integer.parseInt(b.getId());
-//                                Conversation conversation = ConversationService.getInstance().get(new Conversation(conversationId));
-//
-//                                FXMLLoader loader = GlobalViewController.getInstance().setMainContent("/view/InstantMessagingView.fxml");
-//                                ((InstantMessagingViewController) loader.getController()).setReceiverId(
-//                                        conversation.getPerson1Id() == MySoulMate.MEMBER_ID
-//                                        ? conversation.getPerson2Id()
-//                                        : conversation.getPerson1Id()
-//                                );
-//                            } catch (SQLException ex) {
-//                                Logger.getLogger(InstantMessagingViewController.class.getName()).log(Level.SEVERE, null, ex);
-//                            }
-//
-//                        }
-//                    });
-//
-//                    cons.getChildren().add(bc);
-//
-//                    i = i + 1;
-//                } catch (SQLException ex) {
-//                    Logger.getLogger(InstantMessagingViewController.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//
-//            });
-//
-//        } catch (Exception e) {
-//            Logger.getLogger(InstantMessagingViewController.class.getName()).log(Level.SEVERE, null, e);
-//        }
-//
-//        convs.setContent(cons);
-//        return convs;
-//    }
-
     @FXML
     private Parent goSend(ActionEvent event6) throws SQLException, IOException {
 
@@ -433,7 +358,7 @@ public class InstantMessagingViewController implements Initializable {
 
         i = i + 1;
         x.setContent(content2);
-        ConversationService cs = ConversationService.getInstance();
+        
         MessageService ms = MessageService.getInstance();
         msg = new Message();
         msg.setSenderId(MySoulMate.MEMBER_ID);
@@ -449,37 +374,8 @@ public class InstantMessagingViewController implements Initializable {
 
         try {
 
-            msg = ms.create(msg);
+           ms.SendMessage(msg);
 
-        } catch (Exception e) {
-
-        }
-
-        Conversation c = new Conversation();
-
-        c.setPerson1Id(msg.getSenderId());
-
-        c.setPerson2Id(msg.getReceiverId());
-
-        try {
-
-            if ((cs.get(c)) != null) {
-
-                c.setSeen(false);
-                c.setSeenDate(null);
-                cs.update(c);
-                System.out.println("update");
-
-            } else {
-
-                c.setPerson1Id(msg.getSenderId());
-                c.setPerson2Id(msg.getReceiverId());
-                c.setSeen(false);
-                c.setLabel("New conversation");
-                c.setSeenDate(null);
-                c = cs.create(c);
-
-            }
         } catch (Exception e) {
 
         }

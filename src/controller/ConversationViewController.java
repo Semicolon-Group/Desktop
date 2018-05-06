@@ -29,6 +29,7 @@ import models.Conversation;
 import models.Member;
 import services.ConversationService;
 import services.MemberService;
+import services.MessageService;
 
 /**
  * FXML Controller class
@@ -41,9 +42,9 @@ public class ConversationViewController implements Initializable {
     private ScrollPane convs;
     @FXML
     private VBox cons;
-        List<Button> conversation = new ArrayList<>();
-    
-    int i ; 
+    List<Button> conversation = new ArrayList<>();
+
+    int i;
 
     /**
      * Initializes the controller class.
@@ -51,65 +52,46 @@ public class ConversationViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         goConversations();
-      
-    } 
-    
-    
-    
-    
-   private Parent goConversations() {
 
-        ConversationService cs = ConversationService.getInstance();
+    }
+
+    private Parent goConversations() {
+
+        MessageService cs = MessageService.getInstance();
         MemberService ms = MemberService.getInstance();
 
         try {
-            Conversation c = new Conversation();
-            c.setPerson1Id(MySoulMate.MEMBER_ID);
-            List<Conversation> convers = cs.getAll(c);
-           
+            Member c = new Member();
+            c.setId(MySoulMate.MEMBER_ID);
+            List<Conversation> convers = cs.getAllConversations(c);
+
             convers.forEach(e -> {
 
                 try {
                     Member m = new Member();
-                    m.setId(e.getPerson1Id() == MySoulMate.MEMBER_ID ? e.getPerson2Id() : e.getPerson1Id());
+                    m.setId(e.getPerson1Id());
                     m = ms.get(m);
-
-                    Timestamp timestamp = e.getSeenDate();
-
-                    String x = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(timestamp);
-                    String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(e.getSeenDate());
-                    String seen = e.isSeen() ? e.getSeenDate().toString() : "no";
                     Button bc = new Button();
                     bc.setMinWidth(407);
-                    bc.setText(" " + e.getLabel() + "\n " + m.getPseudo() + " \n Seen :" +seen);
+                    bc.setText(" " + m.getPseudo() + " \n Seen :" + e.getLabel());
                     bc.getStyleClass().add("recu");
                     String isConnected = m.isConnected() ? "Online" : "Offline";
                     bc.setAlignment(Pos.CENTER);
-                    bc.setId(e.getId() + "");
+                    bc.setId("" + m.getId());
                     bc.setOnAction(new EventHandler<ActionEvent>() {
                         @Override
                         public void handle(ActionEvent event) {
-                            try {
-                                Button b = (Button) event.getTarget();
-                                int conversationId = Integer.parseInt(b.getId());
-                                Conversation conversation = ConversationService.getInstance().get(new Conversation(conversationId));
-                                FXMLLoader loader = GlobalViewController.getInstance().setMainContent("/view/InstantMessagingView.fxml");
-                                ((InstantMessagingViewController) loader.getController()).setReceiverId(
-                                        conversation.getPerson1Id() == MySoulMate.MEMBER_ID
-                                        ? conversation.getPerson2Id()
-                                        : conversation.getPerson1Id()
-                                );
-                            } catch (SQLException ex) {
-                                Logger.getLogger(InstantMessagingViewController.class.getName()).log(Level.SEVERE, null, ex);
-                            }
+                            Button b = (Button) event.getTarget();
+                            int receiver = Integer.parseInt(b.getId());
+                            FXMLLoader loader = GlobalViewController.getInstance().setMainContent("/view/InstantMessagingView.fxml");
+                            ((InstantMessagingViewController) loader.getController()).setReceiverId(receiver);
 
                         }
                     });
                     bc.setPrefWidth(268);
                     bc.getStyleClass().add("recu");
-                    
+
                     cons.getChildren().add(bc);
-                    
 
                     i = i + 1;
                 } catch (SQLException ex) {
@@ -121,8 +103,6 @@ public class ConversationViewController implements Initializable {
             Logger.getLogger(InstantMessagingViewController.class.getName()).log(Level.SEVERE, null, e);
         }
 
-        
-       
         return cons;
     }
 
