@@ -18,6 +18,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
@@ -182,8 +185,6 @@ public class InstantMessagingViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-      
 
     }
 
@@ -536,8 +537,16 @@ public class InstantMessagingViewController implements Initializable {
     }
 
     @FXML
-    private void goprofile(MouseEvent event) {
-        FXMLLoader loader = GlobalViewController.getInstance().setMainContent("/view/OthersProfileView.fxml");
-        ((OthersProfileViewController)loader.getController()).setUserId(receiverId);
+    private void goprofile(MouseEvent event)  {
+        try {
+            FXMLLoader loader = GlobalViewController.getInstance().setMainContent("/view/OthersProfileView.fxml");
+            ((OthersProfileViewController)loader.getController()).setUserId(receiverId);
+            connection.closeConnection();
+        } catch (Exception ex) {
+           
+        }
     }
+      
+
+
 }

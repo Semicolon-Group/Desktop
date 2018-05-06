@@ -60,7 +60,7 @@ public abstract class NetworkConnection {
                 }
             }
             catch (Exception e) {
-                onReceiveCallback.accept(e.getCause());
+                onReceiveCallback.accept((Serializable) e.getCause());
             }
         }
     }

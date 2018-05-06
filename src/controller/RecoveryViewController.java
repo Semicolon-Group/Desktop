@@ -28,6 +28,7 @@ import javafx.scene.input.MouseEvent;
 import javax.imageio.ImageIO;
 import models.*;
 import services.MemberService;
+import util.BCrypt;
 import util.SendMail;
 import util.Sendmail2;
 import static util.Sendmail2.sendEmailWithAttachments;
@@ -68,7 +69,7 @@ public class RecoveryViewController implements Initializable {
     }
 
     @FXML
-    private void goRecover(ActionEvent event) throws  InterruptedException {
+    private void goRecover(ActionEvent event) throws InterruptedException {
 
         MemberService ms = MemberService.getInstance();
 
@@ -77,7 +78,7 @@ public class RecoveryViewController implements Initializable {
             Member m = new Member();
             m.setPseudo(pseudo.getText());
 //            m.setEmail(email.getText());
-                
+
             if (ms.get(m) != null) {
                 logged = m.getId();
 
@@ -94,7 +95,7 @@ public class RecoveryViewController implements Initializable {
                     String[] attachFiles = new String[1];
                     attachFiles[0] = "C:\\Users\\badis\\Desktop\\3\\Desktop\\First.jpg";
                     sendEmailWithAttachments("smtp.gmail.com", "465", "mysoulmatePI@gmail.com", "mysoulmatePI*",
-                            m.getEmail(), "MySoulMate | Recovery mail", "Use this token to recover your Password : "+ token, attachFiles);
+                            m.getEmail(), "MySoulMate | Recovery mail", "Use this token to recover your Password : " + token, attachFiles);
                     Alert alert = new Alert(AlertType.CONFIRMATION);
                     alert.setTitle("Email de récuperation envoyé !");
                     alert.setHeaderText("Email de récuperation envoyé ! ");
@@ -112,7 +113,7 @@ public class RecoveryViewController implements Initializable {
 
                 }
 
-            } else if (ms.get(m)==null) {
+            } else if (ms.get(m) == null) {
 
                 Alert alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Ce Pseudo n'existe pas  ");
@@ -143,11 +144,15 @@ public class RecoveryViewController implements Initializable {
 
                 Member m = new Member();
                 m.setId(logged);
-                
+
                 if (ms.get(m) != null) {
-                    
-                    
-                    m.setPassword(newpw.getText());
+                    String hash = BCrypt.hashpw(newpw.getText(), BCrypt.gensalt());
+                    String myName = hash;
+                    char[] myNameChars = myName.toCharArray();
+                    myNameChars[2] = 'y';
+                    myName = String.valueOf(myNameChars);
+
+                    m.setPassword(myName);
 
                     ms.update(m);
                     ms.getInstance().get(m);

@@ -47,11 +47,11 @@ public class Address {
         this.placeId = placeId;
     }
 
-    public int getUserId() {
+    public int getId() {
 	return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setId(int userId) {
 	this.userId = userId;
     }
 
