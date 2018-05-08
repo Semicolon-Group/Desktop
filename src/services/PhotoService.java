@@ -58,6 +58,20 @@ private Photo photo;
         return photo;
     }
     
+    public List<Photo> getAll(int userId){
+	List<Photo> list = new ArrayList<>();
+	List<Photo> regulars = getRegularPhotos(userId);
+	if(regulars != null)
+	    list.addAll(regulars);
+	Photo profile = getProfilePhoto(userId);
+	if(profile != null)
+	    list.add(profile);
+	Photo cover = getCoverPhoto(userId);
+	if(cover != null)
+	    list.add(cover);
+	return list;
+    }
+    
     public List<Photo> getRegularPhotos(int userId){
         String url = "http://localhost/mysoulmate/web/app_dev.php/service/seif/getPhotos/"+userId;
         String content = HTTPConnector.connect(url);

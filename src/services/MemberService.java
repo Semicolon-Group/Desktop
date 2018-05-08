@@ -156,7 +156,6 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
             condition += " and email = '" + obj.getEmail() + "'";
         }
         String req = "Select * from user " + condition;
-        System.out.println(req);
         st = CONNECTION.createStatement();
         rs = st.executeQuery(req);
 
@@ -255,7 +254,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
     }
 
     public Map<Member,Map.Entry<Double,Integer>> getFiltered(Filter F) throws SQLException {
-        String req = "SELECT *,TIMESTAMPDIFF(day,last_login,Sysdate()) as login FROM user WHERE role = "+Enumerations.Role.MEMBER.ordinal();
+        String req = "SELECT *,TIMESTAMPDIFF(day,last_login,Sysdate()) as login FROM user WHERE roles = 'a:1:{i:0;s:0:\"\";}'";
         
         req += " and (TIMESTAMPDIFF(year,birth_date,Sysdate()) BETWEEN " + F.getAgeMin() + " AND " + F.getAgeMax() + ") ";
         

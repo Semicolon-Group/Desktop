@@ -110,8 +110,7 @@ public class HomeViewController implements Initializable {
                     }
                     ppc.fill(image,
                         MemberService.getInstance().get(new Member(p.getOwnerId())).getPseudo(),
-                        TimeDiff.getInstance(p.getDate(),new Timestamp(new java.util.Date().getTime())).getTimeDiffString(),
-                        MySoulMate.UPLOAD_URL + ((PicturePost)p).getUrl(), ((PicturePost)p).getPhotoId());
+                        TimeDiff.getInstance(p.getDate(),new Timestamp(new java.util.Date().getTime())).getTimeDiffString(),((PicturePost)p).getUrl(), ((PicturePost)p).getPhotoId());
                 }
                 feed.getChildren().add(root);
             }
