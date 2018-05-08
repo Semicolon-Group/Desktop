@@ -114,6 +114,7 @@ public class AuthentificationController implements Initializable {
                             m.setConnected(true);
                             memberService.update(m);
                             MySoulMate.MEMBER_ID = m.getId();
+			GlobalViewController.online = MemberService.getInstance().get(new Member(m.getId()));
                             MySoulMate.getInstance().ChangeToHomeScene();
                         } else if (m.getLocked() == 1) {
                             Alert alert = new Alert(AlertType.ERROR);
