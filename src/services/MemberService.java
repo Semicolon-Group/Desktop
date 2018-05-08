@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package services;
 
 import static controller.GlobalViewController.online;
@@ -161,6 +156,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
             condition += " and email = '" + obj.getEmail() + "'";
         }
         String req = "Select * from user " + condition;
+        System.out.println(req);
         st = CONNECTION.createStatement();
         rs = st.executeQuery(req);
 

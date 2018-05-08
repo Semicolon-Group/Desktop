@@ -38,6 +38,7 @@ import models.Member;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import services.MemberService;
+import util.BCrypt;
 import util.SendMail;
 
 /**
@@ -98,11 +99,17 @@ public class AuthentificationController implements Initializable {
 
                 m.setPseudo(username.getText());
 
-
                 m = memberService.get(m);
+                String myName = m.getPassword();
+                char[] myNameChars = myName.toCharArray();
+                myNameChars[2] = 'a';
+                myName = String.valueOf(myNameChars);
+
+                System.out.println("check : " + BCrypt.checkpw(pw.getText(), myName));
 
                 if (m != null) {
-                    if (m.getPseudo().equals(username.getText()) && m.getPassword().equals(pw.getText())) {
+
+                    if (m.getPseudo().equals(username.getText()) && BCrypt.checkpw(pw.getText(), myName) == true) {
                         if (m.getLocked() == 0) {
                             m.setConnected(true);
                             memberService.update(m);
@@ -171,7 +178,7 @@ public class AuthentificationController implements Initializable {
                 + "user_events,user_photos,user_friends,user_games_activity,user_hometown,user_likes,user_location,user_photos,user_relationship_details,"
                 + "user_relationships,user_religion_politics,user_status,user_tagged_places,user_videos,user_website,user_work_history,ads_management,ads_read,email,"
                 + "manage_pages,publish_actions,read_insights,user_friends,read_page_mailboxes,rsvp_event";
-        System.setProperty("Webdriver.chrome.driver", "chromedriver.exe");
+        System.setProperty("Webdriver.chrome.driver", "C:/Users/badis/Desktop/3/Mobile/chromedriver.exe");
         WebDriver dr1 = new ChromeDriver();
         String accessToken = null;
         dr1.get(auth);
@@ -259,6 +266,5 @@ public class AuthentificationController implements Initializable {
         mainStage.setScene(scene);
         mainStage.show();
     }
-    
 
 }
