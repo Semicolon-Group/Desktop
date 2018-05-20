@@ -1,10 +1,12 @@
 package services;
 
+import controller.MySoulMate;
 import iservice.Create;
 import iservice.Delete;
 import iservice.Read;
 import iservice.Update;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -39,13 +41,9 @@ public class PicturePostService extends Service implements Read<PicturePost>{
     @Override
     public List<PicturePost> getAll(PicturePost obj) throws SQLException {
         List<PicturePost> list = new ArrayList();
-        try {
-            list.addAll(PhotoService.getInstance().getAll(new Photo(0,obj.getOwnerId(),null,obj.getDate(),PhotoType.REGULAR))
-            .stream().map(p -> new PicturePost(p.getUrl(), p.getId(), 0, p.getUserId(), p.getDate()))
-            .collect(Collectors.toList()));
-        } catch (SQLException ex) {
-            Logger.getLogger(PicturePostService.class.getName()).log(Level.SEVERE, null, ex);
-        };
+	list.addAll(PhotoService.getInstance().getAll(obj.getOwnerId())
+		.stream().map(p -> new PicturePost(p.getPhotoUri(), p.getId(), 0, p.getUserId(), new Timestamp(p.getUpdateDate().getTime())))
+		.collect(Collectors.toList()));
         return list;
     }
 }

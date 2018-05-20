@@ -172,7 +172,7 @@ public class SelfProfileViewController implements Initializable {
     public void makeAnswersPane(){
         try {
             answersVBox.getChildren().clear();
-            answers = AnswerService.getInstance().getAll(new Answer(0, null, null, MySoulMate.MEMBER_ID));
+            answers = AnswerService.getInstance().getAll(new Answer(0, null, null, MySoulMate.MEMBER_ID, null));
             for(Answer answer: answers){
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AnswerView.fxml"));
                 AnchorPane pane = loader.load();
@@ -217,28 +217,24 @@ public class SelfProfileViewController implements Initializable {
     
     private void populatePhotosPane(){
         photosVBox.getChildren().clear();
-        try {
-            List<Photo> photos = PhotoService.getInstance().getAll(new Photo(MySoulMate.MEMBER_ID));
-            for(Photo photo:photos){
-                HBox hBox = new HBox();
-                hBox.setSpacing(20);
-                hBox.setAlignment(Pos.CENTER);
-                Button button = new Button("Delete");
-                button.setOnAction(e-> supprimerPhoto(e));
-                button.getStyleClass().add("regular_button");
-                button.setId(photo.getId()+"");
-                ImageView imageView = new ImageView(MySoulMate.UPLOAD_URL+photo.getUrl());
-                imageView.setId(photo.getId()+"");
-                imageView.setCursor(Cursor.HAND);
-                imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> showImage(e));
-                imageView.setPreserveRatio(true);
-                imageView.setFitWidth(300);
-                hBox.getChildren().add(imageView);
-                hBox.getChildren().add(button);
-                photosVBox.getChildren().add(hBox);
-            }
-        } catch (SQLException ex) {
-            util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), null);
+        List<Photo> photos = PhotoService.getInstance().getRegularPhotos(MySoulMate.MEMBER_ID);
+        for(Photo photo:photos){
+            HBox hBox = new HBox();
+            hBox.setSpacing(20);
+            hBox.setAlignment(Pos.CENTER);
+            Button button = new Button("Delete");
+            button.setOnAction(e-> supprimerPhoto(e));
+            button.getStyleClass().add("regular_button");
+            button.setId(photo.getId()+"");
+            ImageView imageView = new ImageView(photo.getPhotoUri());
+            imageView.setId(photo.getId()+"");
+            imageView.setCursor(Cursor.HAND);
+            imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> showImage(e));
+            imageView.setPreserveRatio(true);
+            imageView.setFitWidth(300);
+            hBox.getChildren().add(imageView);
+            hBox.getChildren().add(button);
+            photosVBox.getChildren().add(hBox);
         }
     }
     
@@ -256,17 +252,12 @@ public class SelfProfileViewController implements Initializable {
     }
     
     private void supprimerPhoto(ActionEvent event){
-        try {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to delete this photo?", ButtonType.YES, ButtonType.CANCEL);
-            Optional<ButtonType> result = alert.showAndWait();
-            if(result.get() == ButtonType.YES){
-                int id = Integer.parseInt(((Button)event.getTarget()).getId());
-                Photo p = PhotoService.getInstance().get(new Photo(id, 0, null));
-                PhotoService.getInstance().delete(p);
-                populatePhotosPane();
-            }
-        } catch (SQLException ex) {
-            util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), null);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to delete this photo?", ButtonType.YES, ButtonType.CANCEL);
+        Optional<ButtonType> result = alert.showAndWait();
+        if(result.get() == ButtonType.YES){
+            int id = Integer.parseInt(((Button)event.getTarget()).getId());
+            PhotoService.getInstance().deletePhoto(id);
+            populatePhotosPane();
         }
     }
     
@@ -330,34 +321,26 @@ public class SelfProfileViewController implements Initializable {
     }
     
     private void makeProfilePicture(){
-        try {
-            Photo photo = PhotoService.getInstance().get(new Photo(0, MySoulMate.MEMBER_ID, null, null, PhotoType.PROFILE));
-            String photoPath ="";
-            if(photo == null){
-                photoPath = "/view/assets/icons/member.jpg";
-            }else{
-                photoPath = MySoulMate.UPLOAD_URL+photo.getUrl();
-            }
-            profileImage.setImage(new Image(photoPath));
-        } catch (SQLException ex) {
-            util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), null);
+        Photo photo = PhotoService.getInstance().getProfilePhoto(MySoulMate.MEMBER_ID);
+        String photoPath ="";
+        if(photo == null){
+            photoPath = "/view/assets/icons/member.jpg";
+        }else{
+            photoPath = photo.getPhotoUri();
         }
+        profileImage.setImage(new Image(photoPath));
     }
     
     private void makeCoverPicture(){
-        try {
-            coverImage.fitWidthProperty().bind(coverContainer.widthProperty());
-            Photo photo = PhotoService.getInstance().get(new Photo(0, MySoulMate.MEMBER_ID, null, null, PhotoType.COVER));
-            String photoPath ="";
-            if(photo == null){
-                photoPath = "/view/assets/img/banner.jpg";
-            }else{
-                photoPath = MySoulMate.UPLOAD_URL+photo.getUrl();
-            }
-            coverImage.setImage(new Image(photoPath));
-        } catch (SQLException ex) {
-            util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), null);
+        coverImage.fitWidthProperty().bind(coverContainer.widthProperty());
+        Photo photo = PhotoService.getInstance().getCoverPhoto(MySoulMate.MEMBER_ID);
+        String photoPath ="";
+        if(photo == null){
+            photoPath = "/view/assets/img/banner.jpg";
+        }else{
+            photoPath = photo.getPhotoUri();
         }
+        coverImage.setImage(new Image(photoPath));
     }
 
     @FXML
@@ -387,14 +370,10 @@ public class SelfProfileViewController implements Initializable {
     }
     
     private void uploadPhoto(File photo){
-        try {
-            showLoadingPane();
-            PhotoService.getInstance().create(new Photo(0, MySoulMate.MEMBER_ID, photo.getAbsolutePath(), null, PhotoType.REGULAR));
-            populatePhotosPane();
-            hideLoadingPane();
-        } catch (SQLException ex) {
-            Logger.getLogger(SelfProfileViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        showLoadingPane();
+        PhotoService.getInstance().addPhoto(photo.getAbsolutePath());
+        populatePhotosPane();
+        hideLoadingPane();
     }
     
     private void showLoadingPane(){

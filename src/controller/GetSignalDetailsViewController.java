@@ -86,20 +86,20 @@ public class GetSignalDetailsViewController implements Initializable {
             dateSender.setText(String.valueOf(s1.getBirthDateSender()));
             genderReceiver.setText(String.valueOf(s1.getGenderReceiver()? "Male" : "Female" ));
             dateReceiver.setText(String.valueOf(s1.getBirthDateReceiver()));
-            Photo photoObj = PhotoService.getInstance().get(new Photo(0, s1.getSenderId(), null , null, Enumerations.PhotoType.PROFILE));
+            Photo photoObj = PhotoService.getInstance().getProfilePhoto(s1.getSenderId());
             String photoPath="";
             if (photoObj==null){
                 photoPath="/view/assets/icons/member.jpg";}
             else{
-                photoPath =MySoulMate.UPLOAD_URL+photoObj.getUrl();
+                photoPath = photoObj.getPhotoUri();
             }
             imageSender.setImage(new Image(photoPath));
            
-            Photo photoObj2 = PhotoService.getInstance().get(new Photo(0, s1.getReceiverId(), null , null, Enumerations.PhotoType.PROFILE));
+            Photo photoObj2 = PhotoService.getInstance().getProfilePhoto(s1.getReceiverId());
             if (photoObj2==null){
                 photoPath="/view/assets/icons/member.jpg";}
             else{
-                photoPath =MySoulMate.UPLOAD_URL+photoObj.getUrl();
+                photoPath = photoObj.getPhotoUri();
             }
             imageReceiver.setImage(new Image(photoPath));
             

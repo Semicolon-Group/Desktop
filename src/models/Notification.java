@@ -124,9 +124,9 @@ public class Notification {
     }
     
     public String getUrlPhoto() throws SQLException{
-        Photo photo = PhotoService.getInstance().get(new Photo(0,senderId,null,null,PhotoType.PROFILE));
+        Photo photo = PhotoService.getInstance().getProfilePhoto(senderId);
         if(photo != null)
-            return MySoulMate.UPLOAD_URL+photo.getUrl();
+            return photo.getPhotoUri();
         return "/view/assets/icons/member.jpg";
     }
     

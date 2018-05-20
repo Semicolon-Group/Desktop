@@ -22,7 +22,7 @@
             <Insets left="200.0" />
          </opaqueInsets>
       </Button>
-      <Label alignment="CENTER" layoutX="25.0" layoutY="274.0" prefHeight="116.0" prefWidth="550.0" style="-fx-background-color: #fff;" text="You will receive a token at your Email address , please use that token to recover your password . Note that your token will expire after 5 minutes if not used and the session will also expire ." textAlignment="CENTER" textFill="#e74c3c" wrapText="true">
+      <Label alignment="CENTER" layoutX="25.0" layoutY="274.0" prefHeight="116.0" prefWidth="550.0" style="-fx-background-color: #fff;" text="You will receive a token at your Email address , please use that token to recover your password . Note that a picutre of the person who tried to recover the password will be sent along with the token ." textAlignment="CENTER" textFill="#e74c3c" wrapText="true">
          <font>
             <Font size="18.0" />
          </font>
@@ -165,5 +165,13 @@
             </HBox>
          </children>
       </VBox>
+      <ImageView fitHeight="21.0" fitWidth="27.0" layoutX="12.0" layoutY="15.0" onMouseClicked="#back" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@assets/icons/return.PNG" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
    </children>
 </AnchorPane>

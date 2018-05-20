@@ -28,6 +28,7 @@ import javafx.scene.input.MouseEvent;
 import javax.imageio.ImageIO;
 import models.*;
 import services.MemberService;
+import util.BCrypt;
 import util.SendMail;
 import util.Sendmail2;
 import static util.Sendmail2.sendEmailWithAttachments;
@@ -54,7 +55,7 @@ public class RecoveryViewController implements Initializable {
     @FXML
     private TextField newpw;
     String token = UUID.randomUUID().toString();
-    int logged = 0 ;
+    int logged = 0;
 
     Date dLater = new Date(System.currentTimeMillis() + 5 * 1000);
 
@@ -68,67 +69,61 @@ public class RecoveryViewController implements Initializable {
     }
 
     @FXML
-    private void goRecover(ActionEvent event) throws SQLException, IOException, InterruptedException {
-
-        Webcam webcam = Webcam.getDefault();
-        webcam.open();
-        ImageIO.write(webcam.getImage(), "JPG", new File("First.jpg"));
-        Thread.sleep(3);
-        webcam.close();
+    private void goRecover(ActionEvent event) throws InterruptedException {
 
         MemberService ms = MemberService.getInstance();
 
         try {
 
-
             Member m = new Member();
             m.setPseudo(pseudo.getText());
 //            m.setEmail(email.getText());
-            m = ms.get(m);
-            if (m.getPseudo() != null ) {
-                    logged=m.getId();
-                
-                if (m.getPseudo().equals(pseudo.getText())&&m.getEmail().equals(email.getText()))
-                    
-                {
+
+            if (ms.get(m) != null) {
+                logged = m.getId();
+
+                if (m.getPseudo().equals(pseudo.getText()) && m.getEmail().equals(email.getText())) {
+
+                    Webcam webcam = Webcam.getDefault();
+                    webcam.open();
+                    ImageIO.write(webcam.getImage(), "JPG", new File("First.jpg"));
+                    Thread.sleep(3);
+                    webcam.close();
                     System.out.println(m.getPassword() + " " + m.getLastname());
 //                SendMail sm = new SendMail(m.getEmail(), "Email recovery", "Bonjour " + m.getFirstname() + " , Votre token de"
 //                        + " récupération est " + token);
-                String[] attachFiles = new String[1];
-                attachFiles[0] = "Desktop/First.jpg";
-                sendEmailWithAttachments("smtp.gmail.com", "465", "testmailesprit69@gmail.com", "testmailesprit69@",
-                        m.getEmail(), "Recovery mail", "Ce mail contient un token pour récuperer votre mot de passe , ainsi que la photo de la personne qui a essayé de le récuperer .\n"+
-                                "  My Soul Mate ."+"  \n "
-                                + "Token : " + token, attachFiles);
-                Alert alert = new Alert(AlertType.CONFIRMATION);
-                alert.setTitle("Email de récuperation envoyé !");
-                alert.setHeaderText("Email de récuperation envoyé ! ");
-                alert.setContentText("Nous avons envoyé un mail de récuperation , veuillez consulter votre boit Mail ! ");
+                    String[] attachFiles = new String[1];
+                    attachFiles[0] = "C:\\Users\\badis\\Desktop\\3\\Desktop\\First.jpg";
+                    sendEmailWithAttachments("smtp.gmail.com", "465", "mysoulmatePI@gmail.com", "mysoulmatePI*",
+                            m.getEmail(), "MySoulMate | Recovery mail", "Use this token to recover your Password : " + token, attachFiles);
+                    Alert alert = new Alert(AlertType.CONFIRMATION);
+                    alert.setTitle("Email de récuperation envoyé !");
+                    alert.setHeaderText("Email de récuperation envoyé ! ");
+                    alert.setContentText("Nous avons envoyé un mail de récuperation , veuillez consulter votre boit Mail ! ");
 
-                alert.showAndWait();
-                
+                    alert.showAndWait();
+
                 } else {
                     Alert alert = new Alert(AlertType.ERROR);
-                alert.setTitle("Vérifiez vos coordonnés ");
-                alert.setHeaderText("Error ");
-                alert.setContentText("Veuillez vérifier votre email !");
+                    alert.setTitle("Vérifiez vos coordonnés ");
+                    alert.setHeaderText("Error ");
+                    alert.setContentText("Veuillez vérifier votre email !");
 
-                alert.showAndWait();
-           
+                    alert.showAndWait();
+
                 }
-                
-            } else {
 
-                        Alert alert = new Alert(AlertType.CONFIRMATION);
+            } else if (ms.get(m) == null) {
+
+                Alert alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Ce Pseudo n'existe pas  ");
                 alert.setHeaderText("Error ");
                 alert.setContentText("Ce Pseudo n'existe pas ! Veuillez vérifier vos coordonnés ");
-                
+
             }
         } catch (Exception ex) {
-            System.out.println(ex + "www");
+            Logger.getLogger(GlobalViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
 
         long mTime = System.currentTimeMillis();
         long end = (System.currentTimeMillis()) + 5000; // 5 seconds 
@@ -147,33 +142,37 @@ public class RecoveryViewController implements Initializable {
         if (inputtoken.getText().equals(token)) {
             try {
 
-//               Member m =ms.get(new Member(pseudo.getText(), email.getText()));
                 Member m = new Member();
-                if (logged!=0){
-               m.setId(logged);
-                m = ms.get(m);
-                m.setPassword(newpw.getText());
+                m.setId(logged);
 
-                ms.update(m);
-                ms.getInstance().get(m);
-                System.out.println(m.getPassword());
+                if (ms.get(m) != null) {
+                    String hash = BCrypt.hashpw(newpw.getText(), BCrypt.gensalt());
+                    String myName = hash;
+                    char[] myNameChars = myName.toCharArray();
+                    myNameChars[2] = 'y';
+                    myName = String.valueOf(myNameChars);
 
-                Alert alert = new Alert(AlertType.CONFIRMATION);
-                alert.setTitle("Mot de passe changé ");
-                alert.setHeaderText("Success ! ");
-                alert.setContentText("Nous avons changé votre mot de passe , veuillez accéder de nouveau");
-                token = "";
-                alert.showAndWait();}
-                else {
-                
-                 Alert alert = new Alert(AlertType.CONFIRMATION);
-                alert.setTitle("Veuillez saisir vos coordonnés ");
-                alert.setHeaderText("Error ");
-                alert.setContentText("Veuillez saisir vos coordonnés");
-                token = "";
-                alert.showAndWait();}
-                
-                
+                    m.setPassword(myName);
+
+                    ms.update(m);
+                    ms.getInstance().get(m);
+                    System.out.println(m.getPassword());
+
+                    Alert alert = new Alert(AlertType.CONFIRMATION);
+                    alert.setTitle("Mot de passe changé ");
+                    alert.setHeaderText("Success ! ");
+                    alert.setContentText("Nous avons changé votre mot de passe , veuillez accéder de nouveau");
+                    token = "";
+                    alert.showAndWait();
+                } else {
+
+                    Alert alert = new Alert(AlertType.ERROR);
+                    alert.setTitle("Veuillez saisir vos coordonnés ");
+                    alert.setHeaderText("Error ");
+                    alert.setContentText("Veuillez saisir vos coordonnés");
+                    token = "";
+                    alert.showAndWait();
+                }
 
             } catch (Exception e) {
                 System.out.println(e);
@@ -181,9 +180,9 @@ public class RecoveryViewController implements Initializable {
 
         } else if (inputtoken.getText() != token) {
             Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Vérifiez vos coordonnés ");
+            alert.setTitle("Please check the token");
             alert.setHeaderText("Error ");
-            alert.setContentText("Veuillez vérifier vos coordonnés !");
+            alert.setContentText("Please check the token");
 
             alert.showAndWait();
         }
@@ -194,6 +193,11 @@ public class RecoveryViewController implements Initializable {
     private void goClose(MouseEvent event) {
         Platform.exit();
 
+    }
+
+    @FXML
+    private void back(MouseEvent event) {
+        MySoulMate.getInstance().showAuthenticationView();
     }
 
 }

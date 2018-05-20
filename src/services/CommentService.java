@@ -66,9 +66,6 @@ public class CommentService extends Service implements Create<Comment>, Read<Com
             req+= "`post_id` = " + obj.getPostId();
         else if(obj.getPhotoId() != 0)
             req+= "`photo_id` = " + obj.getPhotoId();
-        if(obj.getSenderId()!= 0 && obj.getReceiverId() != 0)
-            req+= " and (`sender_id` = " + obj.getSenderId() + " and `receiver_id` = " + obj.getReceiverId()
-                    + " or `sender_id` = " + obj.getReceiverId() + " and `receiver_id` = " + obj.getSenderId() + ")";
 	ResultSet rs = CONNECTION.createStatement().executeQuery(req);
         List<Comment> list = new ArrayList();
 	while(rs.next()){

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package services;
 
 import static controller.GlobalViewController.online;
@@ -55,10 +50,12 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
 
     @Override
     public Member create(Member obj) throws SQLException {
-        String query = "insert into user (pseudo, firstname, lastname, email,password,birth_date,gender,height,"
+        obj.setAddress(AddressService.getInstance().create(obj.getAddress()));
+        
+        String query = "insert into user (username, firstname, lastname, email,password,birth_date,gender,height,"
                 + "body_type,children_number,relegion,relegion_importance,smoker,drinker,min_age,max_age,"
-                + "phone,last_login,locked,ip,port,role,created_at,updated_at,about,civil_status,connected)"
-                + " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                + "phone,last_login,locked,ip,port,role,created_at,updated_at,about,civil_status,connected,address_id)"
+                + " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement preparedStatement = CONNECTION.prepareStatement(query);
         preparedStatement.setString(1, obj.getPseudo());
         preparedStatement.setString(2, obj.getFirstname());
@@ -87,6 +84,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
         preparedStatement.setString(25, obj.getAbout());
         preparedStatement.setInt(26, obj.getMaritalStatus().ordinal());
         preparedStatement.setBoolean(27, obj.isConnected());
+        preparedStatement.setInt(28, obj.getAddress().getId());
         preparedStatement.executeUpdate();
 
         String req = "SELECT MAX(id) max from user";
@@ -94,10 +92,6 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
         rs.next();
         
         obj.setId(rs.getInt("max"));
-        obj.getAddress().setUserId(obj.getId());
-        AddressService.getInstance().create(obj.getAddress());
-        insertPreferedRelations(obj);
-        insertPreferedStatus(obj);
         
         obj = get(obj);
         return obj;
@@ -115,7 +109,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
 
     @Override
     public void update(Member obj) throws SQLException {
-        String query = "UPDATE user SET pseudo=?, firstname=?, lastname=?,"
+        String query = "UPDATE user SET username=?, firstname=?, lastname=?,"
                 + "email=?, password=?, birth_date=?, gender=?, height=?,"
                 + "body_type=?, children_number=?, relegion=?, relegion_importance=?,"
                 + "smoker=?, drinker=?, min_age=?, max_age=?, phone=?,"
@@ -149,28 +143,15 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
         prepare.setInt(26, obj.getId());
         prepare.executeUpdate();
         AddressService.getInstance().update(obj.getAddress());
-        deletePreferedRelations(obj.getId());
-        insertPreferedRelations(obj);
-        deletePreferedStatus(obj.getId());
-        insertPreferedStatus(obj);
     }
     
-    private Member getPreferedStatus(Member member) throws SQLException{
-        String query = "SELECT * FROM prefered_status where user_id = "+member.getId();
-        ResultSet rs = CONNECTION.createStatement().executeQuery(query);
-        while(rs.next()){
-            member.getPreferedStatuses().add(Enumerations.MaritalStatus.values()[rs.getInt("status")]);
-        }
-        return member;
-    }
-
     @Override
     public Member get(Member obj) throws SQLException {
-        String condition = "Where role = "+Enumerations.Role.MEMBER.ordinal();
+        String condition = "Where roles = 'a:1:{i:0;s:0:\"\";}'";
         if (obj.getId() != 0) {
             condition += " and id = " + obj.getId();
         } else if (obj.getPseudo() != null) {
-            condition += " and pseudo = '" + obj.getPseudo() + "'";
+            condition += " and username = '" + obj.getPseudo() + "'";
         } else if (obj.getEmail() != null) {
             condition += " and email = '" + obj.getEmail() + "'";
         }
@@ -180,7 +161,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
 
         if (rs.next()) {
             obj.setId(rs.getInt("id"));
-            obj.setPseudo(rs.getString("pseudo"));
+            obj.setPseudo(rs.getString("username"));
             obj.setFirstname(rs.getString("firstname"));
             obj.setLastname(rs.getString("lastname"));
             obj.setEmail(rs.getString("email"));
@@ -205,9 +186,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
             obj.setMaritalStatus(Enumerations.MaritalStatus.values()[rs.getInt("civil_status")]);
             obj.setConnected(rs.getBoolean("connected"));
             obj.setCreatedAt(rs.getTimestamp("created_at"));
-            obj.setAddress(AddressService.getInstance().get(new Address(obj.getId())));
-            obj = getPreferedRelations(obj);
-            obj = getPreferedStatus(obj);
+            obj.setAddress(AddressService.getInstance().get(new Address(rs.getInt("address_id"))));
             return obj;
         }
         return null;
@@ -215,12 +194,12 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
     
     public Admin getAdmin(Admin obj) throws SQLException {
         if (obj.getPseudo() == null) return null;
-        String query = "Select * from user Where role = "+Enumerations.Role.ADMIN.ordinal()+" and pseudo = '" + obj.getPseudo() + "'";
+        String query = "Select * from user Where role = "+Enumerations.Role.ADMIN.ordinal()+" and username = '" + obj.getPseudo() + "'";
         st = CONNECTION.createStatement();
         rs = st.executeQuery(query);
         if (rs.next()) {
             obj.setId(rs.getInt("id"));
-            obj.setPseudo(rs.getString("pseudo"));
+            obj.setPseudo(rs.getString("username"));
             obj.setFirstname(rs.getString("firstname"));
             obj.setLastname(rs.getString("lastname"));
             obj.setEmail(rs.getString("email"));
@@ -242,7 +221,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
             Member mbr = new Member();
 
             mbr.setId(rs.getInt("id"));
-            mbr.setPseudo(rs.getString("pseudo"));
+            mbr.setPseudo(rs.getString("username"));
             mbr.setFirstname(rs.getString("firstname"));
             mbr.setLastname(rs.getString("lastname"));
             mbr.setEmail(rs.getString("Email"));
@@ -267,9 +246,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
             mbr.setMaritalStatus(Enumerations.MaritalStatus.values()[rs.getInt("civil_status")]);
             mbr.setConnected(rs.getBoolean("connected"));
             mbr.setCreatedAt(rs.getTimestamp("created_at"));
-            mbr.setAddress(AddressService.getInstance().get(new Address(mbr.getId())));
-            mbr = getPreferedRelations(mbr);
-            mbr = getPreferedStatus(mbr);
+            mbr.setAddress(AddressService.getInstance().get(new Address(rs.getInt("address_id"))));
             
             mmbrs.add(mbr);
         }
@@ -277,7 +254,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
     }
 
     public Map<Member,Map.Entry<Double,Integer>> getFiltered(Filter F) throws SQLException {
-        String req = "SELECT *,TIMESTAMPDIFF(day,last_login,Sysdate()) as login FROM user WHERE role = "+Enumerations.Role.MEMBER.ordinal();
+        String req = "SELECT *,TIMESTAMPDIFF(day,last_login,Sysdate()) as login FROM user WHERE roles = 'a:1:{i:0;s:0:\"\";}'";
         
         req += " and (TIMESTAMPDIFF(year,birth_date,Sysdate()) BETWEEN " + F.getAgeMin() + " AND " + F.getAgeMax() + ") ";
         
@@ -337,7 +314,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
         while (rs.next()) {
             Member mbr = new Member();
             mbr.setId(rs.getInt("id"));
-            mbr.setAddress(AddressService.getInstance().get(new Address(mbr.getId())));
+            mbr.setAddress(AddressService.getInstance().get(new Address(rs.getInt("address_id"))));
             
             Double distance = getDistance(online.getAddress(), mbr.getAddress());
             if(F.getDistance() != -1){
@@ -347,7 +324,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
             }
             Integer login = rs.getInt("login");
             
-            mbr.setPseudo(rs.getString("pseudo"));
+            mbr.setPseudo(rs.getString("username"));
             mbr.setFirstname(rs.getString("firstname"));
             mbr.setLastname(rs.getString("lastname"));
             mbr.setEmail(rs.getString("Email"));
@@ -372,8 +349,6 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
             mbr.setMaritalStatus(Enumerations.MaritalStatus.values()[rs.getInt("civil_status")]);
             mbr.setConnected(rs.getBoolean("connected"));
             mbr.setCreatedAt(rs.getTimestamp("created_at"));
-            mbr = getPreferedRelations(mbr);
-            mbr = getPreferedStatus(mbr);
             
             mmbrs.put(mbr,new AbstractMap.SimpleEntry(distance,login));
         }
@@ -381,7 +356,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
     }
     
     
-    
+    /*
     //Prefered relations CRUD
     private void deletePreferedRelations(int userId) throws SQLException{
         String query = "delete from prefered_relation where user_id = "+userId;
@@ -391,7 +366,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
     private void insertPreferedRelations(Member member) throws SQLException{
         String query ="";
         for(Enumerations.RelationType type : member.getPreferedRelations()){
-            query = "insert into prefered_relation values(?,?)";
+            query = "insert into prefered_relation(user_id, relation) values(?,?)";
             PreparedStatement prepare = CONNECTION.prepareStatement(query);
             prepare.setInt(1, member.getId());
             prepare.setInt(2, type.ordinal());
@@ -417,13 +392,23 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
     private void insertPreferedStatus(Member member) throws SQLException{
         String query ="";
         for(Enumerations.MaritalStatus status : member.getPreferedStatuses()){
-            query = "insert into prefered_status values(?,?)";
+            query = "insert into prefered_status(user_id, status) values(?,?)";
             PreparedStatement prepare = CONNECTION.prepareStatement(query);
             prepare.setInt(1, member.getId());
             prepare.setInt(2, status.ordinal());
             prepare.executeUpdate();
         }
     }
+    
+    private Member getPreferedStatus(Member member) throws SQLException{
+        String query = "SELECT * FROM prefered_status where user_id = "+member.getId();
+        ResultSet rs = CONNECTION.createStatement().executeQuery(query);
+        while(rs.next()){
+            member.getPreferedStatuses().add(Enumerations.MaritalStatus.values()[rs.getInt("status")]);
+        }
+        return member;
+    }
+    */    
 
     public ResultSet getStats() throws SQLException {
         PreparedStatement stat = CONNECTION.prepareStatement("select concat(MONTH(created_at)) as created from user");

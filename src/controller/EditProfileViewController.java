@@ -9,13 +9,10 @@ import impl.org.controlsfx.autocompletion.AutoCompletionTextFieldBinding;
 import impl.org.controlsfx.autocompletion.SuggestionProvider;
 import java.net.URL;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -25,7 +22,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -33,11 +29,8 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.input.InputMethodEvent;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -45,9 +38,7 @@ import javafx.util.converter.NumberStringConverter;
 import models.Address;
 import models.Enumerations;
 import models.Member;
-import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.AutoCompletionBinding.AutoCompletionEvent;
-import org.controlsfx.control.textfield.TextFields;
 import services.MemberService;
 import util.GooglePlacesAPI;
 
@@ -108,13 +99,6 @@ public class EditProfileViewController implements Initializable {
     private TextField countryField;
     private List<Address> addresses;
     private SuggestionProvider<Address> provider;
-    @FXML
-    private VBox prefRelationsBox;
-    @FXML
-    private VBox prefStatusBox;
-    
-    private List<CheckBox> selectedPrefered = new ArrayList<>();
-    private List<CheckBox> selectedRelations = new ArrayList<>();
     @FXML
     private TextField phoneNumberField;
 
@@ -180,46 +164,6 @@ public class EditProfileViewController implements Initializable {
     }
     
     private void populateFields(){
-        for(Enumerations.MaritalStatus status : Enumerations.MaritalStatus.values()){
-            CheckBox box = new CheckBox(status.name());
-            box.setId(status.ordinal()+"");
-            if(member.getPreferedStatuses().contains(status)){
-                box.setSelected(true);
-                selectedPrefered.add(box);
-            }
-            box.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    CheckBox cb = (CheckBox)event.getTarget();
-                    if(cb.isSelected())
-                        selectedPrefered.add(cb);
-                    else
-                        selectedPrefered.remove(cb);
-                }
-            });
-            prefStatusBox.getChildren().add(box);
-        }
-        
-        for(Enumerations.RelationType type : Enumerations.RelationType.values()){
-            CheckBox box = new CheckBox(type.name());
-            box.setId(type.ordinal()+"");
-            if(member.getPreferedRelations().contains(type)){
-                box.setSelected(true);
-                selectedRelations.add(box);
-            }
-            box.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    CheckBox cb = (CheckBox)event.getTarget();
-                    if(cb.isSelected())
-                        selectedRelations.add(cb);
-                    else
-                        selectedRelations.remove(cb);
-                }
-            });
-            prefRelationsBox.getChildren().add(box);
-        }
-        
         firstNameField.setText(member.getFirstname());
         lastnameField.setText(member.getLastname());
         cityField.setText(member.getAddress().getCity());
@@ -272,14 +216,6 @@ public class EditProfileViewController implements Initializable {
             }else if(childNumberFiled.getText().isEmpty()){
                 activateError(childNumberFiled, "Number of children");
                 return;
-            }else if(selectedRelations.size() == 0){
-                Alert alert = new Alert(Alert.AlertType.ERROR, "At least one prefered relation type needs to be selected!", ButtonType.OK);
-                alert.show();
-                return;
-            }else if(selectedPrefered.size() == 0){
-                Alert alert = new Alert(Alert.AlertType.ERROR, "At least one prefered marital status needs to be selected!", ButtonType.OK);
-                alert.show();
-                return;
             }else if(phoneNumberField.getText().isEmpty()){
                 activateError(phoneNumberField, "Phone number");
                 return;
@@ -314,14 +250,6 @@ public class EditProfileViewController implements Initializable {
                     heightFiled.getStyleClass().add("error");
                     return;
                 }
-            }
-            member.getPreferedStatuses().clear();
-            for(CheckBox box : selectedPrefered){
-                member.getPreferedStatuses().add(Enumerations.MaritalStatus.values()[Integer.parseInt(box.getId())]);
-            }
-            member.getPreferedRelations().clear();
-            for(CheckBox box: selectedRelations){
-                member.getPreferedRelations().add(Enumerations.RelationType.values()[Integer.parseInt(box.getId())]);
             }
             member.setPhone(Integer.parseInt(phoneNumberField.getText().replace(",", "")));
             member.setFirstname(firstNameField.getText());

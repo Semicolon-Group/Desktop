@@ -138,8 +138,8 @@ public class NotificationContentController implements Initializable {
             if(postId == 0 && photoId == 0 && senderId == 0)
                 return;
             String path;
-            Image photo = new Image(MySoulMate.UPLOAD_URL + PhotoService.getInstance()
-                    .get(new Photo(0, online.getId(), null, null, PhotoType.PROFILE)).getUrl());
+            Image photo = new Image(PhotoService.getInstance()
+                    .getProfilePhoto(online.getId()).getPhotoUri());
             Parent p;
             if (postId != 0) {
                 FXMLLoader loader = GlobalViewController.getInstance().setMainContent("/view/SinglePostView.fxml");
@@ -158,10 +158,10 @@ public class NotificationContentController implements Initializable {
                 FXMLLoader loader2 = new FXMLLoader(getClass().getResource(path));
                 p = loader2.load();
                 PicturePostViewController c = (PicturePostViewController) loader2.getController();
-                Photo picture = PhotoService.getInstance().get(new Photo(photoId, 0, null));
+                Photo picture = PhotoService.getInstance().getPhoto(photoId);
                 c.fill(photo, online.getPseudo(),
-                        TimeDiff.getInstance(picture.getDate(), new Timestamp(new java.util.Date().getTime())).getTimeDiffString(),
-                        MySoulMate.UPLOAD_URL + picture.getUrl(),
+                        TimeDiff.getInstance(new Timestamp(picture.getUpdateDate().getTime()), new Timestamp(new java.util.Date().getTime())).getTimeDiffString(),
+                        picture.getPhotoUri(),
                         photoId);
                 ((SinglePostViewController) loader.getController()).fill(p);
             }else if(n.getType() == LIKE){

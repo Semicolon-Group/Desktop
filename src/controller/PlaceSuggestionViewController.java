@@ -20,8 +20,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import models.Address;
+import models.Member;
 import models.PlaceSuggestion;
 import services.AddressService;
+import services.MemberService;
 import util.GooglePlacesAPI;
 
 /**
@@ -61,7 +63,7 @@ public class PlaceSuggestionViewController implements Initializable {
     public void setParams(PlaceSuggestion suggestion, AnchorPane parent){
         try {
             this.suggestion = suggestion;
-            this.origin = AddressService.getInstance().get(new Address(MySoulMate.MEMBER_ID));
+            this.origin = MemberService.getInstance().get(new Member(MySoulMate.MEMBER_ID)).getAddress();
             this.parent = parent;
             populateFields();
         } catch (SQLException ex) {

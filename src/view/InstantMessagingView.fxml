@@ -14,11 +14,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="bg" fx:id="msgAnchore" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="1040.0" stylesheets="@../view/style/fazet.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.InstantMessagingViewController">
+<AnchorPane id="bg" fx:id="msgAnchore" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="750.0" stylesheets="@../view/style/fazet.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.InstantMessagingViewController">
    <children>
-      <HBox fx:id="profileImgPane" layoutX="235.0" layoutY="99.0" prefHeight="88.0" prefWidth="108.0" style="-fx-border-radius: 30 30 30 30;" AnchorPane.topAnchor="99.0">
+      <HBox fx:id="profileImgPane" layoutX="235.0" layoutY="99.0" onMouseClicked="#goprofile" prefHeight="88.0" prefWidth="108.0" style="-fx-border-radius: 30 30 30 30;" AnchorPane.topAnchor="99.0">
          <children>
-            <ImageView fx:id="profileImage" fitHeight="88.0" fitWidth="100.0" onMouseClicked="#goToOther" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="profileImage" fitHeight="88.0" fitWidth="100.0" onMouseClicked="#goprofile" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../view/assets/soul-1.png" />
                </image>
@@ -39,12 +39,12 @@
       <Label fx:id="typing" alignment="CENTER" contentDisplay="CENTER" layoutX="235.0" layoutY="188.0" prefHeight="26.0" prefWidth="108.0" AnchorPane.topAnchor="188.0" />
       <ScrollPane id="msg" fitToHeight="true" focusTraversable="false" hbarPolicy="NEVER" layoutX="200.0" layoutY="220.0" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" onDragDetected="#goReceive" vvalue="1.0" AnchorPane.bottomAnchor="88.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="298.0" AnchorPane.topAnchor="220.0" fx:id="x">
          <content>
-            <VBox fx:id="messagesVbox" alignment="CENTER" prefHeight="494.0" prefWidth="905.0" />
+            <VBox fx:id="msget" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="494.0" prefWidth="905.0" />
          </content>
       </ScrollPane>
       <HBox alignment="BOTTOM_CENTER" layoutX="200.0" layoutY="677.0" maxHeight="-Infinity" prefHeight="55.0" prefWidth="708.0" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="298.0">
          <children>
-            <TextArea id="msg" fx:id="inputmsg" onInputMethodTextChanged="#isWriting" prefHeight="55.0" prefWidth="662.0">
+            <TextArea id="msg" fx:id="inputmsg" onKeyTyped="#isWriting" prefHeight="55.0" prefWidth="662.0">
                <HBox.margin>
                   <Insets />
                </HBox.margin>

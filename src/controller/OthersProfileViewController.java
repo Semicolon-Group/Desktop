@@ -160,7 +160,7 @@ public class OthersProfileViewController implements Initializable {
     public void makeAnswersPane() {
         try {
             answersVBox.getChildren().clear();
-            List<Answer> answers = AnswerService.getInstance().getAll(new Answer(0, null, null, userId));
+            List<Answer> answers = AnswerService.getInstance().getAll(new Answer(0, null, null, userId, null));
             for (Answer answer : answers) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/OthersAnswerView.fxml"));
                 AnchorPane pane = loader.load();
@@ -208,23 +208,18 @@ public class OthersProfileViewController implements Initializable {
 
     private void populatePhotosPane() {
         photosVBox.getChildren().clear();
-        try {
-            List<Photo> photos = PhotoService.getInstance().getAll(new Photo(userId));
-
-            for (Photo photo : photos) {
-                HBox hBox = new HBox();
-                hBox.setSpacing(20);
-                hBox.setAlignment(Pos.CENTER);
-                ImageView imageView = new ImageView(MySoulMate.UPLOAD_URL + photo.getUrl());
-                imageView.setCursor(Cursor.HAND);
-                imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> showImage(e));
-                imageView.setPreserveRatio(true);
-                imageView.setFitWidth(300);
-                hBox.getChildren().add(imageView);
-                photosVBox.getChildren().add(hBox);
-            }
-        } catch (SQLException ex) {
-            util.Logger.writeLog(ex, SelfProfileViewController.class.getName(), null);
+        List<Photo> photos = PhotoService.getInstance().getRegularPhotos(userId);
+        for (Photo photo : photos) {
+            HBox hBox = new HBox();
+            hBox.setSpacing(20);
+            hBox.setAlignment(Pos.CENTER);
+            ImageView imageView = new ImageView(photo.getPhotoUri());
+            imageView.setCursor(Cursor.HAND);
+            imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> showImage(e));
+            imageView.setPreserveRatio(true);
+            imageView.setFitWidth(300);
+            hBox.getChildren().add(imageView);
+            photosVBox.getChildren().add(hBox);
         }
     }
 
@@ -279,38 +274,30 @@ public class OthersProfileViewController implements Initializable {
     }
 
     private void makeProfilePicture() {
-        try {
-            Circle imageClip = new Circle(profileImage.getX() + (profileImage.getFitWidth() / 2), profileImage.getY() + (profileImage.getFitHeight() / 2), 135);
-            profileImage.setClip(imageClip);
-            Circle contenairClip = new Circle(profileImgPane.getLayoutX() + (profileImgPane.getPrefWidth() / 2), profileImgPane.getLayoutY() + (profileImgPane.getPrefHeight() / 2), 145);
-            profileImgPane.setClip(contenairClip);
-            Photo photo = PhotoService.getInstance().get(new Photo(0, userId, null, null, PhotoType.PROFILE));
-            String photoPath = "";
-            if (photo == null) {
-                photoPath = "/view/assets/icons/member.jpg";
-            } else {
-                photoPath = MySoulMate.UPLOAD_URL + photo.getUrl();
-            }
-            profileImage.setImage(new Image(photoPath));
-        } catch (SQLException ex) {
-            util.Logger.writeLog(ex, OthersProfileViewController.class.getName(), null);
+        Circle imageClip = new Circle(profileImage.getX() + (profileImage.getFitWidth() / 2), profileImage.getY() + (profileImage.getFitHeight() / 2), 135);
+        profileImage.setClip(imageClip);
+        Circle contenairClip = new Circle(profileImgPane.getLayoutX() + (profileImgPane.getPrefWidth() / 2), profileImgPane.getLayoutY() + (profileImgPane.getPrefHeight() / 2), 145);
+        profileImgPane.setClip(contenairClip);
+        Photo photo = PhotoService.getInstance().getProfilePhoto(userId);
+        String photoPath = "";
+        if (photo == null) {
+            photoPath = "/view/assets/icons/member.jpg";
+        } else {
+            photoPath = photo.getPhotoUri();
         }
+        profileImage.setImage(new Image(photoPath));
     }
 
     private void makeCoverPicture() {
-        try {
-            coverImage.fitWidthProperty().bind(coverContainer.widthProperty());
-            Photo photo = PhotoService.getInstance().get(new Photo(0, userId, null, null, PhotoType.COVER));
-            String photoPath = "";
-            if (photo == null) {
-                photoPath = "/view/assets/img/banner.jpg";
-            } else {
-                photoPath = MySoulMate.UPLOAD_URL + photo.getUrl();
-            }
-            coverImage.setImage(new Image(photoPath));
-        } catch (SQLException ex) {
-            util.Logger.writeLog(ex, OthersProfileViewController.class.getName(), null);
+        coverImage.fitWidthProperty().bind(coverContainer.widthProperty());
+        Photo photo = PhotoService.getInstance().getCoverPhoto(userId);
+        String photoPath = "";
+        if (photo == null) {
+            photoPath = "/view/assets/img/banner.jpg";
+        } else {
+            photoPath = photo.getPhotoUri();
         }
+        coverImage.setImage(new Image(photoPath));
     }
 
     @FXML
@@ -424,8 +411,8 @@ public class OthersProfileViewController implements Initializable {
     private void showSug(ActionEvent event) {
         try {
             FXMLLoader loader = GlobalViewController.getInstance().setMainContent("/view/RecommandationView.fxml");
-            Address selfAddress = AddressService.getInstance().get(new Address(MySoulMate.MEMBER_ID));
-            Address othersAddress = AddressService.getInstance().get(new Address(userId));
+            Address selfAddress = MemberService.getInstance().get(new Member(MySoulMate.MEMBER_ID)).getAddress();
+            Address othersAddress = MemberService.getInstance().get(new Member(userId)).getAddress();
             Address centerAddress = new Address(
                     (selfAddress.getLongitude() + othersAddress.getLongitude()) / 2,
                     (selfAddress.getLatitude() + othersAddress.getLatitude()) / 2,
