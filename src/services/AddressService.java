@@ -59,10 +59,10 @@ public class AddressService extends Service implements Read<Address>, Create<Add
     public Address create(Address obj) throws SQLException {
         String query = "insert into address(longitude, latitude, country, city) values(?, ?, ?, ?)";
         PreparedStatement pst = CONNECTION.prepareStatement(query);
-        pst.setDouble(2, obj.getLongitude());
-        pst.setDouble(3, obj.getLatitude());
-        pst.setString(4, obj.getCountry());
-        pst.setString(5, obj.getCity());
+        pst.setDouble(1, obj.getLongitude());
+        pst.setDouble(2, obj.getLatitude());
+        pst.setString(3, obj.getCountry());
+        pst.setString(4, obj.getCity());
         pst.executeUpdate();
         
         String req = "SELECT MAX(id) max from address";
