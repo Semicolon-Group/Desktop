@@ -154,7 +154,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
     
     @Override
     public Member get(Member obj) throws SQLException {
-        String condition = "Where roles = 'N;'";
+        String condition = "Where roles = 'a:1:{i:0;s:0:\"\";}'";
         if (obj.getId() != 0) {
             condition += " and id = " + obj.getId();
         } else if (obj.getPseudo() != null) {
