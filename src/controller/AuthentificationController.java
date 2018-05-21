@@ -96,18 +96,13 @@ public class AuthentificationController implements Initializable {
             try {
 
                 Member m = new Member();
-
                 m.setPseudo(username.getText());
-
                 m = memberService.get(m);
-                String myName = m.getPassword();
-                char[] myNameChars = myName.toCharArray();
-                myNameChars[2] = 'a';
-                myName = String.valueOf(myNameChars);
-
-                System.out.println("check : " + BCrypt.checkpw(pw.getText(), myName));
-
                 if (m != null) {
+                    String myName = m.getPassword();
+                    char[] myNameChars = myName.toCharArray();
+                    myNameChars[2] = 'a';
+                    myName = String.valueOf(myNameChars);
 
                     if (m.getPseudo().equals(username.getText()) && BCrypt.checkpw(pw.getText(), myName) == true) {
                         if (m.getLocked() == 0) {
