@@ -55,6 +55,7 @@ import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import services.MemberService;
+import util.GetCryptedPass;
 import util.MailVerification;
 
 
@@ -204,7 +205,7 @@ public class InsViewController implements Initializable {
         m.setLastname(Last_name.getText());
         m.setPseudo(pseudo.getText());
         m.setEmail(emailTextField.getText());
-        m.setPassword(Password.getText());
+        m.setPassword(GetCryptedPass.getCryptedPass(Password.getText()));
         m.setGender(male.isSelected());
         m.setBirthDate(java.sql.Date.valueOf(birth_date.getValue()));
         
