@@ -73,13 +73,12 @@ public class AuthAdminViewController implements Initializable {
                 m.setPseudo(username.getText());
 
                 m = memberService.getAdmin(m);
-                String myName = m.getPassword();
-                char[] myNameChars = myName.toCharArray();
-                myNameChars[2] = 'a';
-                myName = String.valueOf(myNameChars);
-
 
                 if (m != null) {
+                    String myName = m.getPassword();
+                    char[] myNameChars = myName.toCharArray();
+                    myNameChars[2] = 'a';
+                    myName = String.valueOf(myNameChars);
                     if (m.getPseudo().equals(username.getText()) && BCrypt.checkpw(pw.getText(), myName) == true) {
 
                         MySoulMate.MEMBER_ID = m.getId();
@@ -103,7 +102,7 @@ public class AuthAdminViewController implements Initializable {
 
                     alert.showAndWait();
                 }
-                
+
                 Stage stagex = (Stage) username.getScene().getWindow();
             } catch (SQLException ex) {
                 Logger.getLogger(AuthAdminViewController.class.getName()).log(Level.SEVERE, null, ex);
