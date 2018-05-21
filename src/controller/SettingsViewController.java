@@ -24,6 +24,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import models.Member;
 import services.MemberService;
+import util.GetCryptedPass;
 import util.MailVerification;
 import util.PasswordDialog;
 
@@ -92,7 +93,7 @@ public class SettingsViewController implements Initializable {
                 alert.show();
                 return;
             }else{
-                member.setPassword(paswordField.getText());
+                member.setPassword(GetCryptedPass.getCryptedPass(paswordField.getText()));
             }
             MemberService.getInstance().update(member);
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Your credentials has been updated.", ButtonType.OK);
