@@ -54,8 +54,8 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
         
         String query = "insert into user (username, firstname, lastname, email,password,birth_date,gender,height,"
                 + "body_type,children_number,relegion,relegion_importance,smoker,drinker,min_age,max_age,"
-                + "phone,last_login,locked,ip,port,role,created_at,updated_at,about,civil_status,connected,address_id)"
-                + " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                + "phone,last_login,locked,ip,port,role,created_at,updated_at,about,civil_status,connected,address_id,username_canonical,email_canonical,enabled,roles)"
+                + " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement preparedStatement = CONNECTION.prepareStatement(query);
         preparedStatement.setString(1, obj.getPseudo());
         preparedStatement.setString(2, obj.getFirstname());
@@ -85,6 +85,13 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
         preparedStatement.setInt(26, obj.getMaritalStatus().ordinal());
         preparedStatement.setBoolean(27, obj.isConnected());
         preparedStatement.setInt(28, obj.getAddress().getId());
+        preparedStatement.setString(29, obj.getPseudo());
+        preparedStatement.setString(30, obj.getEmail());
+        preparedStatement.setInt(31, 1);
+        preparedStatement.setString(32, "N;");
+        
+        
+
         preparedStatement.executeUpdate();
 
         String req = "SELECT MAX(id) max from user";
