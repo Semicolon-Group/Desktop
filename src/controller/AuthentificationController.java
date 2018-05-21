@@ -104,9 +104,14 @@ public class AuthentificationController implements Initializable {
                 char[] myNameChars = myName.toCharArray();
                 myNameChars[2] = 'a';
                 myName = String.valueOf(myNameChars);
-
-                System.out.println("check : " + BCrypt.checkpw(pw.getText(), myName));
-
+                /* pour crypter un mot de passe : 
+                String pw_hash = BCrypt.hashpw(plain_password, BCrypt.gensalt());
+                String myPass = pw_hash;
+                  char[] myPassChars = myPass.toCharArray();
+                myPassChars[2] = 'y';
+                myPass = String.valueOf(myPassChars);
+               // set the password as myPass 
+                */
                 if (m != null) {
 
                     if (m.getPseudo().equals(username.getText()) && BCrypt.checkpw(pw.getText(), myName) == true) {

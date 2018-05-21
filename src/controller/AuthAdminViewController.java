@@ -24,6 +24,7 @@ import models.Admin;
 import models.Member;
 import models.User;
 import services.MemberService;
+import util.BCrypt;
 
 /**
  * FXML Controller class
@@ -72,9 +73,14 @@ public class AuthAdminViewController implements Initializable {
                 m.setPseudo(username.getText());
 
                 m = memberService.getAdmin(m);
-                
+                String myName = m.getPassword();
+                char[] myNameChars = myName.toCharArray();
+                myNameChars[2] = 'a';
+                myName = String.valueOf(myNameChars);
+
+
                 if (m != null) {
-                    if (m.getPseudo().equals(username.getText()) && m.getPassword().equals(pw.getText())) {
+                    if (m.getPseudo().equals(username.getText()) && BCrypt.checkpw(pw.getText(), myName) == true) {
 
                         MySoulMate.MEMBER_ID = m.getId();
                         MySoulMate.getInstance().ChangeToAdminHomeScene();
@@ -97,7 +103,7 @@ public class AuthAdminViewController implements Initializable {
 
                     alert.showAndWait();
                 }
-                
+
                 Stage stagex = (Stage) username.getScene().getWindow();
             } catch (SQLException ex) {
                 Logger.getLogger(AuthAdminViewController.class.getName()).log(Level.SEVERE, null, ex);
