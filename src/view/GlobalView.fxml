@@ -2,12 +2,14 @@
 
 <?import java.lang.String?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" fx:id="mainAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1838.0" stylesheets="@style/MainStyleSheet.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GlobalViewController">
    <children>
@@ -100,7 +102,7 @@
                                  <children>
                                  <AnchorPane prefHeight="51.0" prefWidth="998.0" AnchorPane.rightAnchor="10.0">
                                     <children>
-                                       <HBox prefHeight="51.0" prefWidth="662.0" AnchorPane.rightAnchor="0.0">
+                                       <HBox prefHeight="51.0" prefWidth="780.0" AnchorPane.rightAnchor="0.0">
                                           <children>
                                              <VBox id="selected" fx:id="homeBox" alignment="CENTER" prefHeight="48.0" prefWidth="150.0" styleClass="nav_bar_button_box">
                                                 <children>
@@ -148,19 +150,28 @@
                                                    </ImageView>
                                                 </children>
                                              </VBox>
-                                             <VBox id="account_icon_box" alignment="CENTER" onMouseEntered="#hover" onMouseExited="#exit" prefHeight="48.0" prefWidth="70.0" styleClass="nav_bar_icon_box">
-                                                <children>
-                                                   <ImageView id="account_icon" fx:id="accountIcon" fitHeight="24.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                                      <image>
-                                                         <Image url="@assets/icons/natural/account.png" />
-                                                      </image>
-                                                         <styleClass>
-                                                            <String fx:value="nav_bar_icon" />
-                                                            <String fx:value="hoverable" />
-                                                         </styleClass>
-                                                   </ImageView>
-                                                </children>
-                                             </VBox>
+                                                <HBox alignment="CENTER">
+                                                   <children>
+                                                   <VBox id="account_icon_box" alignment="CENTER" onMouseEntered="#hover" onMouseExited="#exit" prefHeight="48.0" prefWidth="70.0" styleClass="nav_bar_icon_box">
+                                                      <children>
+                                                         <ImageView id="account_icon" fx:id="accountIcon" fitHeight="24.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                                            <image>
+                                                               <Image url="@assets/icons/natural/account.png" />
+                                                            </image>
+                                                               <styleClass>
+                                                                  <String fx:value="nav_bar_icon" />
+                                                                  <String fx:value="hoverable" />
+                                                               </styleClass>
+                                                         </ImageView>
+                                                      </children>
+                                                   </VBox>
+                                                      <Label fx:id="userName" text="John Evans" textFill="WHITE">
+                                                         <font>
+                                                            <Font name="System Bold" size="15.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
                                           </children>
                                        </HBox>
                                     </children>

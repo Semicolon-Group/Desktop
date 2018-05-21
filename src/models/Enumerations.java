@@ -75,7 +75,8 @@ public class Enumerations {
 	LIKE,
 	REACTION,
 	SIGNAL,
-	FEEDBACK
+	FEEDBACK,
+	COMMENT
     }
     
     public enum PostType{

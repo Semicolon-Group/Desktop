@@ -22,6 +22,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -126,6 +127,8 @@ public class GlobalViewController implements Initializable {
     };
     @FXML
     private AnchorPane supportPane;
+    @FXML
+    private Label userName;
     
     /**
      * Initializes the controller class.
@@ -137,6 +140,7 @@ public class GlobalViewController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(GlobalViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
+	userName.setText(online.getFirstname() + " " + online.getLastname());
         instance = this;
         mainAnchor.addEventFilter(MouseEvent.MOUSE_CLICKED, notificationPaneHandler);
         scroll.vvalueProperty().addListener( (observable, oldValue, newValue) -> {
