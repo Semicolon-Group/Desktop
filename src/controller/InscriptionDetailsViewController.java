@@ -145,13 +145,11 @@ public class InscriptionDetailsViewController implements Initializable {
     private JFXTextField country;
     @FXML
     private JFXTextField city;
-    @FXML
     private VBox statusVBox;
 
-    private List<CheckBox> statusesCheckBoxes = new ArrayList<>();
-    private List<CheckBox> relationsCheckBoxes = new ArrayList<>();
+//    private List<CheckBox> statusesCheckBoxes = new ArrayList<>();
+//    private List<CheckBox> relationsCheckBoxes = new ArrayList<>();
 
-    @FXML
     private VBox relationsVBox;
     @FXML
     private JFXTextField phoneText;
@@ -223,39 +221,39 @@ public class InscriptionDetailsViewController implements Initializable {
             statusList.add(mt.toString());
         }
         statusBox.setItems(statusList);
-        for (Enumerations.MaritalStatus maritalStatus : Enumerations.MaritalStatus.values()) {
-            CheckBox cb = new CheckBox(maritalStatus.name());
-            cb.setId(maritalStatus.ordinal() + "");
-            cb.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    CheckBox b = (CheckBox) event.getTarget();
-                    if (b.isSelected()) {
-                        statusesCheckBoxes.add(b);
-                    } else {
-                        statusesCheckBoxes.remove(b);
-                    }
-                }
-            });
-            statusVBox.getChildren().add(cb);
-        }
+//        for (Enumerations.MaritalStatus maritalStatus : Enumerations.MaritalStatus.values()) {
+//            CheckBox cb = new CheckBox(maritalStatus.name());
+//            cb.setId(maritalStatus.ordinal() + "");
+//            cb.setOnAction(new EventHandler<ActionEvent>() {
+//                @Override
+//                public void handle(ActionEvent event) {
+//                    CheckBox b = (CheckBox) event.getTarget();
+//                    if (b.isSelected()) {
+//                        statusesCheckBoxes.add(b);
+//                    } else {
+//                        statusesCheckBoxes.remove(b);
+//                    }
+//                }
+//            });
+//            statusVBox.getChildren().add(cb);
+//        }
 
-        for (RelationType type : RelationType.values()) {
-            CheckBox cb = new CheckBox(type.name());
-            cb.setId(type.ordinal() + "");
-            cb.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    CheckBox c = (CheckBox) event.getTarget();
-                    if (c.isSelected()) {
-                        relationsCheckBoxes.add(c);
-                    } else {
-                        relationsCheckBoxes.remove(c);
-                    }
-                }
-            });
-            relationsVBox.getChildren().add(cb);
-        }
+//        for (RelationType type : RelationType.values()) {
+//            CheckBox cb = new CheckBox(type.name());
+//            cb.setId(type.ordinal() + "");
+//            cb.setOnAction(new EventHandler<ActionEvent>() {
+//                @Override
+//                public void handle(ActionEvent event) {
+//                    CheckBox c = (CheckBox) event.getTarget();
+//                    if (c.isSelected()) {
+//                        relationsCheckBoxes.add(c);
+//                    } else {
+//                        relationsCheckBoxes.remove(c);
+//                    }
+//                }
+//            });
+//            relationsVBox.getChildren().add(cb);
+//        }
     }
 
     public void setMember(Member member) {
@@ -324,13 +322,13 @@ public class InscriptionDetailsViewController implements Initializable {
                 importanceLabel.setText("");
             }
             
-            if(country.getText().equals("")){
-                addressLabel.setText("Invalid address");
-                addressLabel.setVisible(true);
-                valid = false;
-            }else{
-                addressLabel.setText("");
-            }
+//            if(country.getText().equals("")){
+//                addressLabel.setText("Invalid address");
+//                addressLabel.setVisible(true);
+//                valid = false;
+//            }else{
+//                addressLabel.setText("");
+//            }
 
             if (!valid) {
                 return;
@@ -350,12 +348,12 @@ public class InscriptionDetailsViewController implements Initializable {
             m.setSmoker(Smoker.isSelected());
             m.setAbout(about.getText());
 
-            for (CheckBox cb : statusesCheckBoxes) {
-                m.getPreferedStatuses().add(MaritalStatus.values()[Integer.parseInt(cb.getId())]);
-            }
-            for (CheckBox cb : relationsCheckBoxes) {
-                m.getPreferedRelations().add(RelationType.values()[Integer.parseInt(cb.getId())]);
-            }
+//            for (CheckBox cb : statusesCheckBoxes) {
+//                m.getPreferedStatuses().add(MaritalStatus.values()[Integer.parseInt(cb.getId())]);
+//            }
+//            for (CheckBox cb : relationsCheckBoxes) {
+//                m.getPreferedRelations().add(RelationType.values()[Integer.parseInt(cb.getId())]);
+//            }
 
             //TODO
             MemberService.getInstance().create(m);

@@ -201,7 +201,7 @@ public class MemberService extends Service implements Create<Member>, Update<Mem
     
     public Admin getAdmin(Admin obj) throws SQLException {
         if (obj.getPseudo() == null) return null;
-        String query = "Select * from user Where role = "+Enumerations.Role.ADMIN.ordinal()+" and username = '" + obj.getPseudo() + "'";
+        String query = "Select * from user Where roles ='a:1:{i:0;s:10:\"ROLE_ADMIN\";}' and username = '" + obj.getPseudo() + "'";
         st = CONNECTION.createStatement();
         rs = st.executeQuery(query);
         if (rs.next()) {
