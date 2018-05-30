@@ -39,6 +39,14 @@ public class Notification_N {
                     body += " has reacted to your photo.";
                 }
                 break;
+	    
+	    case COMMENT:
+                if (obj.getPhotoId() == 0) {
+                    body += " has commented on your post.";
+                } else {
+                    body += " has commented on your photo.";
+                }
+                break;
 
             case LIKE:
                 body += " has liked your profile.";

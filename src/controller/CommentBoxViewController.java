@@ -24,11 +24,14 @@ import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import models.Comment;
+import models.Enumerations;
 import models.Member;
+import models.Notification;
 import models.StatusPost;
 import services.CommentService;
 import services.MemberService;
 import services.StatusPostService;
+import util.Notification_N;
 
 /**
  * FXML Controller class
@@ -135,6 +138,18 @@ public class CommentBoxViewController implements Initializable {
         try {
             Comment c = CommentService.getInstance().create(new Comment(online.getId(),selected,postId,photoId,comment.getText(),
                     new Timestamp(new Date().getTime())));
+	    if(online.getId() != ownerId){
+		String notifText;
+		if(postId != 0){
+		    notifText = "has commented on your post.";
+		}else{
+		    notifText = "has commented on your photo.";
+		}
+		Notification_N.sendNotifications(new Notification(online.getId(),
+                        ownerId,
+                        Enumerations.NotificationType.COMMENT,
+                        notifText, new Timestamp(new Date().getTime()), null, postId, photoId, false));
+	    }
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/CommentView.fxml"));
             Parent p = loader.load();
             CommentViewController cont = (CommentViewController)loader.getController();
